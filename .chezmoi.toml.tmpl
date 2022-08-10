@@ -1,0 +1,14 @@
+{{ $passphrase := promptStringOnce . "passphrase" "passphrase" -}}
+{{ $username := promptStringOnce . "username" "username" -}}
+{{ $email := promptStringOnce . "email" "email" -}}
+{{ $signkey := promptStringOnce . "signkey" "signkey" -}}
+
+encryption = "gpg"
+[data]
+    passphrase = {{ $passphrase | quote }}
+    email = {{ $email | quote }}
+    username = {{ $username | quote }}
+    signkey = {{ $signkey | quote }}
+[gpg]
+    symmetric = true
+    args = ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache" ]

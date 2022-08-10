@@ -1,0 +1,6 @@
+[ ".local/scripts"]
+    type = "git-repo"
+    url = "https://gitlab.com/papanito/shell-scripts.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
