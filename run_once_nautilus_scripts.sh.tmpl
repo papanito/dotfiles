@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+stow nautilus -S -d ~/.local/scripts -t ~/.local/share/nautilus
+stow scripts  -S -d ~/.local/scripts -t ~/.local/bin
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+
+{{ end -}}
