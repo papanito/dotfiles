@@ -89,10 +89,10 @@
     # Rebase current branch from main
     remain = "!git fetch origin main && git rebase origin/main"
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [user]
     email = {{ .email | quote }}
-    username =  {{ .username | quote }}
+    name =  {{ .username | quote }}
 {{- if eq .chezmoi.hostname "clawfinger" }}
     signkey = {{ .signkey | quote }}
 [commit]
