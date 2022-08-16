@@ -1,4 +1,4 @@
-# dotfiles
+# dotfiles with chezmoi
 
 My dotfiles using [chezmoi], which allows me to manage my dotfiles for multiple machines securely.
 
