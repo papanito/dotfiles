@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.hostname "work" }}
+{{ include (joinPath .chezmoi.homeDir ".kube" "config.work") }}
+{{ else }}
+{{ include (joinPath .chezmoi.homeDir ".kube" "config.private") }}
+{{ end }}

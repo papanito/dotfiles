@@ -92,9 +92,9 @@
     defaultBranch = main
 [user]
     email = {{ .email | quote }}
-    name =  {{ .username | quote }}
+    name =  {{ .gituser | quote }}
 {{- if eq .chezmoi.hostname "clawfinger" }}
-    signkey = {{ .signkey | quote }}
+    signkey = {{ .gitsignkey | quote }}
 [commit]
     gpgsign = true
 [core]
@@ -110,6 +110,9 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
-{{- end }}
 [safe]
     directory = /opt/flutter
+{{- end }}
+[github]
+    user = {{ .githubuser | quote }}
+    token = {{ keyring "github" .githubuser | quote }}
