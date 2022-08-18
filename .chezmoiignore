@@ -1,6 +1,6 @@
 README.md
-{{- if eq .chezmoi.hostname "work" -}}
-./kube/config.work
+{{ if eq .chezmoi.hostname "work" }}
+./kube/.config.work
 {{ else }}
-./kube/config.private
+./kube/.config.private
 {{ end }}
