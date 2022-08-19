@@ -45,7 +45,9 @@ export RESTIC_PASSWORD={{ keyring "restic_password" "papanito" }}
 export B2_ACCOUNT_ID={{ keyring "b2_account_id" "papanito" }}
 export B2_ACCOUNT_KEY={{ keyring "b2_account_key" "papanito" }}
 export BW_SESSION={{ keyring "bitwarden" "papanito" }}
-export HLCOUD={{ keyring "hcloud_dev_token" "papanito" }}
-export HLCOUD_DEV={{ keyring "hcloud_dev_token" "papanito" }}
-export HLCOUD_PRD={{ keyring "hcloud_prd_token" "papanito" }}
+export HLCOUD_DEV={{ keyring "hcloud_token_dev" "papanito" }}
+export HLCOUD_PRD={{ keyring "hcloud_token_prd" "papanito" }}
+export TF_VAR_HLCOUD_DEV={{ keyring "tf_hcloud_token_dev" "papanito" }}
+export TF_VAR_HLCOUD_PRD={{ keyring "tf_hcloud_token_prd" "papanito" }}
+export HLCOUD=$HLOCUD_DEV
 {{ end }}
