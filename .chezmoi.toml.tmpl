@@ -10,8 +10,8 @@ encryption = "gpg"
     passphrase = {{ keyring "chezmoi" $gituser | quote }}
     email = {{ $email | quote }}
     gitsignkey = {{ $signkey | quote }}
-    keyring_tokens_private = "chezmoi github gitlab bitwarden b2_account_id b2_account_secret b2_account_key restic_repository restic_password hcloud_dev_token hcloud_prd_token"
-    keyring_tokens_work = "chezmoi github gitlab"
+    keyring_tokens_private = "github gitlab bitwarden b2_account_id b2_account_secret b2_account_key restic_repository restic_password hcloud_dev_token hcloud_prd_token"
+    keyring_tokens_work = "github gitlab"
 [gpg]
     symmetric = true
     args = ["--batch", "--passphrase", {{ keyring "chezmoi" $gituser | quote }}, "--no-symkey-cache" ]
