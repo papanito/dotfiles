@@ -44,10 +44,12 @@ if [ -n "$ZSH_VERSION" ]; then
       [[ $# -eq 0 ]] && return                    # If there's no input, return. Else...
       expand_command_line "$@"
    }
-elif [ -n "$BASH_VERSION" ]; then
-   ## nothing here
-else
-   # assume something else
+# elif [ -n "$BASH_VERSION" ]; then
+#    echo ""
+#    ## nothing here
+# else
+#    # assume something else
+#    echo ""
 fi
 
 # used for bash nautilus scripts to show a warning if something goes wrong
