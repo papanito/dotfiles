@@ -351,8 +351,7 @@ alias tfplan='terraform plan -no-color > tfplan-generated'
 # comand substitution tmux,byobu, etc
 ###############################################################################
 alias b="byobu"
-#alias t="tmux"
-alias t="byobu"
+alias t="tmux"
 alias tmuxls="t list-session"
 function tmuxns {
     if [[ -n "$1" ]]; then
@@ -395,3 +394,7 @@ if [ -n "$ZSH_VERSION" ]; then
     alias -s {cs,ts,html}=code
 fi
 
+##############################################################################
+# misc tools
+##############################################################################
+alias create_shdoc='for filename in $(find . -name "*.sh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
