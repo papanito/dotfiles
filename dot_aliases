@@ -1,3 +1,17 @@
+##############################################################################
+# zsh suffix aliases
+##############################################################################
+if [ -n "$ZSH_VERSION" ]; then
+    # Azure CLI files
+    alias -s azcli=code
+
+    # dev files
+    alias -s {json,yaml,md,tf,log}=code
+
+    # javascript and html
+    alias -s {cs,ts,html}=code
+fi
+
 ###############################################################################
 # use navi for aliases
 ###############################################################################
@@ -381,20 +395,8 @@ alias ansible-run-raw='ansible -u ansible -i /home/aedu/Workspaces/wyssmann.com/
 alias ansible-get-roleid="ansible-galaxy info papanito.$@ | grep -E 'id: [0-9]' | awk {'print $2'}"
 
 ##############################################################################
-# zsh suffix aliases
-##############################################################################
-if [ -n "$ZSH_VERSION" ]; then
-    # Azure CLI files
-    alias -s azcli=code
-
-    # dev files
-    alias -s {json,yaml,md,tf,log}=code
-
-    # javascript and html
-    alias -s {cs,ts,html}=code
-fi
-
-##############################################################################
 # misc tools
 ##############################################################################
 alias create_shdoc='for filename in $(find . -name "*.sh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
+alias ca="chezmoi apply"
+alias cae="chezmoi apply --refresh-externals"
