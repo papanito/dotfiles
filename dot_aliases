@@ -364,6 +364,7 @@ alias tfplan='terraform plan -no-color > tfplan-generated'
 ###############################################################################
 # comand substitution tmux,byobu, etc
 ###############################################################################
+alias z="zellij"
 alias b="byobu"
 alias t="tmux"
 alias tmuxls="t list-session"
