@@ -170,3 +170,5 @@ TF=/usr/bin/terraform
 [[ ! -f $TF  ]] || complete -o nospace -C $TF terraform
 AZCOMP=/etc/bash_completion.d/azure-cli
 [[ ! -f $AZCOMP  ]] || source /etc/bash_completion.d/azure-cli
+
+eval "$(zellij setup --generate-auto-start zsh)"
