@@ -1,4 +1,4 @@
-README.md
+*.md
 {{ if eq .chezmoi.hostname "work" }}
 ./kube/.config.work
 {{ else }}
