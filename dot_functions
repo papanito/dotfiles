@@ -1,3 +1,8 @@
+# @file .functions
+# @brief Shared functions which are sourced when shell starts
+# @description
+#     Shared functions which are sourced when shell starts
+#     This is to be sourced not executed
 ## Shell-specifc functions
 if [ -n "$ZSH_VERSION" ]; then
 
@@ -407,7 +412,8 @@ function count_files()
    esac
 }
 
-# Dirsize - finds directory sizes and lists them for the current directory
+# @description Finds directory sizes and lists them for the current directory
+# @noargs
 function dirsize()
 {
    du -shx * .[a-zA-Z0-9_]* 2> /dev/null | \
@@ -417,7 +423,8 @@ function dirsize()
    rm /tmp/list
 }
 
-# Size of directories in MB
+# @descripton Size of directories in MB
+# @args $1 string directory for size
 function ds()
 {
     echo "size of directories in MB"
@@ -4351,13 +4358,18 @@ function translate_help() {
    Zulu                   zu"
 }
 
-###############################################################################
-# Commandlinefu.com and Shell-fu.org stuff
-###############################################################################
+# @description Creates a .gitignore file from toptal's service.
+# @arg $@ string comma separated list of languages
+function gi() {
+   curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
+}
 
-# Search commandlinefu.com from the command line
-# using the API
-# Usage: cmdfu hello world
+# @section Commandlinefu
+# @description Commandlinefu.com and Shell-fu.org stuff
+
+
+# @description Search commandlinefu.com from the command line # using the API
+# @args $# string text to search
 function cmdfu() { 
    curl "http://www.commandlinefu.com/commands/matching/$@/$(echo -n $@ | openssl base64)/plaintext"; 
 }
@@ -4392,25 +4404,70 @@ function goclf()
    type "$1" | sed '1d' | tr -d "\n" | tr -s '[:space:]'; echo
 }
 
-###############################################################################
-# Fun
-###############################################################################
-# pretend to be busy in office to enjoy a cup of coffee
+# @section Fun
+# @description Random fun stuff
+
+# @description pretend to be busy in office to enjoy a cup of coffee
+# @noargs
 function grepcolor()
 {
    cat /dev/urandom | hexdump -C | grep --color=auto "ca fe"
 }
 
-###############################################################################
-# Gnome
-###############################################################################
-gnome-extensiones-enable() {
+# @section Gnome
+# @description Functions related to gnome
+
+# @description Enables all gnome-shell extensions
+#
+# * all in ~/.local/share/gnome-shell/extensions/
+# * GPaste@gnome-shell-extensions.gnome.org
+# * gnome-shell-extensions.gcampax.github.com
+#
+# Useful after a crash where all extensions are disabled
+# @noargs
+gnome-extensions-enable() {
    localPath=~/.local/share/gnome-shell/extensions/
    for i in $localPath/*;do echo $(basename $i);gnome-extensions enable "$(basename $i)";done
    gnome-extensions enable GPaste@gnome-shell-extensions.gnome.org
    gnome-extensions enable gnome-shell-extensions.gcampax.github.com
 }
 
-function gi() {
-   curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
+# @section Zellij
+# @description Helper functions for zellij
+
+# @description List zellij layout files saved in the default layout directory, opens the selected layout file. Depends on: `tr`, `fd`, `sed`, `gum`, `grep` & `bash`
+# Reference: https://zellij.dev/documentation/integration.html
+# @noargs
+# @set ZJ_SESSIONS string list of sessions
+# @set NO_SESSION int number of sessions
+function z-layout() {
+   set -euo pipefail
+   ZJ_LAYOUT_DIR=$(zellij setup --check \
+      | grep "LAYOUT DIR" - \
+      | grep -o '".*"' - | tr -d '"')
+
+   if [[ -d "${ZJ_LAYOUT_DIR}" ]];then
+         ZJ_LAYOUT="$(fd --type file . "${ZJ_LAYOUT_DIR}" \
+         | sed 's|.*/||' \
+         | gum choose \
+         || exit)"
+      zellij --layout "${ZJ_LAYOUT}"
+   fi
+}
+
+# @description List current sessions, attach to a running session, or create a new one. Depends on gum & bash
+# Reference: https://zellij.dev/documentation/integration.html
+# @noargs
+# @set ZJ_SESSIONS string list of sessions
+# @set NO_SESSION int number of sessions
+function z-sessions() {
+   ZJ_SESSIONS=$(zellij list-sessions)
+   NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+
+   if [ "${NO_SESSIONS}" -ge 2 ]; then
+      zellij attach \
+      "$(echo "${ZJ_SESSIONS}" | gum choose)"
+   else
+      zellij attach -c
+   fi
 }
