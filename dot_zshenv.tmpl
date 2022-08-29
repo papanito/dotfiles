@@ -27,10 +27,10 @@ export ANSIBLE_NOCOWS=1
 
 ## Set PATH
 {{ if eq .chezmoi.hostname "work" }}
-export PATH=~/bin:./node_modules:~/.npm:/usr/lib/node_modules:$PATH
+export PATH=~/bin:~/.local/bin:~/node_modules:~/.npm:/usr/lib/node_modules:$PATH
 {{ else }}
 export DOCRENAMERCONFIGDIR=/home/aedu/.config/docrenamer
-export PATH=~/bin:~/bin/scripts:./node_modules:~/.npm:/usr/lib/node_modules:~/bin/go/bin:~/.gem/ruby/2.7.0/bin:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
+export PATH=~/bin:~/bin/scripts:~/.local/bin:~/node_modules:~/.npm:/usr/lib/node_modules:~/bin/go/bin:~/.gem/ruby/2.7.0/bin:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
 {{ end }}
 
 ## Tokens
