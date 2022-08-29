@@ -1,9 +1,10 @@
 # @file .functions
 # @brief Shared functions which are sourced when shell starts
 # @description
-#     Shared functions which are sourced when shell starts
 #     This is to be sourced not executed
-## Shell-specifc functions
+
+# @section Shell-specifc functions
+# @description Funcions specific to zsh, bash or other shells
 if [ -n "$ZSH_VERSION" ]; then
 
    # Clear history for the current terminal session
@@ -57,13 +58,6 @@ if [ -n "$ZSH_VERSION" ]; then
 #    echo ""
 fi
 
-# used for bash nautilus scripts to show a warning if something goes wrong
-# use as follows in your scripts
-# trap errormsg  SIGINT SIGTERM ERR
-function errormsg() {
-    zenity --warning \
-   --text $1 
-}
 
 # https://software.rajivprab.com/2019/07/14/ssh-considered-harmful/
 function tsh {
@@ -76,8 +70,9 @@ function tsh {
     ssh $host -t "tmux attach -t $session_name || tmux new -s $session_name"
 }
 
-# Checks to ensure that all environment variables are valid
+# @description hecks to ensure that all environment variables are valid
 # looks at SHELL, HOME, PATH, EDITOR, MAIL, and PAGER
+# @arg $1 string first path
 function path_validator()
 {
    errors=0
@@ -184,14 +179,10 @@ fcd ()
    fi
 }
 
-# Add a function you've defined to .functions
-function addfunction() { 
-   declare -f $1 >> ~/.functions
-}
 
-##### Automatically inputs aliases here in .aliases
-# Usage: addalias <name> "<command>"
-# Example: addalias rm "rm -i"
+# @description Automatically inputs aliases here in .aliases
+# @arg $1 string name of alias
+# @arg $2 string command to execute
 function addalias()
 {
    if [[ $1 && $2 ]]
@@ -201,11 +192,7 @@ function addalias()
    fi
 }
 
-# Reminder for whatever whenever
-function remindme()
-{
-   sleep $1 && zenity --info --text "$2" &
-}
+
 
 # Manpage to pdf document
 # example:   man2pdf wipe   =   wipe.pdf
@@ -424,7 +411,7 @@ function dirsize()
 }
 
 # @descripton Size of directories in MB
-# @args $1 string directory for size
+# @arg $1 string directory for size
 function ds()
 {
     echo "size of directories in MB"
@@ -4369,26 +4356,24 @@ function gi() {
 
 
 # @description Search commandlinefu.com from the command line # using the API
-# @args $# string text to search
+# @arg $# string text to search
 function cmdfu() { 
    curl "http://www.commandlinefu.com/commands/matching/$@/$(echo -n $@ | openssl base64)/plaintext"; 
 }
 
-# automatically downloads all commands from http://www.commandlinefu.com into a single text file
+# @description automatically downloads all commands from http://www.commandlinefu.com into a single text file
+# @ noargs
 alias cmdfu_dl='mkdir /tmp/commandlinefu && cd /tmp/commandlinefu && curl -O http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/[0-2400:25] && ls -1 | sort -n | while read mork ; do cat $mork >> commandlinefu.txt ; ls -ald $mork; done && mv commandlinefu.txt $HOME && rm -rf /tmp/commandlinefu'
 
-# find a CommandlineFu users average command rating
+# @description find a CommandlineFu users average command rating
+# @arg $1 string username of user
 function cmdfu_rating()
 {
-   wget -qO- www.commandlinefu.com/commands/by/PhillipNordwall | awk -F\> '/class="num-votes"/{S+=$2; I++}END{print S/I}'
+   wget -qO- www.commandlinefu.com/commands/by/$1 | awk -F\> '/class="num-votes"/{S+=$2; I++}END{print S/I}'
 }
 
-function cmdfu_rating_()
-{
-   curl -s www.commandlinefu.com/commands/by/PhillipNordwall | awk -F\> '/class="num-votes"/{S+=$2; I++}END{print S/I}'
-}
-
-# fuman, an alternative to the 'man' command that shows commandlinefu.com examples
+# @description fuman, an alternative to the 'man' command that shows commandlinefu.com examples
+# @arg $1 string command
 function fuman() {
    lynx -width=$COLUMNS -nonumbers -dump "http://www.commandlinefu.com/commands/using/$1" |sed '/Add to favourites/,/This is sample output/!d' |sed 's/ *Add to favourites/----/' |less -r; 
 }
@@ -4430,6 +4415,23 @@ gnome-extensions-enable() {
    for i in $localPath/*;do echo $(basename $i);gnome-extensions enable "$(basename $i)";done
    gnome-extensions enable GPaste@gnome-shell-extensions.gnome.org
    gnome-extensions enable gnome-shell-extensions.gcampax.github.com
+}
+
+# @description Reminder for whatever whenever
+# @arg $1 int time to sleep in ms
+# @arg ä2 string text to show after time has elapsed
+function remindme()
+{
+   sleep $1 && zenity --info --text "$2" &
+}
+
+# @descriotion used for bash nautilus scripts to show a warning if something goes wrong
+# use as follows in your scripts
+# trap errormsg  SIGINT SIGTERM ERR
+# @arg $1 string error message to show
+function errormsg() {
+    zenity --warning \
+   --text $1 
 }
 
 # @section Zellij

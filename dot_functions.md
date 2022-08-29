@@ -4,17 +4,27 @@ Shared functions which are sourced when shell starts
 
 ## Overview
 
-Shared functions which are sourced when shell starts
 This is to be sourced not executed
-# Shell-specifc functions
 
 ## Index
 
+* [errormsg](#errormsg)
 * [gi](#gi)
 * [cmdfu](#cmdfu)
+* [fuman](#fuman)
 * [gnome-extensions-enable](#gnome-extensions-enable)
 * [z-layout](#z-layout)
 * [z-sessions](#z-sessions)
+
+## Shell-specifc functions
+
+Funcions specific to zsh, bash or other shells
+
+### errormsg
+
+#### Arguments
+
+* **$1** (string): error message to show
 
 ### gi
 
@@ -34,7 +44,15 @@ Search commandlinefu.com from the command line # using the API
 
 #### Arguments
 
-* # @args $# string text to search
+* $# string text to search
+
+### fuman
+
+fuman, an alternative to the 'man' command that shows commandlinefu.com examples
+
+#### Arguments
+
+* **$1** (string): command
 
 ## Gnome
 
