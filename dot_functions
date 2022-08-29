@@ -59,8 +59,11 @@ if [ -n "$ZSH_VERSION" ]; then
 fi
 
 
-# https://software.rajivprab.com/2019/07/14/ssh-considered-harmful/
-function tsh {
+# @description https://software.rajivprab.com/2019/07/14/ssh-considered-harmful/
+# @arg $1 string name of the host
+# @arg $2 string name of the tmux session
+function tsh
+{
     host=$1
     session_name=$2
     if [ -z "$session_name" ]; then
@@ -69,116 +72,6 @@ function tsh {
     fi
     ssh $host -t "tmux attach -t $session_name || tmux new -s $session_name"
 }
-
-# @description hecks to ensure that all environment variables are valid
-# looks at SHELL, HOME, PATH, EDITOR, MAIL, and PAGER
-# @arg $1 string first path
-function path_validator()
-{
-   errors=0
-   function in_path()
-   {
-      # given a command and the PATH, try to find the command. Returns
-      # 1 if found, 0 if not.  Note that this temporarily modifies the
-      # the IFS input field seperator, but restores it upon completion.
-      cmd=$1    path=$2    retval=0
-      oldIFS=$IFS; IFS=":"
-        for directory in $path
-        do
-         if [ -x $directory/$cmd ] ; then
-            retval=1      # if we're here, we found $cmd in $directory
-         fi
-      done
-      IFS=$oldIFS
-      return $retval
-   }
-   function validate()
-   {
-      varname=$1    varvalue=$2
-      if [ ! -z $varvalue ] ; then
-         if [ "${varvalue%${varvalue#?}}" = "/" ] ; then
-            if [ ! -x $varvalue ] ; then
-               echo "** $varname set to $varvalue, but I cannot find executable."
-               errors=$(( $errors + 1 ))
-            fi
-         else
-            if in_path $varvalue $PATH ; then
-            echo "** $varname set to $varvalue, but I cannot find it in PATH."
-            errors=$(( $errors + 1 ))
-         fi
-         fi
-      fi
-   }
-    # Beginning of actual shell script
-   if [ ! -x ${SHELL:?"Cannot proceed without SHELL being defined."} ] ; then
-      echo "** SHELL set to $SHELL, but I cannot find that executable."
-      errors=$(( $errors + 1 ))
-   fi
-   if [ ! -d ${HOME:?"You need to have your HOME set to your home directory"} ]
-   then
-      echo "** HOME set to $HOME, but it's not a directory."
-      errors=$(( $errors + 1 ))
-   fi
-   # Our first interesting test: are all the paths in PATH valid?
-   oldIFS=$IFS; IFS=":"     # IFS is the field separator. We'll change to ':'#
-# find cd. For input foo, find all directories .../.../foo 
-# GPLv3 Stefan Wagner (2010, 2012)
-#
-# doesn't handle blanks in directory names gracefully.
-#
-fcd ()
-{
-    list=$(locate $1 | egrep "/$1$")
-    count=$(echo $list | wc -w )
-    case $count in 
-      0) 
-        echo "unknown directory: "$1 && return
-        # could search for partial matches Doc => Documentation
-        ;;
-      1) 
-       if [[ -d "$list" ]]; then
-      echo "1) match: $list"
-      cd "$list"
-       else
-           echo "not a directory: $1"
-       fi
-       ;;
-      *) 
-         select directory in $list "/exit/" 
-         do
-       if [[ "$directory" = "/exit/" ]]; then break; fi
-            if [[ -d "$directory" ]]; then
-      echo "multi) $directory"
-      cd "$directory"
-           break
-       else
-           echo "not a directory: "$1 
-       fi
-         done     
-        ;;
-   esac
-}
-   for directory in $PATH
-   do
-      if [ ! -d $directory ] ; then
-         echo "** PATH contains invalid directory $directory"
-         errors=$(( $errors + 1 ))
-      fi
-   done
-   IFS=$oldIFS             # restore value for rest of script
-   # Following can be undefined, & also be a progname, rather than fully qualified path.
-   # Add additional variables as necessary for your site and user community.
-   validate "EDITOR" $EDITOR
-   validate "MAILER" $MAILER
-   validate "PAGER"  $PAGER
-   # and, finally, a different ending depending on whether errors > 0
-   if [ $errors -gt 0 ] ; then
-      echo "Errors encountered. Please notify sysadmin for help."
-   else
-      echo "Your environment checks out fine."
-   fi
-}
-
 
 # @description Automatically inputs aliases here in .aliases
 # @arg $1 string name of alias
@@ -192,11 +85,9 @@ function addalias()
    fi
 }
 
-
-
-# Manpage to pdf document
-# example:   man2pdf wipe   =   wipe.pdf
+# @description Manpage to pdf document
 # copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string command
 function man2pdf()
 {
    case $1 in
@@ -215,123 +106,67 @@ function man2pdf()
    esac
 }
 
-# Manpage to txt document
-# example:   man2text wipe   =   wipe.txt
+# @description Manpage to txt document
+# @arg $1 string command
 function man2text()
 {
    man "$1" | col -b > ~/man_"$1".txt
 }
 
-# ISO-writer
-function writeiso() {
-   # copyright 2007 - 2010 Christopher Bratusek
-   if [[ $CD_WRITER ]]; then
-      cdrecord dev=$CD_WRITER "$1"
-   else   cdrecord deV=/dev/dvdrw "$1"
-   fi
-}
-
-# cp with progress bar (using pv)
-function cp_p() {
-   if [ `echo "$2" | grep ".*\/$"` ]
-   then
-      pv "$1" > "$2""$1"
-   else
-      pv "$1" > "$2"/"$1"
-   fi
-}
-
-# Shot - takes a screenshot of your current window 
+# @description takes a screenshot of your current window 
+# @noargs
 function shot()
 {
    import -frame -strip -quality 75 "$HOME/$(date +%s).png"
 }
 
-# Screencasting with mplayer webcam window
-function screencastw()
-{
-   mplayer -cache 128 -tv driver=v4l2:width=176:height=177 -vo xv tv:// -noborder -geometry "95%:93%" -ontop | ffmpeg -y -f alsa -ac 2 -i pulse -f x11grab -r 30 -s `xdpyinfo | grep 'dimensions:'|awk '{print $2}'` -i :0.0 -acodec pcm_s16le output.wav -an -vcodec libx264 -vpre lossless_ultrafast -threads 0 output.mp4
-}
+# @section Systemd service
+# @description Helper functions for systemd
 
-# Email yourself a short note
-function quickemail() { 
-   echo "$*" | mail -s "$*" aedu@wyssmann.com;
-}
-
-
-###############################################################################
-# Power Management
-###############################################################################
-function pwr-low {
-   #Suggestion: Enable the CONFIG_INOTIFY kernel configuration option.
-   #This option allows programs to wait for changes in files and directories
-   #instead of having to poll for these changes
-
-   # Enable SATA ALPM link power management
-   sudo echo min_power > /sys/class/scsi_host/host0/link_power_management_policy
-   sudo echo min_power > /sys/class/scsi_host/host1/link_power_management_policy
-   sudo echo min_power > /sys/class/scsi_host/host2/link_power_management_policy
-   sudo echo min_power > /sys/class/scsi_host/host3/link_power_management_policy
-   iwconfig wlan0 power timeout 500ms
-   
-   # disable the NMI watchdog by executing the following command:
-   sudo echo 0 > /proc/sys/kernel/nmi_watchdog
-   
-   # enable HD audio powersave mode by executing the following command:
-   sudo echo 1 > /sys/module/snd_hda_intel/parameters/power_save
-}
-
-function pwr-high {
-   # diasble SATA ALPM link power management
-   sudo echo max_performance > /sys/class/scsi_host/host0/link_power_management_policy
-   sudo echo max_performance > /sys/class/scsi_host/host1/link_power_management_policy
-   sudo echo max_performance > /sys/class/scsi_host/host2/link_power_management_policy
-   sudo echo max_performance > /sys/class/scsi_host/host3/link_power_management_policy
-   
-   # disable HD audio powersave mode by executing the following command:
-   sudo echo 0 > /sys/module/snd_hda_intel/parameters/power_save
-   
-}
-
-###############################################################################
-# Systemd service
-###############################################################################
-# start a service
+# @description start a service
+# @arg $1 string name of service
 function start() {
    sudo systemctl start $1.service
 }
 
-# stop a service
+# @description stop a service
+# @arg $1 string name of service
 function stop() {
    sudo systemctl stop $1.service
 }
 
-# query status of a service
+# @description query status of a service
+# @arg $1 string name of service
 function status() {
    sudo systemctl status $1.service
 }
 
-# query status of a service
+# @description query status of a service
+# @arg $1 string name of service
 function sstatus() {
    sudo systemctl | grep $1
 }
 
-# enable a service
+# @description enable a service
+# @arg $1 string name of service
 function senable() {
    sudo systemctl status $1.service
 }
 
-# list available systemd services
+# @desciption list available systemd services
+# @noargs
 function services() {
    ll /usr/lib/systemd/system
+   ll /etc/system/systemd
 }
 
 
-###############################################################################
-# IRC
-###############################################################################
-## To create a password-less certificate that is valid for 730 days (when requested to enter details like state or even Common Name (CN), you can fill anything you want)
-## Source: https://wiki.archlinux.org/title/Irssi#Configuration
+# @section IRC
+# @description irc helper functions
+
+# @descrtipion To create a password-less certificate that is valid for 730 days (when requested to enter details like state or even Common Name (CN), you can fill anything you want)
+# Source: https://wiki.archlinux.org/title/Irssi#Configuration
+# @noargs
 irssi_client_cert() {
    openssl req -newkey rsa:4096 -days 730 -x509 -keyout irssi.key -out irssi.crt -nodes 
    cat irssi.crt irssi.key > ~/.irssi/irssi.pem
@@ -341,10 +176,11 @@ irssi_client_cert() {
    openssl x509 -sha512 -fingerprint -noout -in ~/.irssi/irssi.pem | sed -e 's/^.*=//;s/://g;y/ABCDEF/abcdef/'
 }
 
-###############################################################################
-# Directories/Folders
-###############################################################################
-##### Change directory and list files
+# @section Directories/Folders
+# @description Helper functions to deal with directories
+
+# @description Change directory and list files
+# @arg $1 string directory name
 function cds() {
     # only change directory if a directory is specified
     [ -n "${1}" ] && cd $1
@@ -357,13 +193,14 @@ function mkdircd() {
     cd $1
 }
 
-# Show empty files in the directed directory
+# @description Show empty files in the directed directory
+# copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string path to check
 function empty() {
-   # copyright 2007 - 2010 Christopher Bratusek
    find "$1" -empty
 }
 
-# Count files in current directory
+# @description Count files in current directory
 # copyright 2007 - 2010 Christopher Bratusek
 function count_files()
 {
@@ -2975,30 +2812,26 @@ function trig-angle()
    echo "s($rad)/c($rad)" | bc -l
 }
 
-###############################################################################
-# Proxy and Anomymization
-###############################################################################
-# Set/Unset a proxy for the terminal using tor
-# For a HTTP proxy in a single terminal window, simply run the following command in a terminal:
-# export http_proxy='http://YOUR_USERNAME:YOUR_PASSWORD@PROXY_IP:PROXY_PORT/'
-# For a secure connection (HTTPS), use:
-# export https_proxy='http://YOUR_USERNAME:YOUR_PASSWORD@PROXY_IP:PROXY_PORT/'
-# Obviously, replace everything with your username, password, proxy ip and port.
-# If the proxy does not require an username and password, skip that part
+# @section Proxy and Anomymization
+# @description Helper functions for proxy and tor
+
+# @description Set a proxy for the terminal using tor
+# @noargs
 function termproxy()
 {
    export http_proxy='http://localhost:8118'
    export https_proxy='http://localhost:8118'
 }
 
-# To close the HTTP proxy in the terminal, either close the terminal, or enter this:
+# @description Unet a proxy for the terminal using tor
+# @noargs
 function termproxyX()
 {
    unset http_proxy
    unset https_proxy
 }
 
-# Switch tor on and off (requires privoxy)
+# @description Switch tor on and off (requires privoxy)
 function torswitch() {
    # copyright 2007 - 2010 Christopher Bratusek
    if [[ $EUID == 0 ]]; then
@@ -3021,29 +2854,13 @@ function torswitch() {
    fi
 }
 
-###############################################################################
-# Time Functions
-###############################################################################
-# Easily decode unix-time (function)
-function utime() { perl -e "print localtime($1).\"\n\"";}
 
-# binary clock
-function bclock()
-{
-   watch -n 1 'echo "obase=2;`date +%s`" | bc'
-}
+# @section Stopwatch and Countdown Timer
+# @description Helper functions
 
-# Clock - A bash clock that can run in you
-function clock()
-{
-   while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done
-}
-
-###############################################################################
-# Stopwatch and Countdown Timer
-###############################################################################
+# @description simple stopwatch for terminal
+# copyright 2007 - 2010 Christopher Bratusek
 function stopwatch() {
-   # copyright 2007 - 2010 Christopher Bratusek
    BEGIN=$(date +%s)
    while true; do
       NOW=$(date +%s)
@@ -3055,54 +2872,25 @@ function stopwatch() {
    done
 }
 
-# stopwatch with log
-function stop_watch()
-{
-   START=$( date +%s ); while true; do CURRENT=$( date +%s ) ; echo $(( CURRENT-START )) ; sleep 1 ; echo -n ^[[A ; done
-}
+# @description countdown clock
+# @arg $1 int seconds to count
+function countdown() {
+   case "$1" in -s) shift;; *) set $(($1 * 60));; esac; local S=" "; for i in $(seq "$1" -1 1); do echo -ne "$S\r $i\r"; sleep 1; done; echo -e "$S\rBOOM!"; }
 
-# countdown clock
-function countdown() { case "$1" in -s) shift;; *) set $(($1 * 60));; esac; local S=" "; for i in $(seq "$1" -1 1); do echo -ne "$S\r $i\r"; sleep 1; done; echo -e "$S\rBOOM!"; }
+# @section Checksum
+# @description Helper functions for checksumm calculation
 
-# countdown clock
-alias countdown2='MIN=1 && for i in $(seq $(($MIN*60)) -1 1); do echo -n "$i, "; sleep 1; done; echo -e "\n\nBOOOM! Time to start."'
-
-# Timer function
-# Elapsed time.  Usage:
-#   t=$(timer)
-#   ... # do something
-#   printf 'Elapsed time: %s\n' $(timer $t)
-#      ===> Elapsed time: 0:01:12
-# If called with no arguments a new timer is returned.
-# If called with arguments the first is used as a timer
-# value and the elapsed time is returned in the form HH:MM:SS.
-function timer()
-{
-    if [[ $# -eq 0 ]]; then
-      echo $(date '+%s')
-    else
-      local  stime=$1
-      etime=$(date '+%s')
-      if [[ -z "$stime" ]]; then stime=$etime; fi
-      dt=$((etime - stime))
-      ds=$((dt % 60))
-      dm=$(((dt / 60) % 60))
-      dh=$((dt / 3600))
-      printf '%d:%02d:%02d' $dh $dm $ds
-    fi
-}
-
-###############################################################################
-# Checksum
-###############################################################################
-function checksum()
+# @description Calculate checksum of a file
 # copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string filename
+function checksum()
 {
    action=$1
    shift
    if [[ ( $action == "-c" || $action == "--check" ) && $1 == *.* ]]; then
       type="${1/*./}"
-   else   type=$1
+   else
+      type=$1
       shift
    fi
    case $type in
@@ -3127,7 +2915,8 @@ function checksum()
    esac
    case $action in
       -g | --generate )
-         for file in "${@}"; do
+         fo
+         r file in "${@}"; do
             $checktool "${file}" > "${file}".$type
          done
       ;;
@@ -4126,25 +3915,16 @@ function currency_convert_help() {
    ZWD - Zimbabwean Dollar"
 }
 
-# find a location's coordinates
-# usage:   findlocation "Las Vegas, Nevada" = coordinates: [ -115.1728160, 36.1146460, 0 ]
-function findlocation() { place=`echo $1 | sed 's/ /%20/g'` ; curl -s "http://maps.google.com/maps/geo?output=json&oe=utf-8&q=$place" | grep -e "address" -e "coordinates" | sed -e 's/^ *//' -e 's/"//g' -e 's/address/Full Address/';}
+# @section Translation and Dictionary
+# @description helper functions for word definitions and translations
 
-# Google search (example: google dog)
-function google() {
-   firefox "http://www.google.com/search?&num=100&q=${@}" &
-}
-
-###############################################################################
-# Translation and Dictionary
-###############################################################################
-# Lookup a word with dict.org
+# @description Lookup a word with dict.org
+# @arg $# string word to lookup
 function dic() { 
    curl dict://dict.org/d:"$@" ; 
 }
 
-
-# find matches of $1, with optional strat $2 and optional db $3
+# @description find matches of $1, with optional strat $2 and optional db $3
 function ref()
 {
     if [[ -z $3 ]]; then
@@ -4154,13 +3934,8 @@ function ref()
     fi
 }
 
-# look in Webster
-function webster() { 
-   curl dict://dict.org/d:${1}:web1913; 
-}
-
-
-# look in WordNet
+# @description Lookup a word with dict.org in WordNet
+# @arg $1 string word to lookup
 function wordnet() { 
    curl dict://dict.org/d:${1}:wn;
 }
@@ -4182,7 +3957,7 @@ function define() {
    return 0
 }
 
-# detect language of a string
+# @description detect language of a string
 function detectlanguage() { 
    curl -s "http://ajax.googleapis.com/ajax/services/language/detect?v=1.0&q=$@" | sed 's/{"responseData": {"language":"\([^"]*\)".*/\1\n/'; 
 }
@@ -4210,7 +3985,7 @@ function translate_help() {
    Afrikaans              af
    Albanian               sq
    Amharic                am
-   Arabic                 ar
+   Arabic                  ar
    Armenian               hy
    Assamese               as
    Aymara                 ay
