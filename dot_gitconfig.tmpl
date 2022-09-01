@@ -48,6 +48,8 @@
     reb = "!r() { git rebase -i HEAD~$1; }; r"
     # Remove the old tag with this name and tag the latest commit with it.
     retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+    # Delet local and remote tag
+    deltag = "!f() { git tag -d $1 && git push --delete origin $1; }; f"
     # Find branches containing commit
     fb = "!f() { git branch -a --contains $1; }; f"
     # Find tags containing commit
