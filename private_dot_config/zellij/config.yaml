@@ -620,7 +620,7 @@ plugins:
 # terminal emulators which do not support the OSC 52 ANSI control sequence
 # that will be used by default if this option is not set.
 # Examples:
-#copy_command: "xclip -selection clipboard" # x11
+copy_command: "xclip -selection clipboard" # x11
 #copy_command: "wl-copy"                    # wayland
 #copy_command: "pbcopy"                     # osx
 
@@ -633,7 +633,7 @@ plugins:
 #copy_clipboard: primary
 
 # Enable or disable automatic copy (and clear) of selection when releasing mouse
-#copy_on_select: true
+copy_on_select: true
 
 # Path to the default editor to use to edit pane scrollbuffer
 # scrollback_editor: /usr/bin/nano
