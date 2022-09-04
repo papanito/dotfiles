@@ -333,7 +333,8 @@ alias shred-dev='sudo shred -v -z -n 0 $1'
 ###############################################################################
 alias linecount='wc -l $1' # count number of lines in text file
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
-alias gphotos-sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
+alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
+alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan --flush-index --do-delete'
 alias zellijj='zellij options --disable-mouse-mode'
 
 ###############################################################################
@@ -359,7 +360,7 @@ alias az_subs="navibestmatch 'Get all Azure subscription names and ids'"
 # comand substitution terraform
 ###############################################################################
 alias tf="terraform"
-alias tfplan='terraform plan -no-color > tfplan-generated'
+alias tfplan='terraform plan -no-color > generated.tfplan'
 
 ###############################################################################
 # comand substitution tmux,byobu, etc

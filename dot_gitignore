@@ -7,3 +7,6 @@
 *.secret
 .ssh
 .key
+
+## Terraform
+*.tfplan
