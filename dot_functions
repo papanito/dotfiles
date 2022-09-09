@@ -2875,7 +2875,8 @@ function stopwatch() {
 # @description countdown clock
 # @arg $1 int seconds to count
 function countdown() {
-   case "$1" in -s) shift;; *) set $(($1 * 60));; esac; local S=" "; for i in $(seq "$1" -1 1); do echo -ne "$S\r $i\r"; sleep 1; done; echo -e "$S\rBOOM!"; }
+   case "$1" in -s) shift;; *) set $(($1 * 60));; esac; local S=" "; for i in $(seq "$1" -1 1); do echo -ne "$S\r $i\r"; sleep 1; done; echo -e "$S\rBOOM!";
+}
 
 # @section Checksum
 # @description Helper functions for checksumm calculation
@@ -2915,8 +2916,7 @@ function checksum()
    esac
    case $action in
       -g | --generate )
-         fo
-         r file in "${@}"; do
+         for file in "${@}"; do
             $checktool "${file}" > "${file}".$type
          done
       ;;
@@ -3663,64 +3663,10 @@ function coin-flip()
    echo "Change \"MAXTHROWS=1000\" if you want a different number of tosses."
 }
 
-# roll a single die of "$1" sides, just once
-# default number of sides is 6
-# written by Dallas Vogels
-function one-die()
-{
-   function roll_die() {
-     # capture parameter
-     declare -i DIE_SIDES=$1
-     # check for die sides
-     if [ ! $DIE_SIDES -gt 0 ]; then
-      # default to 6
-      DIE_SIDES=6
-     fi
-     # echo to screen
-     echo $[ ( $RANDOM % $DIE_SIDES )  + 1 ]
-   }
-   # roll_die 10  # returns 1 to 10 as per 10 sides
-   # roll_die 2   # returns 1 or 2 as per 2 sides
-   roll_die "$1"
-}
-
-# select random card from a deck
-function pick-card()
-{
-   # This is an example of choosing random elements of an array.
-   # Pick a card, any card.
-   Suites="Clubs
-   Diamonds
-   Hearts
-   Spades"
-   Denominations="2
-   3
-   4
-   5
-   6
-   7
-   8
-   9
-   10
-   Jack
-   Queen
-   King
-   Ace"
-   # Note variables spread over multiple lines.
-   suite=($Suites)                # Read into array variable.
-   denomination=($Denominations)
-   num_suites=${#suite[*]}        # Count how many elements.
-   num_denominations=${#denomination[*]}
-   echo -n "${denomination[$((RANDOM%num_denominations))]} of "
-   echo ${suite[$((RANDOM%num_suites))]}
-   # $bozo sh pick-cards.sh
-   # Jack of Clubs
-   # Thank you, "jipe," for pointing out this use of $RANDOM.
-}
-
-# random number (out of whatever you input)
-# example:   random 10   =   4
+# @description random number (out of whatever you input)
 # copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string [optional] `-L` or `-r` 
+# @arg $2 int value
 function random() {
    if [[ $1 == -l ]]; then
       echo $(cat /dev/urandom | tr -cd '[:digit:]' | head -c ${2-5})
@@ -3731,12 +3677,11 @@ function random() {
    fi
 }
 
-###############################################################################
-# Google searching
-###############################################################################
-# convert currencies
-# usage:   currency_convert 1 usd eur
+# @description convert currencies
 # for currency shorthand: http://www.xe.com/currency/
+# @arg $1 int value to convert
+# @arg $2 string currency shorthand to convert from
+# @arg $3 string currency shorthand to convert to
 function currency_convert() { 
     if [ $# -lt 3 ]; then
       echo "convert currencies"
@@ -4120,20 +4065,72 @@ function translate_help() {
    Zulu                   zu"
 }
 
+# @section python
+
+# @description Activating python virtual environments
+# Keep python virtual environments in a central place in ~/.venv. To activate one of the environments,this function can be used
+function activate-venv() {
+  local selected_env
+  selected_env=$(ls ~/.venv/ | fzf)
+
+  if [ -n "$selected_env" ]; then
+    source "$HOME/.venv/$selected_env/bin/activate"
+  fi
+}
+
+# @section git and source control
+
 # @description Creates a .gitignore file from toptal's service.
 # @arg $@ string comma separated list of languages
 function gi() {
-   curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
+   curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ > .gitignore
+}
+
+# @description checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+fbr() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# @description checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
+fco() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch --all \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=$(
+    git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 \
+        --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
+  git checkout $(awk '{print $2}' <<<"$target" )
+}
+
+# @description delete git branches, with log preview
+function fbd() {
+  git branch |
+    grep --invert-match '\*' |
+    cut -c 3- |
+    fzf --multi --preview="git log {} --" |
+    xargs --no-run-if-empty git branch --delete --force
 }
 
 # @section Commandlinefu
 # @description Commandlinefu.com and Shell-fu.org stuff
 
-
 # @description Search commandlinefu.com from the command line # using the API
 # @arg $# string text to search
 function cmdfu() { 
-   curl "http://www.commandlinefu.com/commands/matching/$@/$(echo -n $@ | openssl base64)/plaintext"; 
+   curl -s "https://www.commandlinefu.com/commands/matching/$@/$(echo -n $@ | openssl base64)/plaintext"; 
+}
+
+function cmdfuj() { 
+   curl -s "https://www.commandlinefu.com/commands/matching/$@/$(echo -n $@ | openssl base64)/json" ; 
 }
 
 # @description automatically downloads all commands from http://www.commandlinefu.com into a single text file
