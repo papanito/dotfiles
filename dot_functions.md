@@ -17,13 +17,27 @@ This is to be sourced not executed
 * [irssi_client_cert](#irssi_client_cert)
 * [cds](#cds)
 * [empty](#empty)
+* [lcfirst](#lcfirst)
+* [ltrim](#ltrim)
+* [rtrim](#rtrim)
+* [strim](#strim)
+* [strtolower](#strtolower)
+* [strtoupper](#strtoupper)
+* [trim](#trim)
+* [find_execute](#find_execute)
 * [torswitch](#torswitch)
 * [stopwatch](#stopwatch)
 * [countdown](#countdown)
+* [random](#random)
+* [currency_convert](#currency_convert)
 * [dic](#dic)
 * [wordnet](#wordnet)
 * [detectlanguage](#detectlanguage)
+* [activate-venv](#activate-venv)
 * [gi](#gi)
+* [fbr](#fbr)
+* [fco](#fco)
+* [fbd](#fbd)
 * [cmdfu](#cmdfu)
 * [fuman](#fuman)
 * [gnome-extensions-enable](#gnome-extensions-enable)
@@ -108,6 +122,132 @@ copyright 2007 - 2010 Christopher Bratusek
 
 * **$1** (string): path to check
 
+## string manipulation
+
+Functions to manipulate strings
+
+### lcfirst
+
+Convert the first letter into lowercase letters
+
+#### Arguments
+
+* **$1** (string): string to change
+
+#### Exit codes
+
+* string whhere first letter is lowercase
+
+### ltrim
+
+Remove whitespace at the beginning of a string
+
+#### Example
+
+```bash
+echo "   That is a sentinece" | rtrim
+```
+
+#### Arguments
+
+* **$1** (string): string from which to remove whitespaced
+
+#### Exit codes
+
+* string w/o whitespaces at the beginning of the string
+
+### rtrim
+
+Remove whitespace at the end of a string
+
+#### Example
+
+```bash
+echo "That is a sentinece " | rtrim
+```
+
+#### Arguments
+
+* **$1** (string): string from which to remove whitespaced
+
+#### Exit codes
+
+* string w/o whitespaces at the end
+
+### strim
+
+Cut a string after X chars and append three points
+
+#### Example
+
+```bash
+strim averylongstring 2
+```
+
+#### Arguments
+
+* **$1** (string): string to shortened/cut
+* **$2** (int): length of the string
+
+#### Exit codes
+
+* shortened string
+
+### strtolower
+
+Convert all alphabetic characters to lowercase
+
+#### Arguments
+
+* **$1** (string): string to convert
+
+#### Exit codes
+
+* converted string
+
+### strtoupper
+
+Convert all alphabetic characters converted to uppercase
+
+#### Arguments
+
+* **$1** (string): string to convert
+
+#### Exit codes
+
+* converted string
+
+### trim
+
+Remove whitespace at the beginning and end of a string
+
+#### Example
+
+```bash
+echo " That is a sentinece " | trim
+```
+
+#### Arguments
+
+* **$1** (string): string to convert
+
+#### Exit codes
+
+* converted string
+
+## find (a) file(s)
+
+Functions and aliases to find files
+
+### find_execute
+
+fing files  with pattern $1 in name and Execute $2 on it
+
+#### Arguments
+
+* **$1** (string): search pattern
+* **$2** (string): command to execute on found files
+
 ## Proxy and Anomymization
 
 Helper functions for proxy and tor
@@ -133,9 +273,34 @@ countdown clock
 
 * **$1** (int): seconds to count
 
-## Translation and Dictionary
+## Checksum
 
 Helper functions for checksumm calculation
+
+### random
+
+random number (out of whatever you input)
+copyright 2007 - 2010 Christopher Bratusek
+
+#### Arguments
+
+* **$1** (string): [optional] `-L` or `-r` 
+* **$2** (int): value
+
+### currency_convert
+
+convert currencies
+for currency shorthand: http://www.xe.com/currency/
+
+#### Arguments
+
+* **$1** (int): value to convert
+* **$2** (string): currency shorthand to convert from
+* **$3** (string): currency shorthand to convert to
+
+## Translation and Dictionary
+
+helper functions for word definitions and translations
 
 ### dic
 
@@ -157,6 +322,20 @@ Lookup a word with dict.org in WordNet
 
 detect language of a string
 
+## python
+
+Activating python virtual environments
+Keep python virtual environments in a central place in ~/.venv. To activate one of the environments,this function can be used
+
+### activate-venv
+
+Activating python virtual environments
+Keep python virtual environments in a central place in ~/.venv. To activate one of the environments,this function can be used
+
+## git and source control
+
+Creates a .gitignore file from toptal's service.
+
 ### gi
 
 Creates a .gitignore file from toptal's service.
@@ -164,6 +343,18 @@ Creates a .gitignore file from toptal's service.
 #### Arguments
 
 * **...** (string): comma separated list of languages
+
+### fbr
+
+checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+
+### fco
+
+checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
+
+### fbd
+
+delete git branches, with log preview
 
 ## Commandlinefu
 
