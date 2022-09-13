@@ -1,18 +1,23 @@
 # @file .functions
 # @brief Shared functions which are sourced when shell starts
 # @description
-#     This is to be sourced not executed
+#     Helper functions for your shell. This is to be sourced not executed
 
 # @section Shell-specifc functions
-# @description Funcions specific to zsh, bash or other shells
+# @description Functions specific to zsh, bash or other shells
 if [ -n "$ZSH_VERSION" ]; then
 
-   # Clear history for the current terminal session
-   function clear_history {
+   # @description Clear history for the current terminal session
+   # @noargs
+   function clear_history
+   {
       local HISTSIZE=0
    }
 
-   p10k_debug() {
+   # @description Debug p10k
+   # @noargs
+   p10k_debug()
+   {
       emulate -L zsh -o xtrace
       typeset -pm 'POWERLEVEL9K_*|P9K_KUBECONTEXT_*|ZSH_VERSION'
       uname -a
@@ -25,7 +30,8 @@ if [ -n "$ZSH_VERSION" ]; then
    local cmd_alias=""
 
    # Reveal Executed Alias
-   alias_for() {
+   alias_for()
+   {
       [[ $1 =~ '[[:punct:]]' ]] && return
          local search=$(echo "$1" | awk '{print $1;}')
          local found="$( alias $search )"
@@ -39,20 +45,20 @@ if [ -n "$ZSH_VERSION" ]; then
       fi
    }
 
-   expand_command_line() {
+   expand_command_line()
+   {
       cmd_alias="$(alias_for $1)"               # Check if there's an alias for the command
       if [[ -n $cmd_alias ]]; then              # If there was
          echo "\e[32m❯ \e[33m${cmd_alias}\e[0m"  # Print it
       fi
    }
 
-   pre_validation() {
+   pre_validation()
+   {
       [[ $# -eq 0 ]] && return                    # If there's no input, return. Else...
       expand_command_line "$@"
    }
 # elif [ -n "$BASH_VERSION" ]; then
-#    echo ""
-#    ## nothing here
 # else
 #    # assume something else
 #    echo ""
@@ -78,10 +84,9 @@ function tsh
 # @arg $2 string command to execute
 function addalias()
 {
-   if [[ $1 && $2 ]]
-   then
-   echo -e "alias $1=\"$2\"" >> ~/.aliases
-   alias $1=$2
+   if [[ $1 && $2 ]]; then
+      echo -e "alias $1=\"$2\"" >> ~/.aliases
+      alias $1=$2
    fi
 }
 
@@ -125,49 +130,55 @@ function shot()
 
 # @description start a service
 # @arg $1 string name of service
-function start() {
+function start()
+{
    sudo systemctl start $1.service
 }
 
 # @description stop a service
 # @arg $1 string name of service
-function stop() {
+function stop()
+{
    sudo systemctl stop $1.service
 }
 
 # @description query status of a service
 # @arg $1 string name of service
-function status() {
+function status()
+{
    sudo systemctl status $1.service
 }
 
 # @description query status of a service
 # @arg $1 string name of service
-function sstatus() {
+function statusg()
+{
    sudo systemctl | grep $1
 }
 
 # @description enable a service
 # @arg $1 string name of service
-function senable() {
+function senable()
+{
    sudo systemctl status $1.service
 }
 
 # @desciption list available systemd services
 # @noargs
-function services() {
+function services()
+{
    ll /usr/lib/systemd/system
    ll /etc/system/systemd
 }
 
-
 # @section IRC
 # @description irc helper functions
 
-# @descrtipion To create a password-less certificate that is valid for 730 days (when requested to enter details like state or even Common Name (CN), you can fill anything you want)
+# @description To create a password-less certificate that is valid for 730 days (when requested to enter details like state or even Common Name (CN), you can fill anything you want)
 # Source: https://wiki.archlinux.org/title/Irssi#Configuration
 # @noargs
-irssi_client_cert() {
+irssi_client_cert()
+{
    openssl req -newkey rsa:4096 -days 730 -x509 -keyout irssi.key -out irssi.crt -nodes 
    cat irssi.crt irssi.key > ~/.irssi/irssi.pem
    chmod 600 ~/.irssi/irssi.pem
@@ -181,14 +192,17 @@ irssi_client_cert() {
 
 # @description Change directory and list files
 # @arg $1 string directory name
-function cds() {
+function cds()
+{
     # only change directory if a directory is specified
     [ -n "${1}" ] && cd $1
     ll
 }
 
-##### Makes directory then moves into it
-function mkdircd() {
+# @description Makes directory then moves into it
+# @arg $1 string directory name
+function mkdircd()
+{
     mkdir -p -v $1
     cd $1
 }
@@ -196,7 +210,8 @@ function mkdircd() {
 # @description Show empty files in the directed directory
 # copyright 2007 - 2010 Christopher Bratusek
 # @arg $1 string path to check
-function empty() {
+function empty_files()
+{
    find "$1" -empty
 }
 
@@ -261,110 +276,21 @@ function ds()
     fi
 }
 
-# Size of items in directory
-function dubigf() {
+# @description Size of items in directory
+# @noargs
+function dubigf()
+{
    du -sh * | awk '/[[:space:]]*[[:digit:]]+,*[[:digit:]]*G/' | sort -nr
    du -sh * | awk '/[[:space:]]*[[:digit:]]+,*[[:digit:]]*M/' | sort -nr
 }
 
-###############################################################################
-# Directory operations: editd, flipd, popd, printd, pushd, rotd, swapd
-###############################################################################
-# Edit directory stack
-function editd() {
-   export EDITDNO=$((${EDITDNO:=0} + 1))
-   typeset FiLe=/tmp/`basename -- $0`$$.${EDITDNO}
-   printd >${FiLe}
-   ${EDITOR} ${FiLe}
-   DS=`while read ea; do echo -n "$ea:"; done <${FiLe}`
-   rm -f ${FiLe}
-}
 
-# flip back-and-forth between current dir and top of stack (like "cd -")
-function flipd() {
-   if [ "$DS" ]
-   then
-      cd "${DS%%:*}"
-      export DS="$OLDPWD:${DS#*:}"
-   else
-      echo "$0: empty directory stack" >&2
-   fi
-}
+# @section System Information
+# @description show information about your systemd
 
-# pop top dir off stack and cd to it
-function popd() {
-   if [ "$DS" ]
-   then
-      cd "${DS%%:*}"
-      export DS="${DS#*:}"
-   else
-      echo "$0: empty directory stack" >&2
-   fi
-}
-
-# Print directory stack
-function printd() {
-   ( IFS=:; for each in $DS; do echo $each; done; )
-}
-
-# Change to new dir, pushing current onto stack
-function pushd() {
-   export DS="$PWD:$DS"
-   if [ -n "$1" ]; then cd "$1"; else cd; fi || export DS="${DS#*:}"
-}
-
-# rotate thru directory stack (from bottom to top)
-function rotd() {
-   if [ "$DS" ]
-   then
-      typeset DSr="${DS%:*:}"
-      [ "${DSr}" = "${DS}" ] || export DS="${DS##${DSr}:}$DSr:"
-      flipd
-   else
-      echo "$0: directory stack is empty" >&2
-   fi
-}
-
-# swap top two dir stack entries
-function swapd() {
-   typeset DSr="${DS#*:}"
-   if [ "$DSr" ]
-   then
-      export DS="${DSr%%:*}:${DS%%:*}:${DSr#*:}"
-   else
-      echo "$0: less than two on directory stack" >&2
-   fi
-}
-
-if [ ! -f ${HOME}/.lastdir ];then
-   cat > ${HOME}/.lastdir
-fi
-
-
-###############################################################################
-# Tree stuff
-###############################################################################
-# shows directory tree (requires 'tree')
-function treecd() {
-   builtin cd "${@}" &>/dev/null
-   . $BSNG_RC_DIR/dirinfo/display
-   dirinfo_display
-   echo -e "${epink}content:"
-   tree -L 1 $TREE_OPTS
-   echo "$PWD" > $HOME/.lastpwd
-}
-
-# displays a tree of the arborescence
-function treefind() {
-   find "$@" | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'
-}
-
-
-###############################################################################
-# System Information
-###############################################################################
-function show_battery_load()
+# @description show load of the battery
 # copyright 2007 - 2010 Christopher Bratusek
+function show_battery_load()
 {
    case $1 in
       *acpi )
@@ -415,304 +341,7 @@ function show_battery_load()
    esac
 }
 
-
-
-function show_cpu_load()
-# copyright 2007 - 2010 Christopher Bratusek
-{
-   case $1 in
-      *help )
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "${eorange}show_cpu_load${ewhite} |${egreen} ! no options !\n"
-         tput sgr0
-      ;;
-      * )
-         NICE_IGNORE=20
-         t="0"
-         while read cpu ni; do
-            if [[ $ni == *-* || $ni -le $NICE_IGNORE ]]; then
-               t="$t + $cpu"
-            fi
-            if [[ ${cpu%%.*} -eq 0 ]]; then
-               break
-            fi
-         done < <(ps -o "%cpu= ni="| sort -r)
-         cpu=$(echo "$t" | bc)
-         if [[ ! "${cpu#.}x" = "${cpu}x" ]]; then
-            cpu="0${cpu}"
-         fi
-         cpu=${cpu%%.*}
-         if [[ $cpu -gt 100 ]]; then
-            cpu=100
-         fi
-         if [[ $cpu -lt 16 ]]; then
-            color=${eiceblue}
-         elif [[ $cpu -lt 26 ]]; then
-            color=${eturqoise}
-         elif [[ $cpu -lt 41 ]]; then
-            color=${esmoothgreen}
-         elif [[ $cpu -lt 61 ]]; then
-            color=${egreen}
-         elif [[ $cpu -lt 81 ]]; then
-            color=${eyellow}
-         else   color=${ered}
-         fi
-         if [[ $cpu -lt 10 ]]; then
-            prepend=00
-         elif [[ $cpu -lt 100 ]]; then
-            prepend=0
-         fi
-         if [[ $enabcol == true ]]; then
-            echo -e "$color$prepend$cpu"
-         else   echo $prepend$cpu
-         fi
-      ;;
-   esac
-}
-
-
-
-function show_mem() {
-   # copyright 2007 - 2010 Christopher Bratusek
-   case $1 in
-      *used )
-         used=$(free | grep 'buffers/cache' | awk '{print $3}')
-         if [[ $used -lt 1000 ]]; then
-            echo 0$used
-         elif [[ $used -lt 100 ]]; then
-            echo 00$used
-         else   echo $used
-         fi
-      ;;
-      *free )
-         free=$(free | grep 'buffers/cache' | awk '{print $4}')
-         if [[ $free -lt 1000 ]]; then
-            echo 0$free
-         elif [[ $free -lt 100 ]]; then
-            echo 00$ree
-         else   echo $free
-         fi
-      ;;
-      *used-percent )
-         free | {
-            read
-            read m t u f s b c;
-            f=$[$f + $b + $c]
-            f=$[100-100*$f/$t]
-            if [ $f -gt 100 ]; then
-               f=100
-            fi
-            echo ${f}%
-      }
-      ;;
-      *free-percent )
-         free | {
-            read
-            read m t u f s b c;
-            f=$[$f + $b + $c]
-            f=$[100-100*$f/$t]
-            if [ $f -gt 100 ]; then
-               f=100
-            fi
-            echo $((100-${f}))%
-            }
-      ;;
-      * )
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "\n${eorange}show_mem ${ewhite}|${egreen} --used ${eiceblue}[display used memory in mb]\
-         \n${eorange}show_mem ${ewhite}|${egreen} --free ${eiceblue}[display free memory in mb]\
-         \n${eorange}show_mem ${ewhite}|${egreen} --percent-used ${eiceblue}[display used memory in %]\
-         \n${eorange}show_mem ${ewhite}|${egreen} --percent-free ${eiceblue}[display free memory in %]" | column -t
-         echo ""
-         tput sgr0
-      ;;
-   esac
-}
-
-function show_size()
-# copyright 2007 - 2010 Christopher Bratusek
-{
-   case $1 in
-      *help )
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "${eorange}show_size ${ewhite}|${egreen} ! no options !\n"
-         tput sgr0
-      ;;
-      * )
-         let TotalBytes=0
-         for Bytes in $(ls -lA -1 | grep "^-" | awk '{ print $5 }'); do
-            let TotalBytes=$TotalBytes+$Bytes
-         done
-         if [ $TotalBytes -lt 1024 ]; then
-            TotalSize=$(echo -e "scale=1 \n$TotalBytes \nquit" | bc)
-            suffix="B"
-         elif [ $TotalBytes -lt 1048576 ]; then
-            TotalSize=$(echo -e "scale=1 \n$TotalBytes/1024 \nquit" | bc)
-            suffix="KB"
-         elif [ $TotalBytes -lt 1073741824 ]; then
-            TotalSize=$(echo -e "scale=1 \n$TotalBytes/1048576 \nquit" | bc)
-            suffix="MB"
-         else
-            TotalSize=$(echo -e "scale=1 \n$TotalBytes/1073741824 \nquit" | bc)
-            suffix="GB"
-         fi
-         echo "${TotalSize} ${suffix}"
-      ;;
-   esac
-}
-
-# copyright 2007 - 2010 Christopher Bratusek
-function show_space()
-{
-   case $1 in
-      *used-percent )
-         echo $(df | grep -w $2 | gawk '{print $5}')
-      ;;
-      *free-percent )
-         echo $((100-$(df | grep -w $2 | gawk '{print $5}' | sed -e 's/\%//g')))%
-      ;;
-      *used )
-         echo $(df -h | grep -w $2 | gawk '{print $3}')B
-      ;;
-      *free )
-         echo $(df -h | grep -w $2 | gawk '{print $4}')B
-      ;;
-      *total )
-         echo $(df -h | grep -w $2 | gawk '{print $2}')B
-      ;;
-      * )
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "${eorange}show_space ${ewhite}|${egreen} --used ${eiceblue}[display used space in mb/gb]\
-         \n${eorange}show_space ${ewhite}|${egreen} --free ${eiceblue}[display free space in mb/gb]\
-         \n${eorange}show_space ${ewhite}|${egreen} --percent-used ${eiceblue}[display used space in %]\
-         \n${eorange}show_space ${ewhite}|${egreen} --percent-free ${eiceblue}[display free space in %]" | column -t
-         echo ""
-         tput sgr0
-      ;;
-   esac
-}
-
-function show_system_load() {
-   # copyright 2007 - 2010 Christopher Bratusek
-   case $1 in
-      1 )
-         load=$(uptime | sed -e "s/.*load average: \(.*\...\), \(.*\...\), \(.*\...\)/\1/" -e "s/ //g")
-      ;;
-      10 )
-         load=$(uptime | sed -e "s/.*load average: \(.*\...\), \(.*\...\), \(.*\...\)/\2/" -e "s/ //g")
-      ;;
-      15 )
-         load=$(uptime | sed -e "s/.*load average: \(.*\...\), \(.*\...\), \(.*\...\)/\3/" -e "s/ //g")
-      ;;
-      *help | "")
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "${eorange}show_system_load${ewhite} | ${egreen}1 ${eiceblue}[load average for 1 minute]\
-         \n${eorange}show_system_load${ewhite} | ${egreen}10 ${eiceblue}[load average for 10 minutes]\
-         \n${eorange}show_system_load${ewhite} | ${egreen}15 ${eiceblue}[load average for 15 minutes]\n" | column -t
-         tput sgr0
-      ;;
-   esac
-   if [[ $load != "" ]]; then
-   tmp=$(echo $load*100 | bc)
-   load100=${tmp%.*}
-   if [[ $enabcol == true ]]; then
-      if [[ ${load100} -lt 35 ]]; then
-         loadcolor=${eblue}
-      elif [[ ${load100} -ge 35 ]] && [[ ${load100} -lt 120 ]]; then
-         loadcolor=${eiceblue}
-      elif [[ ${load100} -ge 120 ]] && [[ ${load100} -lt 200 ]]; then
-         loadcolor=${egreen}
-      elif [[ ${load100} -ge 200 ]] && [[ ${load100} -lt 300 ]]; then
-         loadcolor=${eyellow}
-      else   loadcolor=${ered}
-      fi
-   fi
-   echo -e $loadcolor$load
-   fi
-}
-
-# copyright 2007 - 2010 Christopher Bratusek
-function show_tty()
-{
-   case $1 in
-      *help )
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "${eorange}show_tty${ewhite}|${egreen} ! no options !\n"
-         tput sgr0
-      ;;
-      * )
-         TTY=$(tty)
-         echo ${TTY:5} | sed -e 's/\//\:/g'
-      ;;
-   esac
-}
-
-function show_uptime() {
-   # copyright 2007 - 2010 Christopher Bratusek
-   case $1 in
-      *help )
-         echo -e "\n${ewhite}Usage:\n"
-         echo -e "${eorange}show_uptime${ewhite} |${egreen} ! no options !\n"
-         tput sgr0
-      ;;
-      * )
-         uptime=$(</proc/uptime)
-         timeused=${uptime%%.*}
-         if (( timeused > 86400 )); then
-         ((
-            daysused=timeused/86400,
-            hoursused=timeused/3600-daysused*24,
-            minutesused=timeused/60-hoursused*60-daysused*60*24,
-            secondsused=timeused-minutesused*60-hoursused*3600-daysused*3600*24
-         ))
-            if (( hoursused < 10 )); then
-               hoursused=0${hoursused}
-            fi
-            if (( minutesused < 10 )); then
-               minutesused=0${minutesused}
-            fi
-            if (( secondsused < 10 )); then
-               secondsused=0${secondsused}
-            fi
-            output="${daysused}d ${hoursused}h:${minutesused}m:${secondsused}s"
-         elif (( timeused < 10 )); then
-            output="0d 00h:00m:0$(timeused)s"
-         elif (( timeused < 60 )); then
-            output="0d 00h:00m:${timeused}s"
-         elif (( timeused < 3600 )); then
-         ((
-            minutesused=timeused/60,
-            secondsused=timeused-minutesused*60
-         ))
-            if (( minutesused < 10 )); then
-               minutesused=0${minutesused}
-            fi
-            if (( secondsused < 10 )); then
-               secondsused=0${secondsused}
-            fi
-            output="0d 00h:${minutesused}m:${secondsused}s"
-         elif (( timeused < 86400 )); then
-         ((
-            hoursused=timeused/3600,
-            minutesused=timeused/60-hoursused*60,
-            secondsused=timeused-minutesused*60-hoursused*3600
-         ))
-            if (( hoursused < 10 )); then
-               hoursused=0${hoursused}
-            fi
-            if (( minutesused < 10 )); then
-               minutesused=0${minutesused}
-            fi
-            if (( secondsused < 10 )); then
-               secondsused=0${secondsused}
-            fi
-            output="0d ${hoursused}h:${minutesused}m:${secondsused}s"
-         fi
-         echo "$output"
-      ;;
-   esac
-}
-
+# @description show infromation about your system
 # copyright 2007 - 2010 Christopher Bratusek
 function system_infos()
 {
@@ -793,11 +422,12 @@ function system_infos()
    esac
 }
 
-###############################################################################
-# Process Management
-###############################################################################
-# Kill a process by name
-# example: killps firefox-bin
+# @section Process Management
+# @description helper functions for process management
+
+# @description Kill a process by name
+# @arg $1 string name of process to kill
+# @arg $2 int SIGNAL to send to process
 function killps()
 {
     local pid pname sig="-TERM" # default signal
@@ -814,8 +444,7 @@ function killps()
     done
 }
 
-
-# Count processes that are running
+# @description Count processes that are running
 # copyright 2007 - 2010 Christopher Bratusek
 function count_processes()
 {
@@ -838,18 +467,11 @@ function count_processes()
    esac
 }
 
+# @section Terminal functions
+# @description helper functions for the work in the terminal
 
-###############################################################################
-# Terminal functions
-###############################################################################
-# Example: batchexec sh ls      # lists all files that have the extension 'sh'
-# Example: batchexec sh chmod 755   # 'chmod 755' all files that have the extension 'sh'
-function batchexec()
-{
-   find . -type f -iname '*.'${1}'' -exec ${@:2}  {} \; ;
-}
-
-##### Temporarily add to PATH
+# @description Temporarily add to PATH
+# @arg $1 string path to add
 function apath()
 {
    if [ $# -lt 1 ] || [ $# -gt 2 ]; then
@@ -860,28 +482,29 @@ function apath()
    fi
 }
 
-##### Function you want after you've overwritten some important file using > instead of >> ^^
-function append() {
-   lastarg="${!#}"
-   echo "${@:1:$(($#-1))}" >> "$lastarg"
-}
-
-# center text in console with simple pipe like
-function align_center() {
+# @description center text in console with simple pipe like
+# @arg $1 string text to print
+function align_center()
+{
    l="$(cat -)"; s=$(echo -e "$l"| wc -L); echo "$l" | while read l;do j=$(((s-${#l})/2));echo "$(while ((--j>0)); do printf " ";done;)$l";done;
 } #; ls --color=none / | center
 
-# right-align text in console using pipe like ( command | right )
-function align_right() {
+# @description right-align text in console using pipe like ( command | right )
+# @arg $1 string text to print
+function align_right()
+{
    l="$(cat -)"; [ -n "$1" ] && s=$1 || s=$(echo -e "$l"| wc -L); echo "$l" | while read l;do j=$(((s-${#l})));echo "$(while ((j-->0)); do printf " ";done;)$l";done;
 } #; ls --color=none / | right 150
 
-# Set terminal title
-function terminal_title {
+# @description Set terminal title
+# @arg $1 string title of the terminal
+function terminal_title
+{
     echo -en "\033]2;$@\007"
 }
 
-# Adds some text in the terminal frame
+# @description Set terminal title
+# @arg $1 string title of the terminal
 function xtitle()
 {
     case "$TERM" in
@@ -892,28 +515,34 @@ function xtitle()
     esac
 }
 
-# Open a GUI app from CLI
-function open() {
+# @description Open a GUI app from CLI
+# @arg $1 string name of the GUI app
+function open()
+{
    $1 >/dev/null 2>&1 &
 }
 
-# Super stealth background launch
+# @description Super stealth background launch
+# @arg $1 string command to run in stealth mode
 function daemon()
 {
     (exec "$@" >&/dev/null &)
 }
 
-# Shell function to exit script with error in exit status and print optional message to stderr
-function die() {
+# @description Shell function to exit script with error in exit status and print optional message to stderr
+function die()
+{
    result=$1;shift;[ -n "$*" ]&&printf "%s\n" "$*" >&2;exit $result;
 }
 
-# Run a command, redirecting output to a file, then edit the file with vim
-function vimcmd() { 
+# @description Run a command, redirecting output to a file, then edit the file with vim
+function vimcmd()
+{ 
    $1 > $2 && vim $2;
 }
 
-# Ask
+# @description Ask user for y/Y
+# @arg $1 string question to display
 function ask()
 {
     echo -n "$@" '[y/n] ' ; read ans
@@ -923,24 +552,30 @@ function ask()
     esac
 }
 
-# Repeats a command every x seconds   
-# Usage: repeat PERIOD COMMAND
-function repeat() {
-    local period
-    period=$1; shift;
-    while (true); do
-   eval "$@";
-    sleep $period;
-    done
+# @description Repeats a command every x seconds
+# @arg $1 int PERIOD in s after COMMAND is executed
+# @arg $2 string COMMAND to be executed
+function repeat()
+{
+   local period
+   period=$1; shift;
+   while (true); do
+      eval "$@";
+      sleep $period;
+   done
 }
 
-# Function that outputs dots every second until command completes
-function progress() { 
+# @description Function that outputs dots every second until command completes
+function progress()
+{ 
    while `ps -p $1 &>/dev/null`; do echo -n "${2:-.}"; sleep ${3:-1}; done; 
 }
 
-function progressbar()
+# @description show progress bar while running a command
 # copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string process to wait for
+# @arg $2 string characters to show in the progress bar
+function progressbar()
 {
    SP_COLOUR="\e[37;44m"
    SP_WIDTH=5.5
@@ -955,9 +590,11 @@ function progressbar()
    tput sgr0
 }
 
-# please wait...
+# @description show "please wait" while running a command
 # copyright 2007 - 2010 Christopher Bratusek
-function spanner() {
+# @arg $1 string process to wait for
+function spanner()
+{
    PROC=$1;COUNT=0
    echo -n "Please wait "
    while [ -d /proc/$PROC ];do
@@ -972,8 +609,12 @@ function spanner() {
    done
 }
 
-function spin() {
-   # copyright 2007 - 2010 Christopher Bratusek
+# @description show moving spinner while running a command
+# copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string process to wait for
+# @arg $2 string characters to show in the progress bar
+function spin()
+{
    echo -n "|/     |"
    while [ -d /proc/$1 ]
    do
@@ -1071,8 +712,11 @@ function spin() {
    echo -e "\b\b\b\b\b\b\b\b\b|=======| done!"
 }
 
-function spinner()
+# @description show non-moving spinner while running a command
 # copyright 2007 - 2010 Christopher Bratusek
+# @arg $1 string process to wait for
+# @arg $2 string characters to show in the progress bar
+function spinner()
 {
    PROC=$1
    while [ -d /proc/$PROC ];do
@@ -1083,69 +727,87 @@ function spinner()
    done
 }
 
-# Display a progress process
+# @description Display a progress process
 # To start the spinner2 function, you have to send the function
 # into the background. To stop the spinner2 function, you have
 # to define the argument "stop".
-# EXAMPLE:
+# @exaple
 #    echo -n "Starting some daemon "; spinner2 &
 #    if sleep 10; then
 #       spinner2 "stop"; echo -e "   [ OK ]"
 #    else
 #       spinner2 "stop"; echo -e "   [ FAILED ]"
 #    fi
-function spinner2() {
-      local action=${1:-"start"}
-      declare -a sign=( "-" "/" "|" "\\\\" )
-      # define singnal file...
-      [ "$action" = "start" ] && echo 1 > /tmp/signal
-      [ "$action" = "stop" ] && echo 0 > /tmp/signal
-      while [ "$( cat /tmp/signal 2>/dev/null )" == "1" ] ; do
+function spinner2()
+{
+   local action=${1:-"start"}
+   declare -a sign=( "-" "/" "|" "\\\\" )
+   # define singnal file...
+   [ "$action" = "start" ] && echo 1 > /tmp/signal
+   [ "$action" = "stop" ] && echo 0 > /tmp/signal
+   while [ "$( cat /tmp/signal 2>/dev/null )" == "1" ] ; do
      for (( i=0; i<${#sign[@]}; i++ )); do
          echo -en "${sign[$i]}\b"
          # with this command you can use millisecond as sleep time - perl rules ;-)
          perl -e 'select( undef, undef, undef, 0.1 );'
      done
-      done
-      # clear the last ${sign[$i]} sign at finish...
-      [ "$action" = "stop" ] && echo -ne " \b"
+   done
+   # clear the last ${sign[$i]} sign at finish...
+   [ "$action" = "stop" ] && echo -ne " \b"
 }
 
+# @description colorize message in shell
+# @arg $1 string text to colorize
 function sh_colormsg()
 {
    [ -n "$1" ] && echo -en "${fg_bold}${@}${reset_color}"
 }
 
+# @description colorize and display error message in shell
+# @arg $1 string text to colorize
 function sh_error()
 {
-   echo -e "${fg_bold}[ e ]${reset_color} $@"
+   echo -e "${fg_red}[ e ]${reset_color} $@"
 }
 
+# @description colorize and display info message in shell
+# @arg $1 string text to colorize
 function sh_info()
 {
    echo -e "${fg_bold}[ i ]${reset_color} $@"
 }
 
+# @description colorize and display success message in shell
+# @arg $1 string text to colorize
 function sh_success()
 {
-   echo -e "${fg_bold}[ k ]${reset_color} $@"
+   echo -e "${fg_green}[ k ]${reset_color} $@"
 }
 
+# @description colorize and display message in shell
+# @arg $1 string text to colorize
 function sh_mesg()
 {
    echo -e "${fg_bold}[ m ]${reset_color} $@"
 }
 
-# Extract a particular column of space-separated output
-# e.g.: lsof | getcolumn 0 | sort | uniq
-function getcolumn() { 
+# @description Extract a particular column of space-separated output
+# @arg $1 int number of the column to extract
+# @example
+# lsof | getcolumn 0 | sort | uniq
+function getcolumn()
+{ 
    perl -ne '@cols = split; print "$cols['$1']\n"' ;
 }
 
-# Surround lines with quotes (useful in pipes) - from mervTormel
-function enquote() { /usr/bin/sed 's/^/"/;s/$/"/' ; }
+# @description Surround lines with quotes (useful in pipes) - from mervTormel
+function enquote()
+{
+   /usr/bin/sed 's/^/"/;s/$/"/'
+}
 
-# Determining the meaning of error codes
+# @description Determining the meaning of error codes
+# @arg $1 int error code
 function err()
 {
     grep --recursive --color=auto --recursive -- "$@" /usr/include/*/errno.h
@@ -1154,16 +816,24 @@ function err()
     fi
 }
 
-# print all 256 colors for testing TERM or for a quick reference
+# @description print all 256 colors for testing TERM or for a quick reference
 # show numerical values for each of the 256 colors in bash
 function colors2nums()
 {
    for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done
 }
 
+# @description show color for given number
+# @arg $1 int value of the color to show
+function getColor()
+{
+   echo -e "\e[38;05;$1mColor"
+}
 
-# takes a name of a color and some text and then echoes out the text in the named color
-# Usage:   colorize_text "color" "whatever text"
+
+# @description takes a name of a color and some text and then echoes out the text in the named color
+# @example
+# colorize_text "color" "whatever text"
 function colorize-text()
 {
    b='[0;30m'
@@ -1211,7 +881,7 @@ function colorize-text()
    echo $o   
 }
 
-# displays all 256 possible background colors, using ANSI escape sequences.
+# @description displays all 256 possible background colors, using ANSI escape sequences.
 # author: Chetankumar Phulpagare
 # used in ABS Guide with permission.
 function colors2()
@@ -1258,11 +928,11 @@ function colors2()
    echo
 }
 
-###############################################################################
-# Bash History
-###############################################################################
-# hgrep, hgrepl 
-function hgrepl() {
+# @section Bash History
+# @description Helper functions for bash history
+
+function hgrepl()
+{
     if [ $# -lt 1 ] || [ $# -gt 1 ]; then
       echo "search bash history"
       echo "usage: hgrepl [search pattern]"
@@ -1271,7 +941,8 @@ function hgrepl() {
    fi
 }
 
-function hgrep() {
+function hgrep()
+{
     if [ $# -lt 1 ] || [ $# -gt 1 ]; then
       echo "search bash history"
       echo "usage: hgrep [search pattern]"
@@ -1280,7 +951,8 @@ function hgrep() {
    fi
 }
 
-function hhgrep() {
+function hhgrep()
+{
     if [ $# -lt 1 ] || [ $# -gt 1 ]; then
       echo "search bash history"
       echo "usage: hhgrep [search pattern]"
@@ -1296,7 +968,8 @@ function histtop()
 }
 
 # Edit your history file
-function he() {
+function he()
+{
    history -a ; vi ~/.bash_history ; history -r ;
 }
 
@@ -1304,7 +977,8 @@ function he() {
 # Common commands piped through grep
 ###############################################################################
 # grep by paragraph instead of by line
-function grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2";}
+function grepp()
+{ [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2";}
 
 function lsofg()
 {
@@ -1345,7 +1019,8 @@ function roll()
 }
 
 # Pull a single file out of a .tar.gz
-function pullout() {
+function pullout()
+{
    if [ $# -ne 2 ]; then
       echo "need proper arguments:"
       echo "pullout [file] [archive.tar.gz]"
@@ -1364,16 +1039,22 @@ function pullout() {
 }
 
 # Creates an archive from directory
-function mktar() { tar cvf  "${1%%/}-`date +%Y%m%d`.tar"     "${1%%/}/"; }
-function mktbz() { tar cvjf "${1%%/}-`date +%Y%m%d`.tar.bz2" "${1%%/}/"; }
-function mktgz() { tar cvzf "${1%%/}-`date +%Y%m%d`.tar.gz"  "${1%%/}/"; }
-function mkzip() { zip -r "$1"-`date +%Y%m%d`.zip "$1" ; }
+function mktar()
+{ tar cvf  "${1%%/}-`date +%Y%m%d`.tar"     "${1%%/}/"; }
+function mktbz()
+{ tar cvjf "${1%%/}-`date +%Y%m%d`.tar.bz2" "${1%%/}/"; }
+function mktgz()
+{ tar cvzf "${1%%/}-`date +%Y%m%d`.tar.gz"  "${1%%/}/"; }
+function mkzip()
+{ zip -r "$1"-`date +%Y%m%d`.zip "$1" ; }
 
 # Escape potential tarbombs
-function atb() { l=$(tar tf $1); if [ $(echo "$l" | wc -l) -eq $(echo "$l" | grep $(echo "$l" | head -n1) | wc -l) ]; then tar xf $1; else mkdir ${1%.tar.gz} && tar xf $1 -C ${1%.tar.gz}; fi ; }
+function atb()
+{ l=$(tar tf $1); if [ $(echo "$l" | wc -l) -eq $(echo "$l" | grep $(echo "$l" | head -n1) | wc -l) ]; then tar xf $1; else mkdir ${1%.tar.gz} && tar xf $1 -C ${1%.tar.gz}; fi ; }
 
 # Extract - extract most common compression types
-function extract() {
+function extract()
+{
    local e=0 i c
    for i; do
       if [[ -f $i && -r $i ]]; then
@@ -1444,7 +1125,8 @@ function compression_level()
 # @description Convert the first letter into lowercase letters
 # @arg $1 string string to change
 # @exitcode string whhere first letter is lowercase
-function lcfirst() {
+function lcfirst()
+{
    if [ -n "$1" ]; then
      perl -e 'print lcfirst('$1')'
    else
@@ -1457,7 +1139,8 @@ function lcfirst() {
 # @exitcode string w/o whitespaces at the beginning of the string
 # @example
 #    echo "   That is a sentinece" | rtrim
-function ltrim() {
+function ltrim()
+{
       if [ -n "$1" ]; then
          echo $1 | sed 's/^[[:space:]]*//g'
       else
@@ -1470,7 +1153,8 @@ function ltrim() {
 # @exitcode string w/o whitespaces at the end
 # @example
 #    echo "That is a sentinece " | rtrim
-function rtrim() {
+function rtrim()
+{
       if [ -n "$1" ]; then
          echo $1 | sed 's/[[:space:]]*$//g'
       else
@@ -1484,7 +1168,8 @@ function rtrim() {
 # @exitcode shortened string
 # @example
 #      strim averylongstring 2
-function strim() {
+function strim()
+{
    local string="$1"
    local length=${2:-30}
    [ "${#string}" -gt ${length} ] && string="${string:0:${length}}..."
@@ -1493,8 +1178,8 @@ function strim() {
 
 # @description Convert all alphabetic characters to lowercase
 # @arg $1 string string to convert
-# @exitcode converted string
-function strtolower() {
+function strtolower()
+{
       if [ -n "$1" ]; then
          echo $1 | tr '[:upper:]' '[:lower:]'
       else
@@ -1504,8 +1189,8 @@ function strtolower() {
 
 # @description Convert all alphabetic characters converted to uppercase
 # @arg $1 string string to convert
-# @exitcode converted string
-function strtoupper() {
+function strtoupper()
+{
    if [ -n "$1" ]; then
       echo $1 | tr '[:lower:]' '[:upper:]'
    else
@@ -1515,10 +1200,10 @@ function strtoupper() {
 
 # @description Remove whitespace at the beginning and end of a string
 # @arg $1 string string to convert
-# @exitcode converted string
 # @example
 #     echo " That is a sentinece " | trim
-function trim() {
+function trim()
+{
    if [ -n "$1" ]; then
       echo $1 | sed 's/^[[:space:]]*//g' | sed 's/[[:space:]]*$//g'
    else
@@ -1527,7 +1212,8 @@ function trim() {
 }
 
 # Convert the first letter into uppercase letters
-function ucfirst() {
+function strucfirst()
+{
       if [ -n "$1" ]; then
      perl -e 'print ucfirst('$1')'
       else
@@ -1537,7 +1223,8 @@ function ucfirst() {
 
 # Converts first letter of each word within a string into an uppercase, all other to lowercase
 # string ucwords( string string )
-function ucwords() {
+function strucwords()
+{
       local string="$*"
       for word in $string; do
         # Get the first character with cut and convert them into uppercase.
@@ -1556,29 +1243,34 @@ function ucwords() {
 # @description find files with pattern $1 in name and Execute $2 on it
 # @arg $1 string search pattern
 # @arg $2 string command to execute on found files
-function find_execute() {
+function find_execute()
+{
    find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ;
 }
 alias fe='find_execute'
 
 # @description find files under current directory
 # @arg $1 string search pattern
-function find_current() { /usr/bin/find . -name "$@" ; }
+function find_current()
+{ /usr/bin/find . -name "$@" ; }
 alias fc='find_current'
 
 # @description find files whose name ends with a given string
 # @arg $1 string search pattern
-function find_endswith() { /usr/bin/find . -name '*'"$@" ; }
+function find_endswith()
+{ /usr/bin/find . -name '*'"$@" ; }
 alias fe='find_endswith'
 
 # @description find files whose name starts with a given string
 # @arg $1 string search pattern
-function find_startwith() { /usr/bin/find . -name "$@"'*' ; }
+function find_startwith()
+{ /usr/bin/find . -name "$@"'*' ; }
 alias fs='find_startwith'
 
 # @description find files larger than a certain size (in bytes)
 # @arg $1 string search pattern
-function find_larger() { find . -type f -size +${1}c ; }
+function find_larger()
+{ find . -type f -size +${1}c ; }
 alias fl='find_larger'
 
 # @description find a file with a pattern in name in the local directory
@@ -1592,14 +1284,16 @@ alias fp='find_pattern'
 # @arg $1 string search pattern1
 # @arg $2 string search pattern2
 # @arg $3 string search pattern3 (optional)
-function find_and() { (($# < 2)) && { echo "usage: ffa pat1 pat2 [...]" >&2; return 1; };awk "/$1/$(printf "&&/%s/" "${@:2}")"'{ print FILENAME ":" $0 }' *; }
+function find_and()
+{ (($# < 2)) && { echo "usage: ffa pat1 pat2 [...]" >&2; return 1; };awk "/$1/$(printf "&&/%s/" "${@:2}")"'{ print FILENAME ":" $0 }' *; }
 alias ffa='find_and'
 
 # @description tgrep through files found by find, e.g. grepf pattern '*.c'
 # note that 'grep -r pattern dir_name' is an alternative if want all files
 # @arg $1 string search pattern for find
 # @arg $2 string search pattern for grep
-function grepfind() { find . -type f -name "$2" -print0 | xargs -0 grep "$1" ; }
+function grepfind()
+{ find . -type f -name "$2" -print0 | xargs -0 grep "$1" ; }
 
 # @description find pattern in a set of files and highlight them
 # @arg $1 string search pattern for grep
@@ -1630,24 +1324,28 @@ function fstr()
 
 # @description searches through the text of all the files in your current directory, see http://seanp2k.com/?p=13
 # @arg $1 string search pattern for grep
-function grip() {
+function grip()
+{
    grep -ir "$1" "$PWD"
 }
 
 # @description who is the newest file in a directory
 # @arg $1 string folder to search in (defaults to .)
-function newest() { find ${1:-\.} -type f |xargs ls -lrt ; }
+function newest()
+{ find ${1:-\.} -type f |xargs ls -lrt ; }
 
 # @section File Edit and File Info
 # @description Functions for editing files or getting file infos
 
 # @description Echo the lines of a file preceded by line   number
-function numLines() { 
+function numLines()
+{ 
    perl -pe 's/^/$. /' "$@" ;
 }
 
 # How many pages will my text files print on?
-function numpages() { 
+function numpages()
+{ 
    echo $(($(wc -l $* | sed -n 's/ total$//p')/60));
 }
 
@@ -1726,7 +1424,8 @@ function searchnreplace()
 }
 
 # Make a backup before editing a file
-function safeedit() {
+function safeedit()
+{
    cp $1 ${1}.backup && vim $1
 }
 
@@ -1743,7 +1442,8 @@ function removeduplines()
 }
 
 # Edit files in place to ensure Unix line-endings
-function fixlines() {
+function fixlines()
+{
    /usr/bin/perl -pi~ -e 's/\r\n?/\n/g' "$@" ;
 }
 
@@ -1759,8 +1459,9 @@ function underscore()
    done
 }
 
-# move filenames to lowercase
-function lcfiles()
+# @description move filenames to lowercase
+# @noargs
+function files_lc()
 {
     for file ; do
       filename=${file##*/}
@@ -1779,8 +1480,10 @@ function lcfiles()
     done
 }
 
-# lowercase all files in the current directory
-function lcdir() {
+# @description lowercase all files in the current directory
+# @noargs
+function dir_lc()
+{
    print -n 'Really lowercase all files? (y/n) '
    if read -q ; then
       for i in * ; do
@@ -1792,8 +1495,9 @@ function lcdir() {
 
 # Moves specified files to ~/.Trash. Will not overwrite files that have the same name
 function trashit()
-{   local trash_dir=$HOME/.Trash
-    for file in "$@" ; do
+{
+   local trash_dir=$HOME/.Trash
+   for file in "$@" ; do
    if [[ -d $file ]] ; then
        local already_trashed=$trash_dir/`basename $file`
        if [[ -n `/bin/ls -d $already_trashed*` ]] ; then
@@ -1807,8 +1511,10 @@ function trashit()
     done
 }
 
-# Swap 2 filenames around (from Uzi's bashrc)
-function swap()
+# @description Swap 2 filenames around (from Uzi's bashrc)
+# @arg $1 string first filename
+# @arg $2 string second filename
+function files_swap()
 {
     local TMPFILE=tmp.$$
     [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
@@ -1819,12 +1525,7 @@ function swap()
     mv $TMPFILE "$2"
 }
 
-# Swap 2 filenames around
-function swap2() {
-   if [ -f "$1" -a -f "$2" ]; then mv "$1" "$1.$$" && mv "$2" "$1" && mv "$1.$$" "$2" && echo "Success"; else echo "Fail"; fi;
-}
-
-# Count total number of subdirectories in current directory starting with specific name.
+# @description Count total number of subdirectories in current directory starting with specific name.
 function subdir_find()
 {
    find . -type d -name "*$1*" | wc -l
@@ -1839,34 +1540,33 @@ function sanitize()
 }
 
 # ShowTimes: show the modification, metadata-change, and access times of a file
-function showTimes() { stat -f "%N:   %m %c %a" "$@" ; }
+function showTimes()
+{ stat -f "%N:   %m %c %a" "$@" ; }
 
 ##### Ownership Changes { own file user }
-function own() { 
+function own()
+{
    chown -R "$2":"$2" ${1:-.};
 }
 
 # Set permissions to "standard" values (644/755), recursive
 # Usage: resetp
-function resetp() {
+function resetp()
+{
     chmod -R u=rwX,go=rX "$@"
 }
 
-# Delete function
-function del()
-{
-    mv "$@" "/${HOME}/.local/share/Trash/files/"
-}
-
 # Log rm commands
-function rm() {
+function rm()
+{
    workingdir=$( pwdx $$ | awk '{print $2}' ) 
    /usr/bin/rm $*
    echo "rm $* issued at $(date) by the user $(who am i| awk '{print $1} ') in the directory ${workingdir}"  >> /tmp/rm.out ; 
 }
 
 # Show all strings (ASCII & Unicode) in a file    #
-function allStrings() { cat "$1" | tr -d "\0" | strings ; }
+function allStrings()
+{ cat "$1" | tr -d "\0" | strings ; }
 
 # Creates a backup of the file passed as parameter with the date and time
 function bak()
@@ -1883,7 +1583,8 @@ function bak()
 # Wipe and Secure Delete
 ###############################################################################
 # Overwrite a file with zeros
-function zero() {
+function zero()
+{
    case "$1" in
            "")     echo "Usage: zero <file>"
 
@@ -1908,7 +1609,8 @@ function fakepass()
 #   $1 = number of characters; defaults to 32
 #   $2 = include special characters; 1 = yes, 0 = no; defaults to 1
 # copyright 2007 - 2010 Christopher Bratusek
-function randompw() {
+function randompw()
+{
    if [[ $2 == "!" ]]; then
       echo $(cat /dev/random | tr -cd '[:graph:]' | head -c ${1:-32})
    else
@@ -1917,7 +1619,8 @@ function randompw() {
 }
 
 # generate a unique and secure password for every website that you login to
-function sitepass() {
+function sitepass()
+{
    echo -n "$@" |  md5sum | sha1sum | sha224sum | sha256sum | sha384sum | sha512sum | gzip - | strings -n 1 | tr -d "[:space:]"  | tr -s '[:print:]' | tr '!-~' 'P-~!-O' | rev | cut -b 2-11; history -d $(($HISTCMD-1));
 }
 
@@ -2105,7 +1808,8 @@ function setupmykeys()
 ###############################################################################
 # convert arabic to roman numerals
 # Copyright 2007 - 2010 Christopher Bratusek
-function arabic2roman() {
+function arabic2roman()
+{
    echo $1 | sed -e 's/1...$/M&/;s/2...$/MM&/;s/3...$/MMM&/;s/4...$/MMMM&/
    s/6..$/DC&/;s/7..$/DCC&/;s/8..$/DCCC&/;s/9..$/CM&/
    s/1..$/C&/;s/2..$/CC&/;s/3..$/CCC&/;s/4..$/CD&/;s/5..$/D&/
@@ -2118,7 +1822,8 @@ function arabic2roman() {
 
 # convert ascii
 # copyright 2007 - 2010 Christopher Bratusek
-function asc2all() {
+function asc2all()
+{
    if [[ $1 ]]; then
       echo "ascii $1 = binary $(asc2bin $1)"
       echo "ascii $1 = octal $(asc2oct $1)"
@@ -2130,37 +1835,43 @@ function asc2all() {
 }
 
 
-function asc2bin() {
+function asc2bin()
+{
    if [[ $1 ]]; then
       echo "obase=2 ; $(asc2dec $1)" | bc
    fi
 }
 
-function asc2b64() {
+function asc2b64()
+{
    if [[ $1 ]]; then
       echo "obase=64 ; $(asc2dec $1)" | bc
    fi
 }
 
-function asc2b32() {
+function asc2b32()
+{
    if [[ $1 ]]; then
       echo "obase=32 ; $(asc2dec $1)" | bc
    fi
 }
 
-function asc2dec() {
+function asc2dec()
+{
    if [[ $1 ]]; then
       printf '%d\n' "'$1'"
    fi
 }
 
-function asc2hex() {
+function asc2hex()
+{
    if [[ $1 ]]; then
       echo "obase=16 ; $(asc2dec $1)" | bc
    fi
 }
 
-function asc2oct() {
+function asc2oct()
+{
    if [[ $1 ]]; then
       echo "obase=8 ; $(asc2dec $1)" | bc
    fi
@@ -2168,11 +1879,13 @@ function asc2oct() {
 
 # Averaging columns of numbers
 # Computes a columns average in a file. Input parameters = column number and optional pattern.
-function avg() { awk "/$2/{sum += \$$1; lc += 1;} END {printf \"Average over %d lines: %f\n\", lc, sum/lc}"; }
+function avg()
+{ awk "/$2/{sum += \$$1; lc += 1;} END {printf \"Average over %d lines: %f\n\", lc, sum/lc}"; }
 
 # convert binaries
 # copyright 2007 - 2010 Christopher Bratusek
-function bin2all() {
+function bin2all()
+{
    if [[ $1 ]]; then
       echo "binary $1 = octal $(bin2oct $1)"
       echo "binary $1 = decimal $(bin2dec $1)"
@@ -2183,37 +1896,43 @@ function bin2all() {
    fi
 }
 
-function bin2asc() {
+function bin2asc()
+{
    if [[ $1 ]]; then
       echo -e "\0$(printf %o $((2#$1)))"
    fi
 }
 
-function bin2b64() {
+function bin2b64()
+{
    if [[ $1 ]]; then
       echo "obase=64 ; ibase=2 ; $1" | bc
    fi
 }
 
-function bin2b32() {
+function bin2b32()
+{
    if [[ $1 ]]; then
       echo "obase=32 ; ibase=2 ; $1 " | bc
    fi
 }
 
-function bin2dec() {
+function bin2dec()
+{
    if [[ $1 ]]; then
       echo $((2#$1))
    fi
 }
 
-function bin2hex() {
+function bin2hex()
+{
    if [[ $1 ]]; then
       echo "obase=16 ; ibase=2 ; $1" | bc
    fi
 }
 
-function bin2oct() {
+function bin2oct()
+{
    if [[ $1 ]]; then
       echo "obase=8 ; ibase=2 ; $1" | bc
    fi
@@ -2221,44 +1940,51 @@ function bin2oct() {
 
 # temperature conversion
 # Copyright 2007 - 2010 Christopher Bratusek
-function cel2fah() {
+function cel2fah()
+{
    if [[ $1 ]]; then
       echo "scale=2; $1 * 1.8  + 32" | bc
    fi
 }
 
-function cel2kel() {
+function cel2kel()
+{
    if [[ $1 ]]; then
       echo "scale=2; $1 + 237.15" | bc
    fi
 }
 
-function fah2cel() {
+function fah2cel()
+{
    if [[ $1 ]]; then
       echo "scale=2 ; ( $1 - 32  ) / 1.8" | bc
    fi
 }
 
-function fah2kel() {
+function fah2kel()
+{
    if [[ $1 ]]; then
       echo "scale=2; ( $1 + 459.67 ) / 1.8 " | bc
    fi
 }
 
-function kel2cel() {
+function kel2cel()
+{
    if [[ $1 ]]; then
       echo "scale=2; $1 - 273.15" | bc
    fi
 }
 
-function kel2fah() {
+function kel2fah()
+{
    if [[ $1 ]]; then
       echo "scale=2; $1 * 1.8 - 459,67" | bc
    fi
 }
 
 # Output an ASCII character given its decimal equivalent
-function chr() { printf \\$(($1/64*100+$1%64/8*10+$1%8)); }
+function chr()
+{ printf \\$(($1/64*100+$1%64/8*10+$1%8)); }
 
 
 # the notorious "hailstone" or Collatz series.
@@ -2302,7 +2028,8 @@ function hex()  { printf "0x%08x\n" $1; }
 
 # convert decimals
 # copyright 2007 - 2010 Christopher Bratusek
-function dec2all() {
+function dec2all()
+{
    if [[ $1 ]]; then
       echo "decimal $1 = binary $(dec2bin $1)"
       echo "decimal $1 = octal $(dec2oct $1)"
@@ -2313,37 +2040,43 @@ function dec2all() {
    fi
 }
 
-function dec2asc() {
+function dec2asc()
+{
    if [[ $1 ]]; then
       echo -e "\0$(printf %o 97)"
    fi
 }
 
-function dec2bin() {
+function dec2bin()
+{
    if [[ $1 ]]; then
       echo "obase=2 ; $1" | bc
    fi
 }
 
-function dec2b64() {
+function dec2b64()
+{
    if [[ $1 ]]; then
       echo "obase=64 ; $1" | bc
    fi
 }
 
-function dec2b32() {
+function dec2b32()
+{
    if [[ $1 ]]; then
       echo "obase=32 ; $1" | bc
    fi
 }
 
-function dec2hex() {
+function dec2hex()
+{
    if [[ $1 ]]; then
       echo "obase=16 ; $1" | bc
    fi
 }
 
-function dec2oct() {
+function dec2oct()
+{
    if [[ $1 ]]; then
       echo "obase=8 ; $1" | bc
    fi
@@ -2499,14 +2232,16 @@ function dec2text_()
    echo ""
 }
 
-function d2u() {
+function d2u()
+{
    # copyright 2007 - 2010 Christopher Bratusek
    if [[ -e "$1" ]]; then
       sed -r 's/\r$//' -i "$1"
    fi
 }
 
-function u2d() {
+function u2d()
+{
    # copyright 2007 - 2010 Christopher Bratusek
    if [[ -e "$1" ]]; then
       sed -r 's/$/\r/' -i "$1"
@@ -2535,7 +2270,8 @@ function factorial()
 
 # convert hexadecimal numbers
 # copyright 2007 - 2010 Christopher Bratusek
-function hex2all() {
+function hex2all()
+{
    if [[ $1 ]]; then
       echo "hexadecimal $1 = binary $(hex2bin $1)"
       echo "hexadecimal $1 = octal $(hex2oct $1)"
@@ -2546,37 +2282,43 @@ function hex2all() {
    fi
 }
 
-function hex2asc() {
+function hex2asc()
+{
    if [[ $1 ]]; then
       echo -e "\0$(printf %o $((16#$1)))"
    fi
 }
 
-function hex2bin() {
+function hex2bin()
+{
    if [[ $1 ]]; then
       echo "obase=2 ; ibase=16 ; $1" | bc
    fi
 }
 
-function hex2b64() {
+function hex2b64()
+{
    if [[ $1 ]]; then
       echo "obase=64 ; ibase=16 ; $1" | bc
    fi
 }
 
-function hex2b32() {
+function hex2b32()
+{
    if [[ $1 ]]; then
       echo "obase=32 ; ibase=16 ; $1" | bc
    fi
 }
 
-function hex2dec() {
+function hex2dec()
+{
    if [[ $1 ]]; then
        echo $((16#$1))
    fi
 }
 
-function hex2oct() {
+function hex2oct()
+{
    if [[ $1 ]]; then
       echo "obase=8 ; ibase=16 ; $1" | bc
    fi
@@ -2624,7 +2366,8 @@ function nseq()
 
 # convert octals
 # copyright 2007 - 2010 Christopher Bratusek
-function oct2all() {
+function oct2all()
+{
    if [[ $1 ]]; then
       echo "octal $1 = binary $(oct2bin $1)"
       echo "octal $1 = decimal $(oct2dec $1)"
@@ -2635,37 +2378,43 @@ function oct2all() {
    fi
 }
 
-function oct2asc() {
+function oct2asc()
+{
    if [[ $1 ]]; then
       echo -e "\0$(printf %o $((8#$1)))"
    fi
 }
 
-function oct2bin() {
+function oct2bin()
+{
    if [[ $1 ]]; then
       echo "obase=2 ; ibase=8 ; $1" | bc
    fi
 }
 
-function oct2b64() {
+function oct2b64()
+{
    if [[ $1 ]]; then
       echo "obase=64 ; ibase=8 ; $1" | bc
    fi
 }
 
-function oct2b32() {
+function oct2b32()
+{
    if [[ $1 ]]; then
       echo "obase=32 ; ibase=8 ; $1" | bc
    fi
 }
 
-function oct2dec() {
+function oct2dec()
+{
    if [[ $1 ]]; then
       echo $((8#$1))
    fi
 }
 
-function oct2hex() {
+function oct2hex()
+{
    if [[ $1 ]]; then
       echo "obase=16 ; ibase=8 ; $1" | bc
    fi
@@ -2673,7 +2422,8 @@ function oct2hex() {
 
 # powers of numerals
 # copyright 2007 - 2010 Christopher Bratusek
-function power() {
+function power()
+{
    if [[ $1 ]]; then
       if [[ $2 ]]; then
          echo "$1 ^ $2" | bc
@@ -2713,7 +2463,8 @@ function primes()
 
 # radicals of numbers
 # copyright 2007 - 2010 Christopher Bratusek
-function radical() {
+function radical()
+{
    if [[ $1 ]]; then
       echo "sqrt($1)" | bc -l
    fi
@@ -2731,7 +2482,8 @@ raw_input("Please enter a number between 1 and 4000: "))])'
 
 # round numerals to whole numbers
 # copyright 2007 - 2010 Christopher Bratusek
-function round() {
+function round()
+{
    if [[ $1 ]]; then
       if [[ $2 ]]; then
          echo "$(printf %.${2}f $1)"
@@ -2741,7 +2493,8 @@ function round() {
 }
 
 # ruler that stretches across the terminal
-function ruler() { for s in '....^....|' '1234567890'; do w=${#s}; str=$( for (( i=1; $i<=$(( ($COLUMNS + $w) / $w )) ; i=$i+1 )); do echo -n $s; done ); str=$(echo $str | cut -c -$COLUMNS) ; echo $str; done; }
+function ruler()
+{ for s in '....^....|' '1234567890'; do w=${#s}; str=$( for (( i=1; $i<=$(( ($COLUMNS + $w) / $w )) ; i=$i+1 )); do echo -n $s; done ); str=$(echo $str | cut -c -$COLUMNS) ; echo $str; done; }
 
 # convert seconds to minutes, hours, days, and etc.
 # inputs a number of seconds, outputs a string like "2 minutes, 1 second"
@@ -2856,7 +2609,8 @@ function termproxyX()
 }
 
 # @description Switch tor on and off (requires privoxy)
-function torswitch() {
+function torswitch()
+{
    # copyright 2007 - 2010 Christopher Bratusek
    if [[ $EUID == 0 ]]; then
       case $1 in
@@ -2884,7 +2638,8 @@ function torswitch() {
 
 # @description simple stopwatch for terminal
 # copyright 2007 - 2010 Christopher Bratusek
-function stopwatch() {
+function stopwatch()
+{
    BEGIN=$(date +%s)
    while true; do
       NOW=$(date +%s)
@@ -2898,7 +2653,8 @@ function stopwatch() {
 
 # @description countdown clock
 # @arg $1 int seconds to count
-function countdown() {
+function countdown()
+{
    case "$1" in -s) shift;; *) set $(($1 * 60));; esac; local S=" "; for i in $(seq "$1" -1 1); do echo -ne "$S\r $i\r"; sleep 1; done; echo -e "$S\rBOOM!";
 }
 
@@ -2969,7 +2725,8 @@ function md5()
 #  @param integer $2 length (option, default: 32)
 #  @return string
 #  @example:    md5 "Hello World" 8
-function md5_() {
+function md5_()
+{
       local length=${2:-32}
       local string=$( echo "$1" | md5sum | awk '{ print $1 }' )
       echo ${string:0:${length}}
@@ -2979,7 +2736,8 @@ function md5_() {
 # Network information and IP address stuff
 ###############################################################################
 # Scans a port, returns what's on it.
-function port() {
+function port()
+{
    lsof -i :"$1"
 }
 
@@ -3002,27 +2760,32 @@ function findtcp()
 }
 
 # Get just the HTTP headers from a web page (and its redirects)
-function http_headers() { 
+function http_headers()
+{ 
    /usr/bin/curl -I -L $@ ;
 }
 
 # Download a web page and show info on whattook time
-function http_debug() { 
+function http_debug()
+{ 
    /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; 
 }
 
 # usage: liveh [-i interface] [output-file] && firefox &
-function liveh() { 
+function liveh()
+{ 
    tcpdump -lnnAs512 ${1-} tcp |sed ' s/.*GET /GET /;s/.*Host: /Host: /;s/.*POST /POST /;/[GPH][EOo][TSs]/!d;w '"${2-liveh.txt}"' ' >/dev/null ; 
 }
 
 # geolocate a given IP address
-function ip2loc() { 
+function ip2loc()
+{ 
    wget -qO - www.ip2location.com/$1 | grep "<span id=\"dgLookup__ctl2_lblICountry\">" | sed 's/<[^>]*>//g; s/^[   ]*//; s/&quot;/"/g; s/</</g; s/>/>/g; s/&amp;/\&/g';
 }
 
 
-function ip2locall() {
+function ip2locall()
+{
    # best if used through a proxy, as ip2loc's free usage only lets you search a maximum of 20 times per day
    # currently set on using a proxy through tor; if don't want that, just comment out the two 'export..' and 'unset...' lines
    export http_proxy='http://localhost:8118'
@@ -3080,7 +2843,8 @@ function ip2locall() {
    unset https_proxy
 }
 
-function ip2locate() {
+function ip2locate()
+{
    # best if used through a proxy, as ip2loc's free usage only lets you search a maximum of 20 times per day
    # currently set on using a proxy through tor; if don't want that, just comment out the two 'export..' and 'unset...' lines
    export http_proxy='http://localhost:8118'
@@ -3125,7 +2889,8 @@ function netinfo()
 }
 
 # check whether or not a port on your box is open
-function portcheck() { for i in $@;do curl -s "deluge-torrent.org/test-port.php?port=$i" | sed '/^$/d;s/<br><br>/ /g';done; }
+function portcheck()
+{ for i in $@;do curl -s "deluge-torrent.org/test-port.php?port=$i" | sed '/^$/d;s/<br><br>/ /g';done; }
 
 # show Url information
 # Usage:  url-info "ur"
@@ -3166,7 +2931,8 @@ function wscan()
 # Source control (GIT, Subversion)
 ###############################################################################
 # copyright 2007 - 2010 Christopher Bratusek
-function git_action() {
+function git_action()
+{
    if [[ -d .git ]]; then
       if [[ -f .git/dotest/rebasing ]]; then
          ACTION="rebase"
@@ -3189,7 +2955,8 @@ function git_action() {
    fi
 }
 
-function git_branch() {
+function git_branch()
+{
    if [[ -d .git ]]; then
       BRANCH=$(git symbolic-ref HEAD 2>/dev/null)
       echo ${BRANCH#refs/heads/}
@@ -3197,11 +2964,13 @@ function git_branch() {
    fi
 }
 
-function git_bzip() {
+function git_bzip()
+{
    git archive master | bzip2 -9 >"$PWD".tar.bz2
 }
 
-function git_e() {
+function git_e()
+{
    if [[ "$SVN_USER_ENLIGTENMENT" && $1 == "-m" ]]; then
       svn co svn+ssh://"$SVN_USER_ENLIGTENMENT"@svn.enlightenment.org/var/svn/$2
    else
@@ -3209,13 +2978,15 @@ function git_e() {
    fi
 }
 
-function git_export() {
+function git_export()
+{
    if [[ "$1" != "" ]]; then
       git checkout-index --prefix="$1"/ -a
    fi
 }
 
-function git_revision() {
+function git_revision()
+{
    if [[ -d .git ]]; then
       REVISION=$(git rev-parse HEAD 2>/dev/null)
       REVISION=${REVISION/HEAD/}
@@ -3227,19 +2998,22 @@ function git_revision() {
 # Telling you from where your commit come from
 function git_where()
 {
-   COUNT=0; while [ `where_arg $1~$COUNT | wc -w` == 0 ]; do let COUNT=COUNT+1; done; echo "$1 is ahead of "; where_arg $1~$COUNT; echo "by $COUNT commits";};function where_arg() { git log $@ --decorate -1 | head -n1 | cut -d ' ' -f3- ;
+   COUNT=0; while [ `where_arg $1~$COUNT | wc -w` == 0 ]; do let COUNT=COUNT+1; done; echo "$1 is ahead of "; where_arg $1~$COUNT; echo "by $COUNT commits";};function where_arg()
+{ git log $@ --decorate -1 | head -n1 | cut -d ' ' -f3- ;
 }
 
 ###############################################################################
 # Development
 ###############################################################################
 # Decompiler for jar files using jad
-function unjar() { 
+function unjar()
+{ 
    mkdir -p /tmp/unjar/$1 ; unzip -d /tmp/unjar/$1 $1 *class 1>/dev/null && find /tmp/unjar/$1 -name *class -type f | xargs jad -ff -nl -nonlb -o -p -pi99 -space -stat ; rm -r /tmp/unjar/$1 ; 
 }
 
 # Computer the speed of two commands
-function comp() { # compare the speed of two commands (loop $1 times)
+function comp()
+{ # compare the speed of two commands (loop $1 times)
    if [[ $# -ne 3 ]] ; then return 1 ; fi
    echo -n 1
    time for ((i=0;i<$1;i++)) ; do $2 ; done >/dev/null 2>&1
@@ -3248,7 +3022,8 @@ function comp() { # compare the speed of two commands (loop $1 times)
 }
 
 # Count opening and closing braces in a string
-function countbraces() { 
+function countbraces()
+{ 
    COUNT_OPENING=$(echo $1 | grep -o "(" | wc -l); COUNT_CLOSING=$(echo $1 | grep -o ")" | wc -l); echo Opening: $COUNT_OPENING; echo Closing: $COUNT_CLOSING; 
 }
 
@@ -3258,7 +3033,8 @@ function countbraces() {
 # Mount CIFS shares; pseudo-replacement for smbmount
 # $1 = remote share name in form of //server/share
 # $2 = local mount point
-function cifsmount() { 
+function cifsmount()
+{ 
     if [ $# -lt 1 ] || [ $# -gt 2 ]; then
       echo "Mount CIFS shares; pseudo-replacement for smbmount"
       echo "cifsmount: [remote share name in form  //server/share] [local mount point]"
@@ -3268,7 +3044,8 @@ function cifsmount() {
 }
 
 # Remount a device
-function remount() {
+function remount()
+{
    # copyright 2007 - 2010 Christopher Bratusek
    DEVICE=$1
    shift
@@ -3309,7 +3086,8 @@ function touchpad_on()
 # Arch Linux
 ###############################################################################
 # Arch-wiki-docs simple search
-function archwikisearch() {
+function archwikisearch()
+{
    # old version
    # cd /usr/share/doc/arch-wiki/html/
    # grep -i "$1" index.html | sed 's/.*HREF=.\(.*\.html\).*/\1/g' | xargs opera -newpage
@@ -3326,7 +3104,8 @@ function archwikisearch() {
 }
 
 # Pacman Search
-function pacsearch() {
+function pacsearch()
+{
        echo -e "$(pacman -Ss $@ | sed \
        -e 's#core/.*#\\033[1;31m&\\033[0;37m#g' \
        -e 's#extra/.*#\\033[0;32m&\\033[0;37m#g' \
@@ -3335,7 +3114,8 @@ function pacsearch() {
 }
 
 # Pacman remove oprhans
-orphans() {
+orphans()
+{
   if [[ ! -n $(pacman -Qdt) ]]; then
     echo no orphans to remove
   else
@@ -3347,17 +3127,20 @@ orphans() {
 # URL
 ###############################################################################
 # Short URLs with ur1.ca
-function ur1() {
+function ur1()
+{
    curl -s --url http://ur1.ca/ -d longurl="$1" | sed -n -e '/Your ur1/!d;s/.*<a href="\(.*\)">.*$/\1/;p' ; 
 }
 
 # Create an easy to pronounce shortened URL from CLI
-function shout() { 
+function shout()
+{ 
    curl -s "http://shoutkey.com/new?url=$1" | sed -n 's/\<h1\>/\&/p' | sed 's/<[^>]*>//g;/</N;//b' ;
 }
 
 # Create QR codes from a URL
-function qrurl() {
+function qrurl()
+{
    curl -sS "http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=H|0&chl=$1" -o - | display -filter point -resize 600x600 png:-;
 }
 
@@ -3423,7 +3206,8 @@ function resizeimg()
         SHELL_="bash"
     DISTRIBUTE_="yes"
    # This program is distributed under the terms of the GNU General Public License
-   usage () {
+   usage ()
+{
    echo >&2 "$NAME_ $VERSION_ - $PURPOSE_
    Usage: $SYNOPSIS_
    Requires: $REQUIRES_
@@ -3434,7 +3218,8 @@ function resizeimg()
        -l, see this script"
       exit 1
    }
-   gfx_resizeImage() {
+   gfx_resizeImage()
+{
       # arg check
       [[ $1 == *[!0-9]* ]] && { echo >&2 $1 must be an integer; exit 1; }
       [ ! -f $2 ] && { echo >&2 file $2 not found; continue ;}
@@ -3484,7 +3269,8 @@ function pngoptim()
         SHELL_="bash"
     DISTRIBUTE_="yes"
    # This program is distributed under the terms of the GNU General Public License
-   usage() {
+   usage()
+{
    echo >&2 "$NAME_ $VERSION_ - $PURPOSE_
    Usage: $SYNOPSIS_
    Requires: $REQUIRES_
@@ -3534,7 +3320,8 @@ function pngoptim()
 
 # Convert text file to pdf
 # Requires:txt2html python-pisa
-function txt2pdf() { 
+function txt2pdf()
+{ 
    xhtml2pdf -b "${1%.*}" < <(txt2html "$1");
 }
 
@@ -3562,14 +3349,16 @@ function brownian()
    RANDOM=$$                   #  Seeds the random number generator from PID of script.
    declare -a Slots            # Array holding cumulative results of passes.
    NUMSLOTS=21                 # Number of slots at bottom of board.
-   function Initialize_Slots() {    # Zero out all elements of the array.
+   function Initialize_Slots()
+{    # Zero out all elements of the array.
    for i in $( seq $NUMSLOTS )
    do
      Slots[$i]=0
    done
    echo                        # Blank line at beginning of run.
      }
-   function Show_Slots() {
+   function Show_Slots()
+{
    echo -n " "
    for i in $( seq $NUMSLOTS )      # Pretty-print array elements.
    do
@@ -3582,7 +3371,8 @@ function brownian()
                    #+ it messes up the display.
                    #  Running only(!) 500 passes usually avoids this.
      }
-   function Move() {                 # Move one unit right / left, or stay put.
+   function Move()
+{                 # Move one unit right / left, or stay put.
      Move=$RANDOM               # How random is $RANDOM? Well, let's see ...
      let "Move %= RANGE"        # Normalize into range of 0 - 2.
      case "$Move" in
@@ -3592,7 +3382,8 @@ function brownian()
       * ) echo -n "Error ";;      # Anomaly! (Should never occur.)
      esac
      }
-   function Play() {               # Single pass (inner loop).
+   function Play()
+{               # Single pass (inner loop).
    i=0
    while [ "$i" -lt "$ROWS" ]      # One event per row.
    do
@@ -3603,7 +3394,8 @@ function brownian()
    let "POS += $SHIFT"             # Shift "zero position" to center.
    (( Slots[$POS]++ ))             # DEBUG: echo $POS
      }
-   function Run() {                # Outer loop.
+   function Run()
+{                # Outer loop.
    p=0
    while [ "$p" -lt "$PASSES" ]
    do
@@ -3658,7 +3450,8 @@ function coin-flip()
 # copyright 2007 - 2010 Christopher Bratusek
 # @arg $1 string [optional] `-L` or `-r` 
 # @arg $2 int value
-function random() {
+function random()
+{
    if [[ $1 == -l ]]; then
       echo $(cat /dev/urandom | tr -cd '[:digit:]' | head -c ${2-5})
    elif [[ $1 == -r ]]; then
@@ -3673,7 +3466,8 @@ function random() {
 # @arg $1 int value to convert
 # @arg $2 string currency shorthand to convert from
 # @arg $3 string currency shorthand to convert to
-function currency_convert() { 
+function currency_convert()
+{ 
     if [ $# -lt 3 ]; then
       echo "convert currencies"
       echo "usage: currency_convert [amount] [crrency from] [currency to]"
@@ -3683,7 +3477,8 @@ function currency_convert() {
     fi
 }
 
-function currency_convert_help() {
+function currency_convert_help()
+{
    echo "AED - Emirati Dirham
    AFN - Afghan Afghani
    ALL - Albanian Lek
@@ -3856,7 +3651,8 @@ function currency_convert_help() {
 
 # @description Lookup a word with dict.org
 # @arg $# string word to lookup
-function dic() { 
+function dic()
+{ 
    curl dict://dict.org/d:"$@" ; 
 }
 
@@ -3872,12 +3668,14 @@ function ref()
 
 # @description Lookup a word with dict.org in WordNet
 # @arg $1 string word to lookup
-function wordnet() { 
+function wordnet()
+{ 
    curl dict://dict.org/d:${1}:wn;
 }
 
 # define a word - USAGE: define dog
-function define() {
+function define()
+{
    local LNG=$(echo $LANG | cut -d '_' -f 1)
    local CHARSET=$(echo $LANG | cut -d '.' -f 2)
    lynx -accept_all_cookies -dump -hiddenlinks=ignore -nonumbers -assume_charset="$CHARSET" -display_charset="$CHARSET" "http://www.google.com/search?hl=${LNG}&q=define%3A+${1}&btnG=Google+Search" | grep -m 5 -C 2 -A 5 -w "*" > /tmp/define
@@ -3894,13 +3692,15 @@ function define() {
 }
 
 # @description detect language of a string
-function detectlanguage() { 
+function detectlanguage()
+{ 
    curl -s "http://ajax.googleapis.com/ajax/services/language/detect?v=1.0&q=$@" | sed 's/{"responseData": {"language":"\([^"]*\)".*/\1\n/'; 
 }
 
 
 # Google text-to-speech in mp3/wav format
-function say() { 
+function say()
+{ 
    mplayer -user-agent Mozilla "http://translate.google.com/translate_tts?tl=en&q=$(echo $* | sed 's#\ #\+#g')" > /dev/null 2>&1 ;
 }
 
@@ -3909,11 +3709,13 @@ function say() {
 # usage: translate <phrase> <output-language>
 # example: translate "hello" es = hola (will auto-detect source language)
 # for a list of language codes: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-function translate() { 
+function translate()
+{ 
    wget -qO- "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=%7C${2:-en}" | sed 's/.*{"translatedText":"\([^"]*\)".*/\1\n/'; 
 }
 
-function translate_help() {
+function translate_help()
+{
    echo"Language   ISO
    (Afan) Oromo           om
    Abkhazian              ab
@@ -4060,7 +3862,8 @@ function translate_help() {
 
 # @description Activating python virtual environments
 # Keep python virtual environments in a central place in ~/.venv. To activate one of the environments,this function can be used
-function activate-venv() {
+function activate-venv()
+{
   local selected_env
   selected_env=$(ls ~/.venv/ | fzf)
 
@@ -4073,12 +3876,14 @@ function activate-venv() {
 
 # @description Creates a .gitignore file from toptal's service.
 # @arg $@ string comma separated list of languages
-function gi() {
+function gi()
+{
    curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ > .gitignore
 }
 
 # @description checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
-fbr() {
+fbr()
+{
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
@@ -4087,7 +3892,8 @@ fbr() {
 }
 
 # @description checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
-fco() {
+fco()
+{
   local tags branches target
   branches=$(
     git --no-pager branch --all \
@@ -4103,7 +3909,8 @@ fco() {
 }
 
 # @description delete git branches, with log preview
-function fbd() {
+function fbd()
+{
   git branch |
     grep --invert-match '\*' |
     cut -c 3- |
@@ -4132,7 +3939,8 @@ function grepcolor()
 #
 # Useful after a crash where all extensions are disabled
 # @noargs
-gnome-extensions-enable() {
+gnome-extensions-enable()
+{
    localPath=~/.local/share/gnome-shell/extensions/
    for i in $localPath/*;do echo $(basename $i);gnome-extensions enable "$(basename $i)";done
    gnome-extensions enable GPaste@gnome-shell-extensions.gnome.org
@@ -4151,7 +3959,8 @@ function remindme()
 # use as follows in your scripts
 # trap errormsg  SIGINT SIGTERM ERR
 # @arg $1 string error message to show
-function errormsg() {
+function errormsg()
+{
     zenity --warning \
    --text $1 
 }
@@ -4164,7 +3973,8 @@ function errormsg() {
 # @noargs
 # @set ZJ_SESSIONS string list of sessions
 # @set NO_SESSION int number of sessions
-function z-layout() {
+function z-layout()
+{
    set -euo pipefail
    ZJ_LAYOUT_DIR=$(zellij setup --check \
       | grep "LAYOUT DIR" - \
@@ -4184,7 +3994,8 @@ function z-layout() {
 # @noargs
 # @set ZJ_SESSIONS string list of sessions
 # @set NO_SESSION int number of sessions
-function z-sessions() {
+function z-sessions()
+{
    ZJ_SESSIONS=$(zellij list-sessions)
    NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
 
