@@ -65,13 +65,17 @@ if [ -n "$ZSH_VERSION" ]; then
 
 fi
 
-# include functions from shell helper library
+# @description include functions from shell helper library
 # Clone https://gitlab.com/papanito/shell-helper-library to $SHELL_HELPER_LIBRARY
-if [ -n "$SHELL_HELPER_LIBRARY" ] && [ -d "$SHELL_HELPER_LIBRARY" ]; then
-   for filename in $(fine $SHELL_HELPER_LIBRARY -name "*.sh" ); do
-      source $filename
-   done
-fi
+function loadShellHelperLibray()
+{
+   if [ -n "$SHELL_HELPER_LIBRARY" ] && [ -d "$SHELL_HELPER_LIBRARY" ]; then
+      for filename in $(find $SHELL_HELPER_LIBRARY -name "*.sh" ); do
+         source $filename
+      done
+   fi
+}
+loadShellHelperLibray
 
 # @description See https://software.rajivprab.com/2019/07/14/ssh-considered-harmful/
 # @arg $1 string name of the host
