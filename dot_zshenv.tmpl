@@ -24,13 +24,15 @@ export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export VIEWER=eog
 
 export ANSIBLE_NOCOWS=1
+export SHELL_HELPER_LIBRARY="~/.shell-helper-library"
 
 ## Set PATH
+export PATH=~/.bin:~/.local/scripts:~/.local/bin:~/.local/cmdfu:~/.local/bwf:$PATH
 {{ if eq .chezmoi.hostname "work" }}
-export PATH=~/bin:~/.local/bin:~/node_modules:~/.npm:/usr/lib/node_modules:$PATH
+export PATH=$PATH
 {{ else }}
 export DOCRENAMERCONFIGDIR=/home/aedu/.config/docrenamer
-export PATH=~/bin:~/bin/scripts:~/.local/bin:~/node_modules:~/.npm:/usr/lib/node_modules:~/bin/go/bin:~/.gem/ruby/2.7.0/bin:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
+export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:~/bin/go/bin:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
 {{ end }}
 
 ## Tokens

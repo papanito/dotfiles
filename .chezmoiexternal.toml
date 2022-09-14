@@ -4,6 +4,30 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+[ ".shell-helper-library"]
+    type = "git-repo"
+    url = "https://gitlab.com/papanito/shell-helper-library.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[ ".bin/bwf"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/papanito/bwf/main/bwf"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[ ".bin/cmdfu"]
+    type = "file"
+    url = "https://gitlab.com/papanito/cmdfu/-/raw/main/cmdfu"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[ ".bin/shdoc"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/reconquest/shdoc/master/shdoc"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
 [ ".local/gitstatus"]
     type = "git-repo"
     url = "https://github.com/romkatv/gitstatus.git"
