@@ -10,12 +10,6 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[ ".bin/bwf"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/papanito/bwf/main/bwf"
-    exact = true
-    stripComponents = 2
-    refreshPeriod = "168h"
 [ ".bin/cmdfu"]
     type = "file"
     url = "https://gitlab.com/papanito/cmdfu/-/raw/main/cmdfu"
