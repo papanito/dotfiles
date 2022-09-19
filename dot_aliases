@@ -9,19 +9,17 @@ if [ -n "$ZSH_VERSION" ]; then
 
     # javascript and html
     alias -s {cs,ts,html}=code
+
+    alias cd='x' # use zoxide
+    alias reload="source ~/.zshrc && source ~/.zshenv"
+    alias eenv="vi ~/.zshenv"
 fi
-
-
-# @section zsh stuff
-# @description helper function for my zsh
-alias reload="source ~/.zshrc && source ~/.zshenv"
-alias eenv="vi ~/.zshenv"
 
 # @section ls aliases
 # description aliases for better ls
 
 #alias ls='ls -hF --color' # add colors for filetype recognition
-alias ls="exa"
+which "exa" &>/dev/null && alias ls="exa"
 alias ll="ls -l --group-directories-first"
 alias lh='ls -Al' # show hidden files
 alias ld='ls -ltr' # sort by date
@@ -51,9 +49,9 @@ alias cls='clear'
 alias cp='cp -v'
 alias dr='dirs -v'
 alias dig_='dig +noauthority +noadditaliasional +noqr +nostats +noidentify +nocmd +noquestion +nocomments' # short and sweet output from dig(1)
-alias egrep='egrep –color=auto'
-alias fgrep='fgrep –color=auto'
 alias grep='grep --color=auto' # highlight matched pattern
+alias egrep='grep -E'
+alias fgrep='fgrep –color=auto'
 alias h='history | grep $1'
 alias last='last -a'
 alias mkdir='mkdir -p -v'
@@ -166,4 +164,5 @@ alias cae="chezmoi apply --refresh-externals"
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
 alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
 alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan --flush-index --do-delete'
-alias zellijj='zellij options --disable-mouse-mode'
+#alias zellijj='zellij options --disable-mouse-mode'
+alias linode="linode-cli"
