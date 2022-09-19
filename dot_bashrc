@@ -11,75 +11,75 @@
 export HISTCONTROL=ignoreboth:erasedups:ignorespace # for 'ignoreboth': ignore duplicates and /^\s/
 export HISTIGNORE='&:bg:fg:ll:h'
 # export HISTIGNORE='${HISTIGNORE:+$HISTIGNORE:}la:ll:lah:lat:;a:-:fg:bg:j:sync:esu:rma:rmp:fol:pfol'
-# export HISTIGNORE="&:ls:[bf]g:exit"		# duplicate entries in bash history, as well as ls, bg, fg & exit, making for cleaner bash history
+# export HISTIGNORE="&:ls:[bf]g:exit"        # duplicate entries in bash history, as well as ls, bg, fg & exit, making for cleaner bash history
 # export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear"
-# export HISTIGNORE='pwd:cd:ls:ls -l:'		# ignore commands given
+# export HISTIGNORE='pwd:cd:ls:ls -l:'        # ignore commands given
 export HISTSIZE=10000 # increase or decrease the size of the history to '10,000'
-# export HISTTIMEFORMAT='| %d/%m/%y %T | '	# make 'History' Show The Date For Each Command
-# export HISTTIMEFORMAT='%F %T '		# adds date and time to history
+# export HISTTIMEFORMAT='| %d/%m/%y %T | '    # make 'History' Show The Date For Each Command
+# export HISTTIMEFORMAT='%F %T '        # adds date and time to history
 export HISTTIMEFORMAT='%H:%M > '
-# export HISTTIMEFORMAT='%s' 			# the beloved Second of Our Linux
+# export HISTTIMEFORMAT='%s'             # the beloved Second of Our Linux
 # export HISTTIMEFORMAT='%Y-%b-%d::%Hh:%Mm:%Ss '
-export HISTTIMEFORMAT='%Y-%m-%d_%H:%M:%S_%a  '	# makes history display in YYYY-MM-DD_HH:MM:SS_3CharWeekdaySpaceSpace format
-export HOSTFILE=$HOME/.hosts    		# put list of remote hosts in ~/.hosts ...
-# export IGNOREEOF=1				# prevent CTRL-D from immediately logging out
-# export INPUTRC=/etc/inputrc			# it's possible that this will make bash find my delete key (and everything else)((but i don't think it did))
-# export INPUTRC=$HOME/.inputrc			# type in ‘whatever’ and press ‘Page Up’ key and bash automatically fetches last command that starts with whatever and completes the command for you (requires '$HOME/.inputrc' with these lines: #Page up/page down && "\e[5~": history-search-backward && "\e[6~": history-search-forward)
-# export LC_COLLATE="en_CA.utf8"		# change sorting methods [a-Z] instead of [A-Z]
+export HISTTIMEFORMAT='%Y-%m-%d_%H:%M:%S_%a  '    # makes history display in YYYY-MM-DD_HH:MM:SS_3CharWeekdaySpaceSpace format
+export HOSTFILE=$HOME/.hosts            # put list of remote hosts in ~/.hosts ...
+# export IGNOREEOF=1                # prevent CTRL-D from immediately logging out
+# export INPUTRC=/etc/inputrc            # it's possible that this will make bash find my delete key (and everything else)((but i don't think it did))
+# export INPUTRC=$HOME/.inputrc            # type in ‘whatever’ and press ‘Page Up’ key and bash automatically fetches last command that starts with whatever and completes the command for you (requires '$HOME/.inputrc' with these lines: #Page up/page down && "\e[5~": history-search-backward && "\e[6~": history-search-forward)
+# export LC_COLLATE="en_CA.utf8"        # change sorting methods [a-Z] instead of [A-Z]
 export LESSCHARSET='latin1'
 export LESS='-i -N -w  -z-4 -g -e -M -X -F -R -P%t?f%f \'
 # export LESSOPEN="|lesspipe.sh %s"; export LESSOPEN
-export LESSOPEN='|/usr/bin/lesspipe.sh %s 2>&-'	# use this if lesspipe.sh exists
-# export LESS="-QR"				# tell less not to beep and also display colours
+export LESSOPEN='|/usr/bin/lesspipe.sh %s 2>&-'    # use this if lesspipe.sh exists
+# export LESS="-QR"                # tell less not to beep and also display colours
 # export LESS='-R'
-# export LESS_TERMCAP_mb=$'\E[01;31m'      	# less colors for Man pages # begin blinking
-# export LESS_TERMCAP_md=$'\E[01;38;5;74m'  	# less colors for Man pages # begin bold
-# export LESS_TERMCAP_me=$'\E[0m'           	# less colors for Man pages # end mode
-# export LESS_TERMCAP_se=$'\E[0m'           	# less colors for Man pages # end standout-mode
-# export LESS_TERMCAP_so=$'\E[38;5;246m'    	# less colors for Man pages # begin standout-mode - info box
-# export LESS_TERMCAP_ue=$'\E[0m'           	# less colors for Man pages # end underline
-# export LESS_TERMCAP_us=$'\E[04;38;5;146m' 	# less colors for Man pages # begin underline
-# ${file%\.[^.]*}				# to remove filename extensions in bash
-# fortune -a					# fortunes at each new shell
-# mesg n              				#
-set -b						# causes output from background processes to be output right away, not on wait for next primary prompt
-# set bell-style visible			# I hate noise
-set completion-ignore-case on 		# complete things that have been typed in the wrong case
-# set -o ignoreeof				# can't c-d out of shell
-# set -o noclobber				# disallow > to work on files that already exist (prevents catting over file)
-set -o notify					# notify when jobs running in background terminate
-# set -o nounset				# attempt to use undefined variable outputs error message and forces exit (messes up completion if enabled)
-set +o nounset          			# otherwise some completions will fail
-# set -o xtrace					# useful for debuging
-# setterm -blength 0				# set the bell duration in milliseconds (silence the beeps)
-# set visible-stats on 				# when listing possible file completions, put / after directory names and * after programs
-shopt -s cdable_vars				# set the bash option so that no '$' is required (disallow write access to terminal)
-shopt -s cdspell				# this will correct minor spelling errors in a cd command
+# export LESS_TERMCAP_mb=$'\E[01;31m'           # less colors for Man pages # begin blinking
+# export LESS_TERMCAP_md=$'\E[01;38;5;74m'      # less colors for Man pages # begin bold
+# export LESS_TERMCAP_me=$'\E[0m'               # less colors for Man pages # end mode
+# export LESS_TERMCAP_se=$'\E[0m'               # less colors for Man pages # end standout-mode
+# export LESS_TERMCAP_so=$'\E[38;5;246m'        # less colors for Man pages # begin standout-mode - info box
+# export LESS_TERMCAP_ue=$'\E[0m'               # less colors for Man pages # end underline
+# export LESS_TERMCAP_us=$'\E[04;38;5;146m'     # less colors for Man pages # begin underline
+# ${file%\.[^.]*}                # to remove filename extensions in bash
+# fortune -a                    # fortunes at each new shell
+# mesg n
+set -b                        # causes output from background processes to be output right away, not on wait for next primary prompt
+# set bell-style visible            # I hate noise
+set completion-ignore-case on         # complete things that have been typed in the wrong case
+# set -o ignoreeof                # can't c-d out of shell
+# set -o noclobber                # disallow > to work on files that already exist (prevents catting over file)
+set -o notify                    # notify when jobs running in background terminate
+# set -o nounset                # attempt to use undefined variable outputs error message and forces exit (messes up completion if enabled)
+set +o nounset                      # otherwise some completions will fail
+# set -o xtrace                    # useful for debuging
+# setterm -blength 0                # set the bell duration in milliseconds (silence the beeps)
+# set visible-stats on                 # when listing possible file completions, put / after directory names and * after programs
+shopt -s cdable_vars                # set the bash option so that no '$' is required (disallow write access to terminal)
+shopt -s cdspell                # this will correct minor spelling errors in a cd command
 shotp -s direxpand
 shopt -s checkhash
-shopt -s checkwinsize				# update windows size on command
-shopt -s cmdhist          			# save multi-line commands in history as single line
-# shopt -s dotglob				# files beginning with . to be returned in the results of path-name expansion
-# shopt -s expand aliases			# expand aliases
-shopt -s extglob				# necessary for bash completion (programmable completion)
-# shopt -s globstar				# enables the ** globbing operator
-#shopt -s histappend				# bash history is only saved when close terminal, not after each command and this fixes it
+shopt -s checkwinsize                # update windows size on command
+shopt -s cmdhist                      # save multi-line commands in history as single line
+# shopt -s dotglob                # files beginning with . to be returned in the results of path-name expansion
+# shopt -s expand aliases            # expand aliases
+shopt -s extglob                # necessary for bash completion (programmable completion)
+# shopt -s globstar                # enables the ** globbing operator
+#shopt -s histappend             # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
 # shopt -s histreedit
 # shopt -s histverify
-# shopt -s hostcomplete     			# attempt hostname expansion when @ is at the beginning of a word
+# shopt -s hostcomplete          # attempt hostname expansion when @ is at the beginning of a word
 # shopt -s huponexit
-shopt -s mailwarn				# keep an eye on the mail file (access time)
+shopt -s mailwarn                # keep an eye on the mail file (access time)
 # shopt -s nocaseglob cdspell histappend
-shopt -s nocaseglob       			# pathname expansion will be treated as case-insensitive (auto-corrects the case)
-shopt -s no_empty_cmd_completion		# no empty completion (bash>=2.04 only)
+shopt -s nocaseglob              # pathname expansion will be treated as case-insensitive (auto-corrects the case)
+shopt -s no_empty_cmd_completion  # no empty completion (bash>=2.04 only)
 # shopt -s nullglob dotglob
 shopt -s sourcepath
-# shopt -u cmdhist				# do not treat multiple line commands as a single entry
-# shopt -u force_fignore			# expand to complete an ignored word, if no other words match.
+# shopt -u cmdhist              # do not treat multiple line commands as a single entry
+# shopt -u force_fignore        # expand to complete an ignored word, if no other words match.
 # shopt -u mailwarn
 # shopt -u sourcepath
-# stty -ixon					# disable XON/XOFF flow control (^s/^q)
+# stty -ixon                    # disable XON/XOFF flow control (^s/^q)
 stty start undef
 stty stop undef
 # stty stop ''                  # use C-s to search forward through history (do not block output)
@@ -141,6 +141,8 @@ fi
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+shell_helper=$SHELL_HELPER_LIBRARY/shell-helper-library.plugin.bash
+if [ -f $shell_helper ]; then . $shell_helper ; fi
 if [ -f ~/.aliases ]; then . ~/.aliases ; fi
 if [ -f ~/.zshenv ]; then . ~/.zshenv ; fi
 if [ -f ~/.functions ]; then . ~/.functions ; fi
@@ -207,7 +209,7 @@ if [ "$PS1" ]; then # if running interactively, then run till 'fi' at EOF:
 
     # Multi lines prompt. If you’re the type who wants to pack your prompt full of information, then here’s the one for you. This one is a multi-line prompt containing date/time, full path, user and host, active terminal, even file count and space usage
     # PS1="\n\[\033[35m\]\$(/bin/date)\n\[\033[32m\]\w\n\[\033[1;31m\]\u@\h: \[\033[1;34m\]\$(/usr/bin/tty | /bin/sed -e 's:/dev/::'): \[\033[1;36m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files \[\033[1;33m\]\$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\033[0m\] -> \[\033[0m\]"
-    # Color manage your prompt. There’s nothing particularly fancy about this prompt, other than the good use of color to separate the different pieces of information. As you can see, it provides time, username, hostname, and current directory. Fairly minimal but useful.	
+    # Color manage your prompt. There’s nothing particularly fancy about this prompt, other than the good use of color to separate the different pieces of information. As you can see, it provides time, username, hostname, and current directory. Fairly minimal but useful.
     PS1="\[\033[35m\]\t\[\033[m\]-\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h: \[\033[33;1m\]\w\[\033[m\]\n> "
 
     ##################################################
@@ -218,7 +220,7 @@ if [ "$PS1" ]; then # if running interactively, then run till 'fi' at EOF:
     # PROMPT_COMMAND='seq $COLUMNS | xargs -IX printf "%Xs\r" @'
 
     ###### Saves terminal commands in history file in real time (for use with 'shopt -s histappend')
-    PROMPT_COMMAND="history -a;$PROMPT_COMMAND"	# use with 'shopt -s histappend';save terminal commands in history file in real time
+    PROMPT_COMMAND="history -a;$PROMPT_COMMAND"    # use with 'shopt -s histappend';save terminal commands in history file in real time
 
     ###### Share history between using multiple commands (press enter before get history from other bash shells)
     # PROMPT_COMMAND='history -a && history -n'
