@@ -158,7 +158,7 @@ alias ansible-get-roleid="ansible-galaxy info papanito.$@ | grep -E 'id: [0-9]' 
 
 # @section misc tools
 # @description command substitution for misc commands
-alias create_shdoc='for filename in $(ls -I "*.md"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
+alias shdocc='for filename in $(ls -I "*.sh" -I "*.zsh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
 alias ca="chezmoi apply"
 alias cae="chezmoi apply --refresh-externals"
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
