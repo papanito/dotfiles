@@ -130,7 +130,7 @@ zi snippet OMZ::plugins/pip
 zi snippet OMZ::plugins/pyenv
 zi snippet OMZ::plugins/pylint
 zi snippet OMZ::plugins/python
-zi snippet OMZ::plugins/ssh-agent
+zi snippet OMZ::plugins/ssh-agent quiet
 zi snippet OMZ::plugins/rsync
 zi snippet OMZ::plugins/tmux
 zi snippet OMZ::plugins/thefuck
@@ -144,16 +144,18 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "^[[B" history-substring-search-down
 
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
-zi light zplugin/zsh-exa
-zi light Aloxaf/fzf-tab
+zi load zplugin/zsh-exa
+zi load Aloxaf/fzf-tab
 
 zi ice as'null' from"gh-r" sbin
-zi light ajeetdsouza/zoxide
+zi load ajeetdsouza/zoxide
 zi ice has'zoxide'
-zi light z-shell/zsh-zoxide
-zi light wfxr/forgit
-zi light Game4Move78/zsh-bitwarden
-zi light mbhynes/fzf-gcloud
+zi load z-shell/zsh-zoxide
+
+zi load wfxr/forgit
+zi load Game4Move78/zsh-bitwarden
+zi load mbhynes/fzf-gcloud
+zi load reegnz/jq-zsh-plugin
 
 autoload -U add-zsh-hook                      # Load the zsh hook module
 add-zsh-hook preexec pre_validation           # Adds the hook
@@ -172,3 +174,7 @@ eval "$(navi widget zsh)"
 eval "$(direnv hook zsh)"
 # eval "$(mcfly init zsh)"
 # eval "$(zellij setup --generate-auto-start zsh)"
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
