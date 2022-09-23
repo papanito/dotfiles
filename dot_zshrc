@@ -80,6 +80,7 @@ SAVEHIST=1000
 setopt appendhistory autocd extendedglob notify hist_ignore_all_dups hist_ignore_space
 bindkey -e
 
+zi ice from"gitlab"
 zi light papanito/shell-helper-library
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -130,7 +131,7 @@ zi snippet OMZ::plugins/pip
 zi snippet OMZ::plugins/pyenv
 zi snippet OMZ::plugins/pylint
 zi snippet OMZ::plugins/python
-zi snippet OMZ::plugins/ssh-agent quiet
+zi snippet OMZ::plugins/ssh-agent
 zi snippet OMZ::plugins/rsync
 zi snippet OMZ::plugins/tmux
 zi snippet OMZ::plugins/thefuck
@@ -153,7 +154,7 @@ zi ice has'zoxide'
 zi load z-shell/zsh-zoxide
 
 zi load wfxr/forgit
-zi load Game4Move78/zsh-bitwarden
+zi load papanito/bwf
 zi load mbhynes/fzf-gcloud
 zi load reegnz/jq-zsh-plugin
 
