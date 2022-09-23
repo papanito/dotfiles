@@ -4,12 +4,6 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[ ".shell-helper-library"]
-    type = "git-repo"
-    url = "https://gitlab.com/papanito/shell-helper-library.git"
-    exact = true
-    stripComponents = 2
-    refreshPeriod = "168h"
 [ ".bin/cmdfu"]
     type = "file"
     url = "https://gitlab.com/papanito/cmdfu/-/raw/main/cmdfu"

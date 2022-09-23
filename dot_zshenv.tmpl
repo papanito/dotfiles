@@ -27,7 +27,7 @@ export ANSIBLE_NOCOWS=1
 export SHELL_HELPER_LIBRARY="$HOME/.shell-helper-library"
 
 ## Set PATH
-export PATH=~/.bin:~/.local/scripts:~/.local/bin:~/.local/cmdfu:~/.local/bwf:$PATH
+export PATH=~/.bin:~/.local/scripts:~/.local/bin:~/.local/cmdfu:$PATH
 {{ if eq .chezmoi.hostname "work" }}
 export PATH=$PATH
 {{ else }}
