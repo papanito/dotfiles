@@ -1,24 +1,30 @@
-[ ".local/scripts"]
+[".local/scripts"]
     type = "git-repo"
     url = "https://gitlab.com/papanito/shell-scripts.git"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[ ".bin/cmdfu"]
+[".bin/cmdfu"]
     type = "file"
     url = "https://gitlab.com/papanito/cmdfu/-/raw/main/cmdfu"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[ ".bin/shdoc"]
+[".bin/shdoc"]
     type = "file"
     url = "https://raw.githubusercontent.com/reconquest/shdoc/master/shdoc"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[ ".local/gitstatus"]
+[".local/gitstatus"]
     type = "git-repo"
-    url = "https://github.com/romkatv/gitstatus.git"
+    url = "https://github.com/romkatv/gitstatus"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[".emacs.d"]
+    type = "git-repo"
+    url = "https://github.com/doomemacs/doomemacs"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
