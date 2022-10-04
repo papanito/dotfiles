@@ -36,13 +36,49 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
 
+;; Profile emacs startup
+;; source: https://gitlab.com/dwt1/dotfiles/-/blob/master/.config/doom/config.org
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (message "*** Emacs loaded in %s with %d garbage collections."
+       (format "%.2f seconds"
+         (float-time
+            (time-subtract after-init-time before-init-time)))
+     gcs-done)))
+
+;; A buffer can get out of sync with respect to its visited file on disk if that file is changed by another program
+;; source: https://gitlab.com/dwt1/dotfiles/-/blob/master/.config/doom/config.org
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+
+;; By default, Doom Emacs does not use ‘SPC e’ for anything
+;; source: https://gitlab.com/dwt1/dotfiles/-/blob/master/.config/doom/config.org
+(setq browse-url-browser-function 'eww-browse-url)
+(map! :leader
+      :desc "Search web for text between BEG/END"
+      "s w" #'eww-search-words
+      (:prefix ("e" . "evaluate/ERC/EWW")
+       :desc "Eww web browser" "w" #'eww
+       :desc "Eww reload page" "R" #'eww-reload))
+
+;; source: https://gitlab.com/dwt1/dotfiles/-/blob/master/.config/doom/config.org
+(setq display-line-numbers-type t)
+(map! :leader
+      :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      (:prefix ("t" . "toggle")
+       :desc "Toggle line numbers" "l" #'doom/toggle-line-numbers
+       :desc "Toggle line highlight in frame" "h" #'hl-line-mode
+       :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
+       :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
