@@ -74,7 +74,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 zstyle ':completion:*' keep-prefix true
 
 # zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory autocd extendedglob notify hist_ignore_all_dups hist_ignore_space
@@ -88,6 +88,11 @@ zi light papanito/shell-helper-library
 if [ -f ~/.aliases ]; then . ~/.aliases ; fi
 if [ -f ~/.functions ]; then . ~/.functions ; fi
 if [ -f ~/.azure_completion ]; then . ~/.azure_completion ; fi
+
+## Ensure completions directory exists
+if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
+   mkdir "$ZSH_CACHE_DIR/completions/"
+fi
 
 zi light zsh-users/zsh-autosuggestions
 zi light z-shell/F-Sy-H
@@ -173,7 +178,7 @@ AZCOMP=/etc/bash_completion.d/azure-cli
 
 eval "$(navi widget zsh)"
 eval "$(direnv hook zsh)"
-# eval "$(mcfly init zsh)"
+eval "$(mcfly init zsh)"
 # eval "$(zellij setup --generate-auto-start zsh)"
 
 bindkey "^[[H" beginning-of-line
