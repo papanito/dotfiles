@@ -84,10 +84,9 @@ zi ice from"gitlab"
 zi light papanito/shell-helper-library
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-if [ -f ~/.aliases ]; then . ~/.aliases ; fi
-if [ -f ~/.functions ]; then . ~/.functions ; fi
-if [ -f ~/.azure_completion ]; then . ~/.azure_completion ; fi
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+[[ -f ~/.aliases ]] && source ~/.aliases
+[[ -f ~/.functions ]] && source ~/.functions
 
 ## Ensure completions directory exists
 if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
@@ -95,6 +94,8 @@ if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
 fi
 
 zi light zsh-users/zsh-autosuggestions
+
+# Feature-rich Syntax Highlighting for Zsh
 zi light z-shell/F-Sy-H
 zi load romkatv/powerlevel10k
 
@@ -166,15 +167,11 @@ zi load reegnz/jq-zsh-plugin
 autoload -U add-zsh-hook                      # Load the zsh hook module
 add-zsh-hook preexec pre_validation           # Adds the hook
 
-## enable autocompletion
-source <(kubectl completion zsh)
-
 autoload -U +X bashcompinit && bashcompinit
 
-TF=/usr/bin/terraform 
-[[ ! -f $TF  ]] || complete -o nospace -C $TF terraform
 AZCOMP=/etc/bash_completion.d/azure-cli
 [[ ! -f $AZCOMP  ]] || source /etc/bash_completion.d/azure-cli
+[[ -f ~/.azure_completion ]] && source ~/.azure_completion
 
 eval "$(navi widget zsh)"
 eval "$(direnv hook zsh)"
