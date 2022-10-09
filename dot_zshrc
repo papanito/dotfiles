@@ -92,11 +92,11 @@ zi light papanito/shell-helper-library
 if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
    mkdir "$ZSH_CACHE_DIR/completions/"
 fi
+autoload -U add-zsh-hook                      # Load the zsh hook module
+add-zsh-hook preexec pre_validation           # Adds the hook
 
-zi light zsh-users/zsh-autosuggestions
+autoload -U +X bashcompinit && bashcompinit
 
-# Feature-rich Syntax Highlighting for Zsh
-zi light z-shell/F-Sy-H
 zi load romkatv/powerlevel10k
 
 # https://github.com/z-shell/zsh-navigation-tools
@@ -152,30 +152,34 @@ bindkey "^[[B" history-substring-search-down
 
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 zi load zplugin/zsh-exa
-zi load Aloxaf/fzf-tab
+zi load Aloxaf/fzf-tab #Replace zsh's default completion selection menu with fzf!
 
 zi ice as'null' from"gh-r" sbin
 zi load ajeetdsouza/zoxide
 zi ice has'zoxide'
 zi load z-shell/zsh-zoxide
 
+zi ice wait'!0'
+zi light zsh-users/zsh-autosuggestions
+zi ice wait'!0'
+zi light z-shell/F-Sy-H # Feature-rich Syntax Highlighting for Zsh
+zi ice wait'!0'
 zi load wfxr/forgit
+zi ice wait'!10'
 zi load papanito/bwf
+zi ice wait'!10'
 zi load mbhynes/fzf-gcloud
+zi ice wait'!10'
 zi load reegnz/jq-zsh-plugin
-
-autoload -U add-zsh-hook                      # Load the zsh hook module
-add-zsh-hook preexec pre_validation           # Adds the hook
-
-autoload -U +X bashcompinit && bashcompinit
 
 AZCOMP=/etc/bash_completion.d/azure-cli
 [[ ! -f $AZCOMP  ]] || source /etc/bash_completion.d/azure-cli
 [[ -f ~/.azure_completion ]] && source ~/.azure_completion
+[[ -f $GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc ]] && source $GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc
 
-eval "$(navi widget zsh)"
 eval "$(direnv hook zsh)"
 eval "$(mcfly init zsh)"
+eval "$(navi widget zsh)"
 # eval "$(zellij setup --generate-auto-start zsh)"
 
 bindkey "^[[H" beginning-of-line
