@@ -143,11 +143,15 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 shell_helper=$SHELL_HELPER_LIBRARY/shell-helper-library.plugin.bash
 if [ -f $shell_helper ]; then . $shell_helper ; fi
-if [ -f ~/.aliases ]; then . ~/.aliases ; fi
-if [ -f ~/.zshenv ]; then . ~/.zshenv ; fi
-if [ -f ~/.functions ]; then . ~/.functions ; fi
-if [ -f ~/.azure_completion ]; then . ~/.azure_completion ; fi
-if [ -f ~/.bashrc.local ]; then . ~/.bashrc.local ; fi # settings that vary per workstation
+export SHELL_ALIASES=$DOTFILES/aliases
+[[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
+export SHELL_FUNCTION=$DOTFILES/functions
+[[ -f $SHELL_FUNCTIONS ]] && source $SHELL_FUNCTIONS
+export ZSHENV=$HOME/.zshenv
+[[ -f $ZSHENV ]} && source $ZSHENV
+[[ -f ~/.azure_completion ]] && source ~/.azure_completion
+export BASHRC_LOCAL=$DOTFILES/bashrc.local
+[[ -f $BASHRC_LOCAL ]] && source $BASHRC_LOCAL # settings that vary per workstation
 
 ###############################################################################
 # Miscellaneous

@@ -166,3 +166,4 @@ alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/P
 alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan --flush-index --do-delete'
 #alias zellijj='zellij options --disable-mouse-mode'
 alias linode="linode-cli"
+alias zshdocker="docker run -it zshusers/zsh"
