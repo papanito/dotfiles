@@ -122,7 +122,7 @@ export CACHEDIR="$HOME/.local/share"
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 
 # History
-HISTFILE=$ZSH/.zsh_history
+HISTFILE="$ZSH/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=5000
 setopt bang_hist                # Treat The '!' Character Specially During Expansion.
@@ -142,6 +142,8 @@ bindkey -e
 zi ice from"gitlab"
 zi light papanito/shell-helper-library
 
+export ZSH_KEYBINDINGS=$ZSH/aliases
+[[ -f $ZSH_KEYBINDINGS ]] && source $ZSH_KEYBINDINGS
 export SHELL_ALIASES=$DOTFILES/aliases
 [[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
 export SHELL_FUNCTIONS=$DOTFILES/functions
@@ -167,10 +169,6 @@ zi load romkatv/powerlevel10k
 
 # https://github.com/z-shell/zsh-navigation-tools
 zi load z-shell/zsh-navigation-tools
-
-# autoload znt-history-widget
-# zle -N znt-history-widget
-# bindkey "^R" znt-history-widget
 
 zle -N znt-cd-widget
 bindkey "^B" znt-cd-widget
@@ -212,9 +210,9 @@ zi snippet OMZ::plugins/terraform
 # https://github.com/zsh-users/zsh-history-substring-search
 zi light zsh-users/zsh-history-substring-search
 bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "^[[A" history-substring-search-up
+bindkey "${keys[Up]}" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey "^[[B" history-substring-search-down
+bindkey "${keys[Down]}" history-substring-search-down
 
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 zi load zplugin/zsh-exa
@@ -251,7 +249,3 @@ eval "$(direnv hook zsh)"
 eval "$(mcfly init zsh)"
 eval "$(navi widget zsh)"
 # eval "$(zellij setup --generate-auto-start zsh)"
-
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
-bindkey "^[[3~" delete-char
