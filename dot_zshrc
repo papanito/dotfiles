@@ -144,7 +144,7 @@ bindkey -e
 zi ice from"gitlab"
 zi light papanito/shell-helper-library
 
-export ZSH_KEYBINDINGS=$ZSH/aliases
+export ZSH_KEYBINDINGS=$ZSH/keybindings.zsh
 [[ -f $ZSH_KEYBINDINGS ]] && source $ZSH_KEYBINDINGS
 export SHELL_ALIASES=$DOTFILES/aliases
 [[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
@@ -215,7 +215,7 @@ bindkey "${keys[Up]}" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "${keys[Down]}" history-substring-search-down
 
-zi load z-shell/zsh-navigation-tools# https://github.com/z-shell/zsh-navigation-tools
+zi load z-shell/zsh-navigation-tools # https://github.com/z-shell/zsh-navigation-tools
 zi load Aloxaf/fzf-tab #Replace zsh's default completion selection menu with fzf!
 zi ice wait'!0'
 zi light zsh-users/zsh-autosuggestions
