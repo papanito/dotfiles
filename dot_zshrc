@@ -230,6 +230,10 @@ zi load mbhynes/fzf-gcloud
 zi ice wait'!10'
 zi load reegnz/jq-zsh-plugin
 
+# https://github.com/sei40kr/zsh-fast-alias-tips
+zi ice from'gh-r' as'program'
+zi light sei40kr/fast-alias-tips-bin
+zi light sei40kr/zsh-fast-alias-tips
 # Recommended Be Loaded Last.
 zi ice wait blockf lucid atpull'zi creinstall -q .'
 zi load zsh-users/zsh-completions
