@@ -215,28 +215,19 @@ bindkey "${keys[Up]}" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "${keys[Down]}" history-substring-search-down
 
-zi load z-shell/zsh-navigation-tools # https://github.com/z-shell/zsh-navigation-tools
-zi load Aloxaf/fzf-tab #Replace zsh's default completion selection menu with fzf!
-zi ice wait'!0'
-zi light zsh-users/zsh-autosuggestions
-zi ice wait'!0'
-zi light z-shell/F-Sy-H # Feature-rich Syntax Highlighting for Zsh
-zi ice wait'!0'
-zi load wfxr/forgit
-zi ice wait'!10'
-zi load papanito/bwf
-zi ice wait'!10'
-zi load mbhynes/fzf-gcloud
-zi ice wait'!10'
-zi load reegnz/jq-zsh-plugin
+zi light-mode for \
+  z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
+  z-shell/zsh-navigation-tools \
+  Aloxaf/fzf-tab \
+  wfxr/forgit \
+  papanito/bwf \
+  mbhynes/fzf-gcloud \
+  reegnz/jq-zsh-plugin
 
 # https://github.com/sei40kr/zsh-fast-alias-tips
 zi ice from'gh-r' as'program'
 zi light sei40kr/fast-alias-tips-bin
 zi light sei40kr/zsh-fast-alias-tips
-# Recommended Be Loaded Last.
-zi ice wait blockf lucid atpull'zi creinstall -q .'
-zi load zsh-users/zsh-completions
 
 # completion stuff
 AZCOMP=/etc/bash_completion.d/azure-cli
