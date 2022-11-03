@@ -28,3 +28,9 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+[".config/cheat/cheatsheets/personal"]
+    type = "git-repo"
+    url = "https://github.com/cheat/cheatsheets.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
