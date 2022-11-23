@@ -168,3 +168,4 @@ alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pic
 alias linode="linode-cli"
 alias zshdocker="docker run -it zshusers/zsh"
 alias rest_state="restic -r $RESTIC_REPOSITORY snapshots"
+alias navi_update="pushd  ~/.local/share/navi/cheats/papanito__cheats && git pull && popd"
