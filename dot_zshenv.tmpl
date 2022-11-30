@@ -51,6 +51,7 @@ export VIEWER=eog
 
 export ANSIBLE_NOCOWS=1
 export SHELL_HELPER_LIBRARY="$HOME/.shell-helper-library"
+export GOPATH="$HOME/.cache/go"
 
 ## Set PATH
 export PATH=~/.bin:~/.local/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
@@ -58,7 +59,7 @@ export PATH=~/.bin:~/.local/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~
 export PATH=$PATH
 {{ else }}
 export DOCRENAMERCONFIGDIR=/home/aedu/.config/docrenamer
-export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:~/bin/go/bin:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
+export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
 {{ end }}
 
 ## Tokens
