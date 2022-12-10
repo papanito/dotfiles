@@ -151,7 +151,7 @@ export SHELL_ALIASES=$DOTFILES/aliases
 [[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
 export SHELL_FUNCTIONS=$DOTFILES/functions
 [[ -f $SHELL_FUNCTIONS ]] && source $SHELL_FUNCTIONS
-export ZSHRC_LOCAL=$DOTFILES/zsh/bashrc.local
+export ZSHRC_LOCAL=$DOTFILES/zsh/zshrc.local
 [[ -f $ZSHRC_LOCAL ]] && source $ZSHRC_LOCAL # settings that vary per workstation
 
 ## Ensure completions directory exists
