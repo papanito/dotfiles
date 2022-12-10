@@ -249,4 +249,5 @@ bindkey "^Y" znt-kill-widget
 eval "$(direnv hook zsh)"
 eval "$(mcfly init zsh)"
 eval "$(navi widget zsh)"
+eval "$(hcloud completion zsh)"
 # eval "$(zellij setup --generate-auto-start zsh)"
