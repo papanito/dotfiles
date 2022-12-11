@@ -9,7 +9,7 @@ fi
 export ZDOTDIR="$HOME"
 export DOTFILES="${ZDOTDIR:-$HOME}/.config/dotfiles"
 [[ -d "$DOTFILES" ]] || mkdir -p "$DOTFILES"
-export ZSH_DOTFILES="$DOTFILES/zsh"
+export ZSH_DOTFILES="$DOTFILES"
 [[ -d "$ZSH_DOTFILES" ]] || mkdir -p "$ZSH_DOTFILES"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 [[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
@@ -145,7 +145,7 @@ bindkey -e
 zi ice from"gitlab"
 zi light papanito/shell-helper-library
 
-export ZSH_KEYBINDINGS=$ZSH_DOTFILES/keybindings.zsh
+export ZSH_KEYBINDINGS=$ZSH_DOTFILES/zkbd.zsh
 [[ -f $ZSH_KEYBINDINGS ]] && source $ZSH_KEYBINDINGS
 export SHELL_ALIASES=$DOTFILES/aliases
 [[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
