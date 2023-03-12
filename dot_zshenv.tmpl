@@ -1,4 +1,4 @@
-LANG=en_US.UTF-
+LANG="en_US.UTF-8"
 LANGUAGE=
 LC_CTYPE="de_CH.UTF-8"
 LC_NUMERIC="de_CH.UTF-8"
@@ -51,10 +51,10 @@ export VIEWER=eog
 
 export ANSIBLE_NOCOWS=1
 export SHELL_HELPER_LIBRARY="$HOME/.shell-helper-library"
-export GOPATH="$HOME/.cache/go"
+export GOPATH="$HOME/go"
 
 ## Set PATH
-export PATH=~/.bin:~/.local/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
+export PATH=~/.bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
 {{ if eq .chezmoi.hostname "work" }}
 export PATH=$PATH
 {{ else }}
