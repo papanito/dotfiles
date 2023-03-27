@@ -169,3 +169,4 @@ alias linode="linode-cli"
 alias zshdocker="docker run -it zshusers/zsh"
 alias rest_state="restic -r $RESTIC_REPOSITORY snapshots"
 alias navi_update="pushd  ~/.local/share/navi/cheats/papanito__cheats && git pull && popd"
+alias irssi=irssi --config="$XDG_CONFIG_HOME"/irssi/config --home="$XDG_DATA_HOME"/irssi
