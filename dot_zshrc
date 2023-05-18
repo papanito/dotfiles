@@ -14,6 +14,7 @@ export ZSH_DOTFILES="$DOTFILES"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 [[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export MCFLY_HISTFILE="$XDG_STATE_HOME"/zsh/history
 
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
