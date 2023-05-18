@@ -82,29 +82,6 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 # @description cleanup helper functions
 alias trashclean='rm -fr ~/.Trash'
 
-# @section Directory navigation
-# description shortcuts for directory navigation
-alias back='cd $OLDPWD'
-alias backgrounds='cd ~/Pictures/Backgrounds'
-alias books='cd ~/eBooks'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias documents='cd ~/Documents'
-alias downloads='cd ~/Downloads'
-alias home='cd ~/'
-alias images='cd ~/Pictures/Images'
-alias localhost='cd /var/www'
-alias movies='cd ~/Videos/Movies'
-alias music='cd ~/Music'
-alias nautilus-scripts='cd ~/.local/share/nautilus/scripts'
-alias pictures='cd ~/Pictures'
-alias public='cd ~/Public'
-alias temp='cd ~/Tmp'
-alias videos='cd ~/Videos'
-
 # @section System Info
 # @description Hardware shortcuts and system info
 alias mountiso='sudo mount ${1} ${2} -t iso9660 -o ro,loop=/dev/loop0'
@@ -161,7 +138,7 @@ alias ansible-get-roleid="ansible-galaxy info papanito.$@ | grep -E 'id: [0-9]' 
 # @section misc tools
 # @description command substitution for misc commands
 alias shdocc='for filename in $(ls -I "*.sh" -I "*.zsh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
-alias ca="chezmoi apply"
+alias ca="chezmoi apply && reload"
 alias cae="chezmoi apply --refresh-externals"
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
 alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
