@@ -535,3 +535,28 @@ navibestmatch()
 { 
    navi --query "$1" --best-match
 }
+
+# @section cryptsetup
+# @description helper for cryptsetup
+
+# @description open a luksdevice and mount it
+# @arg $1 string luks file
+# @arg $2 string name for the luks device
+# @arg $3 string mountpoint where to mount
+luksopen() {
+   LUKS_SRC=$1
+   LUKS_DEST=$2
+   MOUNTPOINT=$3
+   sudo cryptsetup luksOpen $LUKS_SRC $LUKS_DEST
+   sudo mount /dev/mapper/$LUKS_DEST $MOUNTPOINT
+}
+
+# @description unmount and close a luksdevice
+# @arg $1 string name for the luks device
+# @arg $2 string mountpoint where to mount
+luksclose() {
+   LUKS_DEST=$1
+   MOUNTPOINT=$2
+   sudo umount $MOUNTPOINT
+   sudo cryptsetup luksClose $LUKS_DEST
+}
