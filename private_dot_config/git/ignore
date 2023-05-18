@@ -2,7 +2,7 @@
 .env
 
 ## VS Code
-.dccache
+**/.dccache
 
 ## My own
 *.rsa

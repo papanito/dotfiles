@@ -6,6 +6,7 @@
 [ -z "$PS1" ] && return
 
 ##### Bash Settings
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
 #autoload -U compinit
 #compinit
 export HISTCONTROL=ignoreboth:erasedups:ignorespace # for 'ignoreboth': ignore duplicates and /^\s/

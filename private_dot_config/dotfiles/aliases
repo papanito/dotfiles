@@ -76,6 +76,8 @@ alias tx='tar -xfvz'
 alias unpack='tar -xzvpf' # uncompress a a Tar file
 alias updatefont='fc-cache -v -f'
 
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
 # @section Computer cleanup
 # @description cleanup helper functions
 alias trashclean='rm -fr ~/.Trash'
