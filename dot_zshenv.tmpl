@@ -116,10 +116,8 @@ export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
 
 ## Tokens
 {{ if eq .chezmoi.hostname "work" }}
-export GITHUB_TOKEN={{ keyring "github" "papanito" }}
 export GITLAB_TOKEN={{ keyring "gitlab" "papanito" }}
 {{ else }}
-export GITHUB_TOKEN={{ keyring "github" "papanito" }}
 export GITLAB_TOKEN={{ keyring "gitlab" "papanito" }}
 export RESTIC_REPOSITORY={{ keyring "restic_repository" "papanito" }}
 export RESTIC_PASSWORD={{ keyring "restic_password" "papanito" }}
