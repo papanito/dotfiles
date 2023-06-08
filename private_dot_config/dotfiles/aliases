@@ -151,3 +151,4 @@ alias navi_update="pushd  ~/.local/share/navi/cheats/papanito__cheats && git pul
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
 alias incognito=' fc -p' ##n-memory history that will be discarded when you exit: the previous history (commands entered before the private session started) will not be available.
 alias p="incognito"
+alias penv="printenv | grep"
