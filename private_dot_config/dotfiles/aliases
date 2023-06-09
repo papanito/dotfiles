@@ -92,6 +92,7 @@ alias hgrep='history | grep --color=always' # search commands history
 alias sete='set|sed -n "/^`declare -F|sed -n "s/^declare -f \(.*\)/\1 ()/p;q"`/q;p"' # display environment vars only, using set
 alias superfind='sudo find / ! \( -path /proc -prune -o -path /tmp -prune -o -path /dev -prune -o -path /mnt -prune \) -name'
 alias whichall='{ command alias; command declare -f; } | command which --read-functions --read-alias -a' # which alias
+alias penv="printenv | grep"
 
 # @section Docker, Podman & k8s
 # description Aliases for docker, kubernetes and related tech
@@ -120,6 +121,7 @@ alias tfplan='terraform plan -no-color > generated.tfplan'
 alias z="zellij"
 alias b="byobu"
 alias t="tmux"
+#alias zellijj='zellij options --disable-mouse-mode'
 alias tmuxls="t list-session"
 function tmuxns {
     if [[ -n "$1" ]]; then
@@ -135,20 +137,27 @@ alias tmuxa="t attach-session -t "
 alias ansible-run-raw='ansible -u ansible -i /home/aedu/Workspaces/wyssmann.com/infrastructure/inventory.yml $1 -m shell -a \"$2\"'
 alias ansible-get-roleid="ansible-galaxy info papanito.$@ | grep -E 'id: [0-9]' | awk {'print $2'}"
 
+# @section chezmoi
+# @description aliases for chezmoi
+alias ca="chezmoi apply && reload"
+alias cae="chezmoi apply --refresh-externals"
+
+# @section navi
+# @description aliases for navi
+alias navi_update="pushd  ~/.local/share/navi/cheats/papanito__cheats && git pull && popd"
+alias k8sn="navi --query kubernetes"
+alias gln="navi --query glab"
+alias ghn="navi --query gh"
+
 # @section misc tools
 # @description command substitution for misc commands
 alias shdocc='for filename in $(ls -I "*.sh" -I "*.zsh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
-alias ca="chezmoi apply && reload"
-alias cae="chezmoi apply --refresh-externals"
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
 alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
 alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan --flush-index --do-delete'
-#alias zellijj='zellij options --disable-mouse-mode'
 alias linode="linode-cli"
 alias zshdocker="docker run -it zshusers/zsh"
 alias rest_state="restic -r $RESTIC_REPOSITORY snapshots"
-alias navi_update="pushd  ~/.local/share/navi/cheats/papanito__cheats && git pull && popd"
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
 alias incognito=' fc -p' ##n-memory history that will be discarded when you exit: the previous history (commands entered before the private session started) will not be available.
 alias p="incognito"
-alias penv="printenv | grep"
