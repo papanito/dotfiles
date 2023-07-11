@@ -11,7 +11,7 @@ if [ -n "$ZSH_VERSION" ]; then
     alias -s {cs,ts,html}=code
 
     alias cd='x' # use zoxide
-    alias reload="source ~/.zshrc && source ~/.zshenv"
+    alias reload="source ~/.zshenv && source ~/.zshrc"
     alias eenv="vi ~/.zshenv"
 fi
 
@@ -159,5 +159,7 @@ alias linode="linode-cli"
 alias zshdocker="docker run -it zshusers/zsh"
 alias rest_state="restic -r $RESTIC_REPOSITORY snapshots"
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
-alias incognito=' fc -p' ##n-memory history that will be discarded when you exit: the previous history (commands entered before the private session started) will not be available.
+alias incognito=' fc -p && hishtory disable' ##n-memory history that will be discarded when you exit: the previous history (commands entered before the private session started) will not be available.
 alias p="incognito"
+alias luo="luksopen_"
+alias luc="luksclose_"

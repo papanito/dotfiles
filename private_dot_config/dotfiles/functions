@@ -554,9 +554,6 @@ luksopen() {
 # @description open a luksdevice and mount it
 # @arg $1 string luks filename
 luksopen_() {
-   LUKS_SRC=".$1"
-   LUKS_DEST="$1"
-   MOUNTPOINT="/mnt/$1"
    sudo cryptsetup luksOpen $LUKS_SRC $LUKS_DEST
    sudo mount /dev/mapper/$LUKS_DEST $MOUNTPOINT
 }
@@ -574,8 +571,6 @@ luksclose() {
 # @description unmount and close a luksdevice
 # @arg $1 string name for the luks device
 luksclose_() {
-   LUKS_DEST=$1
-   MOUNTPOINT="/mnt/$1"
    sudo umount $MOUNTPOINT
    sudo cryptsetup luksClose $LUKS_DEST
 }
