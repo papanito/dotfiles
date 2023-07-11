@@ -237,7 +237,7 @@ zi light sei40kr/zsh-fast-alias-tips
 # completion stuff
 AZCOMP=/etc/bash_completion.d/azure-cli
 [[ ! -f $AZCOMP  ]] || source $AZCOMP
-AZCOMP2=~/.azure_completion
+AZCOMP2=$DOTFILES/az.completion
 [[ -f $AZCOMP2 ]] && source $AZCOMP2
 GCLOUDCOMP=$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc
 [[ -f $GCLOUDCOMP ]] && source $GCLOUDCOMP
@@ -249,9 +249,11 @@ bindkey "^B" znt-cd-widget
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
 
+## Hishtory
+source $HOME/$HISHTORY_PATH/config.zsh
+
 eval "$(direnv hook zsh)"
-eval "$(mcfly init zsh)"
+#eval "$(mcfly init zsh)"
 eval "$(navi widget zsh)"
 eval "$(hcloud completion zsh)"
 # eval "$(zellij setup --generate-auto-start zsh)"
-source $DOTFILES/az.completion

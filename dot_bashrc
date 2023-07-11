@@ -399,4 +399,6 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; histor
 
 if [ -f ~/.local/gitstatus/gitstatus.prompt.sh ]; then . ~/.local/gitstatus/gitstatus.prompt.sh ; fi
 
+source $HOME/$HISHTORY_PATH/config.sh
+
 eval "$(zoxide init bash)"
