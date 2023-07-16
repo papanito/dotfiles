@@ -3,6 +3,8 @@
 {{ $email := promptStringOnce . "email" "E-Mail" -}}
 {{ $passphrase := promptStringOnce . "passphrase" "Passphrase for encryption" -}}
 {{ $signkey := promptStringOnce . "signkey" "Signkey to sign git commits" -}}
+{{ $hasGUI := promptBoolOnce . "hasGUI" "Does this machine have a GUI" }}
+{{ $isDeveloperMachine := promptBoolOnce . "isDevMachine" "Is this a developer machine" }}
 encryption = "gpg"
 [data]
     gituser = {{ $gituser | quote }}

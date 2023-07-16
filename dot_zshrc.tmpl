@@ -172,10 +172,12 @@ zi load romkatv/powerlevel10k
 
 ## https://z.digitalclouds.dev/docs/getting_started/overview/
 zi snippet OMZ::plugins/aliases
-zi snippet OMZ::plugins/archlinux
-zi snippet OMZ::plugins/ansible
 zi snippet OMZ::plugins/colorize
 zi snippet OMZ::plugins/dotenv
+zi snippet OMZ::plugins/tmux
+{{ if .isDeveloperMachine }}
+zi snippet OMZ::plugins/archlinux
+zi snippet OMZ::plugins/ansible
 zi snippet OMZ::plugins/docker
 zi snippet OMZ::plugins/docker-compose
 zi snippet OMZ::plugins/fzf
@@ -198,9 +200,9 @@ zi snippet OMZ::plugins/python
 zi ice silent
 zi snippet OMZ::plugins/ssh-agent
 zi snippet OMZ::plugins/rsync
-zi snippet OMZ::plugins/tmux
 zi snippet OMZ::plugins/thefuck
 zi snippet OMZ::plugins/terraform
+{{- end }}
 
 # use exa instead ls
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
@@ -235,12 +237,14 @@ zi light sei40kr/fast-alias-tips-bin
 zi light sei40kr/zsh-fast-alias-tips
 
 # completion stuff
+{{- if .isDeveloperMachine }}
 AZCOMP=/etc/bash_completion.d/azure-cli
 [[ ! -f $AZCOMP  ]] || source $AZCOMP
 AZCOMP2=$DOTFILES/az.completion
 [[ -f $AZCOMP2 ]] && source $AZCOMP2
 GCLOUDCOMP=$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc
 [[ -f $GCLOUDCOMP ]] && source $GCLOUDCOMP
+{{- end }}
 
 # widgets
 zle -N znt-cd-widget
@@ -253,9 +257,11 @@ bindkey "^Y" znt-kill-widget
 source $HOME/$HISHTORY_PATH/config.zsh
 
 eval "$(direnv hook zsh)"
+{{- if .isDeveloperMachine }}
 #eval "$(mcfly init zsh)"
 eval "$(navi widget zsh)"
 eval "$(hcloud completion zsh)"
 eval "$(hishtory completion zsh)"
 hishtory enable
+{{- end }}
 # eval "$(zellij setup --generate-auto-start zsh)"

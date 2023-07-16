@@ -2,7 +2,9 @@
 .vscode
 {{ if eq .chezmoi.hostname "clawfinger" }}
 ./kube/.config.work
-{{ else }}
+{{- end}}
+{{ if not .isDeveloperMachine }}
+.boto
 .config/gh
 .config/gl
 .config/glab-cli
@@ -19,4 +21,5 @@
 .ansible.cfg
 .ansible.galaxy
 .gemrc
+.Xmodmap
 {{ end }}
