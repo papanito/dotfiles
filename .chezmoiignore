@@ -1,7 +1,22 @@
 *.md
 .vscode
-{{ if eq .chezmoi.hostname "work" }}
+{{ if eq .chezmoi.hostname "clawfinger" }}
 ./kube/.config.work
 {{ else }}
-./kube/.config.private
+.config/gh
+.config/gl
+.config/glab-cli
+.config/irssi
+.config/private_dconf
+.config/remmina
+.config/savedesktop
+.doom.d
+.kube
+.m2
+.ssh
+.terraform.d
+.muttrc
+.ansible.cfg
+.ansible.galaxy
+.gemrc
 {{ end }}
