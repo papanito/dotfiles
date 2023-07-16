@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+{{- if eq .chezmoi.hostname "clawfinger" }}
+~/.emacs.d/bin/doom install
+{{- end}}

@@ -1,8 +1,9 @@
 #!/bin/bash
 {{ if eq .chezmoi.os "linux" }}
+SERVICES=""
 {{ if eq .chezmoi.hostname "work" }}
 SERVICES="{{ .keyring_tokens_work }}"
-{{ else }}
+{{ else if eq .chezmoi.hostname "clawfinger" }}
 SERVICES="{{ .keyring_tokens_private }}"
 {{ end }}
 echo "Populate keyring..."

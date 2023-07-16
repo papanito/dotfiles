@@ -1,26 +1,31 @@
 {{ $gituser := promptStringOnce . "gituser" "Git Username" -}}
 {{ $githubuser := promptStringOnce . "githubuser" "GitHub Username" -}}
 {{ $email := promptStringOnce . "email" "E-Mail" -}}
+{{ $passphrase := promptStringOnce . "passphrase" "Passphrase for encryption" -}}
 {{ $signkey := promptStringOnce . "signkey" "Signkey to sign git commits" -}}
-
 encryption = "gpg"
 [data]
     gituser = {{ $gituser | quote }}
     githubuser = {{ $githubuser | quote }}
-    passphrase = {{ keyring "chezmoi" $gituser | quote }}
     email = {{ $email | quote }}
+{{- if eq .chezmoi.hostname "clawfinger" -}}
+    passphrase = {{ keyring "chezmoi" $gituser | quote }}
     gitsignkey = {{ $signkey | quote }}
     keyring_tokens_private = "github gitlab bitwarden b2_account_id b2_account_secret b2_account_key restic_repository restic_password hcloud_token_dev hcloud_token_prd tf_hcloud_token_dev tf_hcloud_token_prd tf_cloud_token"
     keyring_tokens_work = "github gitlab"
+{{- else }}
+    passphrase = {{ $passphrase | quote }}
+{{- end }}
 [gpg]
     symmetric = true
-    args = ["--batch", "--passphrase", {{ keyring "chezmoi" $gituser | quote }}, "--no-symkey-cache" ]
 {{- if eq .chezmoi.hostname "clawfinger" }}
+    args = ["--batch", "--passphrase", {{ keyring "chezmoi" $gituser | quote }}, "--no-symkey-cache" ]
 [diff]
     command = "diff"
     args = ["-y", "--color"]
     exlude = ["scripts"]
 {{- else}}
+    args = ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache" ]
 [diff]
     exlude = ["scripts"]
 {{- end }}

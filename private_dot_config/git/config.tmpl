@@ -119,7 +119,9 @@
 {{- end }}
 [github]
     user = {{ .githubuser | quote }}
+{{- if eq .chezmoi.hostname "clawfinger" }}
     token = {{ keyring "github" .githubuser | quote }}
+{{- end }}
 [credential]
     helper = libsecret
 [ghq]

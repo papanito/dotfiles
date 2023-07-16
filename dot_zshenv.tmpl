@@ -117,9 +117,7 @@ export PYLINTHOME="$XDG_CACHE_HOME"/pylint
 export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
 
 ## Tokens
-{{ if eq .chezmoi.hostname "work" }}
-export GITLAB_TOKEN={{ keyring "gitlab" "papanito" }}
-{{ else }}
+{{ if eq .chezmoi.hostname "clawfinger" }}
 export GITLAB_TOKEN={{ keyring "gitlab" "papanito" }}
 export RESTIC_REPOSITORY={{ keyring "restic_repository" "papanito" }}
 export RESTIC_PASSWORD={{ keyring "restic_password" "papanito" }}

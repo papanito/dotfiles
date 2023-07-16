@@ -149,13 +149,17 @@ alias k8sn="navi --query kubernetes"
 alias gln="navi --query glab"
 alias ghn="navi --query gh"
 
+# @section app aliases
+# @description aliases for most used apps
+alias linode="linode-cli"
+alias hi="hishtory"
+
 # @section misc tools
 # @description command substitution for misc commands
 alias shdocc='for filename in $(ls -I "*.sh" -I "*.zsh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
 alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
 alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan --flush-index --do-delete'
-alias linode="linode-cli"
 alias zshdocker="docker run -it zshusers/zsh"
 alias rest_state="restic -r $RESTIC_REPOSITORY snapshots"
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"

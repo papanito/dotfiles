@@ -1,0 +1,25 @@
+[
+  {
+    "x": 0,
+    "y": 32,
+    "width": 1920,
+    "height": 1048,
+    "timeout": 5,
+    "cmd": [
+      "/usr/lib/firefox/firefox"
+    ],
+    "state": "maximized_horz,maximized_vert"
+  },
+  {
+    "x": 0,
+    "y": 32,
+    "width": 1920,
+    "height": 1048,
+    "timeout": 5,
+    "cmd": [
+      "/usr/bin/tilix",
+      "--gapplication-service"
+    ],
+    "state": "maximized_horz,maximized_vert"
+  }
+]
