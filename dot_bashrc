@@ -149,7 +149,7 @@ export SHELL_ALIASES=$DOTFILES/aliases
 export SHELL_FUNCTION=$DOTFILES/functions
 [[ -f $SHELL_FUNCTIONS ]] && source $SHELL_FUNCTIONS
 export ZSHENV=$HOME/.zshenv
-[[ -f $ZSHENV ]} && source $ZSHENV
+[[ -f $ZSHENV ]] && source $ZSHENV
 [[ -f ~/.azure_completion ]] && source ~/.azure_completion
 export BASHRC_LOCAL=$DOTFILES/bashrc.local
 [[ -f $BASHRC_LOCAL ]] && source $BASHRC_LOCAL # settings that vary per workstation
