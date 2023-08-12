@@ -56,7 +56,7 @@ set +o nounset                      # otherwise some completions will fail
 # set visible-stats on                 # when listing possible file completions, put / after directory names and * after programs
 shopt -s cdable_vars                # set the bash option so that no '$' is required (disallow write access to terminal)
 shopt -s cdspell                # this will correct minor spelling errors in a cd command
-shotp -s direxpand
+shopt -s direxpand
 shopt -s checkhash
 shopt -s checkwinsize                # update windows size on command
 shopt -s cmdhist                      # save multi-line commands in history as single line
@@ -391,7 +391,6 @@ if [ "$PS1" ]; then # if running interactively, then run till 'fi' at EOF:
             fi
         fi
     }
-    eval "$(zellij setup --generate-auto-start zsh)"
 fi
 # The final major setting is to configure the history file to reload after every entryx§x§
 # https://www.thomaslaurenson.com/blog/2018-07-02/better-bash-history/
