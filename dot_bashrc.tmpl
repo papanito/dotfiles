@@ -397,8 +397,10 @@ fi
 # https://www.thomaslaurenson.com/blog/2018-07-02/better-bash-history/
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
+{{ if not .isDeveloperMachine }}
 if [ -f ~/.local/gitstatus/gitstatus.prompt.sh ]; then . ~/.local/gitstatus/gitstatus.prompt.sh ; fi
 
 source $HOME/$HISHTORY_PATH/config.sh
 
 eval "$(zoxide init bash)"
+{{- end }}

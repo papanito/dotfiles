@@ -2,20 +2,22 @@
 {{ $githubuser := promptStringOnce . "githubuser" "GitHub Username" -}}
 {{ $email := promptStringOnce . "email" "E-Mail" -}}
 {{ $passphrase := promptStringOnce . "passphrase" "Passphrase for encryption" -}}
-{{ $signkey := promptStringOnce . "signkey" "Signkey to sign git commits" -}}
+{{ $isDeveloperMachine := promptBoolOnce . "isDeveloperMachine" "Is this a developer machine" }}
 {{ $hasGUI := promptBoolOnce . "hasGUI" "Does this machine have a GUI" }}
-{{ $isDeveloperMachine := promptBoolOnce . "isDevMachine" "Is this a developer machine" }}
+{{ $signkey := promptStringOnce . " " "Signkey to sign git commits" -}}
 encryption = "gpg"
 [data]
     gituser = {{ $gituser | quote }}
     githubuser = {{ $githubuser | quote }}
     email = {{ $email | quote }}
-{{- if eq .chezmoi.hostname "clawfinger" -}}
+{{- if eq .chezmoi.hostname "clawfinger"}}
     passphrase = {{ keyring "chezmoi" $gituser | quote }}
     gitsignkey = {{ $signkey | quote }}
-    keyring_tokens_private = "github gitlab bitwarden b2_account_id b2_account_secret b2_account_key restic_repository restic_password hcloud_token_dev hcloud_token_prd tf_hcloud_token_dev tf_hcloud_token_prd tf_cloud_token"
-    keyring_tokens_work = "github gitlab"
+     = "github gitlab bitwarden b2_account_id b2_account_secret b2_account_key restic_repository restic_password hcloud_token_dev hcloud_token_prd tf_hcloud_token_dev tf_hcloud_token_prd tf_cloud_token"
 {{- else }}
+    keyring_tokens_work = "github gitlab"
+    hasGUI = {{ $hasGUI }}
+    isDeveloperMachine = {{ $isDeveloperMachine }}
     passphrase = {{ $passphrase | quote }}
 {{- end }}
 [gpg]
@@ -31,3 +33,7 @@ encryption = "gpg"
 [diff]
     exlude = ["scripts"]
 {{- end }}
+
+[hooks.apply.post]
+command = "source $HOME/.zshenv && source $HOME/.zshrc"
+#args = ["$HOME/.zshenv"]
