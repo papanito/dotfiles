@@ -54,7 +54,7 @@ export SHELL_HELPER_LIBRARY="$HOME/.shell-helper-library"
 export GOPATH="$HOME/go"
 
 ## Set PATH
-export PATH=~/.bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
+export PATH=~/bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
 {{ if eq .chezmoi.hostname "work" }}
 export PATH=$PATH
 {{ else if .isDeveloperMachine }}
