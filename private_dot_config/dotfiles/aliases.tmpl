@@ -10,7 +10,9 @@ if [ -n "$ZSH_VERSION" ]; then
     # javascript and html
     alias -s {cs,ts,html}=code
 
+{{- if .isDeveloperMachine }}
     alias cd='x' # use zoxide
+{{- end }}
     alias reload="source ~/.zshenv && source ~/.zshrc"
     alias eenv="vi ~/.zshenv"
 fi
