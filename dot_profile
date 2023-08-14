@@ -1,3 +1,7 @@
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export EDITOR=/usr/bin/vi
-export DOCRENAMERCONFIGDIR=~/config/docrenamer
+# Get the aliases and functions
+BASHRC="$HOME/.bashrc"
+if [ n "BASH_VERSION"]; then
+    if [ -f "$BASHRC" ]; then
+        . "$BASHRC"
+    fi
+fi

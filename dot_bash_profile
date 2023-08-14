@@ -1,16 +1,8 @@
 # .bash_profile
-
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
-
 # User specific environment and startup programs
 export PATH
 
 # From Andrzej Szelachowski's ~/.bash_profile:
-
-
 #  Note that a variable may require special treatment
 #+ if it will be exported.
 

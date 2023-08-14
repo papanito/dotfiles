@@ -27,12 +27,15 @@ export LC_MEASUREMENT
 export BLOCKSIZE=K
 export BROWSER='firefox'
 # export BROWSER=$(find_alternatives chromium-browser google-chrome opera firefox firefox-bin iceweasel konqueror w3m lynx)    # uses function 'find_alternatives'
-export CDDIR="$HOME/work" # for use with the function 'cd' and the alias 'cdd'
 # export CDPATH=.:~:~/src:/etc
 # export DISPLAY=:79
 # export EDITOR="gedit -w --resume" Typing 'fc'    # open last command for editing in gedit, then execute on save
+{{- if .isDeveloperMachine }}
 export EDITOR='helix'
+{{- else }}
+export EDITOR=/usr/bin/vi
 export VISUAL="emacs"
+{{- end }}
 # export ftp_proxy=${MY_PROXY}
 # export GPG_TTY='tty' # gpg-agent says it needs this
 # export GREP_OPTIONS='-D skip --binary-files=without-match --ignore-case' # most commonly used grep options
@@ -58,7 +61,7 @@ export PATH=~/bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:
 {{ if eq .chezmoi.hostname "work" }}
 export PATH=$PATH
 {{ else if .isDeveloperMachine }}
-export DOCRENAMERCONFIGDIR=/home/aedu/.config/docrenamer
+export DOCRENAMERCONFIGDIR=$HOME/.config/docrenamer
 export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
 {{ end }}
 
