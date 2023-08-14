@@ -161,8 +161,10 @@ if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
    mkdir "$ZSH_CACHE_DIR/completions/"
 fi
 
+{{ if eq .chezmoi.hostname "clawfinger" }}
 autoload -U add-zsh-hook                      # Load the zsh hook module
 add-zsh-hook preexec pre_validation           # Adds the hook
+{{ end }}
 
 # Theme: https://github.com/romkatv/powerlevel10k
 ## To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -204,9 +206,11 @@ zi snippet OMZ::plugins/thefuck
 zi snippet OMZ::plugins/terraform
 {{- end }}
 
+{{- if .isDeveloperMachine }}
 # use exa instead ls
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 zi load zplugin/zsh-exa
+{{- end }}
 
 # install zoxide
 zi ice as'null' from"gh-r" sbin
@@ -221,6 +225,7 @@ bindkey "${keys[Up]}" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "${keys[Down]}" history-substring-search-down
 
+{{- if .isDeveloperMachine }}
 zi light-mode for \
   z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
   z-shell/zsh-navigation-tools \
@@ -237,13 +242,17 @@ zi light sei40kr/fast-alias-tips-bin
 zi light sei40kr/zsh-fast-alias-tips
 
 # completion stuff
-{{- if .isDeveloperMachine }}
 AZCOMP=/etc/bash_completion.d/azure-cli
 [[ ! -f $AZCOMP  ]] || source $AZCOMP
 AZCOMP2=$DOTFILES/az.completion
 [[ -f $AZCOMP2 ]] && source $AZCOMP2
 GCLOUDCOMP=$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc
 [[ -f $GCLOUDCOMP ]] && source $GCLOUDCOMP
+{{- else }}
+zi light-mode for \
+  z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
+  z-shell/zsh-navigation-tools \
+  Aloxaf/fzf-tab
 {{- end }}
 
 # widgets
@@ -253,11 +262,12 @@ bindkey "^B" znt-cd-widget
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
 
+{{- if .isDeveloperMachine }}
 ## Hishtory
 source $HOME/$HISHTORY_PATH/config.zsh
 
+## helper tools
 eval "$(direnv hook zsh)"
-{{- if .isDeveloperMachine }}
 #eval "$(mcfly init zsh)"
 eval "$(navi widget zsh)"
 eval "$(hcloud completion zsh)"

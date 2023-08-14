@@ -57,7 +57,7 @@ export GOPATH="$HOME/go"
 export PATH=~/.bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
 {{ if eq .chezmoi.hostname "work" }}
 export PATH=$PATH
-{{ else }}
+{{ else if .isDeveloperMachine }}
 export DOCRENAMERCONFIGDIR=/home/aedu/.config/docrenamer
 export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
 {{ end }}
