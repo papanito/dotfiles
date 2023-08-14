@@ -1,15 +1,20 @@
-{{ $gituser := promptStringOnce . "gituser" "Git Username" -}}
-{{ $githubuser := promptStringOnce . "githubuser" "GitHub Username" -}}
-{{ $email := promptStringOnce . "email" "E-Mail" -}}
-{{ $passphrase := promptStringOnce . "passphrase" "Passphrase for encryption" -}}
-{{ $isDeveloperMachine := promptBoolOnce . "isDeveloperMachine" "Is this a developer machine" }}
-{{ $hasGUI := promptBoolOnce . "hasGUI" "Does this machine have a GUI" }}
-{{ $signkey := promptStringOnce . " " "Signkey to sign git commits" -}}
+{{- $gituser := promptStringOnce . "gituser" "Git Username" -}}
+{{- $githubuser := promptStringOnce . "githubuser" "GitHub Username" -}}
+{{- $email := promptStringOnce . "email" "E-Mail" -}}
+{{- $passphrase := promptStringOnce . "passphrase" "Passphrase for encryption" -}}
+{{- $isDeveloperMachine := promptBoolOnce . "isDeveloperMachine" "Is this a developer machine" }}
+{{- $hasGUI := promptBoolOnce . "hasGUI" "Does this machine have a GUI" }}
+{{- $signkey := promptStringOnce . " " "Signkey to sign git commits" -}}
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
 encryption = "gpg"
 [data]
     gituser = {{ $gituser | quote }}
     githubuser = {{ $githubuser | quote }}
     email = {{ $email | quote }}
+    osid = {{ $osid | quote }}
 {{- if eq .chezmoi.hostname "clawfinger"}}
     passphrase = {{ keyring "chezmoi" $gituser | quote }}
     gitsignkey = {{ $signkey | quote }}
