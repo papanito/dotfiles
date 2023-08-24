@@ -9,7 +9,7 @@ fi
 export ZDOTDIR="$HOME"
 export DOTFILES="${ZDOTDIR:-$HOME}/.config/dotfiles"
 [[ -d "$DOTFILES" ]] || mkdir -p "$DOTFILES"
-export ZSH_DOTFILES="$DOTFILES"
+export ZSH_DOTFILES="$DOTFILES/zsh"
 [[ -d "$ZSH_DOTFILES" ]] || mkdir -p "$ZSH_DOTFILES"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 [[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
@@ -147,14 +147,12 @@ bindkey -e
 zi ice from"gitlab"
 zi light papanito/shell-helper-library
 
-export ZSH_KEYBINDINGS=$ZSH_DOTFILES/zkbd.zsh
-[[ -f $ZSH_KEYBINDINGS ]] && source $ZSH_KEYBINDINGS
-export SHELL_ALIASES=$DOTFILES/aliases
-[[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
-export SHELL_FUNCTIONS=$DOTFILES/functions
-[[ -f $SHELL_FUNCTIONS ]] && source $SHELL_FUNCTIONS
+# Load aliases, functions, etc.
+[[ -d $DOTFILES ]] && for f ($DOTFILES/*.sh) source $f
+[[ -d $ZSH_DOTFILES ]] && for f ($ZSH_DOTFILES/*(N.)) source $f
 export ZSHRC_LOCAL=$DOTFILES/zsh/zshrc.local
-[[ -f $ZSHRC_LOCAL ]] && source $ZSHRC_LOCAL # settings that vary per workstation
+# settings that vary per workstation
+[[ -f $ZSHRC_LOCAL ]] && source $ZSHRC_LOCAL 
 
 ## Ensure completions directory exists
 if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
@@ -168,8 +166,8 @@ add-zsh-hook preexec pre_validation           # Adds the hook
 
 # Theme: https://github.com/romkatv/powerlevel10k
 ## To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-export ZSH_P10K=$ZSH_DOTFILES/.p10k.zsh
-[[ -f $ZSH_P10K ]] && source $ZSH_P10K
+# export ZSH_P10K=$ZSH_DOTFILES/.p10k.zsh
+# [[ -f $ZSH_P10K ]] && source $ZSH_P10K
 zi load romkatv/powerlevel10k
 
 ## https://z.digitalclouds.dev/docs/getting_started/overview/
@@ -267,11 +265,10 @@ bindkey "^Y" znt-kill-widget
 source $HOME/$HISHTORY_PATH/config.zsh
 
 ## helper tools
-eval "$(direnv hook zsh)"
+which direvn &>/dev/null && eval "$(direnv hook zsh)"
 #eval "$(mcfly init zsh)"
-eval "$(navi widget zsh)"
-eval "$(hcloud completion zsh)"
-eval "$(hishtory completion zsh)"
-hishtory enable
+which direvn &>/dev/null && eval "$(navi widget zsh)"
+which direvn &>/dev/null && eval "$(hcloud completion zsh)"
+which direvn &>/dev/null && eval "$(hishtory completion zsh)" && hishtory enable
 {{- end }}
 # eval "$(zellij setup --generate-auto-start zsh)"

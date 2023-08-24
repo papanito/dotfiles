@@ -1,6 +1,9 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+export DOTFILES="$HOME/.config/dotfiles"
+[[ -d "$DOTFILES" ]] || mkdir -p "$DOTFILES"
+export BASH_DOTFILES="$DOTFILES/bash"
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -144,19 +147,17 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 shell_helper=$SHELL_HELPER_LIBRARY/shell-helper-library.plugin.bash
 if [ -f $shell_helper ]; then . $shell_helper ; fi
-export SHELL_ALIASES=$DOTFILES/aliases
-[[ -f $SHELL_ALIASES ]] && source $SHELL_ALIASES
-export SHELL_FUNCTION=$DOTFILES/functions
-[[ -f $SHELL_FUNCTIONS ]] && source $SHELL_FUNCTIONS
+# Load aliases, functions, etc.
+[[ -d $DOTFILES ]] && for f in $DOTFILES/*.sh; do source $f; done
+[[ -d $BASH_DOTFILES ]] && for f in $BASH_DOTFILES/*.sh; do source $f; done
+
+## .zshenv defineds all variables, we can also use them in bash
 export ZSHENV=$HOME/.zshenv
 [[ -f $ZSHENV ]] && source $ZSHENV
 [[ -f ~/.azure_completion ]] && source ~/.azure_completion
+# settings that vary per workstation
 export BASHRC_LOCAL=$DOTFILES/bashrc.local
-[[ -f $BASHRC_LOCAL ]] && source $BASHRC_LOCAL # settings that vary per workstation
-
-###############################################################################
-# Miscellaneous
-###############################################################################
+[[ -f $BASHRC_LOCAL ]] && source $BASHRC_LOCAL 
 
 if [ "$PS1" ]; then # if running interactively, then run till 'fi' at EOF:
     ############################################################################
