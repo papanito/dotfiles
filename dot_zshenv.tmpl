@@ -57,13 +57,16 @@ export SHELL_HELPER_LIBRARY="$HOME/.shell-helper-library"
 export GOPATH="$HOME/go"
 
 ## Set PATH
-export PATH=~/bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
-{{ if eq .chezmoi.hostname "work" }}
+{{- if eq .osid "linux-nixos" }}
+export PATH=/run/wrappers/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/papanito/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin
+{{- end }}
+{{- if eq .chezmoi.hostname "work" }}
 export PATH=$PATH
-{{ else if .isDeveloperMachine }}
+{{- else if .isDeveloperMachine }}
+export PATH=~/bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
 export DOCRENAMERCONFIGDIR=$HOME/.config/docrenamer
 export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
-{{ end }}
+{{- end }}
 
 ## History stuff
 export MCFLY_RESULTS=50
@@ -121,15 +124,5 @@ export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
 
 ## Tokens
 {{ if eq .chezmoi.hostname "clawfinger" }}
-export GITLAB_TOKEN={{ keyring "gitlab" "papanito" }}
-export RESTIC_REPOSITORY={{ keyring "restic_repository" "papanito" }}
-export RESTIC_PASSWORD={{ keyring "restic_password" "papanito" }}
-export B2_ACCOUNT_ID={{ keyring "b2_account_id" "papanito" }}
-export B2_ACCOUNT_KEY={{ keyring "b2_account_key" "papanito" }}
-export BW_SESSION={{ keyring "bitwarden" "papanito" }}
-export HCLOUD_DEV={{ keyring "hcloud_token_dev" "papanito" }}
-export HCLOUD_PRD={{ keyring "hcloud_token_prd" "papanito" }}
-export TF_VAR_HLCOUD_DEV={{ keyring "tf_hcloud_token_dev" "papanito" }}
-export TF_VAR_HLCOUD_PRD={{ keyring "tf_hcloud_token_prd" "papanito" }}
-export HLCOUD_TOKEN=$HCLOUD_DEV
+[[ -f "$HOME/.zshenv.local" ]] && source $HOME/.zshenv.local
 {{ end }}

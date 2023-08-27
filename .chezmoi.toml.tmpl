@@ -4,7 +4,7 @@
 {{- $passphrase := promptStringOnce . "passphrase" "Passphrase for encryption" -}}
 {{- $isDeveloperMachine := promptBoolOnce . "isDeveloperMachine" "Is this a developer machine" }}
 {{- $hasGUI := promptBoolOnce . "hasGUI" "Does this machine have a GUI" }}
-{{- $signkey := promptStringOnce . " " "Signkey to sign git commits" -}}
+{{- $signkey := promptStringOnce . "signkey" "Signkey to sign git commits" -}}
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
@@ -15,20 +15,14 @@ encryption = "gpg"
     githubuser = {{ $githubuser | quote }}
     email = {{ $email | quote }}
     osid = {{ $osid | quote }}
-{{- if eq .chezmoi.hostname "clawfinger"}}
-    passphrase = {{ keyring "chezmoi" $gituser | quote }}
+    passphrase = {{ $passphrase | quote }}
     gitsignkey = {{ $signkey | quote }}
-     = "github gitlab bitwarden b2_account_id b2_account_secret b2_account_key restic_repository restic_password hcloud_token_dev hcloud_token_prd tf_hcloud_token_dev tf_hcloud_token_prd tf_cloud_token"
-{{- else }}
-    keyring_tokens_work = "github gitlab"
     hasGUI = {{ $hasGUI }}
     isDeveloperMachine = {{ $isDeveloperMachine }}
-    passphrase = {{ $passphrase | quote }}
-{{- end }}
 [gpg]
     symmetric = true
 {{- if eq .chezmoi.hostname "clawfinger" }}
-    args = ["--batch", "--passphrase", {{ keyring "chezmoi" $gituser | quote }}, "--no-symkey-cache" ]
+    args = ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache" ]
 [diff]
     command = "diff"
     args = ["-y", "--color"]
