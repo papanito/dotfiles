@@ -91,3 +91,21 @@ repositories:
   password: ""
   url: https://kubernetes.github.io/ingress-nginx
   username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: loft
+  pass_credentials_all: false
+  password: ""
+  url: https://charts.loft.sh
+  username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: rancher
+  pass_credentials_all: false
+  password: ""
+  url: https://releases.rancher.com/server-charts/stable
+  username: ""
