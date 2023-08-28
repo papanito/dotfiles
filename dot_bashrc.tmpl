@@ -400,7 +400,12 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; histor
 {{- if .isDeveloperMachine }}
 if [ -f ~/.local/gitstatus/gitstatus.prompt.sh ]; then . ~/.local/gitstatus/gitstatus.prompt.sh ; fi
 
-source $HOME/$HISHTORY_PATH/config.sh
+# Hishtory Config:
+export PATH="$PATH:/home/papanito/.config/hishtory"
+which hishtory &>/dev/null && \
+  source $HOME/$HISHTORY_PATH/config.zsh && \
+  eval "$(hishtory completion bash)" && \
+  hishtory enable
 
 eval "$(zoxide init bash)"
 {{- end }}

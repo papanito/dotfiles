@@ -51,3 +51,10 @@ echo '\n$GREEN[\w] \n$DARKGRAY('\$PCT'\t$DARKGRAY)-\
 ('\$PCT'\u$DARKGRAY)-('\$PCT'\!$DARKGRAY)$YELLOW-> $NC'\`"
 
 # The trick is to use strong quoting for parts of old PS1 variable.
+
+# Hishtory Config:
+export PATH="$PATH:/home/papanito/.config/hishtory"
+which hishtory &>/dev/null && \
+  source $HOME/$HISHTORY_PATH/config.zsh && \
+  eval "$(hishtory completion bash)" && \
+  hishtory enable
