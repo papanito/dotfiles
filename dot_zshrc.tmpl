@@ -17,9 +17,9 @@ export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export MCFLY_HISTFILE="$XDG_STATE_HOME"/zsh/history
 
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
+#if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+#    source /etc/profile.d/vte.sh
+#fi
 
 # https://z.digitalclouds.dev/docs/getting_started/installation/#-setup-zi-directory
 if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
@@ -178,15 +178,15 @@ zi snippet OMZ::plugins/tmux
 {{ if .isDeveloperMachine }}
 zi snippet OMZ::plugins/archlinux
 zi snippet OMZ::plugins/ansible
-zi snippet OMZ::plugins/docker
-zi snippet OMZ::plugins/docker-compose
+# zi snippet OMZ::plugins/docker
+# zi snippet OMZ::plugins/docker-compose
 zi snippet OMZ::plugins/fzf
 zi snippet OMZ::plugins/flutter
 zi snippet OMZ::plugins/gnu-utils
 zi snippet OMZ::plugins/gcloud
 zi snippet OMZ::plugins/git
 zi snippet OMZ::plugins/git-extras
-zi snippet OMZ::plugins/github
+#zi snippet OMZ::plugins/github
 zi snippet OMZ::plugins/gitignore
 zi snippet OMZ::plugins/git-prompt
 zi snippet OMZ::plugins/golang
@@ -262,13 +262,16 @@ bindkey "^Y" znt-kill-widget
 
 {{- if .isDeveloperMachine }}
 ## Hishtory
-source $HOME/$HISHTORY_PATH/config.zsh
+which hishtory &>/dev/null && \
+  source $HOME/$HISHTORY_PATH/config.zsh && \
+  eval "$(hishtory completion zsh)" && \
+  hishtory enable
 
 ## helper tools
 which direvn &>/dev/null && eval "$(direnv hook zsh)"
 #eval "$(mcfly init zsh)"
-which direvn &>/dev/null && eval "$(navi widget zsh)"
-which direvn &>/dev/null && eval "$(hcloud completion zsh)"
-which direvn &>/dev/null && eval "$(hishtory completion zsh)" && hishtory enable
+which naiv &>/dev/null && eval "$(navi widget zsh)"
+which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
+which podman &>/dev/null && eval "$(podman completion  zsh)"
 {{- end }}
 # eval "$(zellij setup --generate-auto-start zsh)"

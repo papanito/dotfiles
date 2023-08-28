@@ -58,14 +58,14 @@ export GOPATH="$HOME/go"
 
 ## Set PATH
 {{- if eq .osid "linux-nixos" }}
-export PATH=/run/wrappers/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/papanito/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin
+#export PATH=/run/wrappers/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/papanito/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin
 {{- end }}
 {{- if eq .chezmoi.hostname "work" }}
-export PATH=$PATH
+#export PATH=$PATH
 {{- else if .isDeveloperMachine }}
-export PATH=~/bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
+#export PATH=~/bin:~/go/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
 export DOCRENAMERCONFIGDIR=$HOME/.config/docrenamer
-export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
+#export PATH=~/node_modules:~/.npm:/usr/lib/node_modules:/opt/atlassian-plugin-sdk/bin:/opt/flutter/bin:$PATH
 {{- end }}
 
 ## History stuff
