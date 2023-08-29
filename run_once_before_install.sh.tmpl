@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+{{- if eq .chezmoi.hostname "clawfinger" }}
+read -p "Enter hishtory secret: " YOUR_HISHTORY_SECRET
+curl https://hishtory.dev/install.py | python3 -
+hishtory init $YOUR_HISHTORY_SECRET
+
+dconf load /com/gexperts/Tilix/ < tilix.dconf
+{{- end}}
