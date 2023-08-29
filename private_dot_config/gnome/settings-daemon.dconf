@@ -1,0 +1,16 @@
+[plugins/color]
+night-light-enabled=false
+night-light-last-coordinates=(47.370545850139386, 8.5207391999999995)
+
+[plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+
+[plugins/media-keys/custom-keybindings/custom0]
+binding='F12'
+command='guake-toggle'
+name='Guake'
+
+[plugins/media-keys/custom-keybindings/custom1]
+binding='<Super>t'
+command='tilix'
+name='Open Terminal'

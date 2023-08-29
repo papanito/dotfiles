@@ -1,0 +1,23 @@
+[/]
+terminal-title-style='small'
+theme-variant='dark'
+use-tabs=false
+window-style='normal'
+
+[profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
+background-color='#002B36'
+badge-color='#AC7EA8'
+badge-color-set=false
+bold-color-set=false
+cursor-colors-set=false
+default-size-columns=170
+default-size-rows=60
+draw-margin=76
+font='Meslo LG L DZ for Powerline 12'
+foreground-color='#839496'
+highlight-colors-set=false
+palette=['#073642', '#DC322F', '#859900', '#B58900', '#268BD2', '#D33682', '#2AA198', '#EEE8D5', '#002B36', '#CB4B16', '#586E75', '#657B83', '#839496', '#6C71C4', '#93A1A1', '#FDF6E3']
+terminal-bell='none'
+use-system-font=true
+use-theme-colors=false
+visible-name='Default'

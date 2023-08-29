@@ -574,3 +574,20 @@ luksclose_() {
    sudo umount $MOUNTPOINT
    sudo cryptsetup luksClose $LUKS_DEST
 }
+
+# @section backup and restore configs
+# @description helper to backup and restore some configs (mainly dconf for gnome)
+
+# @description backup dconf
+dconfbackup() {
+   dconf dump /com/gexperts/Tilix/ > $(chezmoi source-path)/private_dot_config/tilix/tilix.dconf
+   dconf dump /org/gnome/nautilus/ > $(chezmoi source-path)/private_dot_config/gnome/nautilus.dconf
+   dconf dump /org/gnome/settings-daemon/ > $(chezmoi source-path)/private_dot_config/gnome/settings-daemon.dconf
+}
+
+# @description backup dconf
+dconfrestore() {
+   dconf dump /com/gexperts/Tilix/ < $(chezmoi source-path)/private_dot_config/tilix/tilix.dconf
+   dconf dump /org/gnome/nautilus/ < $(chezmoi source-path)/private_dot_config/gnome/nautilus.dconf
+   dconf dump /org/gnome/settings-daemon/ < $(chezmoi source-path)/private_dot_config/gnome/settings-daemon.dconf
+}
