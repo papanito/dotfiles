@@ -121,7 +121,7 @@ alias tfplan='terraform plan -no-color > generated.tfplan'
 # @section terminal multiplexer
 # @description command substitution tmux,byobu, etc
 alias z="zellij"
-alias b="byobu"
+alias helix="hx"
 alias t="tmux"
 #alias zellijj='zellij options --disable-mouse-mode'
 alias tmuxls="t list-session"
@@ -169,3 +169,9 @@ alias incognito=' fc -p && hishtory disable' ##n-memory history that will be dis
 alias p="incognito"
 alias luo="luksopen_"
 alias luc="luksclose_"
+#alias firejail="firejail --net=tornet"
+
+# @section nixos
+# @description aliases for nixos
+alias nixrebuild="sudo rsync -rv $HOME/Workspaces/papanito/nixos-configuration/ --update --delete --exclude result /etc/nixos/ && source ~/.env-us.locale && sudo nixos-rebuild switch"
+alias nixrebuildu=" sudo rsync -rv $HOME/Workspaces/papanito/nixos-configuration/ --update --delete --exclude result /etc/nixos/ && source ~/.env-us.locale && sudo nixos-rebuild switch --upgrade"
