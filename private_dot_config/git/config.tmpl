@@ -1,5 +1,5 @@
 [core]
-    editor = helix
+    editor = hx
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
     excludesFile = ~/.config/git/ignore
     autocrlf = input
@@ -120,7 +120,6 @@
 [github]
     user = {{ .githubuser | quote }}
 {{- if eq .chezmoi.hostname "clawfinger" }}
-    token = {{ keyring "github" .githubuser | quote }}
 {{- end }}
 [credential]
     helper = libsecret
