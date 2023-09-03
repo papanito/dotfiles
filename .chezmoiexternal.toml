@@ -1,16 +1,34 @@
 [".local/scripts"]
     type = "git-repo"
-    url = "https://gitlab.com/papanito/shell-scripts.git"
+    url = "git@gitlab.com:papanito/shell-scripts.git"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-["bin/cmdfu"]
+[".local/share/nautilus/scripts/"]
+    type = "git-repo"
+    url = "git@github.com:cfgnunes/nautilus-scripts.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[".local/scripts/DevOps-Bash-tools"]
+    type = "git-repo"
+    url = "git@github.com:HariSekhon/DevOps-Bash-tools.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[".local/scripts/backup_docker_scripts"]
+    type = "git-repo"
+    url = "git@github.com:alaub81/backup_docker_scripts.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[".local/bin/cmdfu"]
     type = "file"
     url = "https://gitlab.com/papanito/cmdfu/-/raw/main/cmdfu"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-["bin/shdoc"]
+[".local/bin/shdoc"]
     type = "file"
     url = "https://raw.githubusercontent.com/reconquest/shdoc/master/shdoc"
     exact = true
@@ -30,12 +48,12 @@
     refreshPeriod = "168h"
 [".config/cheat/cheatsheets/personal"]
     type = "git-repo"
-    url = "https://github.com/cheat/cheatsheets.git"
+    url = "git@github.com:cheat/cheatsheets.git"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
 [".local/share/navi/cheats/papanito__cheats"]
     type = "git-repo"
-    url = "https://github.com/papanito/cheats.git"
+    url = "git@github.com:papanito/cheats.git"
     exact = true
     refreshPeriod = "168h"
