@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+{{- if eq .chezmoi.hostname "clawfinger" }}
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+$HOME/.emacs.d/bin/doom install
+{{- end}}
