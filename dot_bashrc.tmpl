@@ -151,7 +151,7 @@ if [ -f $shell_helper ]; then . $shell_helper ; fi
 [[ -d $DOTFILES ]] && for f in $DOTFILES/*.sh; do source $f; done
 [[ -d $BASH_DOTFILES ]] && for f in $BASH_DOTFILES/*.sh; do source $f; done
 
-## .zshenv defineds all variables, we can also use them in bash
+## .zshenv defines all variables, we can also use them in bash
 export ZSHENV=$HOME/.zshenv
 [[ -f $ZSHENV ]] && source $ZSHENV
 [[ -f ~/.azure_completion ]] && source ~/.azure_completion

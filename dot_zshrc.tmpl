@@ -1,3 +1,6 @@
+# I worked around the issue by evaluating the zellij autostart command before sourcing p10k.
+#which zellij &>/dev/null && eval "$(zellij setup --generate-auto-start zsh)"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -152,7 +155,7 @@ zi light papanito/shell-helper-library
 [[ -d $ZSH_DOTFILES ]] && for f ($ZSH_DOTFILES/*(N.)) source $f
 export ZSHRC_LOCAL=$DOTFILES/zsh/zshrc.local
 # settings that vary per workstation
-[[ -f $ZSHRC_LOCAL ]] && source $ZSHRC_LOCAL 
+[[ -f $ZSHRC_LOCAL ]] && source $ZSHRC_LOCAL
 
 ## Ensure completions directory exists
 if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
@@ -265,13 +268,16 @@ bindkey "^Y" znt-kill-widget
 which hishtory &>/dev/null && \
   source $HOME/$HISHTORY_PATH/config.zsh && \
   eval "$(hishtory completion zsh)" && \
-  hishtory enable
+  hishtory enable && \
+  hishtory config-set filter-duplicate-commands true
+#eval "$(mcfly init zsh)"
 
 ## helper tools
 which direnv &>/dev/null && eval "$(direnv hook zsh)"
-#eval "$(mcfly init zsh)"
 which navi &>/dev/null && eval "$(navi widget zsh)"
 which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
-which podman &>/dev/null && eval "$(podman completion  zsh)"
+which podman &>/dev/null && eval "$(podman completion zsh)"
 {{- end }}
-# eval "$(zellij setup --generate-auto-start zsh)"
+
+export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+[[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
