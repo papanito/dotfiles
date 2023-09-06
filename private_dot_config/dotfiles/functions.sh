@@ -580,14 +580,13 @@ luksclose_() {
 
 # @description backup dconf
 dconfbackup() {
-   dconf dump /com/gexperts/Tilix/ > $(chezmoi source-path)/private_dot_config/tilix/tilix.dconf
-   dconf dump /org/gnome/nautilus/ > $(chezmoi source-path)/private_dot_config/gnome/nautilus.dconf
-   dconf dump /org/gnome/settings-daemon/ > $(chezmoi source-path)/private_dot_config/gnome/settings-daemon.dconf
+   DCONF_BACKUP=$XDG_CONFIG_HOME/dconf/backup.dconf
+   dconf dump / > $DCONF_BACKUP
+   chezmoi add --encrypt $DCONF_BACKUP
 }
 
 # @description backup dconf
 dconfrestore() {
-   dconf dump /com/gexperts/Tilix/ < $(chezmoi source-path)/private_dot_config/tilix/tilix.dconf
-   dconf dump /org/gnome/nautilus/ < $(chezmoi source-path)/private_dot_config/gnome/nautilus.dconf
-   dconf dump /org/gnome/settings-daemon/ < $(chezmoi source-path)/private_dot_config/gnome/settings-daemon.dconf
+   DCONF_BACKUP=$XDG_CONFIG_HOME/dconf/backup.dconf
+   dconf load / < $DCONF_BACKUP
 }
