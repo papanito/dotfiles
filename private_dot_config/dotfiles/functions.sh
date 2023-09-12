@@ -590,3 +590,21 @@ dconfrestore() {
    DCONF_BACKUP=$XDG_CONFIG_HOME/dconf/backup.dconf
    dconf load / < $DCONF_BACKUP
 }
+
+# @section nixos
+# @description helper functions for nixos
+
+# @description rebuild nixos with my config
+nixreb () {
+   NIXOSWD=$HOME/Workspaces/papanito/nixos-configuration/
+   NIXOSDIR=/etc/nixos
+   # 1. sync config from working dir
+   sudo rsync -rv $NIXOSWD --update --delete --exclude result $NIXOSDIR
+   # Source loale for us otherwise perl has issues
+   source ~/.env-us.locale
+   if [[ -f "$NIXOSDIR/flake.nix" ]]; then
+      sudo nixos-rebuild --flake '.#' switch
+   else
+      sudo nixos-rebuild switch
+   fi
+}

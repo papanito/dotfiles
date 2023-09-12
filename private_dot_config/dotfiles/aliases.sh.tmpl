@@ -171,8 +171,3 @@ alias luo="luksopen_"
 alias luc="luksclose_"
 #alias firejail="firejail --net=tornet"
 alias zm="zellij a main || zellij -s main"
-
-# @section nixos
-# @description aliases for nixos
-alias nixrebuild="sudo rsync -rv $HOME/Workspaces/papanito/nixos-configuration/ --update --delete --exclude result /etc/nixos/ && source ~/.env-us.locale && sudo nixos-rebuild switch"
-alias nixrebuildu=" sudo rsync -rv $HOME/Workspaces/papanito/nixos-configuration/ --update --delete --exclude result /etc/nixos/ && source ~/.env-us.locale && sudo nixos-rebuild switch --upgrade"
