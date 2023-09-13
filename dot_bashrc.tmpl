@@ -401,6 +401,7 @@ fi
 [[ -f ~/.local/gitstatus/gitstatus.prompt.sh ]] && . ~/.local/gitstatus/gitstatus.prompt.sh
 
 # Hishtory Config:
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export HISHTORY_STATE_BASH=$HOME/.local/state/bash
 [[ -f $HISHTORY_STATE_BASH ]] || mkdir $HISHTORY_STATE_BASH
 export PATH="$PATH:/home/papanito/.config/hishtory"
