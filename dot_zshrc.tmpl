@@ -279,5 +279,7 @@ which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
 which podman &>/dev/null && eval "$(podman completion zsh)"
 {{- end }}
 
+{{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 [[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
+{{- end }}
