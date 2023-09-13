@@ -20,6 +20,8 @@ fi
 # @section ls aliases
 # description aliases for better ls
 
+which bat &>/dev/null && alias cat="bat"
+
 #alias ls='ls -hF --color' # add colors for filetype recognition
 which "exa" &>/dev/null && alias ls="exa"
 alias ll="ls -l --group-directories-first"
