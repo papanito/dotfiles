@@ -136,8 +136,8 @@ alias tmuxa="t attach-session -t "
 
 # @section ansible
 # @description commande helpers for ansible
-alias ansible-run-raw='ansible -u ansible -i /home/aedu/Workspaces/wyssmann.com/infrastructure/inventory.yml $1 -m shell -a \"$2\"'
-alias ansible-get-roleid="ansible-galaxy info papanito.$@ | grep -E 'id: [0-9]' | awk {'print $2'}"
+alias ansible-run-raw='ansible -u ansible -i $HOME/Workspaces/wyssmann.com/infrastructure/inventory.yml $1 -m shell -a \"$2\"'
+alias ansible-get-roleid='ansible-galaxy info papanito.$@ | grep -E \"id: [0-9]\" | awk {\"print $2\"}'
 
 # @section chezmoi
 # @description aliases for chezmoi

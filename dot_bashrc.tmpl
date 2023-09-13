@@ -393,19 +393,27 @@ if [ "$PS1" ]; then # if running interactively, then run till 'fi' at EOF:
         fi
     }
 fi
-# The final major setting is to configure the history file to reload after every entryx§x§
+# The final major setting is to configure the history file to reload after every entry
 # https://www.thomaslaurenson.com/blog/2018-07-02/better-bash-history/
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
+#export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
 {{- if .isDeveloperMachine }}
-if [ -f ~/.local/gitstatus/gitstatus.prompt.sh ]; then . ~/.local/gitstatus/gitstatus.prompt.sh ; fi
+[[ -f ~/.local/gitstatus/gitstatus.prompt.sh ]] && . ~/.local/gitstatus/gitstatus.prompt.sh
 
 # Hishtory Config:
+export HISHTORY_STATE_BASH=$HOME/.local/state/bash
+[[ -f $HISHTORY_STATE_BASH ]] || mkdir $HISHTORY_STATE_BASH
 export PATH="$PATH:/home/papanito/.config/hishtory"
 which hishtory &>/dev/null && \
-  source $HOME/$HISHTORY_PATH/config.zsh && \
+  source $HOME/$HISHTORY_PATH/config.sh && \
   eval "$(hishtory completion bash)" && \
-  hishtory enable
+  hishtory enable  && \
+  hishtory config-set filter-duplicate-commands true
 
 eval "$(zoxide init bash)"
+{{- end }}
+
+{{- if eq .osid "linux-nixos" }}
+export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+[[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
 {{- end }}
