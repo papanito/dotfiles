@@ -57,3 +57,8 @@
     url = "git@github.com:papanito/cheats.git"
     exact = true
     refreshPeriod = "168h"
+[ ".config/git/hooks"]
+    type = "git-repo"
+    url = "git@gitlab.com:papanito/git-hooks.git"
+    exact = true
+    refreshPeriod = "168h"
