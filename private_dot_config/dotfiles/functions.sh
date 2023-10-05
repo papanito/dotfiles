@@ -400,6 +400,18 @@ function countbraces()
    echo Closing: $COUNT_CLOSING
 }
 
+# @description Remove files with sensitive data from a git commit
+# https://stackoverflow.com/questions/872565/remove-sensitive-files-and-their-commits-from-git-history
+function git_remove_leaks() {
+   if [[ $# -n 1 ]]; then return 1; fi
+   PATH_TO_YOUR_FILE_WITH_SENSITIVE_DATA=$1
+   git filter-branch --force --index-filter \
+   "git rm --cached --ignore-unmatch $PATH_TO_YOUR_FILE_WITH_SENSITIVE_DATA" \
+   --prune-empty --tag-name-filter cat -- --all
+   git push --force --verbose --dry-run
+   git push --force
+}
+ 
 ###############################################################################
 # Hardware releated functions
 ###############################################################################
