@@ -206,13 +206,13 @@ function findtcp()
 # Get just the HTTP headers from a web page (and its redirects)
 function http_headers()
 { 
-   /usr/bin/curl -I -L $@
+   curl -I -L $@
 }
 
 # Download a web page and show info on whattook time
 function http_debug()
 { 
-   /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n"
+   curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n"
 }
 
 # usage: liveh [-i interface] [output-file] && firefox &
@@ -403,7 +403,7 @@ function countbraces()
 # @description Remove files with sensitive data from a git commit
 # https://stackoverflow.com/questions/872565/remove-sensitive-files-and-their-commits-from-git-history
 function git_remove_leaks() {
-   if [[ $# -n 1 ]]; then return 1; fi
+   if [ $# -n 1 ]; then return 1; fi
    PATH_TO_YOUR_FILE_WITH_SENSITIVE_DATA=$1
    git filter-branch --force --index-filter \
    "git rm --cached --ignore-unmatch $PATH_TO_YOUR_FILE_WITH_SENSITIVE_DATA" \
