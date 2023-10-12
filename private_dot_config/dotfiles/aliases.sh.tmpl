@@ -100,6 +100,7 @@ alias penv="printenv | grep"
 
 # @section Docker, Podman & k8s
 # description Aliases for docker, kubernetes and related tech
+alias docker-compose="podman-compose"
 alias dm='docker-machine'
 alias dc_up='docker-compose up -d --no-deps --force-recreate --build %a'
 alias d_term='sudo docker exec -i -t $1 /bin/bash'
