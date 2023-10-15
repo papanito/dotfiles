@@ -175,34 +175,43 @@ zi load romkatv/powerlevel10k
 
 ## https://z.digitalclouds.dev/docs/getting_started/overview/
 zi snippet OMZ::plugins/aliases
-zi snippet OMZ::plugins/colorize
-zi snippet OMZ::plugins/dotenv
+zi snippet OMZ::plugins/alias-finder
+zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+zstyle ':omz:plugins:alias-finder' longer false # disabled by default
+zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 #zi snippet OMZ::plugins/tmux
 {{ if .isDeveloperMachine }}
-zi snippet OMZ::plugins/archlinux
 zi snippet OMZ::plugins/ansible
 # zi snippet OMZ::plugins/docker
 # zi snippet OMZ::plugins/docker-compose
+zi snippet OMZ::plugins/colorize
+zi snippet OMZ::plugins/dotenv
 zi snippet OMZ::plugins/fzf
 zi snippet OMZ::plugins/flutter
 zi snippet OMZ::plugins/gnu-utils
 zi snippet OMZ::plugins/gcloud
 zi snippet OMZ::plugins/git
 zi snippet OMZ::plugins/git-extras
-#zi snippet OMZ::plugins/github
+zi snippet OMZ::plugins/gh
+zi snippet OMZ::plugins/github
 zi snippet OMZ::plugins/gitignore
 zi snippet OMZ::plugins/git-prompt
 zi snippet OMZ::plugins/golang
-zi snippet OMZ::plugins/gradle
 zi snippet OMZ::plugins/helm
 zi snippet OMZ::plugins/kubectl
-zi snippet OMZ::plugins/pip
-zi snippet OMZ::plugins/pyenv
 zi snippet OMZ::plugins/podman
+zi ice silent
+zi snippet OMZ::plugins/gradle
+zi snippet OMZ::plugins/ipfs
+zi snippet OMZ::plugins/pip
+zi snippet OMZ::plugins/pipenv
+zi snippet OMZ::plugins/pyenv
 zi snippet OMZ::plugins/pylint
 zi snippet OMZ::plugins/python
-zi ice silent
 zi snippet OMZ::plugins/ssh-agent
+zi snippet OMZ::plugins/skaffold
+zi snippet OMZ::plugins/systemd
 zi snippet OMZ::plugins/rsync
 zi snippet OMZ::plugins/thefuck
 zi snippet OMZ::plugins/terraform
