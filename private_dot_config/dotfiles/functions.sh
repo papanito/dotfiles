@@ -28,34 +28,40 @@ if [ -n "$ZSH_VERSION" ]; then
    ## Reveal the command behind an alias with ZSH
    ## Surce: https://dev.to/equiman/reveal-the-command-behind-an-alias-with-zsh-4d96
    local cmd_alias=""
-
+   if [[ -z "$ALIAS_FOR_PREFIX" ]]; then
+      ALIAS_FOR_PREFIX="💡"
+   fi
+   
    # Reveal Executed Alias
-   alias_for()
-   { 
+   alias_for() {
       [[ $1 =~ '[[:punct:]]' ]] && return
-      local search=$(echo "$1" | awk '{print $1;}')
-      local found="$(alias $search)"
+      local search=${1}
+      local found="$( alias $search )"
       if [[ -n $found ]]; then
-         found=${found//\\//}       # Replace backslash with slash
-         found=${found%\'}          # Remove end single quote
-         found=${found#"$search='"} # Remove alias name
-         echo "${found}"            # Return found value
+         found=${found//\\//} # Replace backslash with slash
+         found=${found%\'} # Remove end single quote
+         found=${found#"$search="} # Remove alias name
+         found=${found#"'"} # Remove first single quote
+         echo "${found} ${2}" | xargs # Return found value (with parameters)
       else
          echo ""
       fi
    }
 
-   expand_command_line()
-   { 
-      cmd_alias="$(alias_for $1)"               # Check if there's an alias for the command
-      if [[ -n $cmd_alias ]]; then              # If there was
-         echo "\e[32m❯ \e[33m${cmd_alias}\e[0m" # Print it
+   expand_command_line() {
+      first=$(echo "$1" | awk '{print $1;}')
+      rest=$(echo ${${1}/"${first}"/})
+
+      if [[ -n "${first//-//}" ]]; then # is not hypen
+         cmd_alias="$(alias_for "${first}" "${rest:1}")" # Check if there's an alias for the command
+         if [[ -n $cmd_alias ]] && [[ "${cmd_alias:0:1}" != "." ]]; then # If there was and not start with dot
+            echo "$ALIAS_FOR_PREFIX${c[yellow]}${cmd_alias}${c[reset]}" # Print it
+         fi
       fi
    }
 
-   pre_validation()
-   { 
-      [[ $# -eq 0 ]] && return # If there's no input, return. Else...
+   pre_validation() {
+      [[ $# -eq 0 ]] && return                    # If there's no input, return. Else...
       expand_command_line "$@"
    }
 # elif [ -n "$BASH_VERSION" ]; then

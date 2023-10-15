@@ -100,6 +100,13 @@ alias penv="printenv | grep"
 
 # @section Docker, Podman & k8s
 # description Aliases for docker, kubernetes and related tech
+alias pm="podman"
+alias pmprune="podman system prune --all"
+alias pmc="podman-compose"
+alias pmcup="podman-compose up"
+alias pmcdn="podman-compose down"
+alias pmcsta="podman-compose start"
+alias pmcsto="podman-compose stop"
 alias docker-compose="podman-compose"
 alias dm='docker-machine'
 alias dc_up='docker-compose up -d --no-deps --force-recreate --build %a'
