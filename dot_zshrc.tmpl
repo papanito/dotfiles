@@ -16,8 +16,6 @@ export ZSH_DOTFILES="$DOTFILES/zsh"
 [[ -d "$ZSH_DOTFILES" ]] || mkdir -p "$ZSH_DOTFILES"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 [[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
-export MCFLY_HISTFILE="$XDG_STATE_HOME"/zsh/history
 
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/
 #if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
@@ -130,7 +128,8 @@ zstyle ':completion:*' keep-prefix true
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 # History
-HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export MCFLY_HISTFILE="$XDG_STATE_HOME"/zsh/history
 HISTSIZE=10000
 SAVEHIST=5000
 setopt bang_hist                # Treat The '!' Character Specially During Expansion.
@@ -203,7 +202,6 @@ zi snippet OMZ::plugins/kubectl
 zi snippet OMZ::plugins/podman
 zi ice silent
 zi snippet OMZ::plugins/gradle
-zi snippet OMZ::plugins/ipfs
 zi snippet OMZ::plugins/pip
 zi snippet OMZ::plugins/pipenv
 zi snippet OMZ::plugins/pyenv

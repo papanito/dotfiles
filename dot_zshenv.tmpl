@@ -105,6 +105,7 @@ export SHELL_HELPER_LIBRARY="$HOME/.shell-helper-library"
 export GOPATH="$XDG_DATA_HOME/go"
 export GOPROXY=direct
 export ZELLIJ_AUTO_ATTACH=true
+export NPMPATH="$XDG_DATA_HOME/npm/bin"
 
 ## Set PATH
 {{- if eq .osid "linux-nixos" }}
@@ -113,7 +114,7 @@ export ZELLIJ_AUTO_ATTACH=true
 {{- if eq .chezmoi.hostname "work" }}
 #export PATH=$PATH
 {{- else if .isDeveloperMachine }}
-export PATH=$GOPATH/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$PATH
+export PATH=$GOPATH/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$NPMPATH:$PATH
 export DOCRENAMERCONFIGDIR=$HOME/.config/docrenamer
 {{- end }}
 
