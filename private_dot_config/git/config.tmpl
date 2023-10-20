@@ -99,7 +99,7 @@
     email = {{ .email | quote }}
     name =  {{ .gituser | quote }}
 {{- if eq .chezmoi.hostname "clawfinger" }}
-    signkey = {{ .gitsignkey | quote }}
+    signingkey = {{ .gitsignkey | quote }}
 [commit]
     gpgsign = true
 [core]
