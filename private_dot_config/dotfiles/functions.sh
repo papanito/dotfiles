@@ -616,13 +616,33 @@ dconfrestore() {
 nixreb () {
    NIXOSWD=$HOME/Workspaces/papanito/nixos-configuration/
    NIXOSDIR=/etc/nixos
+   pushd $NIXOSWD
    # 1. sync config from working dir
    sudo rsync -rv $NIXOSWD --update --delete --exclude result $NIXOSDIR
    # Source loale for us otherwise perl has issues
    source ~/.env-us.locale
    if [[ -f "$NIXOSDIR/flake.nix" ]]; then
-      sudo nixos-rebuild --flake '.#' switch
+      sudo nixos-rebuild --flake '.#' switch 
    else
       sudo nixos-rebuild switch
    fi
+   popd
+}
+
+# @description rebuild nixos with my config
+nixrebu () {
+   NIXOSWD=$HOME/Workspaces/papanito/nixos-configuration/
+   NIXOSDIR=/etc/nixos
+   pushd $NIXOSWD
+   nix flake update
+   # 1. sync config from working dir
+   sudo rsync -rv $NIXOSWD --update --delete --exclude result $NIXOSDIR
+   # Source loale for us otherwise perl has issues
+   source ~/.env-us.locale
+   if [[ -f "$NIXOSDIR/flake.nix" ]]; then
+      sudo nixos-rebuild --flake '.#' switch --upgrade
+   else
+      sudo nixos-rebuild switch --upgrade
+   fi
+   popd
 }
