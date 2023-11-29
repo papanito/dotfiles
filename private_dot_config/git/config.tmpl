@@ -39,6 +39,7 @@
     go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
     # Show verbose output about tags, branches or remotes
     tags = tag -l
+    t = tag --format='%(refname:strip=2)%09%(creatordate:short)%09%(authorname)%09%(subject)' --sort=-creatordate
     branches = branch -a
     remotes = remote -v
     # List aliases
