@@ -62,3 +62,9 @@
     url = "git@gitlab.com:papanito/git-hooks.git"
     exact = true
     refreshPeriod = "168h"
+[ "scripts/chomtesh"]
+    type = "git-repo"
+    url = "git@github.com:mr-rizwan-syed/chomtesh.git"
+    exact = true
+    refreshPeriod = "168h"
+
