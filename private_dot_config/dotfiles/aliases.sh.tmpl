@@ -23,7 +23,7 @@ fi
 which bat &>/dev/null && alias cat="bat"
 
 #alias ls='ls -hF --color' # add colors for filetype recognition
-which "exa" &>/dev/null && alias ls="exa"
+which "eza" &>/dev/null && alias ls="eza" && alias exa="eza"
 alias ll="ls -l --group-directories-first"
 alias lh='ls -Al' # show hidden files
 alias ld='ls -ltr' # sort by date
