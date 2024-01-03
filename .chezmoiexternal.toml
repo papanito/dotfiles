@@ -1,4 +1,4 @@
-[".local/scripts"]
+[".local/scripts/papanito"]
     type = "git-repo"
     url = "git@gitlab.com:papanito/shell-scripts.git"
     exact = true
@@ -6,7 +6,7 @@
     refreshPeriod = "168h"
 [".local/share/nautilus/scripts/"]
     type = "git-repo"
-    url = "git@github.com:papanito/nautilus-scripts.git"
+    url = "git@github.com:cfgnunes/nautilus-scripts.git"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"

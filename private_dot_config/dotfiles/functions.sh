@@ -55,7 +55,7 @@ if [ -n "$ZSH_VERSION" ]; then
       if [[ -n "${first//-//}" ]]; then # is not hypen
          cmd_alias="$(alias_for "${first}" "${rest:1}")" # Check if there's an alias for the command
          if [[ -n $cmd_alias ]] && [[ "${cmd_alias:0:1}" != "." ]]; then # If there was and not start with dot
-            echo "$ALIAS_FOR_PREFIX${c[yellow]}${cmd_alias}${c[reset]}" # Print it
+            echo "$ALIAS_FOR_PREFIX ${c[yellow]}${cmd_alias}${c[reset]}" # Print it
          fi
       fi
    }
@@ -611,11 +611,11 @@ dconfrestore() {
 
 # @section nixos
 # @description helper functions for nixos
-NIXOSWD=$HOME/Workspaces/papanito/nixos-configuration/
-NIXOSDIR=/etc/nixos
 
 # @description rebuild nixos with my config
 nixsync () {
+   export NIXOSWD=$HOME/Workspaces/papanito/nixos-configuration/
+   export NIXOSDIR=/etc/nixos
    pushd $NIXOSWD
    # 1. sync config from working dir
    sudo rsync -rv $NIXOSWD --update --delete --exclude result $NIXOSDIR
