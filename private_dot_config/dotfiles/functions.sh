@@ -632,7 +632,6 @@ nixreb () {
    else
       sudo nixos-rebuild switch
    fi
-   popd
 }
 
 # @description rebuild nixos with my config
@@ -646,5 +645,4 @@ nixrebu () {
    else
       sudo nixos-rebuild switch --upgrade
    fi
-   popd
 }
