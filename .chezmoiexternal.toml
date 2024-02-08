@@ -1,3 +1,4 @@
+## Shell Script collection
 [".local/scripts/papanito"]
     type = "git-repo"
     url = "git@gitlab.com:papanito/shell-scripts.git"
@@ -22,6 +23,14 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+[".local/scripts/bash-snippets"]
+    type = "git-repo"
+     url = "git@github.com:alexanderepstein/Bash-Snippets.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+
+## Tools
 [".local/bin/cmdfu"]
     type = "file"
     url = "https://gitlab.com/papanito/cmdfu/-/raw/main/cmdfu"
@@ -46,6 +55,8 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+
+## Cheats
 [".config/cheat/cheatsheets/personal"]
     type = "git-repo"
     url = "git@github.com:cheat/cheatsheets.git"
@@ -57,11 +68,15 @@
     url = "git@github.com:papanito/cheats.git"
     exact = true
     refreshPeriod = "168h"
+
+## git-hooks
 [ ".config/git/hooks"]
     type = "git-repo"
     url = "git@gitlab.com:papanito/git-hooks.git"
     exact = true
     refreshPeriod = "168h"
+
+## Security tools
 [ "scripts/chomtesh"]
     type = "git-repo"
     url = "git@github.com:mr-rizwan-syed/chomtesh.git"
