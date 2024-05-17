@@ -22,18 +22,19 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 #    source /etc/profile.d/vte.sh
 #fi
 
-# https://z.digitalclouds.dev/docs/getting_started/installation/#-setup-zi-directory
-if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
-  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
-  command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
-  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "${ZDOTDIR:-$HOME}/.zi/bin" && \
-    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-    print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
-zi_home="$HOME/.zi"
-source "${zi_home}/bin/zi.zsh"
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
 
 # ZSH Settings
 autoload -Uz compinit; compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
@@ -146,8 +147,8 @@ setopt extended_history         # Show Timestamp In History
 bindkey -e
 
 # Functions and stuff
-zi ice from"gitlab"
-zi light papanito/shell-helper-library
+zinit ice from"gitlab"
+zinit light papanito/shell-helper-library
 
 # Load aliases, functions, etc.
 [[ -d $DOTFILES ]] && for f ($DOTFILES/*.sh) source $f
@@ -170,76 +171,76 @@ add-zsh-hook preexec pre_validation           # Adds the hook
 ## To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # export ZSH_P10K=$ZSH_DOTFILES/.p10k.zsh
 # [[ -f $ZSH_P10K ]] && source $ZSH_P10K
-zi load romkatv/powerlevel10k
+zinit load romkatv/powerlevel10k
 
 ## https://z.digitalclouds.dev/docs/getting_started/overview/
-zi snippet OMZ::plugins/aliases
-zi snippet OMZ::plugins/alias-finder
+zinit snippet OMZ::plugins/aliases
+zinit snippet OMZ::plugins/alias-finder
 zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
 zstyle ':omz:plugins:alias-finder' longer false # disabled by default
 zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
 zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
-#zi snippet OMZ::plugins/tmux
+#zinit snippet OMZ::plugins/tmux
 {{ if .isDeveloperMachine }}
-zi snippet OMZ::plugins/ansible
-# zi snippet OMZ::plugins/docker
-# zi snippet OMZ::plugins/docker-compose
-zi snippet OMZ::plugins/colorize
-zi snippet OMZ::plugins/dotenv
-zi snippet OMZ::plugins/fzf
-zi snippet OMZ::plugins/flutter
-zi snippet OMZ::plugins/gnu-utils
-zi snippet OMZ::plugins/gcloud
-zi snippet OMZ::plugins/git
-zi snippet OMZ::plugins/git-extras
-zi snippet OMZ::plugins/gh
-zi snippet OMZ::plugins/github
-zi snippet OMZ::plugins/gitignore
-zi snippet OMZ::plugins/git-prompt
-zi snippet OMZ::plugins/golang
-zi snippet OMZ::plugins/helm
-zi snippet OMZ::plugins/kubectl
-zi snippet OMZ::plugins/podman
-zi ice silent
-zi snippet OMZ::plugins/gradle
-zi snippet OMZ::plugins/pip
-zi snippet OMZ::plugins/pipenv
-zi snippet OMZ::plugins/pyenv
-zi snippet OMZ::plugins/pylint
-zi snippet OMZ::plugins/python
-zi snippet OMZ::plugins/ssh-agent
-zi snippet OMZ::plugins/skaffold
-zi snippet OMZ::plugins/systemd
-zi snippet OMZ::plugins/rsync
-zi snippet OMZ::plugins/thefuck
-zi snippet OMZ::plugins/terraform
+zinit snippet OMZ::plugins/ansible
+# zinit snippet OMZ::plugins/docker
+# zinit snippet OMZ::plugins/docker-compose
+zinit snippet OMZ::plugins/colorize
+zinit snippet OMZ::plugins/dotenv
+zinit snippet OMZ::plugins/fzf
+zinit snippet OMZ::plugins/flutter
+zinit snippet OMZ::plugins/gnu-utils
+zinit snippet OMZ::plugins/gcloud
+zinit snippet OMZ::plugins/git
+zinit snippet OMZ::plugins/git-extras
+zinit snippet OMZ::plugins/gh
+zinit snippet OMZ::plugins/github
+zinit snippet OMZ::plugins/gitignore
+zinit snippet OMZ::plugins/git-prompt
+zinit snippet OMZ::plugins/golang
+zinit snippet OMZ::plugins/helm
+zinit snippet OMZ::plugins/kubectl
+zinit snippet OMZ::plugins/podman
+zinit ice silent
+zinit snippet OMZ::plugins/gradle
+zinit snippet OMZ::plugins/pip
+zinit snippet OMZ::plugins/pipenv
+zinit snippet OMZ::plugins/pyenv
+zinit snippet OMZ::plugins/pylint
+zinit snippet OMZ::plugins/python
+zinit snippet OMZ::plugins/ssh-agent
+zinit snippet OMZ::plugins/skaffold
+zinit snippet OMZ::plugins/systemd
+zinit snippet OMZ::plugins/rsync
+zinit snippet OMZ::plugins/thefuck
+zinit snippet OMZ::plugins/terraform
 {{- end }}
 
 {{- if .isDeveloperMachine }}
 # use exa instead ls
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
-zi load zplugin/zsh-exa
+zinit load zplugin/zsh-exa
 {{- end }}
 
 # install zoxide
-zi ice as'null' from"gh-r" sbin
-zi load ajeetdsouza/zoxide
-zi ice has'zoxide'
-zi load z-shell/zsh-zoxide
-#zi ice src"init.sh"
-#zi load b4b4r07/enhancd
+zinit ice as'null' from"gh-r" sbin
+zinit load ajeetdsouza/zoxide
+zinit ice has'zoxide'
+zinit load zdharma-continuum/zsh-zoxide
+#zinit ice src"init.sh"
+#zinit load b4b4r07/enhancd
 
 # non ohmyzsh plugins
-zi light zsh-users/zsh-history-substring-search # https://github.com/zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search # https://github.com/zsh-users/zsh-history-substring-search
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "${keys[Up]}" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "${keys[Down]}" history-substring-search-down
 
 {{- if .isDeveloperMachine }}
-zi light-mode for \
-  z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
-  z-shell/zsh-navigation-tools \
+zinit light-mode for \
+  zdharma-continuum/z-a-meta-plugins @annexes @zsh-users+fast \
+  zdharma-continuum/zsh-navigation-tools \
   Aloxaf/fzf-tab \
   wfxr/forgit \
   papanito/bwf \
@@ -255,7 +256,7 @@ AZCOMP2=$DOTFILES/az.completion
 GCLOUDCOMP=$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc
 [[ -f $GCLOUDCOMP ]] && source $GCLOUDCOMP
 {{- else }}
-zi light-mode for \
+zinit light-mode for \
   z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
   z-shell/zsh-navigation-tools \
   Aloxaf/fzf-tab
