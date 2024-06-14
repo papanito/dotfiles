@@ -284,6 +284,7 @@ which direnv &>/dev/null && eval "$(direnv hook zsh)"
 which navi &>/dev/null && eval "$(navi widget zsh)"
 which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
 which podman &>/dev/null && eval "$(podman completion zsh)"
+which kind &>/dev/null && eval "$(kind completion zsh)"
 {{- end }}
 
 {{- if eq .osid "linux-nixos" }}
