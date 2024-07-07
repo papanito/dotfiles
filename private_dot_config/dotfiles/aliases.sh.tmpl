@@ -11,7 +11,7 @@ if [ -n "$ZSH_VERSION" ]; then
     alias -s {cs,ts,html}=code
 
 {{- if .isDeveloperMachine }}
-    alias cd='x' # use zoxide
+    #alias cd='x' # use zoxide
 {{- end }}
     alias reload="source ~/.zshenv && source ~/.zshrc"
     alias eenv="vi ~/.zshenv"
@@ -130,7 +130,7 @@ alias tfplan='terraform plan -no-color > generated.tfplan'
 
 # @section terminal multiplexer
 # @description command substitution tmux,byobu, etc
-alias z="zellij"
+alias zj="zellij"
 alias helix="hx"
 alias t="tmux"
 #alias zellijj='zellij options --disable-mouse-mode'
