@@ -19,7 +19,6 @@ fi
 
 # @section ls aliases
 # description aliases for better ls
-
 which bat &>/dev/null && alias cat="bat"
 
 #alias ls='ls -hF --color' # add colors for filetype recognition
@@ -97,6 +96,7 @@ alias sete='set|sed -n "/^`declare -F|sed -n "s/^declare -f \(.*\)/\1 ()/p;q"`/q
 alias superfind='sudo find / ! \( -path /proc -prune -o -path /tmp -prune -o -path /dev -prune -o -path /mnt -prune \) -name'
 alias whichall='{ command alias; command declare -f; } | command which --read-functions --read-alias -a' # which alias
 alias penv="printenv | grep"
+alias scripts="cd .local/scripts"
 
 # @section Docker, Podman & k8s
 # description Aliases for docker, kubernetes and related tech
@@ -109,11 +109,11 @@ alias pmcsta="podman-compose start"
 alias pmcsto="podman-compose stop"
 alias docker-compose="podman-compose"
 alias dm='docker-machine'
-alias dc_up='docker-compose up -d --no-deps --force-recreate --build %a'
-alias d_term='sudo docker exec -i -t $1 /bin/bash'
-alias d_rm='docker rm $(docker container ls -aq)'
-alias d_rmi_m="docker images | grep 'months ago\|years ago' | awk '{print $3}' | xargs docker rmi" # remove docker images older than a month
-alias d_prune='docker system prune'
+alias dcup='docker-compose up -d --no-deps --force-recreate --build %a'
+alias dterm='sudo docker exec -i -t $1 /bin/bash'
+alias drm='docker rm $(docker container ls -aq)'
+alias drmi_m="docker images | grep 'months ago\|years ago' | awk '{print $3}' | xargs docker rmi" # remove docker images older than a month
+alias dprune='docker system prune'
 alias ksh="navibestmatch 'Open shell to a pod in current context'"
 alias kshc="navibestmatch 'Open shell to a pod in a specific context'"
 alias klog="navibestmatch 'Print logs of a pod in current context'"
@@ -170,10 +170,8 @@ alias hi="hishtory"
 # @description command substitution for misc commands
 alias shdocc='for filename in $(ls -I "*.sh" -I "*.zsh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
-alias gphotos_sync='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan'
-alias gphotos_sync_delete='cd ~/Pictures/Photos && pipenv run gphotos-sync ~/Pictures/Photos --rescan --flush-index --do-delete'
 alias zshdocker="docker run -it zshusers/zsh"
-alias rest_state="restic -r $RESTIC_REPOSITORY snapshots"
+alias rcstate="restic -r $RESTIC_REPOSITORY snapshots"
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
 alias incognito=' fc -p && hishtory disable' ##n-memory history that will be discarded when you exit: the previous history (commands entered before the private session started) will not be available.
 alias p="incognito"

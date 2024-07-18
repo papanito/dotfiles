@@ -29,7 +29,6 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-
 ## Tools
 [".local/bin/cmdfu"]
     type = "file"
@@ -73,13 +72,6 @@
 [ ".config/git/hooks"]
     type = "git-repo"
     url = "git@gitlab.com:papanito/git-hooks.git"
-    exact = true
-    refreshPeriod = "168h"
-
-## Security tools
-[ "scripts/chomtesh"]
-    type = "git-repo"
-    url = "git@github.com:mr-rizwan-syed/chomtesh.git"
     exact = true
     refreshPeriod = "168h"
 

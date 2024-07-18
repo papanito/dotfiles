@@ -328,10 +328,10 @@ function myip()
 function netinfo()
 { 
    echo "--------------- Network Information ---------------"
-   /sbin/ip addr | awk /'inet addr/ {print $2}'
-   /sbin/ip addr | awk /'Bcast/ {print $3}'
-   /sbin/ip addr | awk /'inet addr/ {print $4}'
-   /sbin/ip addr | awk /'HWaddr/ {print $4,$5}'
+   ip addr | awk /'inet addr/ {print $2}'
+   ip addr | awk /'Bcast/ {print $3}'
+   ip addr | awk /'inet addr/ {print $4}'
+   ip addr | awk /'HWaddr/ {print $4,$5}'
    myip=$(lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g')
    echo "${myip}"
    echo "---------------------------------------------------"
@@ -624,6 +624,7 @@ nixsync () {
 
 # @description rebuild nixos with my config
 nixreb () {
+   declare options;
    while getopts "uvi" options; do
       case ${options} in
          u )
@@ -647,4 +648,17 @@ nixreb () {
    else
       sudo nixos-rebuild switch $UPGRADE $IMPURE $VERBOSE
    fi
+}
+
+# @description cleanup nix stuff (see https://discourse.nixos.org/t/what-to-do-with-a-full-boot-partition/2049/3)
+nix-clean () {
+  nix-env --delete-generations old
+  nix-store --gc
+  nix-channel --update
+  nix-env -u --always
+  for link in /nix/var/nix/gcroots/auto/*
+  do
+    rm $(readlink "$link")
+  done
+  nix-collect-garbage -d
 }
