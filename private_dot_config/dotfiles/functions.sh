@@ -603,7 +603,7 @@ dconfbackup() {
    chezmoi add --encrypt $DCONF_BACKUP
 }
 
-# @description backup dconf
+# @description restore dconf
 dconfrestore() {
    DCONF_BACKUP=$XDG_CONFIG_HOME/dconf/backup.dconf
    dconf load / < $DCONF_BACKUP
@@ -625,13 +625,16 @@ nixsync () {
 # @description rebuild nixos with my config
 nixreb () {
    declare options;
-   while getopts "uvi" options; do
+   while getopts "uvis" options; do
       case ${options} in
          u )
             UPGRADE="--upgrade"
          ;;
          i )
             IMPURE="--impure"
+         ;;
+         s )
+            SWITCH="switch"
          ;;
          v )
             VERBOSE="--show-trace"
@@ -644,9 +647,9 @@ nixreb () {
    source ~/.env-us.locale
    pushd $NIXOSWD
    if [[ -f "$NIXOSDIR/flake.nix" ]]; then
-      sudo nixos-rebuild --flake '.#' switch $UPGRADE $IMPURE $VERBOSE
+      sudo nixos-rebuild --flake '.#' $SWITCH $UPGRADE $IMPURE $VERBOSE
    else
-      sudo nixos-rebuild switch $UPGRADE $IMPURE $VERBOSE
+      sudo nixos-rebuild $SWITCH $UPGRADE $IMPURE $VERBOSE
    fi
 }
 
