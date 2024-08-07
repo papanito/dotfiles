@@ -14,7 +14,7 @@ if [ -n "$ZSH_VERSION" ]; then
     #alias cd='x' # use zoxide
 {{- end }}
     alias reload="source ~/.zshenv && source ~/.zshrc"
-    alias eenv="vi ~/.zshenv"
+    alias eenv="$EDITOR ~/.zshenv"
 fi
 
 # @section ls aliases
