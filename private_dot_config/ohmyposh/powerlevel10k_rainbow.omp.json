@@ -8,7 +8,7 @@
           "background": "#d3d7cf",
           "foreground": "#000000",
           "leading_diamond": "\u256d\u2500\ue0b2",
-          "style": "diamond",
+          "style": "accordion",
           "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
           "type": "os"
         },
@@ -20,7 +20,11 @@
             "folder_icon": "\uf115",
             "folder_separator_icon": " \ue0b1 ",
             "home_icon": "\ueb06",
-            "style": "agnoster"
+            "style": "powerlevel",
+            "max_width": "30",
+            "mapped_locations": {
+              "/home/papanito/Workspaces": ""
+            }
           },
           "style": "powerline",
           "template": " \uf07c {{ .Path }} ",
@@ -53,6 +57,21 @@
       "alignment": "right",
         "segments": [
         {
+          "type": "nix-shell",
+          "style": "powerline",
+          "foreground": "blue",
+          "background": "transparent",
+          "template": "(nix-{{ .Type }})"
+        },
+        {
+          "type": "terraform",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#000000",
+          "background": "#ebcc34",
+          "template": "{{.WorkspaceName}}"
+        },
+        {
           "type": "kubectl",
           "style": "powerline",
           "powerline_symbol": "",
@@ -64,6 +83,22 @@
               "arn:aws:eks:eu-west-1:1234567890:cluster/posh": "posh"
             }
           }
+        },
+        {
+          "type": "project",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#193549",
+          "background": "#ffeb3b",
+          "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Version }} {{.Version}}{{ end }} {{ if .Name }}{{ .Name }}{{ end }}{{ end }} "
+        },
+        {
+          "type": "gcp",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#ffffff",
+          "background": "#47888d",
+          "template": "  {{.Project}} :: {{.Account}} "
         },
         {
           "background": "#00acd7",
@@ -89,19 +124,6 @@
           "style": "powerline",
           "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \ue235 ",
           "type": "python"
-        },
-        {
-          "background": "#FEAC19",
-          "foreground": "#ffffff",
-          "invert_powerline": true,
-          "powerline_symbol": "\ue0b2",
-          "properties": {
-            "display_mode": "files",
-            "fetch_version": false
-          },
-          "style": "powerline",
-          "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \uf0e7",
-          "type": "azfunc"
         },
         {
           "background": "#ffff66",
