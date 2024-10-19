@@ -632,6 +632,7 @@ nixreb () {
          ;;
          i )
             IMPURE="--impure"
+            export NIXPKGS_ALLOW_INSECURE=1
          ;;
          s )
             SWITCH="switch"
