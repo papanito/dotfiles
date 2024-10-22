@@ -625,7 +625,12 @@ nixsync () {
 # @description rebuild nixos with my config
 nixreb () {
    declare options;
-   while getopts "uvis" options; do
+   HOSTNAME=""
+   UPGRADE=""
+   IMPURE=""
+   VERBOSE=""
+   REMOTE=""
+   while getopts "uvish:r:" options; do
       case ${options} in
          u )
             UPGRADE="--upgrade"
@@ -640,6 +645,12 @@ nixreb () {
          v )
             VERBOSE="--show-trace"
          ;;
+         h )
+            HOSTNAME=$OPTARG
+         ;;
+         r )
+            REMOTE="--target-host $OPTARG"
+         ;;
       esac
    done
 
@@ -648,7 +659,9 @@ nixreb () {
    source ~/.env-us.locale
    pushd $NIXOSWD
    if [[ -f "$NIXOSDIR/flake.nix" ]]; then
-      sudo nixos-rebuild --flake '.#' $SWITCH $UPGRADE $IMPURE $VERBOSE
+      command="sudo nixos-rebuild $SWITCH --flake '.#$HOSTNAME' $UPGRADE $REMOTE $IMPURE $VERBOSE"
+      echo $command
+      eval "$command"
    else
       sudo nixos-rebuild $SWITCH $UPGRADE $IMPURE $VERBOSE
    fi
