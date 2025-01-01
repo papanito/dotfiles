@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 {{- if eq .chezmoi.hostname "clawfinger" }}
-curl https://hishtory.dev/install.py | python3 -
 hishtory init {{ (bitwarden "item" "Hishtory Token").login.password }}
 
 #dconf load /com/gexperts/Tilix/ < tilix.dconf

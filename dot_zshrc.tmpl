@@ -262,14 +262,6 @@ zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
 
 {{- if .isDeveloperMachine }}
-## Hishtory
-which hishtory &>/dev/null && \
-  source $HOME/$HISHTORY_PATH/config.zsh && \
-  eval "$(hishtory completion zsh)" && \
-  hishtory enable && \
-  hishtory config-set filter-duplicate-commands true
-#eval "$(mcfly init zsh)"
-
 ## helper tools
 which direnv &>/dev/null && eval "$(direnv hook zsh)"
 which navi &>/dev/null && eval "$(navi widget zsh)"
@@ -278,6 +270,13 @@ which podman &>/dev/null && eval "$(podman completion zsh)"
 which kind &>/dev/null && eval "$(kind completion zsh)"
 which fzf &>/dev/null && eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+## Hishtory
+which hishtory &>/dev/null && \
+  source $HISHTORY/config.zsh && \
+  eval "$(hishtory completion zsh)" && \
+  hishtory enable && \
+  hishtory config-set filter-duplicate-commands true
 {{- end }}
 
 {{- if eq .osid "linux-nixos" }}

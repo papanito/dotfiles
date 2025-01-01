@@ -404,9 +404,8 @@ fi
 export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export HISHTORY_STATE_BASH=$HOME/.local/state/bash
 [[ -f $HISHTORY_STATE_BASH ]] || mkdir $HISHTORY_STATE_BASH
-export PATH="$PATH:/home/papanito/.config/hishtory"
 which hishtory &>/dev/null && \
-  source $HOME/$HISHTORY_PATH/config.sh && \
+  source $HISHTORY/config.sh && \
   eval "$(hishtory completion bash)" && \
   hishtory enable  && \
   hishtory config-set filter-duplicate-commands true
