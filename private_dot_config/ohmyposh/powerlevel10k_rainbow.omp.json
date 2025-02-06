@@ -59,14 +59,20 @@
         {
           "type": "nix-shell",
           "style": "powerline",
-          "foreground": "blue",
-          "background": "transparent",
-          "template": "(nix-{{ .Type }})"
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
+          "foreground": "#ffffff",
+          "background": "#4A7C4A",
+          "template": " nix-{{ .Type }} ",
+          "background_templates": [
+              "{{ if eq .Type \"unknown\" }}#4A90E2{{ end }}"
+          ]
         },
         {
           "type": "terraform",
           "style": "powerline",
-          "powerline_symbol": "",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "foreground": "#000000",
           "background": "#ebcc34",
           "template": "{{.WorkspaceName}}"
@@ -74,7 +80,8 @@
         {
           "type": "kubectl",
           "style": "powerline",
-          "powerline_symbol": "",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "foreground": "#ffffff",
           "background": "#b432ff",
           "template": " ﴱ {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
@@ -87,7 +94,8 @@
         {
           "type": "project",
           "style": "powerline",
-          "powerline_symbol": "",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "foreground": "#193549",
           "background": "#ffeb3b",
           "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Version }} {{.Version}}{{ end }} {{ if .Name }}{{ .Name }}{{ end }}{{ end }} "
@@ -95,7 +103,8 @@
         {
           "type": "gcp",
           "style": "powerline",
-          "powerline_symbol": "",
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0b2",
           "foreground": "#ffffff",
           "background": "#47888d",
           "template": "  {{.Project}} :: {{.Account}} "

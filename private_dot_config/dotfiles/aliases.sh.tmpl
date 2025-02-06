@@ -135,6 +135,7 @@ alias helix="hx"
 alias t="tomb"
 alias tm="tmux"
 #alias zellijj='zellij options --disable-mouse-mode'
+alias zm="zellij a main || zellij -s main"
 alias tmuxls="t list-session"
 function tmuxns {
     if [[ -n "$1" ]]; then
@@ -181,4 +182,7 @@ alias p="incognito"
 alias luo="luksopen_"
 alias luc="luksclose_"
 #alias firejail="firejail --net=tornet"
-alias zm="zellij a main || zellij -s main"
+
+# @section nixos
+# @description alias related to nixos
+alias nix-shell="nix-shell --run zsh" # https://stackoverflow.com/questions/33029821/configure-nix-shell-to-use-a-shell-other-than-bash
