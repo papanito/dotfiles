@@ -1,5 +1,6 @@
 window-height=510
 window-width=1640
+shell-integration = zsh
 
 ## Keybindings
 keybind = super+page_up=scroll_page_up
