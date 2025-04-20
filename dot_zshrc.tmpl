@@ -279,6 +279,9 @@ which hishtory &>/dev/null && \
   hishtory config-set filter-duplicate-commands true
 {{- end }}
 
+alias zs="zellij-smart-sessionizer"
+#ibindkey "^M" zellij-smart-sessionizer
+
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 [[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"

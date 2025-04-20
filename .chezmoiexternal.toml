@@ -36,12 +36,14 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+    executable = true
 [".local/bin/shdoc"]
     type = "file"
     url = "https://raw.githubusercontent.com/reconquest/shdoc/master/shdoc"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+    executable = true
 [".local/gitstatus"]
     type = "git-repo"
     url = "https://github.com/romkatv/gitstatus"
@@ -54,7 +56,20 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-
+[".local/bin/zellij-smart-sessionizer"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/demestoss/zellij-smart-sessionizer/refs/heads/master/zellij-smart-sessionizer"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+    executabl = true
+[".local/bin/arlon"]
+    type = "file"
+    url = "https://github.com/arlonproj/arlon/releases/download/v0.9.14/arlon_Linux_x86_64_0.9.14.tar.gz"
+    path = "arlon_linux_amd64_v0.9.14"
+    exact = true
+    refreshPeriod = "168h"
+    executabl = true
 ## Cheats
 [".config/cheat/cheatsheets/personal"]
     type = "git-repo"
