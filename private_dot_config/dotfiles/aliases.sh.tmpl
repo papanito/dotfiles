@@ -168,7 +168,6 @@ alias ghn="navi --query gh"
 # @section app aliases
 # @description aliases for most used apps
 alias linode="linode-cli"
-alias hi="hishtory"
 
 # @section misc tools
 # @description command substitution for misc commands
@@ -177,7 +176,7 @@ alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session rec
 alias zshdocker="docker run -it zshusers/zsh"
 alias rcstate="restic -r $RESTIC_REPOSITORY snapshots"
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
-alias incognito=' fc -p && hishtory disable' ##n-memory history that will be discarded when you exit: the previous history (commands entered before the private session started) will not be available.
+alias incognito=' fc -p && atuin history start disable'
 alias p="incognito"
 alias luo="luksopen_"
 alias luc="luksclose_"

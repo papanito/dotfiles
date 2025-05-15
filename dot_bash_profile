@@ -52,9 +52,6 @@ echo '\n$GREEN[\w] \n$DARKGRAY('\$PCT'\t$DARKGRAY)-\
 
 # The trick is to use strong quoting for parts of old PS1 variable.
 
-# Hishtory Config:
-export HISHTORY="$HOME/.hishtory"
-which hishtory &>/dev/null && \
-  source $HISHTORY/config.sh && \
-  eval "$(hishtory completion bash)" && \
-  hishtory enable
+# Atuin
+which atuin &>/dev/null && \
+  eval "$(atuin init bash)"

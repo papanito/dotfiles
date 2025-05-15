@@ -174,8 +174,7 @@ zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 #zinit snippet OMZ::plugins/tmux
 {{ if .isDeveloperMachine }}
 zinit snippet OMZ::plugins/ansible
-# zinit snippet OMZ::plugins/docker
-# zinit snippet OMZ::plugins/docker-compose
+zinit snippet OMZ::plugins/argocd
 zinit snippet OMZ::plugins/colorize
 zinit snippet OMZ::plugins/dotenv
 zinit snippet OMZ::plugins/fzf
@@ -191,6 +190,9 @@ zinit snippet OMZ::plugins/git-prompt
 zinit snippet OMZ::plugins/golang
 zinit snippet OMZ::plugins/helm
 zinit snippet OMZ::plugins/kubectl
+zinit snippet OMZ::plugins/kubectx
+zinit snippet OMZ::plugins/kind
+zinit snippet OMZ::plugins/pass
 zinit snippet OMZ::plugins/podman
 zinit ice silent
 zinit snippet OMZ::plugins/gradle
@@ -221,13 +223,6 @@ zinit snippet OMZ::plugins/zoxide
 #zinit load zdharma-continuum/zsh-zoxide
 #zinit ice src"init.sh"
 #zinit load b4b4r07/enhancd
-
-# non ohmyzsh plugins
-zinit light zsh-users/zsh-history-substring-search # https://github.com/zsh-users/zsh-history-substring-search
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "${keys[Up]}" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey "${keys[Down]}" history-substring-search-down
 
 {{- if .isDeveloperMachine }}
 zinit light-mode for \
@@ -271,16 +266,9 @@ which kind &>/dev/null && eval "$(kind completion zsh)"
 which fzf &>/dev/null && eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-## Hishtory
-which hishtory &>/dev/null && \
-  source $HISHTORY/config.zsh && \
-  eval "$(hishtory completion zsh)" && \
-  hishtory enable && \
-  hishtory config-set filter-duplicate-commands true
+## Atuin
+which atuin &>/dev/null && eval "$(atuin init zsh)"
 {{- end }}
-
-alias zs="zellij-smart-sessionizer"
-#ibindkey "^M" zellij-smart-sessionizer
 
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"

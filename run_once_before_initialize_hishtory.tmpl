@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-{{- if eq .chezmoi.hostname "clawfinger" }}
-hishtory init {{ (bitwarden "item" "Hishtory Token").login.password }}
-{{- end}}
