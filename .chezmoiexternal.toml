@@ -5,6 +5,11 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
+[".local/scripts/wondershaper"]
+    type = "git-repo"
+    url = "git@github.com:magnific0/wondershaper.git"
+    exact = true
+    refreshPeriod = "168h"    
 [".local/share/nautilus/scripts/"]
     type = "git-repo"
     url = "git@github.com:cfgnunes/nautilus-scripts.git"

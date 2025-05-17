@@ -113,11 +113,19 @@ export KUBECONFIG="$HOME/.kube/config"
 #export PATH=/run/wrappers/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/papanito/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin
 export GH_PATH=/run/current-system/sw/bin/gh
 {{- end }}
-export PATH=$PATH:$HOME/.local/bin
 {{- if eq .chezmoi.hostname "work" }}
 #export PATH=$PATH
 {{- else if .isDeveloperMachine }}
-export PATH=$GOPATH/bin:~/.local/scripts/scripts:~/.local/bin:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$NPMPATH:$PATH
+path+=("$GOPATH/bin")
+path+=("$HOME/.lcal/bin")
+path+=("$HOME/.local/scripts/scripts")
+path+=("$HOME/.local/scripts/wondershaper")
+path+=("$HOME/.local/cmdfu")
+path+=("$HOME/.emacs.d/bin")
+path+=("$HOME/.krew/bin")
+path+=("$NPMPATH")
+
+#export PATH=$GOPATH/bin:~/.local/scripts/scripts:~/.local/scripts/wondershaper:~/.local/cmdfu:~/.emacs.d/bin:~/.krew/bin:$NPMPATH:$PATH
 export DOCRENAMERCONFIGDIR=$HOME/.config/docrenamer
 {{- end }}
 
@@ -125,7 +133,6 @@ export FZF_BASE=/run/current-system/sw/bin/fzf
 
 ## History stuff
 export HISTORY_IGNORE="(ls|ll|cd|pwd|exit|cd)*"
-export PATH="$PATH"
 
 ## Tokens
 [[ -f "$HOME/.zshenv.local" ]] && source $HOME/.zshenv.local

@@ -23,6 +23,7 @@ which bat &>/dev/null && alias cat="bat"
 
 #alias ls='ls -hF --color' # add colors for filetype recognition
 which "eza" &>/dev/null && alias ls="eza" && alias exa="eza"
+which "dfu" &>/dev/null && alias du="dfu"
 alias ll="ls -l --group-directories-first"
 alias lh='ls -Al' # show hidden files
 alias ld='ls -ltr' # sort by date
@@ -74,8 +75,8 @@ alias shutdown='sudo shutdown -h now' # proper restart
 alias shutdownde='for ((;;)) do pgrep wget ||shutdown -h now; sleep 5; done' # if download end, shutdown
 alias split='split -d'
 alias s='sudo'
-alias tc='tar -cvzf'
-alias tx='tar -xfvz'
+alias tac='tar -cvzf'
+alias tax='tar -xfvz'
 alias unpack='tar -xzvpf' # uncompress a a Tar file
 alias updatefont='fc-cache -v -f'
 
