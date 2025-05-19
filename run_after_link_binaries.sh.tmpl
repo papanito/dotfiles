@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 TARGET_BIN_DIR="{{ .chezmoi.homeDir }}/.local/bin"
 SOURCE_BIN_DIR="{{ .chezmoi.homeDir }}/.local/externals"
 
 mkdir -p "$TARGET_BIN_DIR"
+mkdir -p "$SOURCE_BIN_DIR"
 
 for d in $SOURCE_BIN_DIR/*/ ; do
     echo "Executables in $d"
