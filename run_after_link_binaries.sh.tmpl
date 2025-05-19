@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+{{- if eq .chezmoi.os "linux" }}
+TARGET_BIN_DIR="{{ .chezmoi.homeDir }}/.local/bin"
+SOURCE_BIN_DIR="{{ .chezmoi.homeDir }}/.local/externals"
+
+mkdir -p "$TARGET_BIN_DIR"
+mkdir -p "$SOURCE_BIN_DIR"
+
+for d in $SOURCE_BIN_DIR/*/ ; do
+    echo "Executables in $d"
+    for f in $d/* ; do
+        echo "files $f"
+        if [[ $f =~ "*" ]]; then
+            echo "no binaries"
+        else
+            base_name=$(basename ${f})
+            ln -sf $f "$TARGET_BIN_DIR/$base_name"
+        fi
+    done
+done
+{{- end }}
