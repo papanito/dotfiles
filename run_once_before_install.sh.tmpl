@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 {{- if eq .chezmoi.hostname "clawfinger" }}
-
+gsettings set org.gnome.shell disable-extension-version-validation true 
 #dconf load /com/gexperts/Tilix/ < tilix.dconf
 {{- end}}
