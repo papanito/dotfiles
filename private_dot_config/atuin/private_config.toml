@@ -104,8 +104,13 @@ filter_mode_shell_up_key_binding = "global"
 ## For details on the supported regular expression syntax, see
 ## https://docs.rs/regex/latest/regex/#syntax
 history_filter = [
-  "^secret-cmd",
-  "^innocuous-cmd .*--secret=.+",
+  "^tomb",
+  "^cryfs",
+  "^shred",
+  "^cd$",
+  "^ll$",
+  "^zm$",
+  "^p$",
 ]
 
 ## prevent commands run with cwd matching any of these regexes from being written
@@ -114,7 +119,7 @@ history_filter = [
 ## For details on the supported regular expression syntax, see
 ## https://docs.rs/regex/latest/regex/#syntax
 cwd_filter = [
-  "~/.hermes",
+  ".hermes",
 ]
 
 ## Configure the maximum height of the preview to show.
