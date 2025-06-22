@@ -1,0 +1,87 @@
+{  pkgs, lib, config, security, ... }:
+let 
+    mountdir_yunohost = "${config.home.homeDirectory}/cs/yuno";
+in
+{
+  imports = [
+    ./modules
+  ];
+
+  home = {
+    username = "papanito";
+    homeDirectory = "/home/papanito";
+  };
+
+  # This value determines the Home Manager release that your
+  # configuration is compatible with. This helps avoid breakage
+  # when a new Home Manager release introduces backwards
+  # incompatible changes.
+  #
+  # You can update Home Manager without changing this value. See
+  # the Home Manager release notes for a list of state version
+  # changes in each release.
+  home.stateVersion = "nixos-unstable";
+
+  programs = {
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 1800;
+    enableSshSupport = true;
+  };
+
+  home.packages = with pkgs; [
+    sshfs
+    pueue
+  ];
+
+  systemd.user = {
+    mounts = {
+      mount-yunohost = {
+          Unit = {
+              Description = "mount yunohost home";
+          };
+          Mount = {
+            What="adrian@yuno.home:/home";
+            Where="${mountdir_yunohost}";
+            Type="sshfs";
+            Options="x-systemd.automount,_netdev,reconnect,allow_other,identityfile=/home/papanito/.ssh/id_rsa";
+            #SloppyOptions=
+            #LazyUnmount=
+            #ReadWriteOnly=
+            #ForceUnmount=
+            #DirectoryMode=
+            #TimeoutSec=
+          };
+      };
+    };
+    # services = {
+    #   pueued = {
+    #     enable = true;
+    #     description = "Pueue daemon";
+
+    #     # wantedBy = [ "multi-user.target" ];
+
+    #     # restartIfChanged = true; # set to false, if restarting is problematic
+
+    #     # serviceConfig = {
+    #     #   DynamicUser = true;
+    #     #   ExecStart = "/run/current-system/sw/bin/pueued -dv";
+    #     #   Restart = "always";
+    #     # };
+    #   };
+    # };
+  };
+
+ 
+  
+}
