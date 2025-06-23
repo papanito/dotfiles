@@ -68,15 +68,6 @@ repositories:
   certFile: ""
   insecure_skip_tls_verify: false
   keyFile: ""
-  name: center
-  pass_credentials_all: false
-  password: ""
-  url: https://repo.chartcenter.io
-  username: ""
-- caFile: ""
-  certFile: ""
-  insecure_skip_tls_verify: false
-  keyFile: ""
   name: bitnami
   pass_credentials_all: false
   password: ""
@@ -108,4 +99,22 @@ repositories:
   pass_credentials_all: false
   password: ""
   url: https://releases.rancher.com/server-charts/stable
+  username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: kyverno
+  pass_credentials_all: false
+  password: ""
+  url: https://kyverno.github.io/kyverno
+  username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: projectcalico
+  pass_credentials_all: false
+  password: ""
+  url: https://docs.tigera.io/calico/charts
   username: ""
