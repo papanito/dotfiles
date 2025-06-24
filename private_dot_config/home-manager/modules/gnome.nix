@@ -10,7 +10,7 @@ in
   };
   config = lib.mkIf cfg.enable {
 
- gtk = {
+  gtk = {
     enable = true;
 
     # iconTheme = {
@@ -20,7 +20,7 @@ in
 
     iconTheme = {
       name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
+      #package = pkgs.gnome.adwaita-icon-theme;
     };
   
     theme = {
@@ -94,6 +94,5 @@ in
     #   primary-color = "#3465a4";
     #   secondary-color = "#000000";
     # };
-
-  }
+  };
 }
