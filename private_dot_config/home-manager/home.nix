@@ -12,6 +12,10 @@ in
     homeDirectory = "/home/papanito";
   };
 
+  # modules
+  gnome.enable = false;
+  kde.enable = true;
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -20,7 +24,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "nixos-unstable";
+  home.stateVersion = "25.11";
 
   programs = {
     # Let Home Manager install and manage itself.
