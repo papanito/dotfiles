@@ -56,6 +56,7 @@ in
     gh # github cli
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
+    goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
     pay-respects
     #poppler # A PDF rendering library
@@ -69,6 +70,13 @@ in
     cryfs # Cryptographic filesystem for the cloud
     tomb # File encryption on GNU/Linux
     steghide #Open source steganography program
+    wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
+    timg # Terminal image and video viewer
+    w3m # A text-mode web browser
+    
+    ## fun
+    genact # Nonsense activity generator
+    nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
   ];
 
   # services.postgresql = {

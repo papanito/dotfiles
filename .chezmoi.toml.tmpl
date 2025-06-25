@@ -33,6 +33,16 @@ encryption = "gpg"
     exlude = ["scripts"]
 {{- end }}
 
-[hooks.apply.post]
-command = "source $HOME/.zshenv && source $HOME/.zshrc"
-#args = ["$HOME/.zshenv"]
+[hooks.apply]
+    [[hooks.apply.post]]
+        command = "home-manager"
+        args = [
+            "switch",
+            "--flake",
+            "{{ .chezmoi.homeDir }}/.config/home-manager"
+        ]
+    [[hooks.apply.post]]
+        command = "source"
+        args = [
+            "{{ .chezmoi.homeDir }}/.zshenv"
+        ]
