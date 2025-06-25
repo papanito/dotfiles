@@ -49,9 +49,6 @@
         #   myCustomArg = "some-value";
         # };
 
-        # Set the state version for Home Manager. This helps with Wmigrations.
-        # Check the Home Manager manual for the recommended version for your Nixpkgs.
-        home.stateVersion = "25.11"; # Example, align with your nixpkgs release
       };
     };
 }
