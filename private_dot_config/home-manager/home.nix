@@ -25,7 +25,7 @@ in
 
   # Set the state version for Home Manager. This helps with Wmigrations.
   # Check the Home Manager manual for the recommended version for your Nixpkgs.
-  home.stateVersion = "25.11"; # Example, align with your nixpkgs release
+  home.stateVersion = "25.05"; # Example, align with your nixpkgs release
 
   services.gpg-agent = {
     enable = true;
@@ -34,16 +34,16 @@ in
   };
 
   home.packages = with pkgs; [
+    esbuild
     act # Run your GitHub Actions locally
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
     #doppler # The official CLI for interacting with your Doppler Enclave secrets and configuration
-    sshfs
     pueue
     bruno # Open-source IDE For exploring and testing APIs
     buildah # A tool which facilitates building OCI images
     buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
-    buildkit-nix #Nix frontend for BuildKit
+    buildkit-nix #Nix frontend for x
     buildkite-cli # A command line interface for Buildkite
     dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
     dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
@@ -53,6 +53,8 @@ in
     #darling # Open-source Darwin/macOS emulation layer for Linux
     insomnia # The most intuitive cross-platform REST API Client
     just # A handy way to save and run project-specific commands
+    gemini-cli # AI agent that brings the power of Gemini
+    geminicommit # CLI that generates git commit messages with Google Gemini AI
     gh # github cli
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
