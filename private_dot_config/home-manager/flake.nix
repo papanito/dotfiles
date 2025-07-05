@@ -13,11 +13,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, plasma-manager, ... }:
     let
       # Define your system architecture.
       system = "x86_64-linux"; # Or "aarch64-darwin" for macOS, etc.
@@ -39,6 +44,7 @@
         # Specify your Home Manager configuration modules here.
         # This typically points to a home.nix file.
         modules = [
+          inputs.plasma-manager.homeManagerModules.plasma-manager
           ./home.nix
           ./modules/gnome.nix
           ./modules/kde.nix
