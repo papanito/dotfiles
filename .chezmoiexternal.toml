@@ -12,7 +12,7 @@
     refreshPeriod = "168h"    
 [".local/share/nautilus/scripts/"]
     type = "git-repo"
-    url = "git@github.com:cfgnunes/nautilus-scripts.git"
+    url = "git@github.com:papanito/nautilus-scripts.git"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
@@ -61,13 +61,6 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[".local/bin/zellij-smart-sessionizer"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/demestoss/zellij-smart-sessionizer/refs/heads/master/zellij-smart-sessionizer"
-    exact = true
-    stripComponents = 2
-    refreshPeriod = "168h"
-    executabl = true
 [".local/bin/arlon"]
     type = "file"
     url = "https://github.com/arlonproj/arlon/releases/download/v0.9.14/arlon_Linux_x86_64_0.9.14.tar.gz"

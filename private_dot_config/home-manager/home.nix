@@ -8,10 +8,6 @@ in
     homeDirectory = "/home/papanito";
   };
 
-  # modules
-  gnome.enable = true;
-  kde.enable = false;
-
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
@@ -61,8 +57,7 @@ in
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
     pay-respects
-    #poppler # A PDF rendering library
-    #poppler_utils # A PDF rendering library
+    poppler # A PDF rendering library
     posting
     skaffold
     shellcheck # Shell script analysis tool
