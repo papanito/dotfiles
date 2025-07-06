@@ -9,8 +9,8 @@ in
   };
 
   # modules
-  gnome.enable = false;
-  kde.enable = true;
+  gnome.enable = true;
+  kde.enable = false;
 
   programs = {
     # Let Home Manager install and manage itself.
