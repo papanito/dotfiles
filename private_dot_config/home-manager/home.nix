@@ -70,10 +70,35 @@ in
     wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
     timg # Terminal image and video viewer
     w3m # A text-mode web browser
-    
+    ticker # Terminal stock ticker with live updates and position tracking
+    vivaldi
+    rssguard
+    vhs # Tool for generating terminal GIFs with code
+    lutris # Open Source gaming platform for GNU/Linux
+
     ## fun
     genact # Nonsense activity generator
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
+
+    # gnome extensions
+    gnomeExtensions.bing-wallpaper-changer
+    gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while. 
+    gnomeExtensions.gsconnect
+    gnomeExtensions.top-bar-organizer
+    gnomeExtensions.topiconsfix # Shows legacy tray icons on top – the fixed version of https://extensions.gnome.org/extension/495/topicons/
+    gnomeExtensions.tophat
+    gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
+    #gnomeExtensions.window-state-manager
+    gnomeExtensions.power-profile-switcher # Automatically switch between power profiles based on power supply and percentage.
+    gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
+    gnomeExtensions.ip-finder # Displays useful information about your public IP Address and VPN status.
+    gnomeExtensions.tuxedo-fnlock-status # Show the FnLock status of TUXEDO devices.
+    gnomeExtensions.battery-health-charging # Set battery charging threshold / charging limit / charging mode
+    gnomeExtensions.hue-lights # This extension controls Philips Hue compatible lights using Philips Hue Bridge on your local network, it also allows controlling Philips Hue Sync Box. I
+    gnomeExtensions.forge # Tiling and window manager for GNOME
+    gnomeExtensions.display-configuration-switcher # Quickly change the display configuration from the system menu.
+    gnomeExtensions.another-window-session-manager # Close open windows gracefully and save them as a session. 
+    gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions. U
   ];
 
   # services.postgresql = {
