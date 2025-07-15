@@ -57,7 +57,7 @@ in
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
     pay-respects
-    poppler # A PDF rendering library
+    poppler-utils
     posting
     skaffold
     shellcheck # Shell script analysis tool
@@ -75,7 +75,29 @@ in
     rssguard
     vhs # Tool for generating terminal GIFs with code
     lutris # Open Source gaming platform for GNU/Linux
+    gnome-network-displays # miracast implementation for GNOME
 
+    ## Cloud
+    azure-cli
+    python311Packages.msrest
+    google-cloud-sdk
+    hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
+    ibmcloud-cli # Command line client for IBM Cloud
+    python311Packages.hcloud # Library for the Hetzner Cloud API
+    terraform
+    terragrunt # A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices
+    terraform-docs # A utility to generate documentation from Terraform modules in various output formats
+    tflint 
+    
+    ## Development
+    ansible
+    ansible-lint
+    gradle
+    lazygit # Simple terminal UI for git commands
+    maven
+    rs-git-fsmonitor # Fast git core.fsmonitor hook
+    vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
+    
     ## fun
     genact # Nonsense activity generator
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
@@ -88,6 +110,7 @@ in
     gnomeExtensions.topiconsfix # Shows legacy tray icons on top – the fixed version of https://extensions.gnome.org/extension/495/topicons/
     gnomeExtensions.tophat
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
+    gnomeExtensions.burn-my-windows
     #gnomeExtensions.window-state-manager
     gnomeExtensions.power-profile-switcher # Automatically switch between power profiles based on power supply and percentage.
     gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
