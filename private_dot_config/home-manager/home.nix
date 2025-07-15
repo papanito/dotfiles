@@ -136,7 +136,20 @@ in
     gnomeExtensions.forge # Tiling and window manager for GNOME
     gnomeExtensions.display-configuration-switcher # Quickly change the display configuration from the system menu.
     gnomeExtensions.another-window-session-manager # Close open windows gracefully and save them as a session. 
-    gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions. U
+    gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions.
+
+    ## Media
+    gimp
+    #gimpPlugins.gap
+    gimpPlugins.gmic
+    #gimpPlugins.bimp
+    gimpPlugins.fourier
+    gimpPlugins.texturize
+    gimpPlugins.lqrPlugin
+    gimpPlugins.lightning
+    gimpPlugins.gimplensfun
+    gimpPlugins.waveletSharpen
+
   ];
 
   # services.postgresql = {
