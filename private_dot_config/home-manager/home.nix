@@ -110,6 +110,9 @@ in
     nodePackages.snyk # snyk library and cli utility
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     
+    ## Environment
+    packer
+    vagrant
     ## fun
     genact # Nonsense activity generator
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
