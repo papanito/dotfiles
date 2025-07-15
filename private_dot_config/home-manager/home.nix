@@ -1,6 +1,15 @@
 {  pkgs, lib, config, security, ... }:
 let 
-    mountdir_yunohost = "${config.home.homeDirectory}/cs/yuno";
+  mountdir_yunohost = "${config.home.homeDirectory}/cs/yuno";
+  my-python-packages = ps: with ps; [
+    pandas
+    requests
+    pip # The PyPA recommended tool for installing Python packages
+    django
+    pillow # The friendly PIL fork (Python Imaging Library)
+    jupyter # A high-level dynamically-typed programming language
+    notebook # Web-based notebook environment for interactive computing
+  ];
 in
 {
   home = {
@@ -30,7 +39,7 @@ in
   };
 
   home.packages = with pkgs; [
-    esbuild
+    (pkgs.python3.withPackages my-python-packages)
     act # Run your GitHub Actions locally
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
@@ -97,6 +106,9 @@ in
     maven
     rs-git-fsmonitor # Fast git core.fsmonitor hook
     vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
+    nodePackages.zx # A tool for writing better scripts.
+    nodePackages.snyk # snyk library and cli utility
+    # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     
     ## fun
     genact # Nonsense activity generator
