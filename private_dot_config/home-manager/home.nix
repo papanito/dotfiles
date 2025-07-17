@@ -57,12 +57,6 @@ in
     #cockpit # Web-based graphical interface for servers
     #darling # Open-source Darwin/macOS emulation layer for Linux
     insomnia # The most intuitive cross-platform REST API Client
-    just # A handy way to save and run project-specific commands
-    gemini-cli # AI agent that brings the power of Gemini
-    geminicommit # CLI that generates git commit messages with Google Gemini AI
-    gh # github cli
-    glab # gitlab cli
-    gitleaks # Scan git repos (or files) for secrets
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
     pay-respects
@@ -78,13 +72,14 @@ in
     steghide #Open source steganography program
     wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
     timg # Terminal image and video viewer
-    w3m # A text-mode web browser
-    ticker # Terminal stock ticker with live updates and position tracking
     vivaldi
     rssguard
-    vhs # Tool for generating terminal GIFs with code
     lutris # Open Source gaming platform for GNU/Linux
-    gnome-network-displays # miracast implementation for GNOME
+    
+    ## Terminal
+    w3m # A text-mode web browser
+    ticker # Terminal stock ticker with live updates and position tracking
+    vhs # Tool for generating terminal GIFs with code
 
     ## Cloud
     azure-cli
@@ -101,7 +96,14 @@ in
     ## Development
     ansible
     ansible-lint
+    just # A handy way to save and run project-specific commands
+    gemini-cli # AI agent that brings the power of Gemini
+    geminicommit # CLI that generates git commit messages with Google Gemini AI
+    gh # github cli
+    glab # gitlab cli
+    gitleaks # Scan git repos (or files) for secrets
     gradle
+    ghostty
     lazygit # Simple terminal UI for git commands
     maven
     rs-git-fsmonitor # Fast git core.fsmonitor hook
@@ -118,6 +120,7 @@ in
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
 
     # gnome extensions
+    gnome-network-displays # miracast implementation for GNOME
     gnomeExtensions.bing-wallpaper-changer
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while. 
     gnomeExtensions.gsconnect
