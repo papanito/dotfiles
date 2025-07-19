@@ -17,7 +17,7 @@ if [ -n "$ZSH_VERSION" ]; then
     alias eenv="$EDITOR ~/.zshenv"
 fi
 
-# @section ls aliases
+# @section ls aliases for POSIX shells
 # description aliases for better ls
 which bat &>/dev/null && alias cat="bat"
 
@@ -46,16 +46,10 @@ alias lsnew='ls -Alh --color=auto --time-style=+%D | grep `date +%D`'
 alias lss='ls -shaxSrl' # sort by size
 alias lsss='ls -lrt | grep $1' # to see something coming into ls output: lss
 alias lsx='ls -ax'  # sort right to left rather then in columns
-
-# @section Command substitution
-# @description substitute some standard commands
 alias cls='clear'
 alias cp='cp -v'
 alias dr='dirs -v'
 alias dig_='dig +noauthority +noadditaliasional +noqr +nostats +noidentify +nocmd +noquestion +nocomments' # short and sweet output from dig(1)
-alias grep='grep --color=auto' # highlight matched pattern
-alias egrep='grep -E'
-alias fgrep='fgrep –color=auto'
 alias h='history | grep $1'
 alias last='last -a'
 alias mkdir='mkdir -p -v'
@@ -65,12 +59,17 @@ alias psa='ps -auxf'
 alias psg='ps -aux | grep' # requires an argument
 alias pss='ps -ef | grep $1' # to check a process is running in a box with a heavy load: pss
 alias rd='cd "`pwd -P`"' # if in directory containing symlink in path, change to "real" path
+alias rmdir='rmdir -v'
+alias sudo="run0"
+
+# @description substitute some standard commands
+alias grep='grep --color=auto' # highlight matched pattern
+alias egrep='grep -E'
+alias fgrep='fgrep –color=auto'
+alias rgrep='find . \( ! -name .svn -o -prune \) -type f -print0 | xargs -0 grep' # rgrep: recursive grep without .svn
+alias root='su -' # generic shortcut for switching to root user depending on system
 alias real_location='readlink -f' # get real location of file
 alias reboot='sudo /sbin/reboot'
-alias rgrep='find . \( ! -name .svn -o -prune \) -type f -print0 | xargs -0 grep' # rgrep: recursive grep without .svn
-alias rh='rehash'
-alias rmdir='rmdir -v'
-alias root='su -' # generic shortcut for switching to root user depending on system
 alias shutdown='sudo shutdown -h now' # proper restart
 alias shutdownde='for ((;;)) do pgrep wget ||shutdown -h now; sleep 5; done' # if download end, shutdown
 alias split='split -d'
@@ -79,8 +78,6 @@ alias tac='tar -cvzf'
 alias tax='tar -xfvz'
 alias unpack='tar -xzvpf' # uncompress a a Tar file
 alias updatefont='fc-cache -v -f'
-
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 # @section Computer cleanup
 # @description cleanup helper functions
@@ -91,13 +88,11 @@ alias trashclean='rm -fr ~/.Trash'
 alias mountiso='sudo mount ${1} ${2} -t iso9660 -o ro,loop=/dev/loop0'
 alias scan='scanimage -L'
 alias dmidecode='sudo dmidecode --type 17 | more' # check RAM sed and type in Linux
-alias env2='for _a in {A..Z}{a..z};do _z=\${!${_a}*};for _i in `eval echo "${_z}"`;do echo -e "$_i: ${!_i}";done;done|cat -Tsv' # print all environment variables, including hidden ones
 alias hgrep='history | grep --color=always' # search commands history
 alias sete='set|sed -n "/^`declare -F|sed -n "s/^declare -f \(.*\)/\1 ()/p;q"`/q;p"' # display environment vars only, using set
 alias superfind='sudo find / ! \( -path /proc -prune -o -path /tmp -prune -o -path /dev -prune -o -path /mnt -prune \) -name'
 alias whichall='{ command alias; command declare -f; } | command which --read-functions --read-alias -a' # which alias
 alias penv="printenv | grep"
-alias scripts="cd .local/scripts"
 
 # @section Docker, Podman & k8s
 # description Aliases for docker, kubernetes and related tech
@@ -190,4 +185,4 @@ alias cum="cryfs-unmount"
 alias nix-shell="nix-shell --run zsh" # https://stackoverflow.com/questions/33029821/configure-nix-shell-to-use-a-shell-other-than-bash
 alias nix-search="nix --extra-experimental-features 'nix-command flakes' search nixpkgs "
 alias slowdown="s wondershaper -a wlo1 -d 8000"
-alias speedup"s wondershaper -ca wlo1"
+alias speedup="s wondershaper -ca wlo1"
