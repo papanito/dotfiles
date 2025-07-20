@@ -1,4 +1,4 @@
-alias sudo = run0
+#alias sudo = run0
 
 # @description substitute some standard commands
 alias grep = grep --color = auto # highlight matched pattern

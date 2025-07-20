@@ -888,14 +888,18 @@ $env.config = {
     ]
 }
 
+## Modules
+use std/dirs
+
 def --env cx [arg] {
     cd $arg
     ls -l
 }
 
+## Paths
 source ~/.config/nushell/env.nu
-source ~/.config/nushell/atuin/init.nu
-source ~/.config/nushell/carapace/init.nu
-source ~/.config/nushell/navi-integration.nu
+source ~/.config/nushell/atuin.nu
+source ~/.config/nushell/carapace.nu
+source ~/.config/nushell/navi.nu
 source ~/.config/nushell/aliases.nu
 source ~/.config/nushell/functions.nu
