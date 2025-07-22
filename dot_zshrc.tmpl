@@ -7,6 +7,9 @@ export ZSH_DOTFILES="$DOTFILES/zsh"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 [[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
 
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+source <(carapace _carapace)
+
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/
 #if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 #    source /etc/profile.d/vte.sh
@@ -89,7 +92,7 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 
 zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
 zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 zstyle ':completion:*' menu select=2
 
 zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
@@ -173,42 +176,8 @@ zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
 zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 #zinit snippet OMZ::plugins/tmux
 {{ if .isDeveloperMachine }}
-zinit snippet OMZ::plugins/ansible
-zinit snippet OMZ::plugins/argocd
-zinit snippet OMZ::plugins/chezmoi
-zinit snippet OMZ::plugins/colorize
-zinit snippet OMZ::plugins/dotenv
-zinit snippet OMZ::plugins/direnv
-zinit snippet OMZ::plugins/fzf
-zinit snippet OMZ::plugins/flutter
-zinit snippet OMZ::plugins/gnu-utils
-zinit snippet OMZ::plugins/gcloud
 zinit snippet OMZ::plugins/git
 zinit snippet OMZ::plugins/git-extras
-zinit snippet OMZ::plugins/gh
-zinit snippet OMZ::plugins/github
-zinit snippet OMZ::plugins/gitignore
-zinit snippet OMZ::plugins/git-prompt
-zinit snippet OMZ::plugins/golang
-zinit snippet OMZ::plugins/helm
-zinit snippet OMZ::plugins/kubectl
-zinit snippet OMZ::plugins/kubectx
-zinit snippet OMZ::plugins/kind
-zinit snippet OMZ::plugins/k9s
-zinit snippet OMZ::plugins/podman
-zinit snippet OMZ::plugins/gradle
-zinit snippet OMZ::plugins/pip
-zinit snippet OMZ::plugins/pipenv
-zinit snippet OMZ::plugins/pyenv
-zinit snippet OMZ::plugins/pylint
-zinit snippet OMZ::plugins/python
-zinit snippet OMZ::plugins/ssh-agent
-zinit snippet OMZ::plugins/skaffold
-zinit snippet OMZ::plugins/vagrant
-zinit snippet OMZ::plugins/virtualenv
-zinit snippet OMZ::plugins/systemd
-zinit snippet OMZ::plugins/rsync
-zinit snippet OMZ::plugins/terraform
 {{- end }}
 
 {{- if .isDeveloperMachine }}
@@ -221,10 +190,6 @@ zinit load zplugin/zsh-exa
 zinit ice as'null' from"gh-r" sbin
 zinit load ajeetdsouza/zoxide
 zinit snippet OMZ::plugins/zoxide
-#zinit ice has'zoxide'
-#zinit load zdharma-continuum/zsh-zoxide
-#zinit ice src"init.sh"
-#zinit load b4b4r07/enhancd
 
 {{- if .isDeveloperMachine }}
 zinit light-mode for \
