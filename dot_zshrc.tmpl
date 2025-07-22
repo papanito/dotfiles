@@ -202,13 +202,15 @@ zinit light-mode for \
   reegnz/jq-zsh-plugin \
   gko/ssh-connect
 
-# completion stuff
-AZCOMP=/etc/bash_completion.d/azure-cli
-[[ ! -f $AZCOMP  ]] || source $AZCOMP
-AZCOMP2=$DOTFILES/az.completion
-[[ -f $AZCOMP2 ]] && source $AZCOMP2
-GCLOUDCOMP=$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc
-[[ -f $GCLOUDCOMP ]] && source $GCLOUDCOMP
+## helper tools
+which navi &>/dev/null && eval "$(navi widget zsh)"
+# which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
+# which trivy &>/dev/null && eval "$(trivy completion zsh)"
+which pay-respects &>/dev/null && eval "$(pay-respects zsh --alias)"
+eval "$(zoxide init --cmd cd zsh)"
+
+## Atuin
+which atuin &>/dev/null && eval "$(atuin init zsh)"
 {{- else }}
 zinit light-mode for \
   z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
@@ -222,18 +224,6 @@ bindkey "^B" znt-cd-widget
 
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
-
-{{- if .isDeveloperMachine }}
-## helper tools
-which navi &>/dev/null && eval "$(navi widget zsh)"
-which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
-which trivy &>/dev/null && eval "$(trivy completion zsh)"
-which pay-respects &>/dev/null && eval "$(pay-respects zsh --alias)"
-eval "$(zoxide init --cmd cd zsh)"
-
-## Atuin
-which atuin &>/dev/null && eval "$(atuin init zsh)"
-{{- end }}
 
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
