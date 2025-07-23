@@ -104,6 +104,7 @@ in
     gitleaks # Scan git repos (or files) for secrets
     gradle
     ghostty
+    neovim
     lazygit # Simple terminal UI for git commands
     maven
     rs-git-fsmonitor # Fast git core.fsmonitor hook
