@@ -52,8 +52,3 @@ require("lazy").setup({
   },
 })
 
--- require('gitlab').setup({
---   statusline = {
---     enabled = false
---   }
--- })
