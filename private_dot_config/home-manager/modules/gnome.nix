@@ -191,41 +191,5 @@ in
       uris = ["qemu:///system"];
     };
   };
-  # dconf.settings = {
-  #   "org/gnome/shell" = {
-  #     disable-user-extensions = false;
+};
 
-  #     # `gnome-extensions list` for a list
-  #     # enabled-extensions = [
-  #     #   "user-theme@gnome-shell-extensions.gcampax.github.com"
-  #     #   "trayIconsReloaded@selfmade.pl"
-  #     #   "Vitals@CoreCoding.com"
-  #     #   "dash-to-panel@jderose9.github.com"
-  #     #   "sound-output-device-chooser@kgshank.net"
-  #     #   "space-bar@luchrioh"
-  #     # ];
-
-  #     favorite-apps = [
-  #       "firefox.desktop"
-  #       "code.desktop"
-  #       "org.gnome.Terminal.desktop"
-  #       "spotify.desktop"
-  #       "virt-manager.desktop"
-  #       "org.gnome.Nautilus.desktop"
-  #     ];
-  #   };
- 
-    # "org/gnome/desktop/wm/preferences" = {
-    #   workspace-names = [ "Main" ];
-    # };
-    # "org/gnome/desktop/background" = {
-    #   picture-uri = "file:////home/papanito/.local/share/backgrounds/2023-09-09-16-28-03-landscape-wallpapers-1.jpg";
-    #   picture-uri-dark = "file:////home/papanito/.local/share/backgrounds/2023-09-09-16-28-03-landscape-wallpapers-1.jpg";
-    # };
-    # "org/gnome/desktop/screensaver" = {
-    #   picture-uri = "file:////home/papanito/.local/share/backgrounds/2023-09-09-16-28-03-landscape-wallpapers-1.jpg";
-    #   primary-color = "#3465a4";
-    #   secondary-color = "#000000";
-    # };
-  };
-}

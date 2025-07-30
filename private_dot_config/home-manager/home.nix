@@ -141,6 +141,7 @@ in
     gnomeExtensions.display-configuration-switcher # Quickly change the display configuration from the system menu.
     gnomeExtensions.another-window-session-manager # Close open windows gracefully and save them as a session. 
     gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions.
+    gnomeExtensions.dash-to-panel
 
     ## Media
     gimp
