@@ -130,6 +130,7 @@ in
     gnomeExtensions.tophat
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
     gnomeExtensions.burn-my-windows
+    gnomeExtensions.lilypad # Organize, hide, and reorder top bar icons
     #gnomeExtensions.window-state-manager
     gnomeExtensions.power-profile-switcher # Automatically switch between power profiles based on power supply and percentage.
     gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
