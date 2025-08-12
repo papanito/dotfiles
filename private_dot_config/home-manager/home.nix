@@ -103,7 +103,7 @@ in
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
     gradle
-    ghostty
+    ghostty # terminal
     neovim
     lazygit # Simple terminal UI for git commands
     maven
@@ -111,6 +111,7 @@ in
     vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
     nodePackages.zx # A tool for writing better scripts.
     nodePackages.snyk # snyk library and cli utility
+    yazi # terminal file explorer
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     
     ## Environment
