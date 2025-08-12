@@ -97,17 +97,6 @@ function tsh
    ssh $host -t "tmux attach -t $session_name || tmux new -s $session_name"
 }
 
-# @description Automatically inputs aliases here in .aliases
-# @arg $1 string name of alias
-# @arg $2 string command to execute
-function addalias()
-{ 
-   if [[ $1 && $2 ]]; then
-      echo -e "alias $1=\"$2\"" >>~/.aliases
-      alias $1=$2
-   fi
-}
-
 # @description takes a screenshot of your current window
 # @noargs
 function shot()
