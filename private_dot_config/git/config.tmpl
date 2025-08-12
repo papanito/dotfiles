@@ -123,6 +123,9 @@
     directory = /opt/flutter
     directory = /etc/nixos
 {{- end }}
+[pull]
+  rebase = true
+  ff = only       # fast-forward only
 [github]
     user = {{ .githubuser | quote }}
 {{- if eq .chezmoi.hostname "clawfinger" }}
