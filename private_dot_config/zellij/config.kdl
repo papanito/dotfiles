@@ -176,6 +176,7 @@ keybinds clear-defaults=true {
         bind "Ctrl o" "Enter" "Space" "Esc" { SwitchToMode "normal"; }
         bind "Ctrl s" { SwitchToMode "scroll"; }
         bind "Ctrl q" { Quit; }
+        bind "w" { LaunchOrFocusPlugin "zellij:session-manager" { floating true; }; SwitchToMode "normal"; }
         bind "d" { Detach; }
         bind "Alt n" { NewPane; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
