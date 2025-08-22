@@ -24,6 +24,7 @@ in
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      enableBashIntegration = true;
       nix-direnv.enable = true;
     };
   };
@@ -44,6 +45,8 @@ in
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
     #doppler # The official CLI for interacting with your Doppler Enclave secrets and configuration
+    # direnv # A shell extension that manages your environment
+    nix-direnv # A fast, persistent use_nix implementation for direnv
     pueue
     bruno # Open-source IDE For exploring and testing APIs
     buildah # A tool which facilitates building OCI images
