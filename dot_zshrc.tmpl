@@ -191,6 +191,8 @@ zinit ice as'null' from"gh-r" sbin
 zinit load ajeetdsouza/zoxide
 zinit snippet OMZ::plugins/zoxide
 
+zinit snippet OMZ::plugins/direnv
+
 {{- if .isDeveloperMachine }}
 zinit light-mode for \
   zdharma-continuum/z-a-meta-plugins @annexes @zsh-users+fast \
@@ -224,6 +226,8 @@ bindkey "^B" znt-cd-widget
 
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
+# For Bash or Zsh
+export SSH_AUTH_SOCK="/run/user/$(id -u)/bitwarden-ssh-agent.sock"
 
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"

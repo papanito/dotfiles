@@ -20,7 +20,7 @@ in
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
-
+    ssh.startAgent = true;
     direnv = {
       enable = true;
       enableZshIntegration = true;
