@@ -45,7 +45,6 @@ in
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
     #doppler # The official CLI for interacting with your Doppler Enclave secrets and configuration
-    # direnv # A shell extension that manages your environment
     nix-direnv # A fast, persistent use_nix implementation for direnv
     pueue
     bruno # Open-source IDE For exploring and testing APIs
@@ -55,10 +54,10 @@ in
     buildkite-cli # A command line interface for Buildkite
     dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
     dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
-    #hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
+    hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
     #gnome-boxes
     #cockpit # Web-based graphical interface for servers
-    #darling # Open-source Darwin/macOS emulation layer for Linux
+    darling # Open-source Darwin/macOS emulation layer for Linux
     insomnia # The most intuitive cross-platform REST API Client
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
@@ -78,6 +77,18 @@ in
     vivaldi
     rssguard
     lutris # Open Source gaming platform for GNU/Linux
+    
+    ### Browser, Mail, ...
+    mutt
+    element-desktop # A feature-rich client for Matrix.org
+    signal-desktop-bin
+    profile-sync-daemon
+    deluge
+    irssi
+    evince
+    ollama
+    rpi-imager
+    speechd # Common interface to speech synthesis
     
     ## Terminal
     w3m # A text-mode web browser
@@ -124,7 +135,11 @@ in
     genact # Nonsense activity generator
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
 
+    ## GNOME Stuff
+    wike # Wikipedia Reader for the GNOME Desktop
+    
     # gnome extensions
+    gnomeExtensions.tailscale-qs # Add Tailscale to GNOME quick settings
     gnome-network-displays # miracast implementation for GNOME
     gnomeExtensions.bing-wallpaper-changer
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while. 
