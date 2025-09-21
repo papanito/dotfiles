@@ -1,3 +1,4 @@
 window-height=510
 window-width=1640
-shell-integration = zsh
+shell-integration=zsh
+window-save-state=always
