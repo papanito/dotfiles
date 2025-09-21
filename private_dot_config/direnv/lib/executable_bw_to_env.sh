@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function bitwarden_password_to_env() {
+function bw_env() {
   if [[ "$#" -lt 2 ]]; then
     echo "You must specify at least one folder and one secret name" >&2
     exit 1
