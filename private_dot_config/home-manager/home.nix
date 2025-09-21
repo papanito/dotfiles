@@ -10,6 +10,9 @@ let
     jupyter # A high-level dynamically-typed programming language
     notebook # Web-based notebook environment for interactive computing
   ];
+  my-nodes-packages = ns: with ns; [
+    gemini-cli
+  ];
 in
 {
   home = {
@@ -29,7 +32,6 @@ in
     };
   };
 
-  # Set the state version for Home Manager. This helps with Wmigrations.
   # Check the Home Manager manual for the recommended version for your Nixpkgs.
   home.stateVersion = "25.05"; # Example, align with your nixpkgs release
 
@@ -41,6 +43,8 @@ in
 
   home.packages = with pkgs; [
     (pkgs.python3.withPackages my-python-packages)
+    #nodePackages.gemini-cli
+    eget # Easily install prebuilt binaries from GitHub
     act # Run your GitHub Actions locally
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
@@ -57,7 +61,6 @@ in
     hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
     #gnome-boxes
     #cockpit # Web-based graphical interface for servers
-    darling # Open-source Darwin/macOS emulation layer for Linux
     insomnia # The most intuitive cross-platform REST API Client
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
@@ -97,14 +100,14 @@ in
 
     ## Cloud
     azure-cli
-    python311Packages.msrest
+    python312Packages.msrest
     google-cloud-sdk
     hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
     ibmcloud-cli # Command line client for IBM Cloud
-    python311Packages.hcloud # Library for the Hetzner Cloud API
+    python312Packages.hcloud # Library for the Hetzner Cloud API
     terraform
     terragrunt # A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices
-    terraform-docs # A utility to generate documentation from Terraform modules in various output formats
+    #terraform-docs # A utility to generate documentation from Terraform modules in various output formats
     tflint 
     
     ## Development
