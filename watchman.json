@@ -1,0 +1,9 @@
+[
+  "watch", 
+  "/home/papanito/paperless-ngx/documents/archive"
+]
+["trigger","~/paperless-ngx/documents/archive",
+  {
+     "name": "paperless", "expression": "*.*", "command": ["rsync","~/paperless-ngx/documents/archive/","~/Documents/archive", "-vr", "--delete"]
+  }
+]

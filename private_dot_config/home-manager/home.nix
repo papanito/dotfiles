@@ -150,7 +150,7 @@ in
     gnomeExtensions.gsconnect
     gnomeExtensions.top-bar-organizer
     gnomeExtensions.topiconsfix # Shows legacy tray icons on top – the fixed version of https://extensions.gnome.org/extension/495/topicons/
-    gnomeExtensions.tophat
+    #gnomeExtensions.tophat
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
     gnomeExtensions.burn-my-windows
     gnomeExtensions.lilypad # Organize, hide, and reorder top bar icons
