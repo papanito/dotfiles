@@ -80,7 +80,8 @@ in
     vivaldi
     rssguard
     lutris # Open Source gaming platform for GNU/Linux
-    
+    nextcloud-client
+
     ### Browser, Mail, ...
     mutt
     element-desktop # A feature-rich client for Matrix.org
@@ -90,7 +91,7 @@ in
     irssi
     evince
     ollama
-    rpi-imager
+    #rpi-imager
     speechd # Common interface to speech synthesis
     
     ## Terminal
@@ -171,12 +172,12 @@ in
     #gimpPlugins.gap
     gimpPlugins.gmic
     #gimpPlugins.bimp
-    gimpPlugins.fourier
-    gimpPlugins.texturize
-    gimpPlugins.lqrPlugin
-    gimpPlugins.lightning
-    gimpPlugins.gimplensfun
-    gimpPlugins.waveletSharpen
+    #gimpPlugins.fourier
+    #gimpPlugins.texturize
+    #gimpPlugins.lqrPlugin
+    #gimpPlugins.lightning
+    #gimpPlugins.gimplensfun
+    #gimpPlugins.waveletSharpen
 
   ];
 
