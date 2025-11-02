@@ -129,6 +129,7 @@ in
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
     gradle
+    go-task # Task runner / simpler Make alternative written in Go
     ghostty # terminal
     neovim
     lazygit # Simple terminal UI for git commands
