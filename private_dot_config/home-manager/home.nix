@@ -43,44 +43,15 @@ in
 
   home.packages = with pkgs; [
     (pkgs.python3.withPackages my-python-packages)
-    #nodePackages.gemini-cli
-    eget # Easily install prebuilt binaries from GitHub
-    act # Run your GitHub Actions locally
-    actionlint # Static checker for GitHub Actions workflow files
-    bump # CLI tool to draft a GitHub Release for the next semantic version
-    #doppler # The official CLI for interacting with your Doppler Enclave secrets and configuration
-    nix-direnv # A fast, persistent use_nix implementation for direnv
     pueue
-    bruno # Open-source IDE For exploring and testing APIs
-    buildah # A tool which facilitates building OCI images
-    buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
-    buildkit-nix #Nix frontend for x
-    buildkite-cli # A command line interface for Buildkite
-    dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
-    dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
-    hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
     #gnome-boxes
     #cockpit # Web-based graphical interface for servers
-    insomnia # The most intuitive cross-platform REST API Client
-    goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     hugo # A fast and modern static website engine
-    pay-respects
-    poppler-utils
-    posting
-    skaffold
-    shellcheck # Shell script analysis tool
-    xorriso
+    poppler-utils #PDF
     trivy
-    uv #Extremely fast Python package installer and resolver, written in Rust
-    cryfs # Cryptographic filesystem for the cloud
-    tomb # File encryption on GNU/Linux
-    steghide #Open source steganography program
-    wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
-    timg # Terminal image and video viewer
-    vivaldi # browser
-    rssguard
     lutris # Open Source gaming platform for GNU/Linux
     nextcloud-client
+    speechd # Common interface to speech synthesis
 
     ### Browser, Mail, ...
     mutt
@@ -92,14 +63,39 @@ in
     evince
     ollama
     #rpi-imager
-    speechd # Common interface to speech synthesis
-    
+    rssguard
+    vivaldi # browser
+
+    ### API
+    bruno # Open-source IDE For exploring and testing APIs
+    hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
+    insomnia # The most intuitive cross-platform REST API Client
+    posting
+    aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
+    varia # Simple download manager based on aria2 and libadwaita
+
+    ### Storage
+    cryfs # Cryptographic filesystem for the cloud
+    goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
+    gocryptfs # Encrypted overlay filesystem written in Go
+    cryptor # Simple gocryptfs GUI
+    vaults # GTK frontend for encrypted vaults supporting gocryptfs and CryFS for encryptiongocryptfs
+    steghide #Open source steganography program
+    tomb # File encryption on GNU/Linux
+
     ## Terminal
+    nix-direnv # A fast, persistent use_nix implementation for direnv
+    pay-respects
+    gpg-tui # Terminal user interface for GnuPG
+    timg # Terminal image and video viewer
     w3m # A text-mode web browser
     ticker # Terminal stock ticker with live updates and position tracking
     vhs # Tool for generating terminal GIFs with code
+    yazi # terminal file explorer
 
     ## Cloud
+    ansible
+    ansible-lint
     azure-cli
     python312Packages.msrest
     google-cloud-sdk
@@ -110,11 +106,23 @@ in
     terragrunt # A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices
     #terraform-docs # A utility to generate documentation from Terraform modules in various output formats
     tflint 
+    packer
+    vagrant
     
     ## Development
-    ansible
-    ansible-lint
-    just # A handy way to save and run project-specific commands
+    act # Run your GitHub Actions locally
+    actionlint # Static checker for GitHub Actions workflow files
+    bump # CLI tool to draft a GitHub Release for the next semantic version
+    buildah # A tool which facilitates building OCI images
+    buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
+    buildkit-nix #Nix frontend for x
+    buildkite-cli # A command line interface for Buildkite
+    dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
+    dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
+    shellcheck # Shell script analysis tool
+    skaffold
+    wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
+    uv #Extremely fast Python package installer and resolver, written in Rust
     gemini-cli # AI agent that brings the power of Gemini
     geminicommit # CLI that generates git commit messages with Google Gemini AI
     gh # github cli
@@ -129,22 +137,16 @@ in
     vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
     nodePackages.zx # A tool for writing better scripts.
     nodePackages.snyk # snyk library and cli utility
-    yazi # terminal file explorer
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     
-    ## Environment
-    packer
-    vagrant
     ## fun
     genact # Nonsense activity generator
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
 
     ## GNOME Stuff
     wike # Wikipedia Reader for the GNOME Desktop
-    
-    # gnome extensions
-    gnomeExtensions.tailscale-qs # Add Tailscale to GNOME quick settings
     gnome-network-displays # miracast implementation for GNOME
+    gnomeExtensions.tailscale-qs # Add Tailscale to GNOME quick settings
     gnomeExtensions.bing-wallpaper-changer
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while. 
     gnomeExtensions.gsconnect
