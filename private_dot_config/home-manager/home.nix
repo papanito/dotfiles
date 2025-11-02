@@ -77,7 +77,7 @@ in
     steghide #Open source steganography program
     wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
     timg # Terminal image and video viewer
-    vivaldi
+    vivaldi # browser
     rssguard
     lutris # Open Source gaming platform for GNU/Linux
     nextcloud-client
@@ -199,15 +199,15 @@ in
 
   systemd.user = {
     mounts = {
-      mount-yunohost = {
+      mount-envymedia = {
           Unit = {
-              Description = "mount yunohost home";
+              Description = "mount mediacenter media";
           };
           Mount = {
-            What="adrian@yuno.home:/home";
+            What="admin@10.0.0.10:/media";
             Where="${mountdir_yunohost}";
             Type="sshfs";
-            Options="x-systemd.automount,_netdev,reconnect,allow_other,identityfile=/home/papanito/.ssh/id_rsa";
+            Options="x-systemd.automount,_netdev,reconnect,allow_other,identityfile=/home/papanito/.ssh/admin@envy.pub";
             #SloppyOptions=
             #LazyUnmount=
             #ReadWriteOnly=
