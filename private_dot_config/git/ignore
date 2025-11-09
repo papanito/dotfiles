@@ -1,5 +1,6 @@
 ## Env stuff
 .env
+.envrc
 
 ## VS Code
 **/.dccache
