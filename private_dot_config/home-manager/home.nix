@@ -43,8 +43,8 @@ in
 
   home.packages = with pkgs; [
     (pkgs.python3.withPackages my-python-packages)
+    lazyjournal
     pueue
-    #gnome-boxes
     #cockpit # Web-based graphical interface for servers
     hugo # A fast and modern static website engine
     poppler-utils #PDF
@@ -92,6 +92,9 @@ in
     ticker # Terminal stock ticker with live updates and position tracking
     vhs # Tool for generating terminal GIFs with code
     yazi # terminal file explorer
+
+    ## Docker and Kubernetes
+    dive # Tool for exploring each layer in a docker image
 
     ## Cloud
     ansible
@@ -171,6 +174,7 @@ in
     gnomeExtensions.dash-to-panel
 
     ## Media
+    pinta
     gimp
     #gimpPlugins.gap
     gimpPlugins.gmic
