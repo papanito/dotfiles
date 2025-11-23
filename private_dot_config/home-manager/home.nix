@@ -1,4 +1,4 @@
-{  pkgs, lib, config, security, ... }:
+{  pkgs, lib, config, nixgl, quickshell, home_attrs, security, ... }:
 let 
   mountdir_yunohost = "${config.home.homeDirectory}/cs/yuno";
   my-python-packages = ps: with ps; [
