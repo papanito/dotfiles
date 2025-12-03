@@ -28,7 +28,7 @@
         username = "papanito";
         homeDirectory = "/home/${username}";
         # Do not edit stateVersion value, see https://github.com/nix-community/home-manager/issues/5794
-        stateVersion = "25.05";
+        stateVersion = "25.11";
       };
       # Define your system architecture.
       system = "x86_64-linux"; # Or "aarch64-darwin" for macOS, etc.
@@ -51,7 +51,6 @@
         # This typically points to a home.nix file.
         modules = [
           ./home.nix
-          #./dots_hyperland.nix
           ./modules/gnome.nix
         ];
         extraSpecialArgs = { inherit home_attrs nixgl quickshell; };

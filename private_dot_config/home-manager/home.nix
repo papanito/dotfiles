@@ -52,7 +52,8 @@ in
     lutris # Open Source gaming platform for GNU/Linux
     nextcloud-client
     speechd # Common interface to speech synthesis
-
+    goto # easy to use terminal SSH manager with advanced features. Binaries included!
+    
     ### Browser, Mail, ...
     mutt
     element-desktop # A feature-rich client for Matrix.org
