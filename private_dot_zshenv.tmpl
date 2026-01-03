@@ -80,10 +80,10 @@ export BROWSER='firefox'
 # export DISPLAY=:79
 # export EDITOR="gedit -w --resume" Typing 'fc'    # open last command for editing in gedit, then execute on save
 {{- if .isDeveloperMachine }}
-export EDITOR='hx'
+export EDITOR='vi'
 {{- else }}
 export EDITOR=vi
-export VISUAL="emacs"
+export VISUAL="nvim"
 {{- end }}
 # export ftp_proxy=${MY_PROXY}
 # export GPG_TTY='tty' # gpg-agent says it needs this
