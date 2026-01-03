@@ -43,6 +43,11 @@ in
 
   home.packages = with pkgs; [
     (pkgs.python3.withPackages my-python-packages)
+    ## nix tools
+    nix-direnv # A fast, persistent use_nix implementation for direnv
+    colmena
+
+    ## misc
     lazyjournal
     pueue
     #cockpit # Web-based graphical interface for servers
@@ -85,7 +90,6 @@ in
     tomb # File encryption on GNU/Linux
 
     ## Terminal
-    nix-direnv # A fast, persistent use_nix implementation for direnv
     pay-respects
     gpg-tui # Terminal user interface for GnuPG
     timg # Terminal image and video viewer
@@ -107,8 +111,8 @@ in
     ibmcloud-cli # Command line client for IBM Cloud
     python312Packages.hcloud # Library for the Hetzner Cloud API
     terraform
-    terragrunt # A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices
-    #terraform-docs # A utility to generate documentation from Terraform modules in various output formats
+    #terragrunt # A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices
+    terraform-docs # A utility to generate documentation from Terraform modules in various output formats
     tflint 
     packer
     vagrant
@@ -132,6 +136,7 @@ in
     gh # github cli
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
+    git-interactive-rebase-tool
     gradle
     go-task # Task runner / simpler Make alternative written in Go
     ghostty # terminal
@@ -161,6 +166,7 @@ in
     gnomeExtensions.tophat
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
     gnomeExtensions.burn-my-windows
+    gnomeExtensions.veil
     #gnomeExtensions.window-state-manager
     gnomeExtensions.power-profile-switcher # Automatically switch between power profiles based on power supply and percentage.
     gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
