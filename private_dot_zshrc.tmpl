@@ -162,7 +162,7 @@ if [[ ! -d $ZSH_CACHE_DIR/completions/ ]]; then
    mkdir "$ZSH_CACHE_DIR/completions/"
 fi
 
-{{ if eq .chezmoi.hostname "clawfinger" }}
+{{ if .isDeveloperMachine }}
 autoload -U add-zsh-hook                      # Load the zsh hook module
 add-zsh-hook preexec pre_validation           # Adds the hook
 {{ end }}
@@ -235,3 +235,25 @@ export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 [[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
 {{- end }}
+
+# -------------------------------------------
+# Undo in ZSH
+# -------------------------------------------
+# Press Ctrl+_ (Ctrl+Underscore) to undo
+# This is built-in, no configuration needed!
+# Redo widget exists but has no default binding:
+# bindkey '^Y' redo  # Example binding if you want it
+
+# Magic Space - Expand History
+# Expands history expressions like !! or !$ when you press space
+bindkey ' ' magic-space
+
+#  zmv - Advanced Batch Rename/Move
+autoload -Uz zmv
+alias mv="zmv"
+
+# Usage examples:
+# zmv '(*).log' '$1.txt'           # Rename .log to .txt
+# zmv -w '*.log' '*.txt'           # Same thing, simpler syntax
+# zmv -n '(*).log' '$1.txt'        # Dry run (preview changes)
+# zmv -i '(*).log' '$1.txt'        # Interactive mode (confirm each)

@@ -1,14 +1,35 @@
-# @section zsh suffix aliases
-# @description zhs suffix aliases
+# @section zsh global and suffix aliases
+# @description zhs global and suffix aliases
 if [ -n "$ZSH_VERSION" ]; then
     # Azure CLI files
-    alias -s azcli=code
+    alias -s azcli=$VISUAL
 
     # dev files
-    alias -s {json,yaml,md,tf,log}=code
+    alias -s {json,yaml,md,tf,go,rs,py}=$VISUL
 
-    # javascript and html
-    alias -s {cs,ts,html}=code
+    # javascript 
+    alias -s {cs,ts}=$VISUAL
+    
+    # log and textfiles
+    alias -s {txt,log}=cat
+
+    alias -s json=jless
+    alias -s html=open
+
+    # 6. Global Aliases - Use Anywhere in Commands
+    alias -g NE='2>/dev/null'
+
+    # Redirect stdout to /dev/null
+    alias -g NO='>/dev/null'
+
+    # Redirect both stdout and stderr to /dev/null
+    alias -g NUL='>/dev/null 2>&1'
+
+    # Pipe to jq
+    alias -g J='| jq'
+
+    # Copy output to clipboard (macOS)
+    alias -g C='| pbcopy'
 
 {{- if .isDeveloperMachine }}
     #alias cd='x' # use zoxide

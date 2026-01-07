@@ -81,6 +81,7 @@ export BROWSER='firefox'
 # export EDITOR="gedit -w --resume" Typing 'fc'    # open last command for editing in gedit, then execute on save
 {{- if .isDeveloperMachine }}
 export EDITOR='vi'
+export VISUAL="nvim"
 {{- else }}
 export EDITOR=vi
 export VISUAL="nvim"
@@ -124,6 +125,7 @@ path+=("$HOME/.local/cmdfu")
 path+=("$HOME/.emacs.d/bin")
 path+=("$HOME/.krew/bin")
 path+=("$NPMPATH")
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
 
 export FZF_BASE=/run/current-system/sw/bin/fzf
