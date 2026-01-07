@@ -11,7 +11,6 @@ let
     notebook # Web-based notebook environment for interactive computing
   ];
   my-nodes-packages = ns: with ns; [
-    gemini-cli
   ];
 in
 {
@@ -73,7 +72,7 @@ in
     vivaldi # browser
 
     ### API
-    bruno # Open-source IDE For exploring and testing APIs
+    #bruno # Open-source IDE For exploring and testing APIs
     hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
     insomnia # The most intuitive cross-platform REST API Client
     posting
@@ -131,7 +130,7 @@ in
     skaffold
     wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
     uv #Extremely fast Python package installer and resolver, written in Rust
-    gemini-cli # AI agent that brings the power of Gemini
+    gemini-cli-bin # AI agent that brings the power of Gemini
     geminicommit # CLI that generates git commit messages with Google Gemini AI
     gh # github cli
     glab # gitlab cli
@@ -145,7 +144,7 @@ in
     maven
     rs-git-fsmonitor # Fast git core.fsmonitor hook
     vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
-    nodePackages.zx # A tool for writing better scripts.
+    #nodePackages.zx # A tool for writing better scripts.
     nodePackages.snyk # snyk library and cli utility
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     
