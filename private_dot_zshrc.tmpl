@@ -187,7 +187,8 @@ zinit load zplugin/zsh-exa
 {{- end }}
 
 # install zoxide
-zinit ice as'null' from"gh-r" sbin
+zinit ice as'null' from"gh-r" sbin \
+  atload='eval "$(zoxide init --cmd cd zsh)"'
 zinit load ajeetdsouza/zoxide
 zinit snippet OMZ::plugins/zoxide
 
@@ -211,7 +212,6 @@ which navi &>/dev/null && eval "$(navi widget zsh)"
 # which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
 # which trivy &>/dev/null && eval "$(trivy completion zsh)"
 which pay-respects &>/dev/null && eval "$(pay-respects zsh --alias)"
-eval "$(zoxide init --cmd cd zsh)"
 
 ## Atuin
 which atuin &>/dev/null && eval "$(atuin init zsh)"
@@ -257,3 +257,7 @@ alias mv="zmv"
 # zmv -w '*.log' '*.txt'           # Same thing, simpler syntax
 # zmv -n '(*).log' '$1.txt'        # Dry run (preview changes)
 # zmv -i '(*).log' '$1.txt'        # Interactive mode (confirm each)
+
+zinit ice from"gh-r" as"program" \
+    bpick"*linux_amd64.tar.gz"
+zinit load hengyoush/kyanos
