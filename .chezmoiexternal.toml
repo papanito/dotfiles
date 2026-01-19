@@ -35,12 +35,12 @@
     stripComponents = 2
     refreshPeriod = "168h"
 ## Tools
-[".emacs.d"]
-    type = "git-repo"
-    url = "https://github.com/doomemacs/doomemacs"
-    exact = true
-    stripComponents = 2
-    refreshPeriod = "168h"
+# [".emacs.d"]
+#     type = "git-repo"
+#     url = "https://github.com/doomemacs/doomemacs"
+#     exact = true
+#     stripComponents = 2
+#     refreshPeriod = "168h"
 [".config/cheat/cheatsheets/personal"]
     type = "git-repo"
     url = "git@github.com:cheat/cheatsheets.git"
