@@ -668,3 +668,34 @@ nix-clean () {
   done
   nix-collect-garbage -d
 }
+
+# @description To keep your environment secure but convenient, we’ll use a temporary session cache
+bw_auth() {
+  local SESSION_FILE="/dev/shm/bw_session_$USER"
+
+  # 1. Check if session file exists and is still valid
+  if [[ -f "$SESSION_FILE" ]]; then
+      export BW_SESSION=$(cat "$SESSION_FILE")
+      # Verify the session actually works
+      if ! bw status | grep -q "unlocked"; then
+          unset BW_SESSION
+          rm "$SESSION_FILE"
+      fi
+  fi
+
+  # 2. If no valid session, unlock
+  if [[ -z "$BW_SESSION" ]]; then
+      echo "🔐 Bitwarden locked. Please provide Master Password:"
+      local NEW_SESSION=$(bw unlock --raw)
+      if [[ $? -eq 0 ]]; then
+          export BW_SESSION="$NEW_SESSION"
+        echo $NEW_SESSION
+          echo "$BW_SESSION" > "$SESSION_FILE"
+          chmod 600 "$SESSION_FILE"
+          echo "✅ Session cached in RAM."
+      else
+          echo "❌ Unlock failed."
+          return 1
+      fi
+  fi
+}

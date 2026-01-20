@@ -8,8 +8,9 @@ function bw_env() {
 
   if [[ -z $BW_SESSION ]]; then
     echo "Failed to log into bitwarden. Ensure you're logged in with bw login, and check your password" >&2
-    BW_LOCAL=1
-    local BW_SESSION=$(bw unlock --raw)
+    bw_auth
+    #BW_LOCAL=1
+    #local BW_SESSION=$(bw unlock --raw)
   fi
 
   local folder=$1
