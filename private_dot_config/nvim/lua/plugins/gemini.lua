@@ -1,7 +1,17 @@
 return {
-  'kiddos/gemini.nvim',
-  --build = { 'pip install -r requirements.txt', ':UpdateRemotePlugins' },
+  "olimorris/codecompanion.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+  },
   config = function()
-    require('gemini').setup()
-  end
+    require("codecompanion").setup({
+      strategies = {
+        chat = { adapter = "gemini" },
+        inline = { adapter = "gemini" },
+        agent = { adapter = "gemini" },
+      },
+    })
+  end,
 }
+
