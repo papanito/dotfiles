@@ -128,7 +128,6 @@ in
     dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
     shellcheck # Shell script analysis tool
     skaffold
-    wrangler_1 # A CLI tool designed for folks who are interested in using Cloudflare Workers
     uv #Extremely fast Python package installer and resolver, written in Rust
     gemini-cli-bin # AI agent that brings the power of Gemini
     geminicommit # CLI that generates git commit messages with Google Gemini AI
@@ -136,12 +135,11 @@ in
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
     git-interactive-rebase-tool
-    gradle
     go-task # Task runner / simpler Make alternative written in Go
     ghostty # terminal
     neovim
     lazygit # Simple terminal UI for git commands
-    maven
+    pre-commits
     rs-git-fsmonitor # Fast git core.fsmonitor hook
     vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
     #nodePackages.zx # A tool for writing better scripts.
