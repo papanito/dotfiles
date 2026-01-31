@@ -57,7 +57,8 @@ in
     nextcloud-client
     speechd # Common interface to speech synthesis
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
-    
+    protonvpn-gui
+
     ### Browser, Mail, ...
     mutt
     element-desktop # A feature-rich client for Matrix.org
@@ -139,7 +140,7 @@ in
     ghostty # terminal
     neovim
     lazygit # Simple terminal UI for git commands
-    pre-commits
+    pre-commit
     rs-git-fsmonitor # Fast git core.fsmonitor hook
     vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
     #nodePackages.zx # A tool for writing better scripts.
