@@ -45,7 +45,8 @@ in
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
     colmena
-
+    qwen-code #Coding agent that lives in digital world
+    
     ## misc
     lazyjournal
     pueue
