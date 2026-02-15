@@ -404,25 +404,15 @@ export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export HISHTORY_STATE_BASH=$HOME/.local/state/bash
 [[ -f $HISHTORY_STATE_BASH ]] || mkdir $HISHTORY_STATE_BASH
 
-# 1. Oh-My-Posh
 eval "$(oh-my-posh init bash --config $HOME/.config/ohmyposh/powerlevel10k_rainbow.omp.json)"
-
-# 2. Carapace
 source <(carapace _carapace bash)
 
-# 3. Atuin
 eval "$(atuin init bash)"
-# 2. Carapace
-source <(carapace _carapace bash)
-
-# 3. Atuin
-eval "$(atuin init bash)"
-
 eval "$(zoxide init bash)"
+eval "$(tirith init --shell zsh)"
 {{- end }}
 
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 [[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
 {{- end }}
-

@@ -32,7 +32,7 @@ in
   };
 
   # Check the Home Manager manual for the recommended version for your Nixpkgs.
-  home.stateVersion = "25.05"; # Example, align with your nixpkgs release
+  home.stateVersion = "25.11"; # Example, align with your nixpkgs release
 
   services.gpg-agent = {
     enable = true;
@@ -45,21 +45,30 @@ in
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
     colmena
-    qwen-code #Coding agent that lives in digital world
     
+    ## AI
+    qwen-code #Coding agent that lives in digital world
+    ollama
+    
+    ## Security
+    tirith # URL security analysis for shell environments
+    trivy
+    keyguard # Bitwarden alternative
+    rbw # Alternative bitwarden cli
+
+    freecad 
     ## misc
     lazyjournal
     pueue
     #cockpit # Web-based graphical interface for servers
     hugo # A fast and modern static website engine
     poppler-utils #PDF
-    trivy
     lutris # Open Source gaming platform for GNU/Linux
     nextcloud-client
     speechd # Common interface to speech synthesis
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
     protonvpn-gui
-
+    
     ### Browser, Mail, ...
     mutt
     element-desktop # A feature-rich client for Matrix.org
@@ -68,13 +77,11 @@ in
     deluge
     irssi
     evince
-    ollama
-    #rpi-imager
     rssguard
     vivaldi # browser
 
     ### API
-    #bruno # Open-source IDE For exploring and testing APIs
+    bruno # Open-source IDE For exploring and testing APIs
     hurl #Command line tool that performs HTTP requests defined in a simple plain text format.
     insomnia # The most intuitive cross-platform REST API Client
     posting

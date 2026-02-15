@@ -184,6 +184,7 @@ zinit snippet OMZ::plugins/git-extras
 # use exa instead ls
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 zinit load zplugin/zsh-exa
+eval "$(tirith init --shell zsh)"
 {{- end }}
 
 # install zoxide
