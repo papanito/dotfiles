@@ -1,5 +1,55 @@
 #!/bin/bash
 
+# @description: Search for logins in bws
+function bws_env() {
+  local PROJECT_NAME=""
+  local PROJECT_ID=""
+  local OPTIND
+
+  while getopts "p:" opt; do
+    case "$opt" in
+    p) PROJECT_NAME=$OPTARG ;;
+    *)
+      echo "Usage: bws_env [-p project_name] VAR1 VAR2 ..." >&2
+      return 1
+      ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+
+  # If a project name was provided, find its ID
+  if [[ -n "$PROJECT_NAME" ]]; then
+    PROJECT_ID=$(bws project list | jq -r ".[] | select(.name == \"$PROJECT_NAME\") | .id")
+
+    if [[ -z "$PROJECT_ID" ]]; then
+      echo "❌ Project '$PROJECT_NAME' not found" >&2
+      return 1
+    fi
+    echo "📂 Filtering by Project: $PROJECT_NAME ($PROJECT_ID)"
+  fi
+
+  # Iterate through requested variables
+  for environment_variable_name in "$@"; do
+    local QUERY=".[] | select(.key == \"$environment_variable_name\")"
+
+    # Append project filter to the JQ query if ID exists
+    if [[ -n "$PROJECT_ID" ]]; then
+      QUERY="$QUERY | select(.projectId == \"$PROJECT_ID\")"
+    fi
+
+    local SECRET=$(bws secret list | jq -r "$QUERY | .value")
+
+    if [[ -z $SECRET || $SECRET == "null" ]]; then
+      echo "❌ Failed to retrieve credential for $environment_variable_name" >&2
+      return 1
+    fi
+
+    export "$environment_variable_name=$SECRET"
+    echo "✅ Exported $environment_variable_name"
+  done
+}
+
+# @description: Search for logins in bitwarden in a specific folder
 function bw_env() {
   if [[ "$#" -lt 2 ]]; then
     echo "You must specify at least one folder and one secret name" >&2

@@ -699,3 +699,8 @@ bw_auth() {
       fi
   fi
 }
+
+# @description get secret by keyname from bws
+function bwss() {
+  bws secret list | jq ". | .[] | select(.key == \"$1\") | .value"
+}
