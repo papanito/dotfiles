@@ -280,7 +280,7 @@ if [ "$PS1" ]; then # if running interactively, then run till 'fi' at EOF:
 
   ##### PATH
   if [ "$UID" -eq 0 ]; then
-    PATH=$PATH:/usr/local:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+    PATH=$PATH:/usr/local:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$HOME/.local/share/cargo/bin
   fi
 
   # remove duplicate path entries
