@@ -1,0 +1,3 @@
+bws_env -p personal RESTIC_PASSWORD
+bws_env -p private B2_ACCOUNT_KEY B2_ACCOUNT_ID
+alias restic="restic --no-lock"

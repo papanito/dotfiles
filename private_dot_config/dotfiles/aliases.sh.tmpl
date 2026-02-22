@@ -11,7 +11,7 @@ if [ -n "$ZSH_VERSION" ]; then
     alias -s {cs,ts}=$VISUAL
     
     # log and textfiles
-    alias -s {txt,log}=cat
+    alias -s {txt,log}=$VISUAL
 
     alias -s json=jless
     alias -s html=open
@@ -91,7 +91,6 @@ alias root='su -' # generic shortcut for switching to root user depending on sys
 alias real_location='readlink -f' # get real location of file
 alias reboot='sudo /sbin/reboot'
 alias shutdown='sudo shutdown -h now' # proper restart
-alias shutdownde='for ((;;)) do pgrep wget ||shutdown -h now; sleep 5; done' # if download end, shutdown
 alias split='split -d'
 alias s='sudo'
 alias tac='tar -cvzf'
@@ -146,12 +145,9 @@ alias tfplan='terraform plan -no-color > generated.tfplan'
 
 # @section terminal multiplexer
 # @description command substitution tmux,byobu, etc
-alias zj="zellij"
 alias helix="hx"
 alias t="tomb"
 alias tm="tmux"
-#alias zellijj='zellij options --disable-mouse-mode'
-alias zm="zellij a main || zellij -s main"
 alias tmuxls="t list-session"
 function tmuxns {
     if [[ -n "$1" ]]; then
@@ -161,6 +157,9 @@ function tmuxns {
     fi
 }
 alias tmuxa="t attach-session -t "
+#alias zellijj='zellij options --disable-mouse-mode'
+alias zj="zellij"
+alias zm="zellij a main || zellij -s main"
 alias zw="zellij -l welcome"
 
 # @section ansible
