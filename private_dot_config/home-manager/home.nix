@@ -155,6 +155,7 @@ in
     #nodePackages.zx # A tool for writing better scripts.
     nodePackages.snyk # snyk library and cli utility
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
+    rustup # Rust toolchain installer
     
     ## fun
     genact # Nonsense activity generator

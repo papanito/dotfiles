@@ -31,9 +31,6 @@ if [ -n "$ZSH_VERSION" ]; then
     # Copy output to clipboard (macOS)
     alias -g C='| pbcopy'
 
-{{- if .isDeveloperMachine }}
-    #alias cd='x' # use zoxide
-{{- end }}
     alias reload="source ~/.zshenv && source ~/.zshrc"
     alias eenv="$EDITOR ~/.zshenv"
 fi

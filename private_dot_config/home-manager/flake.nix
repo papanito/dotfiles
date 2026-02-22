@@ -51,6 +51,7 @@
         # This typically points to a home.nix file.
         modules = [
           ./home.nix
+          ./modules/systemd.nix
           ./modules/gnome.nix
         ];
         extraSpecialArgs = { inherit home_attrs nixgl quickshell; };
