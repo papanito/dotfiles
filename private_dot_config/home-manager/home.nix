@@ -140,6 +140,7 @@ in
     uv #Extremely fast Python package installer and resolver, written in Rust
     gemini-cli-bin # AI agent that brings the power of Gemini
     geminicommit # CLI that generates git commit messages with Google Gemini AI
+    codeberg-cli
     gh # github cli
     glab # gitlab cli
     gitleaks # Scan git repos (or files) for secrets
