@@ -51,7 +51,8 @@
         # This typically points to a home.nix file.
         modules = [
           ./home.nix
-          ./modules/services.nix
+          ./modules/paperless-sync.nix
+          ./modules/watchman.nix
           ./modules/gnome.nix
         ];
         extraSpecialArgs = { inherit home_attrs nixgl quickshell; };

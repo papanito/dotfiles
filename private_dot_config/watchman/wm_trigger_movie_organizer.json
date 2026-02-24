@@ -1,0 +1,30 @@
+[
+  "trigger",
+  "/home/papanito/Downloads",
+  {
+    "name": "movies-organizer",
+    "expression": [
+      "anyof",
+      [
+        "match",
+        "*.mkv",
+        "wholename"
+      ],
+      [
+        "match",
+        "*.mp4",
+        "wholename"
+      ],
+      [
+        "match",
+        "*.srt",
+        "wholename"
+      ]
+    ],
+    "command": [
+      "python3",
+      "/home/papanito/.local/scripts/papanito/movies_organizer.py"
+    ],
+    "append_files": true
+  }
+]

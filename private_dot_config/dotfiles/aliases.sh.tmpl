@@ -200,6 +200,25 @@ alias slowdown="s wondershaper -a wlo1 -d 8000"
 alias speedup="s wondershaper -ca wlo1"
 alias lg="lazygit"
 
+# @section watchman
+# @description aliases related to facebooks watchman
+alias wmlog="watchman get-log | jq -r .log"
+alias wmload="watchman -j < $HOME/.config/watchman/watchman_config.json"
+alias wm="watchman"
+
+alias wmt="watchman -- trigger"
+alias wmtd="watchman trigger-del"
+
+alias wmw="watchman watch"
+alias wmwl="watchman watch-list"
+alias wmwd="watchman watch-del"
+alias wmwp="watchman watch-project"
+
+alias wss="watchman shutdown-server"
+alias wq="watchman shutdown-server"
+
+alias wv="watchman version"
+
 # @section nixos
 # @description alias related to nixos
 alias nix-shell="nix-shell --run zsh" # https://stackoverflow.com/questions/33029821/configure-nix-shell-to-use-a-shell-other-than-bash

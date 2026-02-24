@@ -4,13 +4,17 @@ debounce_seconds = 2
 polling_interval_secs = 5
 log_retention = 1000
 start_daemon_on_launch = false
-notifications_enabled = false
+notifications_enabled = true
 theme = "catppuccin-mocha"
 
 [[watch]]
 path = "~/Downloads"
 recursive = false
-rules = []
+rules = [
+    "Move iso files",
+    "Organize show",
+    "Test",
+]
 
 [[rule]]
 name = "Move iso files"
@@ -27,3 +31,36 @@ type = "move"
 destination = "~/Downloads/iso"
 create_destination = true
 overwrite = false
+
+[[rule]]
+name = "Organize show"
+enabled = false
+stop_processing = false
+
+[rule.condition]
+extensions = []
+name_regex = '(?i).*(?P<title>The\.Rookie|[^/]+?)[. ]+S(?P<season>\d+)E(?P<episode>\d+).*'
+is_directory = false
+
+[rule.action]
+type = "run"
+command = "~/sort-shows.sh"
+args = [
+    "{path}",
+    "{filename}",
+]
+
+[[rule]]
+name = "Test"
+enabled = true
+stop_processing = false
+
+[rule.condition]
+extensions = []
+name_regex = '(?i).*[./](?P<title>.*?)[. ]+[sS](?P<season>\d+)[eE](?P<episode>\d+).*'
+is_directory = false
+
+[rule.action]
+type = "run"
+command = 'echo "yes it works"'
+args = []
