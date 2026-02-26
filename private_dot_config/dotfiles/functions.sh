@@ -678,6 +678,7 @@ bw_auth() {
       export BW_SESSION=$(cat "$SESSION_FILE")
       # Verify the session actually works
       if ! bw status | grep -q "unlocked"; then
+          echo "❌ bw status $(bw status)"
           unset BW_SESSION
           rm "$SESSION_FILE"
       fi
@@ -689,7 +690,7 @@ bw_auth() {
       local NEW_SESSION=$(bw unlock --raw)
       if [[ $? -eq 0 ]]; then
           export BW_SESSION="$NEW_SESSION"
-        echo $NEW_SESSION
+          echo "$NEW_SESSION"
           echo "$BW_SESSION" > "$SESSION_FILE"
           chmod 600 "$SESSION_FILE"
           echo "✅ Session cached in RAM."
