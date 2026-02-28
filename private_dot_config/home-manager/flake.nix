@@ -53,6 +53,7 @@
           ./home.nix
           ./modules/paperless-sync.nix
           ./modules/watchman.nix
+          ./modules/pueue.nix
           ./modules/gnome.nix
         ];
         extraSpecialArgs = { inherit home_attrs nixgl quickshell; };

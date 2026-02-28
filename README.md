@@ -10,7 +10,7 @@ Optionally should also install [home-manager].
 
 > [!REMARK]
 >
-> Instead of using [home-manager] to manage all my dotfiles, I use [chezmoia] as my primary tool.
+> Instead of using [home-manager] to manage all my dotfiles, I use [chezmoi] as my primary tool.
 > I use **home-manager** to declaratively manage user-specific packages and environment logic.
 > This is an optional part of the setup; the core dotfiles can function independently, especially as I still have machines without nix.
 
@@ -46,7 +46,7 @@ My environment uses the following basic tools:
   * **[zinit]** to manage plugins for sub-second startup times using Turbo (asynchronous) loading.
   * **[atuin]** an SQLite-powered shell history
   * **[direnv](https://direnv.net/)** to automatically load environment variables and Nix shells when entering a directory.
-  * **[oh-my-posh][Oh My Posh]** as my prompt for a consistent, informative, and aesthetic prompt across any shell.
+  * **[oh-my-posh]** as my prompt for a consistent, informative, and aesthetic prompt across any shell.
   * **[Aliases & Functions]** to work faster on the shell
 * **Editor:** [Neovim] configured with the **[LazyVim]** distro for a modular, high-performance IDE experience.
 * **Workspace:** **[Zellij][zellij]** — A modern terminal workspace and multiplexer with built-in layouts.
@@ -65,7 +65,7 @@ Here are some tools worth mentioning - check [home.nix] for more tools
 |[bat]|A cat clone with syntax highlighting and git integration.|
 |[eza]|A modern, maintained replacement for ls.|
 |[watchman]|Watches files and records, or triggers actions, when they change.|
-|[watchman]|Watches files and records, or triggers actions, when they change.|
+|[pueue]|Pueue is a command-line task management tool for sequential and parallel execution of long-running tasks.|
 
 ### 📂 Direnv & Environment Management
 
@@ -85,8 +85,8 @@ bws_env -p private B2_ACCOUNT_KEY B2_ACCOUNT_ID
 
 Where I have [Nix] installed, I manage some desktop settings with [home-manager]:
 
-* [View NixOS Configs](./nixos/)
-* [View home.nix](./nix/home.nix)
+* [View NixOS Configs](./private_dot_config/home-manager/§)
+* [View home.nix](./private_dot_config/home-manager/home.nix)
 
 ### ⚙️Systemd User Services
 
@@ -94,6 +94,7 @@ I manage background processes via **systemd user services**, which run in the us
 
 * **[paperless-sync](./private_dot_config/home-manager/modules/paperless-sync.nix)**: Regurarily pulls documents from [paperless-server][paperless-nxg]
 * **[watchman](./private_dot_config/home-manager/modules/watchman.nix)**: Starts [watchman] socket
+* **[pueue](./private_dot_config/home-manager/modules/pueue.nix.nix)**: Starts [pueue] daemon
 
 [zellij]: https://zellij.dev/
 [LazyVim]: https://www.lazyvim.org/
@@ -104,7 +105,7 @@ I manage background processes via **systemd user services**, which run in the us
 [bws]: https://bitwarden.com/products/secrets-manager/
 [watchman]: https://facebook.github.io/watchman/
 [chezmoi]: https://github.com/twpayne/chezmoi/
-[Oh my posh]: https://github.com/JanDeDobbeleer/oh-my-posh
+[oh-my-posh]: https://github.com/JanDeDobbeleer/oh-my-posh
 [zinit]: https://github.com/zdharma-continuum/zinit
 [atuin]: https://atuin.sh/
 [zoxide]: https://github.com/ajeetdsouza/zoxide
@@ -115,3 +116,4 @@ I manage background processes via **systemd user services**, which run in the us
 [home.nix]: ./private-dot_config/home-manager/home.nix
 [Aliases & Functions]: ./private_dot_config/dotfiles/
 [zsh]: https://www.zsh.org/
+[pueue]: https://github.com/Nukesor/pueue
