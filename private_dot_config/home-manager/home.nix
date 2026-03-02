@@ -56,29 +56,40 @@ in
     keyguard # Bitwarden alternative
     rbw # Alternative bitwarden cli
 
-    freecad 
     ## misc
     lazyjournal
     pueue
-    #cockpit # Web-based graphical interface for servers
-    hugo # A fast and modern static website engine
-    poppler-utils #PDF
     lutris # Open Source gaming platform for GNU/Linux
-    nextcloud-client
-    speechd # Common interface to speech synthesis
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
-    protonvpn-gui
     
-    ### Browser, Mail, ...
-    mutt
-    element-desktop # A feature-rich client for Matrix.org
-    signal-desktop-bin
-    profile-sync-daemon
-    deluge
-    irssi
-    evince
-    rssguard
-    vivaldi # browser
+    ## Development
+    act # Run your GitHub Actions locally
+    actionlint # Static checker for GitHub Actions workflow files
+    bump # CLI tool to draft a GitHub Release for the next semantic version
+    buildah # A tool which facilitates building OCI images
+    buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
+    buildkit-nix #Nix frontend for x
+    buildkite-cli # A command line interface for Buildkite
+    dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
+    dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
+    shellcheck # Shell script analysis tool
+    skaffold
+    uv #Extremely fast Python package installer and resolver, written in Rust
+    gemini-cli-bin # AI agent that brings the power of Gemini
+    geminicommit # CLI that generates git commit messages with Google Gemini AI
+    codeberg-cli
+    gh # github cli
+    glab # gitlab cli
+    gitleaks # Scan git repos (or files) for secrets
+    git-interactive-rebase-tool
+    go-task # Task runner / simpler Make alternative written in Go
+    ghostty # terminal
+    neovim
+    lazygit # Simple terminal UI for git commands
+    pre-commit
+    nodePackages.snyk # snyk library and cli utility
+    # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
+    rustup # Rust toolchain installer
 
     ### API
     bruno # Open-source IDE For exploring and testing APIs
@@ -125,37 +136,6 @@ in
     packer
     vagrant
     
-    ## Development
-    act # Run your GitHub Actions locally
-    actionlint # Static checker for GitHub Actions workflow files
-    bump # CLI tool to draft a GitHub Release for the next semantic version
-    buildah # A tool which facilitates building OCI images
-    buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
-    buildkit-nix #Nix frontend for x
-    buildkite-cli # A command line interface for Buildkite
-    dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
-    dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
-    shellcheck # Shell script analysis tool
-    skaffold
-    uv #Extremely fast Python package installer and resolver, written in Rust
-    gemini-cli-bin # AI agent that brings the power of Gemini
-    geminicommit # CLI that generates git commit messages with Google Gemini AI
-    codeberg-cli
-    gh # github cli
-    glab # gitlab cli
-    gitleaks # Scan git repos (or files) for secrets
-    git-interactive-rebase-tool
-    go-task # Task runner / simpler Make alternative written in Go
-    ghostty # terminal
-    neovim
-    lazygit # Simple terminal UI for git commands
-    pre-commit
-    rs-git-fsmonitor # Fast git core.fsmonitor hook
-    vscodium # Open source source code editor developed by Microsoft for Windows, Linux and macOS (VS Code without MS branding/telemetry/licensing)
-    #nodePackages.zx # A tool for writing better scripts.
-    nodePackages.snyk # snyk library and cli utility
-    # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
-    rustup # Rust toolchain installer
     
     ## fun
     genact # Nonsense activity generator
@@ -188,7 +168,23 @@ in
     gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions.
     gnomeExtensions.dash-to-panel
 
+    ### Browser, Mail, ...
+    mutt
+    element-desktop # A feature-rich client for Matrix.org
+    signal-desktop-bin
+    profile-sync-daemon
+    deluge
+    irssi
+    evince
+    rssguard
+    vivaldi # browser
+    poppler-utils #PDF
+    nextcloud-client
+    protonvpn-gui
+    speechd # Common interface to speech synthesis
+    
     ## Media
+    freecad 
     pinta
     gimp
     #gimpPlugins.gap
@@ -218,45 +214,4 @@ in
   #     host all       all     ::1/128        trust
   #   '';
   # };
-
-  systemd.user = {
-    mounts = {
-      mount-envymedia = {
-          Unit = {
-              Description = "mount mediacenter media";
-          };
-          Mount = {
-            What="admin@10.0.0.10:/media";
-            Where="${mountdir_yunohost}";
-            Type="sshfs";
-            Options="x-systemd.automount,_netdev,reconnect,allow_other,identityfile=/home/papanito/.ssh/admin@envy.pub";
-            #SloppyOptions=
-            #LazyUnmount=
-            #ReadWriteOnly=
-            #ForceUnmount=
-            #DirectoryMode=
-            #TimeoutSec=
-          };
-      };
-    };
-    # services = {
-    #   pueued = {
-    #     enable = true;
-    #     description = "Pueue daemon";
-
-    #     # wantedBy = [ "multi-user.target" ];
-
-    #     # restartIfChanged = true; # set to false, if restarting is problematic
-
-    #     # serviceConfig = {
-    #     #   DynamicUser = true;
-    #     #   ExecStart = "/run/current-system/sw/bin/pueued -dv";
-    #     #   Restart = "always";
-    #     # };
-    #   };
-    # };
-  };
-
- 
-  
 }
