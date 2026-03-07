@@ -22,17 +22,8 @@
       ]
     ],
     "command": [
-      "chezmoi",
-      "add",
-      "~/.config/nvim/lazyvim.json",
-      "git",
-      "add",
-      "private_dot_config/nvim/lazyvim.json",
-      "&&",
-      "git",
-      "commit",
-      "-m",
-      "'Update lazyvim config'"
+      "python3",
+      "/home/papanito/.local/scripts/papanito/movies_organizer.py"
     ],
     "append_files": true
   }

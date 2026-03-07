@@ -7,13 +7,14 @@
       "anyof",
       [
         "match",
-        "lazyvim.json",
+        "lazy-lock.json",
         "wholename"
       ]
     ],
     "command": [
-      "python3",
-      "/home/papanito/.local/scripts/papanito/movies_organizer.py"
+      "bash",
+      "-c",
+      "~/.config/watchman/chezmoi-lazyvim.sh"
     ],
     "append_files": true
   }
