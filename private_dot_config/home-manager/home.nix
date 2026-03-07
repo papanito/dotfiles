@@ -171,7 +171,7 @@ in
     ### Browser, Mail, ...
     mutt
     element-desktop # A feature-rich client for Matrix.org
-    signal-desktop-bin
+    signal-desktop
     profile-sync-daemon
     deluge
     irssi
