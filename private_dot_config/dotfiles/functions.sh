@@ -83,6 +83,35 @@ function loadShellHelperLibray()
 }
 loadShellHelperLibray
 
+# @description Usage: with_lock "unique_name" command arg1 arg2...
+# @arg $1 string name of the lockfile
+# @arg $2 command to run
+with_lock() {
+    local lock_name="$1"
+    shift # Remove the name from the arguments list
+    
+    local lock_dir="/tmp/${lock_name}.lock"
+    local delay=2
+
+    # 1. Wait until the specific lock directory is available
+    while ! mkdir "$lock_dir" 2>/dev/null; do
+        echo "Waiting for lock: $lock_name..."
+        sleep "$delay"
+    done
+
+    # 2. Set trap to clean up this specific lock on exit
+    trap 'rmdir "$lock_dir" 2>/dev/null' EXIT
+
+    echo "Lock [$lock_name] acquired. Running command..."
+    
+    # 3. Execute the remaining arguments as a command
+    "$@"
+
+    # 4. Manual cleanup and clear the trap
+    rmdir "$lock_dir" 2>/dev/null
+    trap - EXIT
+}
+
 # @description See https://software.rajivprab.com/2019/07/14/ssh-considered-harmful/
 # @arg $1 string name of the host
 # @arg $2 string name of the tmux session

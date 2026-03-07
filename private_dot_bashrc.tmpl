@@ -416,3 +416,6 @@ eval "$(tirith init --shell zsh)"
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 [[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
 {{- end }}
+
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+with_lock "bwauth" bw_auth
