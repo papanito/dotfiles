@@ -1,0 +1,20 @@
+[
+  "trigger",
+  "/home/papanito/.config/nvim",
+  {
+    "name": "chezmoi-lazyvim-update",
+    "expression": [
+      "anyof",
+      [
+        "match",
+        "lazyvim.json",
+        "wholename"
+      ]
+    ],
+    "command": [
+      "python3",
+      "/home/papanito/.local/scripts/papanito/movies_organizer.py"
+    ],
+    "append_files": true
+  }
+]
