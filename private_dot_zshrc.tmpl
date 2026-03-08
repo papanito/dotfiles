@@ -263,4 +263,10 @@ zinit ice from"gh-r" as"program" \
     bpick"*linux_amd64.tar.gz"
 zinit load hengyoush/kyanos
 
-with_lock "bwauth" bw_auth
+
+# Only run if this is a human-facing terminal
+if [[ -o interactive ]]; then
+    if [[ -z "$BW_SESSION" ]]; then
+        with_lock "bwauth" bw_auth
+    fi
+fi

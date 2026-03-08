@@ -418,4 +418,10 @@ export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 {{- end }}
 
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
-with_lock "bwauth" bw_auth
+
+# Only run if this is a human-facing terminal
+if [[ -o interactive ]]; then
+  if [[ -z "$BW_SESSION" ]]; then
+    with_lock "bwauth" bw_auth
+  fi
+fi
