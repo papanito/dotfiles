@@ -142,6 +142,7 @@ in
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
 
     ## GNOME Stuff
+    flameshot
     wike # Wikipedia Reader for the GNOME Desktop
     gnome-network-displays # miracast implementation for GNOME
     gnomeExtensions.tailscale-qs # Add Tailscale to GNOME quick settings
@@ -184,6 +185,9 @@ in
     speechd # Common interface to speech synthesis
     
     ## Media
+    sweethome3d.application # Design and visualize your future home
+    sweethome3d.textures-editor # Easily create SH3T files and edit the properties of the texture images it contain
+    sweethome3d.furniture-editor #Quickly create SH3F files and edit the properties of the 3D models it contain
     freecad 
     pinta
     gimp
