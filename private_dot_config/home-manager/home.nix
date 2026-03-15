@@ -45,7 +45,8 @@ in
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
     colmena
-    
+    statix
+
     ## AI
     qwen-code #Coding agent that lives in digital world
     ollama
@@ -116,7 +117,8 @@ in
     ticker # Terminal stock ticker with live updates and position tracking
     vhs # Tool for generating terminal GIFs with code
     yazi # terminal file explorer
-
+    guake
+    
     ## Docker and Kubernetes
     dive # Tool for exploring each layer in a docker image
 
