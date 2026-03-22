@@ -187,7 +187,8 @@ alias linode="linode-cli"
 alias shdocc='for filename in $(ls -I "*.sh" -I "*.zsh"); do filename=$(basename -- "$filename"); shdoc < "$filename" > "${filename%.*}.md"; done'
 alias script='script ~/session_`date +%Y%m%d%H%M`.txt' # start shell session recording (typescript)
 alias zshdocker="docker run -it zshusers/zsh"
-alias rcstate="restic -r $RESTIC_REPOSITORY snapshots"
+alias r_snapshots="restic -r $RESTIC_REPOSITORY snapshots"
+alias r_restore="resting restore latest --target ~/Downloads/restore --target /home/papanito"
 alias irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
 alias incognito=' fc -p && atuin history start disable'
 alias p="incognito"
@@ -196,6 +197,7 @@ alias luc="luksclose_"
 #alias firejail="firejail --net=tornet"
 alias cfs="cryfs"
 alias cum="cryfs-unmount"
+alias gofs="gocryptfs"
 alias slowdown="s wondershaper -a wlo1 -d 8000"
 alias speedup="s wondershaper -ca wlo1"
 alias lg="lazygit"
