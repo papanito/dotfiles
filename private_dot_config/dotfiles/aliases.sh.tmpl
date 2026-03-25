@@ -7,9 +7,9 @@ if [ -n "$ZSH_VERSION" ]; then
     # dev files
     alias -s {json,yaml,md,tf,go,rs,py}=$VISUAL
 
-    # javascript 
+    # javascript
     alias -s {cs,ts}=$VISUAL
-    
+
     # log and textfiles
     alias -s {txt,log}=$VISUAL
 
@@ -218,10 +218,21 @@ alias wmwp="watchman watch-project"
 
 alias wss="watchman shutdown-server"
 alias wq="watchman shutdown-server"
-
 alias wv="watchman version"
 
 # @section nixos
 # @description alias related to nixos
 alias nix-shell="nix-shell --run zsh" # https://stackoverflow.com/questions/33029821/configure-nix-shell-to-use-a-shell-other-than-bash
 alias nix-search="nix --extra-experimental-features 'nix-command flakes' search nixpkgs "
+
+# @section pre-commit
+# @description alias related to pre-commit
+alias pci="curl -q "https://gitlab.com/papanito/git-hooks/-/raw/main/.pre-commit-config.yaml" -o .pre-commit-config.yaml && pre-commit install && pre-commit autoupdate"
+alias pcim="pre-commit install --hook-type commit-msg"
+alias pca="pre-commit autoupdate"
+
+# @section rclone
+# @description alias related to rclone
+alias rc_mount="sudo rclone mount b2:papanito-media /mnt/im --vfs-cache-mode full --vfs-cache-max-age 24h --dir-perms 0777  --file-perms 0666 --uid 1000  --gid 1000 --umask 000 --allow-other --no-modtime --no-checksum --vfs-write-back 5s --config /home/papanito/.config/rclone/rclone.conf --daemon"
+
+
