@@ -750,3 +750,8 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/vs,python,go,terraform,terragrunt,ansible,node
+
+# USe specifc directory for worktrees
+worktree/
+worktrees/
+wt/
