@@ -69,6 +69,7 @@ in
     trivy
     keyguard # Bitwarden alternative
     rbw # Alternative bitwarden cli
+    opensnitch-ui
 
     ## misc
     lazyjournal
