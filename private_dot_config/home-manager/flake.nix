@@ -21,7 +21,15 @@
     # flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl, quickshell,  ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixgl,
+      quickshell,
+      ...
+    }:
     let
       home_attrs = rec {
         #username = import ./username.nix;
@@ -41,7 +49,8 @@
           # Add any other nixpkgs configuration here
         };
       };
-    in {
+    in
+    {
       # This is the primary output for standalone Home Manager.
       # You can also use homeConfigurations."${builtins.getEnv "USER"}" or similar
       # for more dynamic user names.
@@ -55,6 +64,7 @@
           ./modules/watchman.nix
           ./modules/pueue.nix
           ./modules/gnome.nix
+          ./modules/ollama.nix
         ];
         extraSpecialArgs = { inherit home_attrs nixgl quickshell; };
         # Optionally, pass extra arguments to your home.nix
