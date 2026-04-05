@@ -1,0 +1,12 @@
+{
+    "created": "2026-03-29T12:02:41.000000Z",
+    "name": "allow-always-bin-nsncd",
+    "enabled": true,
+    "action": "allow",
+    "duration": "always",
+    "operator": {
+        "type": "regexp",
+        "operand": "process.path",
+        "data": "/nix/store/.*/nsncd"
+    }
+}

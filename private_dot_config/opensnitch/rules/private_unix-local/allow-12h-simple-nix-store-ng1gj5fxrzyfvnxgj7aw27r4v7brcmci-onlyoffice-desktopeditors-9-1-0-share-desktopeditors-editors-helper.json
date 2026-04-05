@@ -1,0 +1,11 @@
+{
+    "created": "2026-04-04T10:00:37.000000Z",
+    "name": "allow-12h-simple-nix-store-ng1gj5fxrzyfvnxgj7aw27r4v7brcmci-onlyoffice-desktopeditors-9-1-0-share-desktopeditors-editors-helper",
+    "action": "allow",
+    "duration": "12h",
+    "operator": {
+        "type": "simple",
+        "operand": "process.path",
+        "data": "/nix/store/ng1gj5fxrzyfvnxgj7aw27r4v7brcmci-onlyoffice-desktopeditors-9.1.0/share/desktopeditors/editors_helper"
+    }
+}

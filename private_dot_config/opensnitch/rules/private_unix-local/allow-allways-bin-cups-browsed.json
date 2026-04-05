@@ -1,0 +1,12 @@
+{
+    "created": "2026-04-04T12:16:09.000000Z",
+    "name": "allow-allways-bin-cups-browsed",
+    "enabled": true,
+    "action": "allow",
+    "duration": "always",
+    "operator": {
+        "type": "regexp",
+        "operand": "process.path",
+        "data": "/nix/store/*/bin/cups-browsed"
+    }
+}

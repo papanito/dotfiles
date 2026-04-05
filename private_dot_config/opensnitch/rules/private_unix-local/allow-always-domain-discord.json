@@ -1,0 +1,12 @@
+{
+    "created": "2026-03-29T12:01:02.000000Z",
+    "name": "allow-always-domain-discord",
+    "enabled": true,
+    "action": "allow",
+    "duration": "always",
+    "operator": {
+        "type": "simple",
+        "operand": "dest.host",
+        "data": "gateway.discord.gg"
+    }
+}

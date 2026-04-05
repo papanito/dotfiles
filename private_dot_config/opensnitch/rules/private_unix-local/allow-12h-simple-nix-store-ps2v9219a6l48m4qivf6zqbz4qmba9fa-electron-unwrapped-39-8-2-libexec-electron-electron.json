@@ -1,0 +1,12 @@
+{
+    "created": "2026-04-04T12:16:32.000000Z",
+    "name": "allow-12h-simple-nix-store-ps2v9219a6l48m4qivf6zqbz4qmba9fa-electron-unwrapped-39-8-2-libexec-electron-electron",
+    "enabled": true,
+    "action": "allow",
+    "duration": "12h",
+    "operator": {
+        "type": "simple",
+        "operand": "process.path",
+        "data": "/nix/store/ps2v9219a6l48m4qivf6zqbz4qmba9fa-electron-unwrapped-39.8.2/libexec/electron/electron"
+    }
+}
