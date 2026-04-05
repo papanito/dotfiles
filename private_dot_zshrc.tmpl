@@ -231,7 +231,8 @@ bindkey "^B" znt-cd-widget
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
 
-export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+zinit ice lucid wait'0'
+zinit light nix-community/nix-zsh-completions
 
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
@@ -270,3 +271,5 @@ if [[ -o interactive ]]; then
         with_lock "bwauth" bw_auth
     fi
 fi
+
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
