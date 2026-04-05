@@ -102,7 +102,7 @@ in
     neovim
     lazygit # Simple terminal UI for git commands
     pre-commit
-    nodePackages.snyk # snyk library and cli utility
+    snyk # snyk library and cli utility
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     rustup # Rust toolchain installer
     prettier # Code formatter
@@ -201,6 +201,7 @@ in
     nextcloud-client
     protonvpn-gui
     speechd # Common interface to speech synthesis
+    morphosis # Convert your documents
 
     ## Media
     sweethome3d.application # Design and visualize your future home
