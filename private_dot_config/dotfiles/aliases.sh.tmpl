@@ -227,7 +227,7 @@ alias nix-search="nix --extra-experimental-features 'nix-command flakes' search 
 
 # @section pre-commit
 # @description alias related to pre-commit
-alias pci="curl -q "https://gitlab.com/papanito/git-hooks/-/raw/main/.pre-commit-config.yaml" -o .pre-commit-config.yaml && pre-commit install && pre-commit autoupdate"
+alias pci="curl -q "https://gitlab.com/papanito/git-hooks/-/raw/main/config/.pre-commit-config.yaml" -o .pre-commit-config.yaml && pre-commit install && pre-commit autoupdate"
 alias pcim="pre-commit install --hook-type commit-msg"
 alias pca="pre-commit autoupdate"
 
@@ -235,4 +235,6 @@ alias pca="pre-commit autoupdate"
 # @description alias related to rclone
 alias rc_mount="sudo rclone mount b2:papanito-media /mnt/im --vfs-cache-mode full --vfs-cache-max-age 24h --dir-perms 0777  --file-perms 0666 --uid 1000  --gid 1000 --umask 000 --allow-other --no-modtime --no-checksum --vfs-write-back 5s --config /home/papanito/.config/rclone/rclone.conf --daemon"
 
-
+# @section  misc
+# @description aliases that are not fitting into any category
+alias weather="curl wttr.in"
