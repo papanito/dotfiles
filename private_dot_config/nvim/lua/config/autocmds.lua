@@ -15,7 +15,3 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augrou-- Create a custom augroup for your autocmds
 -- It's a good practice to clear the group to prevent duplicate autocmds
-local map = vim.keymap.set
-
--- Use <leader>fp only — consistent with LazyVim's find/* namespace.
-map("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "Find Projects" })
