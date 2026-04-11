@@ -8,7 +8,7 @@ return {
       require("project_nvim").setup(opts)
 
       local history_path = vim.fn.stdpath("data") .. "/project_nvim/project_history"
-      local workspace = vim.fn.expand("~/workspace")
+      local workspace = vim.fn.expand("~/Workspaces")
 
       -- Ensure the directory exists so io.open doesn't fail
       vim.fn.mkdir(vim.fn.fnamemodify(history_path, ":h"), "p")
