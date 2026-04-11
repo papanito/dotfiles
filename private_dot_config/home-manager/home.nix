@@ -6,6 +6,7 @@
   quickshell,
   home_attrs,
   security,
+  inputs,
   ...
 }:
 let
@@ -61,6 +62,7 @@ in
     dconf2nix
 
     ## AI
+    gemini-cli-bin # AI agent that brings the power of Gemini
     qwen-code # Coding agent that lives in digital world
     ollama
 
@@ -70,51 +72,53 @@ in
     keyguard # Bitwarden alternative
     rbw # Alternative bitwarden cli
     opensnitch-ui
+    gitleaks # Scan git repos (or files) for secrets
+    shellcheck # Shell script analysis tool
+    snyk # snyk library and cli utility
+
+    ## Database
+    dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
+    dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
 
     ## misc
     lazyjournal
     pueue
     lutris # Open Source gaming platform for GNU/Linux
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
+    neovim
+    # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
+    aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
+
+    ## Build tools
+    buildah # A tool which facilitates building OCI images
+    buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
+    buildkit-nix # Nix frontend for x
+    buildkite-cli # A command line interface for Buildkite
+    go-task # Task runner / simpler Make alternative written in Go
+    skaffold
 
     ## Development
     act # Run your GitHub Actions locally
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
-    buildah # A tool which facilitates building OCI images
-    buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
-    buildkit-nix # Nix frontend for x
-    buildkite-cli # A command line interface for Buildkite
-    dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
-    dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
-    shellcheck # Shell script analysis tool
-    skaffold
-    uv # Extremely fast Python package installer and resolver, written in Rust
-    gemini-cli-bin # AI agent that brings the power of Gemini
-    geminicommit # CLI that generates git commit messages with Google Gemini AI
     codeberg-cli
     gh # github cli
     glab # gitlab cli
-    gitleaks # Scan git repos (or files) for secrets
-    git-interactive-rebase-tool
-    go-task # Task runner / simpler Make alternative written in Go
-    ghostty # terminal
-    neovim
     lazygit # Simple terminal UI for git commands
+    geminicommit # CLI that generates git commit messages with Google Gemini AI
+    git-interactive-rebase-tool
+    commitlint
     pre-commit
-    snyk # snyk library and cli utility
-    # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     rustup # Rust toolchain installer
     prettier # Code formatter
     prettier-plugin-go-template # Fixes prettier formatting for go templates
-    commitlint
+    uv # Extremely fast Python package installer and resolver, written in Rust
 
     ### API
     bruno # Open-source IDE For exploring and testing APIs
     hurl # Command line tool that performs HTTP requests defined in a simple plain text format.
     insomnia # The most intuitive cross-platform REST API Client
     posting
-    aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
     varia # Simple download manager based on aria2 and libadwaita
 
     ### Storage
@@ -128,13 +132,14 @@ in
 
     ## Terminal
     pay-respects
+    guake
+    ghostty # terminal
     gpg-tui # Terminal user interface for GnuPG
     timg # Terminal image and video viewer
-    w3m # A text-mode web browser
     ticker # Terminal stock ticker with live updates and position tracking
+    w3m # A text-mode web browser
     vhs # Tool for generating terminal GIFs with code
     yazi # terminal file explorer
-    guake
 
     ## Docker and Kubernetes
     dive # Tool for exploring each layer in a docker image

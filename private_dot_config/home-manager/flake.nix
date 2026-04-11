@@ -17,6 +17,8 @@
       url = "github:quickshell-mirror/quickshell/db1777c20b936a86528c1095cbcb1ebd92801402";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sheets.url = "github:maaslalani/sheets";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
