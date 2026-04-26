@@ -7,7 +7,7 @@
       "alignment": "left",
       "segments": [
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "leading_diamond": "\u256d\u2500\ue0b2",
@@ -18,7 +18,7 @@
           "style": "accordion"
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "folder_icon": "\uf115",
             "folder_separator_icon": " \ue0b1 ",
@@ -37,7 +37,7 @@
           "style": "powerline"
         },
         {
-          "properties": {
+          "options": {
             "branch_icon": "\uf126 ",
             "cache_duration": "none",
             "fetch_stash_count": true,
@@ -64,7 +64,7 @@
       "alignment": "right",
       "segments": [
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": " nix-{{ .Type }} ",
@@ -79,7 +79,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": "{{.WorkspaceName}}",
@@ -91,7 +91,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "context_aliases": {
               "arn:aws:eks:eu-west-1:1234567890:cluster/posh": "posh"
@@ -106,7 +106,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Version }}\uf487 {{.Version}}{{ end }} {{ if .Name }}{{ .Name }}{{ end }}{{ end }} ",
@@ -118,7 +118,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": " \ue7b2 {{.Project}} :: {{.Account}} ",
@@ -130,7 +130,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "fetch_version": true
           },
@@ -143,7 +143,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "display_mode": "files",
             "fetch_virtual_env": false
@@ -157,7 +157,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": " \uf0ad ",
@@ -169,7 +169,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": " {{ .FormattedMs }} \uf252 ",
@@ -181,7 +181,7 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "always_enabled": true,
             "cache_duration": "none"
           },
@@ -197,46 +197,15 @@
           "invert_powerline": true
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
-          "trailing_diamond": "\ue0b0\u2500\u256e",
           "template": " {{ .CurrentDate | date .Format }} \uf017 ",
           "foreground": "#000000",
           "background": "#d3d7cf",
           "type": "time",
           "style": "diamond",
           "invert_powerline": true
-        }
-      ]
-    },
-    {
-      "type": "prompt",
-      "alignment": "left",
-      "segments": [
-        {
-          "properties": {
-            "cache_duration": "none"
-          },
-          "template": "\u2570\u2500",
-          "foreground": "#d3d7cf",
-          "type": "text",
-          "style": "plain"
-        }
-      ],
-      "newline": true
-    },
-    {
-      "type": "rprompt",
-      "segments": [
-        {
-          "properties": {
-            "cache_duration": "none"
-          },
-          "template": "\u2500\u256f",
-          "foreground": "#d3d7cf",
-          "type": "text",
-          "style": "plain"
         }
       ]
     }
