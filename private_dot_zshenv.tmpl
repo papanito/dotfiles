@@ -78,12 +78,11 @@ export BROWSER='firefox'
 # export BROWSER=$(find_alternatives chromium-browser google-chrome opera firefox firefox-bin iceweasel konqueror w3m lynx)    # uses function 'find_alternatives'
 # export CDPATH=.:~:~/src:/etc
 # export DISPLAY=:79
-# export EDITOR="gedit -w --resume" Typing 'fc'    # open last command for editing in gedit, then execute on save
 {{- if .isDeveloperMachine }}
 export EDITOR='vi'
 export VISUAL="nvim"
 {{- else }}
-export EDITOR=vi
+export EDITOR="vi"
 export VISUAL="nvim"
 {{- end }}
 # export ftp_proxy=${MY_PROXY}
@@ -124,6 +123,7 @@ path+=("$HOME/.local/scripts/wondershaper")
 path+=("$HOME/.local/cmdfu")
 path+=("$HOME/.emacs.d/bin")
 path+=("$HOME/.krew/bin")
+path+=("$HOME/.local/share/cargo/bin")
 path+=("$NPMPATH")
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
