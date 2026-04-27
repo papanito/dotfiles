@@ -10,8 +10,12 @@ chezmoi add ~/.config/home-manager/flake.lock
 git add private_dot_config/home-manager/flake.lock && git commit -m"home-manager: Update flake"
 popd || exit
 
-echo "🦊 Copy opnesnitch rules"
+echo "🦊 Add opnesnitch rules"
 chezmoi add ~/.config/opensnitch/rules/
+chezmoi add ~/.config/opensnitch/settings.conf
+
+echo "🦊 Add lazyvim config"
+chezmou add ~/.config/nvim/lazyvim.json
 
 echo "👁️‍🗨️ Register all watchmen config files"
 for file in ~/.config/watchman/*.json; do
