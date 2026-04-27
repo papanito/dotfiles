@@ -1,0 +1,23 @@
+{
+    "created": "2026-04-09T09:58:25.000000Z",
+    "name": "allow-always-lib-cups-backend-socket",
+    "enabled": true,
+    "action": "allow",
+    "duration": "always",
+    "operator": {
+        "type": "list",
+        "operand": "list",
+        "list": [
+            {
+                "type": "regexp",
+                "operand": "process.path",
+                "data": "/nix/store/.*/lib/cups/backend/socket"
+            },
+            {
+                "type": "network",
+                "operand": "source.network",
+                "data": "10.0.0.0/24"
+            }
+        ]
+    }
+}

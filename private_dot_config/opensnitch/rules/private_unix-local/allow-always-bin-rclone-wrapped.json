@@ -1,12 +1,12 @@
 {
-    "created": "2026-04-05T10:20:21.000000Z",
-    "name": "allow-always-webkitnetworkprocess",
+    "created": "2026-04-10T21:42:29.000000Z",
+    "name": "allow-always-bin-rclone-wrapped",
     "enabled": true,
     "action": "allow",
     "duration": "always",
     "operator": {
         "type": "regexp",
         "operand": "process.path",
-        "data": "/nix/store/.*/webkitnetworkprocess"
+        "data": "/nix/store/.*/bin/.rclone-wrapped"
     }
 }
