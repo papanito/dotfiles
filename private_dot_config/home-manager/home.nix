@@ -83,11 +83,12 @@ in
     ## misc
     lazyjournal
     pueue
-    lutris # Open Source gaming platform for GNU/Linux
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
     neovim
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
+    jid # json editor
+    jless # json editor
 
     ## Build tools
     buildah # A tool which facilitates building OCI images
@@ -102,6 +103,8 @@ in
     actionlint # Static checker for GitHub Actions workflow files
     bump # CLI tool to draft a GitHub Release for the next semantic version
     codeberg-cli
+    #cargo
+    rustc
     gh # github cli
     glab # gitlab cli
     lazygit # Simple terminal UI for git commands
@@ -143,6 +146,7 @@ in
 
     ## Docker and Kubernetes
     dive # Tool for exploring each layer in a docker image
+    popeye # Kubernetes cluster resource sanitizer
 
     ## Cloud
     ansible
@@ -204,7 +208,7 @@ in
     vivaldi # browser
     poppler-utils # PDF
     nextcloud-client
-    protonvpn-gui
+    proton-vpn
     speechd # Common interface to speech synthesis
     morphosis # Convert your documents
 
