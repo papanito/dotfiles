@@ -11,7 +11,6 @@ git add private_dot_config/home-manager/flake.lock && git commit -m"home-manager
 popd || exit
 
 echo "🦊 Add opnesnitch rules"
-chezmoi add ~/.config/opensnitch/rules/
 chezmoi add ~/.config/opensnitch/settings.conf
 
 echo "🦊 Add lazyvim config"

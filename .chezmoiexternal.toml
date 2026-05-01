@@ -3,13 +3,14 @@
     type = "git-repo"
     url = "git@gitlab.com:papanito/shell-scripts.git"
     exact = true
+gocryptfs.conf
     stripComponents = 2
     refreshPeriod = "168h"
 [".local/scripts/wondershaper"]
     type = "git-repo"
     url = "git@github.com:magnific0/wondershaper.git"
     exact = true
-    refreshPeriod = "168h"    
+    refreshPeriod = "168h"
 [".local/share/nautilus/scripts/"]
     type = "git-repo"
     url = "git@github.com:papanito/nautilus-scripts.git"
@@ -31,6 +32,12 @@
 [".local/scripts/bash-snippets"]
     type = "git-repo"
      url = "git@github.com:alexanderepstein/Bash-Snippets.git"
+    exact = true
+    stripComponents = 2
+    refreshPeriod = "168h"
+[".config/opensnitch/rules"]
+    type = "git-repo"
+     url = "git@gitlab.com:papanito/opensnitch-fw-rules.git"
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
