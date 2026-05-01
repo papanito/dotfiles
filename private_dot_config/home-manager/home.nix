@@ -97,6 +97,7 @@ in
     buildkite-cli # A command line interface for Buildkite
     go-task # Task runner / simpler Make alternative written in Go
     skaffold
+    just # build tool
 
     ## Development
     act # Run your GitHub Actions locally
