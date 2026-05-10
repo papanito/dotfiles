@@ -294,6 +294,11 @@ keybinds clear-defaults=true {
     }
 }
 
+options {
+    // This keeps the session alive but prevents it from trying
+    // to "snapshot" the running Neovim process state.
+    pane_viewport_serialization false
+}
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
 // eg. when terminal window with an active zellij session is closed
 // Options:
