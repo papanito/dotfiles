@@ -10,7 +10,6 @@
   ...
 }:
 let
-  mountdir_yunohost = "${config.home.homeDirectory}/cs/yuno";
   my-python-packages =
     ps: with ps; [
       pandas

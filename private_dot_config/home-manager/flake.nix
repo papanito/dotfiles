@@ -38,7 +38,7 @@
         username = "papanito";
         homeDirectory = "/home/${username}";
         # Do not edit stateVersion value, see https://github.com/nix-community/home-manager/issues/5794
-        stateVersion = "25.11";
+        stateVersion = "unstable";
       };
       # Define your system architecture.
       system = "x86_64-linux"; # Or "aarch64-darwin" for macOS, etc.
@@ -68,12 +68,11 @@
           ./modules/gnome.nix
           ./modules/ollama.nix
         ];
-        extraSpecialArgs = { inherit home_attrs nixgl quickshell; };
+        extraSpecialArgs = { inherit home_attrs ; };
         # Optionally, pass extra arguments to your home.nix
         # extraSpecialArgs = {
         #   myCustomArg = "some-value";
         # };
-
       };
     };
 }
