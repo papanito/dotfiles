@@ -12,10 +12,15 @@
       # Ensure Home Manager uses the same Nixpkgs as your flake for consistency.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl.url = "github:nix-community/nixGL";
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell/db1777c20b936a86528c1095cbcb1ebd92801402";
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms-plugin-calendar = {
+      url = "github:alcxyz/DankCalendar";
+      flake = false;
     };
 
     sheets.url = "github:maaslalani/sheets";
@@ -23,15 +28,7 @@
     # flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      nixgl,
-      quickshell,
-      ...
-    }:
+  outputs = { self, nixpkgs, home-manager, dms-plugin-calendar, ... } @inputs:
     let
       home_attrs = rec {
         #username = import ./username.nix;
@@ -68,7 +65,7 @@
           ./modules/gnome.nix
           ./modules/ollama.nix
         ];
-        extraSpecialArgs = { inherit home_attrs ; };
+        extraSpecialArgs = { inherit inputs home_attrs dms-plugin-calendar; };
         # Optionally, pass extra arguments to your home.nix
         # extraSpecialArgs = {
         #   myCustomArg = "some-value";

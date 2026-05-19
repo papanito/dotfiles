@@ -1,14 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  nixgl,
-  quickshell,
-  home_attrs,
-  security,
-  inputs,
-  ...
-}:
+{ pkgs, lib, config, home_attrs, security, inputs, ... }:
 let
   my-python-packages =
     ps: with ps; [
@@ -54,12 +44,18 @@ in
 
   home.packages = with pkgs; [
     (pkgs.python3.withPackages my-python-packages)
+    (pkgs.buildGoModule {
+      pname = "dankcalendar";
+      version = "latest";
+      src = inputs.dms-plugin-calendar;
+      vendorHash = null; # Uses standard library/no external Go mods
+    })
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
     colmena
     statix
     dconf2nix
-
+    libsecret
     ## AI
     gemini-cli-bin # AI agent that brings the power of Gemini
     qwen-code # Coding agent that lives in digital world
