@@ -5,6 +5,7 @@
     # Nixpkgs provides the packages and modules for your system.
     # You can pin to a specific release (e.g., "nixos-24.05") or unstable.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     # Home Manager itself
     home-manager = {
@@ -28,13 +29,13 @@
     # flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, dms-plugin-calendar, ... } @inputs:
+  outputs = { self, nixpkgs, sops-nix, home-manager, dms-plugin-calendar, ... } @inputs:
     let
       home_attrs = rec {
         #username = import ./username.nix;
         username = "papanito";
         homeDirectory = "/home/${username}";
-        # Do not edit stateVersion value, see https://github.com/nix-community/home-manager/issues/5794
+        # Do not ediok soundt stateVersion value, see https://github.com/nix-community/home-manager/issues/5794
         stateVersion = "unstable";
       };
       # Define your system architecture.
@@ -64,6 +65,7 @@
           ./modules/pueue.nix
           ./modules/gnome.nix
           ./modules/ollama.nix
+          ./modules/dms.nix
         ];
         extraSpecialArgs = { inherit inputs home_attrs dms-plugin-calendar; };
         # Optionally, pass extra arguments to your home.nix
