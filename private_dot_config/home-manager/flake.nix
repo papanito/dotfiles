@@ -65,7 +65,6 @@
           ./modules/pueue.nix
           ./modules/gnome.nix
           ./modules/ollama.nix
-          ./modules/dms.nix
         ];
         extraSpecialArgs = { inherit inputs home_attrs dms-plugin-calendar; };
         # Optionally, pass extra arguments to your home.nix
