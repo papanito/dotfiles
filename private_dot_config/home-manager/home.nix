@@ -14,6 +14,25 @@ let
     ns: with ns; [
       prettier-plugin-toml
     ];
+  elio-fm = pkgs.rustPlatform.buildRustPackage rec {
+    pname = "elio";
+    version = "main"; # Or change this to a specific release tag like "v0.1.0" once released
+
+    src = pkgs.fetchFromGitHub {
+      owner = "elio-fm";
+      repo = "elio";
+      rev = version;
+      # This hash will tell Nix to download the source. Leave it empty at first,
+      # and Nix will throw an error telling you what the correct hash is.
+      hash = "sha256-g4DLH2QXdWRneV6Dr12qqdFWVVqVKz5A1JJ7udRFQso=";
+    };
+
+    # Automatically handles Rust dependencies (Cargo.lock)
+    cargoHash = "sha256-DzEfr3NPGziMtspEHLhjDkxBBhMabPeLRZVTZ0S8deE";
+
+    nativeBuildInputs = [ pkgs.pkg-config ];
+    buildInputs = [ pkgs.openssl ]; # Add external libraries here if it complains during compilation
+  };
 in
 {
   home = {
@@ -50,12 +69,14 @@ in
       src = inputs.dms-plugin-calendar;
       vendorHash = null; # Uses standard library/no external Go mods
     })
+    #lio-fm
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
     colmena
     statix
     dconf2nix
     libsecret
+
     ## AI
     gemini-cli-bin # AI agent that brings the power of Gemini
     qwen-code # Coding agent that lives in digital world
@@ -168,29 +189,25 @@ in
     flameshot
     wike # Wikipedia Reader for the GNOME Desktop
     gnome-network-displays # miracast implementation for GNOME
-    gnomeExtensions.tailscale-qs # Add Tailscale to GNOME quick settings
-    gnomeExtensions.bing-wallpaper-changer
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while.
     gnomeExtensions.gsconnect
     gnomeExtensions.top-bar-organizer
     gnomeExtensions.topiconsfix # Shows legacy tray icons on top – the fixed version of https://extensions.gnome.org/extension/495/topicons/
     gnomeExtensions.campeek
     gnomeExtensions.tophat
+    gnomeExtensions.paperwm
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
     gnomeExtensions.burn-my-windows
     gnomeExtensions.veil
-    #gnomeExtensions.window-state-manager
     gnomeExtensions.power-profile-switcher # Automatically switch between power profiles based on power supply and percentage.
     gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
     gnomeExtensions.ip-finder # Displays useful information about your public IP Address and VPN status.
     gnomeExtensions.tuxedo-fnlock-status # Show the FnLock status of TUXEDO devices.
     gnomeExtensions.battery-health-charging # Set battery charging threshold / charging limit / charging mode
     gnomeExtensions.hue-lights # This extension controls Philips Hue compatible lights using Philips Hue Bridge on your local network, it also allows controlling Philips Hue Sync Box. I
-    gnomeExtensions.forge # Tiling and window manager for GNOME
     gnomeExtensions.display-configuration-switcher # Quickly change the display configuration from the system menu.
     gnomeExtensions.another-window-session-manager # Close open windows gracefully and save them as a session.
     gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions.
-    gnomeExtensions.dash-to-panel
 
     ### Browser, Mail, ...
     mutt
