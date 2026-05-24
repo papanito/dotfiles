@@ -7,6 +7,8 @@
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
 input {
+    //Force the "Mod" alias to always map to the Super key
+    mod-key "Super"
     keyboard {
         xkb {
             // You can set rules, model, layout, variant and options.
@@ -31,7 +33,7 @@ input {
     touchpad {
         // off
         tap
-        //dwt
+        dwt
         // dwtp
         // drag false
         // drag-lock
