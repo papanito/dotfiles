@@ -41,8 +41,8 @@ setopt extendedglob             # Use Extended Globbing.
 setopt autocd                   # Automatically Change Directory If A Directory Is Entered.
 
 # Smart URLs.
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
+# autoload -Uz url-quote-magic
+# zle -N self-insert url-quote-magic
 
 # General.
 setopt brace_ccl                # Allow Brace Character Class List Expansion.
@@ -164,7 +164,7 @@ fi
 
 {{ if .isDeveloperMachine }}
 autoload -U add-zsh-hook                      # Load the zsh hook module
-add-zsh-hook preexec pre_validation           # Adds the hook
+#add-zsh-hook preexec pre_validation           # Adds the hook
 {{ end }}
 
 ## https://z.digitalclouds.dev/docs/getting_started/overview/
@@ -191,7 +191,7 @@ eval "$(tirith init --shell zsh)"
 zinit ice as'null' from"gh-r" sbin \
   atload='eval "$(zoxide init --cmd cd zsh)"'
 zinit load ajeetdsouza/zoxide
-zinit snippet OMZ::plugins/zoxide
+# zinit snippet OMZ::plugins/zoxide
 
 zinit snippet OMZ::plugins/kubectl
 zinit snippet OMZ::plugins/terraform
@@ -273,3 +273,4 @@ if [[ -o interactive ]]; then
 fi
 
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
