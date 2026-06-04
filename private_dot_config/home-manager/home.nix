@@ -53,7 +53,7 @@ in
   };
 
   # Check the Home Manager manual for the recommended version for your Nixpkgs.
-  home.stateVersion = "25.11"; # Example, align with your nixpkgs release
+  home.stateVersion = "26.05"; # Example, align with your nixpkgs release
 
   services.gpg-agent = {
     enable = true;
@@ -199,11 +199,8 @@ in
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
     gnomeExtensions.burn-my-windows
     gnomeExtensions.veil
-    gnomeExtensions.power-profile-switcher # Automatically switch between power profiles based on power supply and percentage.
     gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
     gnomeExtensions.ip-finder # Displays useful information about your public IP Address and VPN status.
-    gnomeExtensions.tuxedo-fnlock-status # Show the FnLock status of TUXEDO devices.
-    gnomeExtensions.battery-health-charging # Set battery charging threshold / charging limit / charging mode
     gnomeExtensions.hue-lights # This extension controls Philips Hue compatible lights using Philips Hue Bridge on your local network, it also allows controlling Philips Hue Sync Box. I
     gnomeExtensions.display-configuration-switcher # Quickly change the display configuration from the system menu.
     gnomeExtensions.another-window-session-manager # Close open windows gracefully and save them as a session.
