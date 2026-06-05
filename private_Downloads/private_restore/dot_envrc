@@ -1,2 +1,4 @@
-bws_env -p personal B2_ACCOUNT_KEY B2_ACCOUNT_ID RESTIC_PASSWORD
-alias restic="restic --no-lock"
+bws_env -p personal B2_ACCOUNT_ID_EU B2_ACCOUNT_KEY_EU RESTIC_PASSWORD
+export B2_ACCOUNT_ID=$B2_ACCOUNT_ID_EU
+export B2_ACCOUNT_KEY=$B2_ACCOUNT_KEY_EU
+export RESTIC_REPOSITORY=b2:papanito-backup-private:/clawfinger
