@@ -17,6 +17,7 @@ return {
         -- Explicitly list the keys you defined in the 'adapters' block below
         local my_adapters = {
           -- 1. Your Custom Defined Adapters
+          "openrouter",
           "gemini_flash",
           "gemini_pro",
           "gemini_flash_31",
@@ -48,11 +49,25 @@ return {
   config = function()
     require("codecompanion").setup({
       strategies = {
-        chat = { adapter = "gemini_flash" }, -- Default for chat
-        inline = { adapter = "gemini_flash" }, -- Default for inline edits
-        agent = { adapter = "gemini_flash" }, -- Default for inline edits
+        chat = { adapter = "openrouter" }, -- Default for chat
+        inline = { adapter = "openrouter" }, -- Default for inline edits
+        agent = { adapter = "openrouter" }, -- Default for inline edits
       },
       adapters = {
+        openrouter = function()
+          return require("codecompanion.adapters").extend("openai", {
+            name = "OpenRouter",
+            env = {
+              api_key = "OPENROUTER_API_KEY",
+            },
+            url = "https://openrouter.ai/api/v1/chat/completions",
+            schema = {
+              model = {
+                default = "anthropic/claude-3.5-sonnet",
+              },
+            },
+          })
+        end,
         -- Use 2.5 Flash: It's the most stable "actually free" model right now
         gemini_flash = function()
           return require("codecompanion.adapters").extend("gemini", {
