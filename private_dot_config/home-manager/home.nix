@@ -186,6 +186,9 @@ in
     ## GNOME Stuff
     flameshot
     wike # Wikipedia Reader for the GNOME Desktop
+    vte        # Provides vte.2,91.typelib
+    libhandy   # Provides Handy-1.typelib
+    gjs # JavaScript bindings for GNOME
     gnome-network-displays # miracast implementation for GNOME
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while.
     gnomeExtensions.gsconnect
@@ -228,16 +231,6 @@ in
     freecad
     pinta
     gimp
-    #gimpPlugins.gap
-    gimpPlugins.gmic
-    #gimpPlugins.bimp
-    #gimpPlugins.fourier
-    #gimpPlugins.texturize
-    #gimpPlugins.lqrPlugin
-    #gimpPlugins.lightning
-    #gimpPlugins.gimplensfun
-    #gimpPlugins.waveletSharpen
-
   ];
 
   # services.postgresql = {
