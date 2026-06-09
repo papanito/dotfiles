@@ -18,6 +18,7 @@ return {
         local my_adapters = {
           -- 1. Your Custom Defined Adapters
           "openrouter",
+          "openrouter_claude",
           "gemini_flash",
           "gemini_pro",
           "gemini_flash_31",
@@ -58,7 +59,26 @@ return {
           opts = {
             show_presets = true,
           },
+          -- Default OpenRouter with Auto-Routing
           openrouter = function()
+            return require("codecompanion.adapters").extend("openai", {
+              env = {
+                api_key = "OPENROUTER_API_KEY",
+              },
+              url = "https://openrouter.ai/api/v1/chat/completions",
+              headers = {
+                ["HTTP-Referer"] = "https://github.com/olimorris/codecompanion.nvim",
+                ["X-OpenRouter-Title"] = "CodeCompanion",
+              },
+              schema = {
+                model = {
+                  default = "openrouter/auto",
+                },
+              },
+            })
+          end,
+          -- Explicit OpenRouter with Claude 4.6
+          openrouter_claude = function()
             return require("codecompanion.adapters").extend("openai", {
               env = {
                 api_key = "OPENROUTER_API_KEY",
