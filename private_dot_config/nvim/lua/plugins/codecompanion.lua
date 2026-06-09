@@ -23,7 +23,7 @@ return {
           "gemini_flash_31",
           "gemini_pro_31",
           "claude",
-          -- 2. Standard Defaults (if you want them as fallbacks)
+          -- 2. Standard Defaults
           "anthropic",
           "gemini",
           "openai",
@@ -51,67 +51,70 @@ return {
       strategies = {
         chat = { adapter = "openrouter" }, -- Default for chat
         inline = { adapter = "openrouter" }, -- Default for inline edits
-        agent = { adapter = "openrouter" }, -- Default for inline edits
+        agent = { adapter = "openrouter" }, -- Default for agents
       },
       adapters = {
-        openrouter = function()
-          return require("codecompanion.adapters").extend("openai", {
-            name = "OpenRouter",
-            env = {
-              api_key = "OPENROUTER_API_KEY",
-            },
-            url = "https://openrouter.ai/api/v1/chat/completions",
-            schema = {
-              model = {
-                default = "anthropic/claude-3.5-sonnet",
+        http = {
+          opts = {
+            show_presets = true,
+          },
+          openrouter = function()
+            return require("codecompanion.adapters").extend("openai", {
+              env = {
+                api_key = "OPENROUTER_API_KEY",
               },
-            },
-          })
-        end,
-        -- Use 2.5 Flash: It's the most stable "actually free" model right now
-        gemini_flash = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            name = "Gemini Flash (Stable Free)",
-            schema = {
-              model = { default = "gemini-2.5-flash" }, -- Avoid '-preview' strings
-            },
-          })
-        end,
-        gemini_pro = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            name = "Gemini Pro (Rate Limited)",
-            schema = {
-              model = { default = "gemini-2.5-pro" },
-            },
-          })
-        end,
-        -- Gemini 3.1 Flash (The Best "Free" Default)
-        gemini_flash_31 = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            name = "Gemini 3.1 Flash (Free)",
-            schema = {
-              model = { default = "gemini-3.1-flash-preview" },
-            },
-          })
-        end,
-        -- Gemini 3.1 Pro (Free but slower/lower limits)
-        gemini_pro_31 = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            name = "Gemini 3.1 Pro (Free)",
-            schema = {
-              model = { default = "gemini-3.1-pro-preview" },
-            },
-          })
-        end,
-        --  Claude 4.6 Sonnet (The Coding King - Paid)
-        claude = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            name = "Claude 4.6 Sonnet",
-            schema = {
-              model = { default = "claude-4-6-sonnet" },
-            },
-          })
-        end,
+              url = "https://openrouter.ai/api/v1/chat/completions",
+              headers = {
+                ["HTTP-Referer"] = "https://github.com/olimorris/codecompanion.nvim",
+                ["X-OpenRouter-Title"] = "CodeCompanion",
+              },
+              schema = {
+                model = {
+                  default = "anthropic/claude-sonnet-4.6",
+                },
+              },
+            })
+          end,
+          -- Use 2.5 Flash: It's the most stable "actually free" model right now
+          gemini_flash = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = { default = "gemini-2.5-flash" },
+              },
+            })
+          end,
+          gemini_pro = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = { default = "gemini-2.5-pro" },
+              },
+            })
+          end,
+          -- Gemini 3.1 Flash (The Best "Free" Default)
+          gemini_flash_31 = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = { default = "gemini-3.1-flash-preview" },
+              },
+            })
+          end,
+          -- Gemini 3.1 Pro (Free but slower/lower limits)
+          gemini_pro_31 = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = { default = "gemini-3.1-pro-preview" },
+              },
+            })
+          end,
+          --  Claude 4.6 Sonnet (The Coding King - Paid)
+          claude = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+              schema = {
+                model = { default = "claude-sonnet-4.6" },
+              },
+            })
+          end,
+        },
       },
     })
   end,
