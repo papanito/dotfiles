@@ -24,12 +24,25 @@
       flake = false;
     };
 
+    pi-nix = {
+      url = "github:lukasl-dev/pi.nix";
+    };
+
     sheets.url = "github:maaslalani/sheets";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, sops-nix, home-manager, dms-plugin-calendar, ... } @inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      sops-nix,
+      home-manager,
+      dms-plugin-calendar,
+      pi-nix,
+      ...
+    }@inputs:
     let
       home_attrs = rec {
         #username = import ./username.nix;
@@ -66,7 +79,14 @@
           ./modules/gnome.nix
           ./modules/ollama.nix
         ];
-        extraSpecialArgs = { inherit inputs home_attrs dms-plugin-calendar; };
+        extraSpecialArgs = {
+          inherit
+            inputs
+            home_attrs
+            dms-plugin-calendar
+            pi-nix
+            ;
+        };
         # Optionally, pass extra arguments to your home.nix
         # extraSpecialArgs = {
         #   myCustomArg = "some-value";

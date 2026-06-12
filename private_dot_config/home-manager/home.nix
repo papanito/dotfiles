@@ -92,6 +92,7 @@ in
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
     neovim
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
+    (inputs.pi-nix.packages."x86_64-linux".default)
     aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
     jid # json editor
     jless # json editor
