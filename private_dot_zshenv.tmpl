@@ -131,6 +131,9 @@ export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 export FZF_BASE=/run/current-system/sw/bin/fzf
 
 export QT_QPA_PLATFORMTHEME=generic
+export BWS_ACCESS_TOKEN=$(secret-tool lookup token BWS_ACCESS_TOKEN)
+export OPENROUTER_API_KEY=$(secret-tool lookup token OPENROUTER_API_KEY)
+export GEMINI_API_KEY=$(secret-tool lookup token GEMINI_API_KEY)
 
 ## Tokens
 [[ -f "$HOME/.zshenv.local" ]] && source $HOME/.zshenv.local
