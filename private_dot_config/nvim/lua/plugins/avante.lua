@@ -10,14 +10,14 @@ return {
       openrouter = {
         __inherited_from = "openai",
         endpoint = "https://openrouter.ai/api/v1",
-        model = "openrouter/auto",
+        model = "auto",
         api_key_name = "OPENROUTER_API_KEY",
       },
-      ollama = {
-        __inherited_from = "openai",
-        endpoint = "http://localhost:11434",
-        api_key_name = "OLLAMA_API_KEY",
-      },
+    },
+    ollama = {
+      __inherited_from = "openai",
+      endpoint = "http://localhost:11434",
+      api_key_name = "OLLAMA_API_KEY",
     },
     claude = {
       endpoint = "https://api.anthropic.com",
@@ -29,6 +29,7 @@ return {
     google = {
       endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:streamGenerateContent",
       model = "gemini-3.1-pro-preview",
+      api_key_name = "GEMINI_API_KEY",
       timeout = 30000,
       temperature = 0,
       max_tokens = 4096,
@@ -57,7 +58,7 @@ return {
       },
     },
     {
-      'MeanderingProgrammer/render-markdown.nvim',
+      "MeanderingProgrammer/render-markdown.nvim",
       opts = {
         file_types = { "markdown", "Avante" },
       },
