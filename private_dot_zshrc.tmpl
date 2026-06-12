@@ -216,7 +216,9 @@ which pay-respects &>/dev/null && eval "$(pay-respects zsh --alias)"
 source <(carapace terraform zsh)
 
 ## Atuin
-which atuin &>/dev/null && eval "$(atuin init zsh)"
+which atuin &>/dev/null && \
+  eval "$(atuin init zsh)" \
+  source <(atuin gen-completions --shell zsh)
 {{- else }}
 zinit light-mode for \
   z-shell/z-a-meta-plugins @annexes @zsh-users+fast \
