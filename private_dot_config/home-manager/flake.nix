@@ -28,6 +28,7 @@
       url = "github:lukasl-dev/pi.nix";
     };
 
+    omp-nix.url = "github:cernoh/omp-flake";
     sheets.url = "github:maaslalani/sheets";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
@@ -41,6 +42,7 @@
       home-manager,
       dms-plugin-calendar,
       pi-nix,
+      omp-nix,
       ...
     }@inputs:
     let
@@ -85,6 +87,7 @@
             home_attrs
             dms-plugin-calendar
             pi-nix
+            omp-nix
             ;
         };
         # Optionally, pass extra arguments to your home.nix

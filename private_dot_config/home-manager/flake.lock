@@ -144,6 +144,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1779560665,
+        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1773646010,
         "narHash": "sha256-iYrs97hS7p5u4lQzuNWzuALGIOdkPXvjz7bviiBjUu8=",
         "owner": "nixos",
@@ -158,7 +174,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1775305101,
         "narHash": "sha256-/74n1oQPtKG52Yw41cbToxspxHbYz6O3vi+XEw16Qe8=",
@@ -174,7 +190,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1775888245,
         "narHash": "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=",
@@ -190,10 +206,28 @@
         "type": "github"
       }
     },
+    "omp-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1781297934,
+        "narHash": "sha256-WNAoZNOqg60/kUn7xlhs3qFihMLUotj7CyL0dp8+uPs=",
+        "owner": "cernoh",
+        "repo": "omp-flake",
+        "rev": "12c6192f29fc866fe89d6cdb70c1efa1c5ef2c34",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cernoh",
+        "repo": "omp-flake",
+        "type": "github"
+      }
+    },
     "pi-nix": {
       "inputs": {
         "bun2nix": "bun2nix",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "systems": "systems"
       },
       "locked": {
@@ -238,6 +272,7 @@
         "dms-plugin-calendar": "dms-plugin-calendar",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "omp-nix": "omp-nix",
         "pi-nix": "pi-nix",
         "sheets": "sheets",
         "sops-nix": "sops-nix"
@@ -246,7 +281,7 @@
     "sheets": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1779913509,
@@ -264,7 +299,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1780547341,
