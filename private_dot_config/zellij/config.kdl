@@ -292,6 +292,15 @@ keybinds clear-defaults=true {
         bind "Alt -" { Resize "Decrease"; }
         bind "d" { Detach; }
     }
+    shared_except "locked" {
+      bind "Ctrl y" {
+        LaunchOrFocusPlugin "file:~/.config/zellij/plugins/room.wasm" {
+            floating true
+            ignore_case true
+            quick_jump true
+        }
+      }
+   }
 }
 
 options {
