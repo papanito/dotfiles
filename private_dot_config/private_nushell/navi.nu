@@ -13,10 +13,10 @@ export def navi_widget [] {
                 true => $current_input
             }
         }
-    } 
+    }
     | str trim
     | commandline edit --replace $in
-    
+
     commandline set-cursor --end
 }
 

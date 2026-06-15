@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local ssh_domains = require('extra.ssh') 
+local ssh_domains = require('extra.ssh')
 
 return {
 	-- color scheme

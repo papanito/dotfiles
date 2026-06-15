@@ -17,7 +17,7 @@ if [ -n "$ZSH_VERSION" ]; then
    # @description Debug p10k
    # @noargs
    function p10k_debug()
-   { 
+   {
       emulate -L zsh -o xtrace
       typeset -pm 'POWERLEVEL9K_*|P9K_KUBECONTEXT_*|ZSH_VERSION'
       uname -a
@@ -31,7 +31,7 @@ if [ -n "$ZSH_VERSION" ]; then
    if [[ -z "$ALIAS_FOR_PREFIX" ]]; then
       ALIAS_FOR_PREFIX="💡"
    fi
-   
+
    # Reveal Executed Alias
    alias_for() {
       [[ $1 =~ '[[:punct:]]' ]] && return
@@ -89,7 +89,7 @@ loadShellHelperLibray
 with_lock() {
     local lock_name="$1"
     shift # Remove the name from the arguments list
-    
+
     local lock_dir="/tmp/${lock_name}.lock"
     local delay=2
 
@@ -103,7 +103,7 @@ with_lock() {
     trap 'rmdir "$lock_dir" 2>/dev/null' EXIT
 
     echo "Lock [$lock_name] acquired. Running command..."
-    
+
     # 3. Execute the remaining arguments as a command
     "$@"
 
@@ -129,7 +129,7 @@ function tsh
 # @description takes a screenshot of your current window
 # @noargs
 function shot()
-{ 
+{
    import -frame -strip -quality 75 "$HOME/$(date +%s).png"
 }
 
@@ -140,7 +140,7 @@ function shot()
 # Source: https://wiki.archlinux.org/title/Irssi#Configuration
 # @noargs
 irssi_client_cert()
-{ 
+{
    openssl req -newkey rsa:4096 -days 730 -x509 -keyout irssi.key -out irssi.crt -nodes
    cat irssi.crt irssi.key >~/.irssi/irssi.pem
    chmod 600 ~/.irssi/irssi.pem
@@ -155,7 +155,7 @@ irssi_client_cert()
 # @description Set a proxy for the terminal using tor
 # @noargs
 function termproxy()
-{ 
+{
    export http_proxy='http://localhost:8118'
    export https_proxy='http://localhost:8118'
 }
@@ -163,14 +163,14 @@ function termproxy()
 # @description Unet a proxy for the terminal using tor
 # @noargs
 function termproxyX()
-{ 
+{
    unset http_proxy
    unset https_proxy
 }
 
 # @description Switch tor on and off (requires privoxy)
 function torswitch()
-{ 
+{
    # copyright 2007 - 2010 Christopher Bratusek
    if [[ $EUID == 0 ]]; then
       case $1 in
@@ -197,19 +197,19 @@ function torswitch()
 ###############################################################################
 # Scans a port, returns what's on it.
 function port()
-{ 
+{
    lsof -i :"$1"
 }
 
 # Lists unique IPs currently connected to logged-in system & how many concurrent connections each IP has
 function doscheck()
-{ 
+{
    "netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
 }
 
 # clear iptables rules safely
 function clearIptables()
-{ 
+{
    iptables -P INPUT ACCEPT
    iptables -P FORWARD ACCEPT
    iptables -P OUTPUT ACCEPT
@@ -220,7 +220,7 @@ function clearIptables()
 
 # find an unused unprivileged TCP port
 function findtcp()
-{ 
+{
    (
       netstat -atn | awk '{printf "%s\n%s\n", $4, $4}' | grep -oE '[0-9]*$'
       seq 32768 61000
@@ -229,30 +229,30 @@ function findtcp()
 
 # Get just the HTTP headers from a web page (and its redirects)
 function http_headers()
-{ 
+{
    curl -I -L $@
 }
 
 # Download a web page and show info on whattook time
 function http_debug()
-{ 
+{
    curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n"
 }
 
 # usage: liveh [-i interface] [output-file] && firefox &
 function liveh()
-{ 
+{
    tcpdump -lnnAs512 ${1-} tcp | sed ' s/.*GET /GET /;s/.*Host: /Host: /;s/.*POST /POST /;/[GPH][EOo][TSs]/!d;w '"${2-liveh.txt}"' ' >/dev/null
 }
 
 # geolocate a given IP address
 function ip2loc()
-{ 
+{
    wget -qO - www.ip2location.com/$1 | grep "<span id=\"dgLookup__ctl2_lblICountry\">" | sed 's/<[^>]*>//g; s/^[   ]*//; s/&quot;/"/g; s/</</g; s/>/>/g; s/&amp;/\&/g'
 }
 
 function ip2locall()
-{ 
+{
    # best if used through a proxy, as ip2loc's free usage only lets you search a maximum of 20 times per day
    # currently set on using a proxy through tor; if don't want that, just comment out the two 'export..' and 'unset...' lines
    export http_proxy='http://localhost:8118'
@@ -311,7 +311,7 @@ function ip2locall()
 }
 
 function ip2locate()
-{ 
+{
    # best if used through a proxy, as ip2loc's free usage only lets you search a maximum of 20 times per day
    # currently set on using a proxy through tor; if don't want that, just comment out the two 'export..' and 'unset...' lines
    export http_proxy='http://localhost:8118'
@@ -338,13 +338,13 @@ function ip2locate()
 
 # @description finds your current IP if your connected to the internet
 function myip()
-{ 
+{
    lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | awk '{ print $4 }' | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g'
 }
 
 # netinfo - shows network information for your system
 function netinfo()
-{ 
+{
    echo "--------------- Network Information ---------------"
    ip addr | awk /'inet addr/ {print $2}'
    ip addr | awk /'Bcast/ {print $3}'
@@ -367,7 +367,7 @@ function portcheck()
 # more ip adresses on the domains on which this is available (eg google.com or yahoo.com)
 # Last updated on Sep/06/2010
 function url-info()
-{ 
+{
    doms=$@
    if [ $# -eq 0 ]; then
       echo -e "No domain given\nTry $0 domain.com domain2.org anyotherdomain.net"
@@ -389,7 +389,7 @@ function url-info()
 
 # cleanly list available wireless networks (using iwlist)
 function wscan()
-{ 
+{
    iwlist wlan0 scan | sed -ne 's#^[[:space:]]*\(Quality=\|Encryption key:\|ESSID:\)#\1#p' -e 's#^[[:space:]]*\(Mode:.*\)$#\1\n#p'
 }
 
@@ -399,7 +399,7 @@ function wscan()
 ###############################################################################
 # Decompiler for jar files using jad
 function unjar()
-{ 
+{
    mkdir -p /tmp/unjar/$1
    unzip -d /tmp/unjar/$1 $1 *class 1>/dev/null && find /tmp/unjar/$1 -name *class -type f | xargs jad -ff -nl -nonlb -o -p -pi99 -space -stat
    rm -r /tmp/unjar/$1
@@ -417,7 +417,7 @@ function comp()
 
 # Count opening and closing braces in a string
 function countbraces()
-{ 
+{
    COUNT_OPENING=$(echo $1 | grep -o "(" | wc -l)
    COUNT_CLOSING=$(echo $1 | grep -o ")" | wc -l)
    echo Opening: $COUNT_OPENING
@@ -435,7 +435,7 @@ function git_remove_leaks() {
    git push --force --verbose --dry-run
    git push --force
 }
- 
+
 ###############################################################################
 # Hardware releated functions
 ###############################################################################
@@ -443,7 +443,7 @@ function git_remove_leaks() {
 # $1 = remote share name in form of //server/share
 # $2 = local mount point
 function cifsmount()
-{ 
+{
    if [ $# -lt 1 ] || [ $# -gt 2 ]; then
       echo "Mount CIFS shares; pseudo-replacement for smbmount"
       echo "cifsmount: [remote share name in form  //server/share] [local mount point]"
@@ -454,7 +454,7 @@ function cifsmount()
 
 # Remount a device
 function remount()
-{ 
+{
    # copyright 2007 - 2010 Christopher Bratusek
    DEVICE=$1
    shift
@@ -463,7 +463,7 @@ function remount()
 
 # Mount Fat
 function mount_fat()
-{ 
+{
    local _DEF_PATH="/media/tmp1"
    if [ -n "$2" ]; then
       sudo mount -t vfat -o rw,users,flush,umask=0000 "$1" "$2"
@@ -478,7 +478,7 @@ alias touchpad_id='xinput list | grep -i touchpad'
 # Touchpad: to disable
 # using 'touchpad_id', set the number for your touchpad (default is 12)
 function touchpad_off()
-{ 
+{
    touchpad=12
    xinput set-prop $touchpad "Device Enabled" 0
 }
@@ -486,7 +486,7 @@ function touchpad_off()
 # @description enable touchpad
 # using 'touchpad_id', set the number for your touchpad (default is 12)
 function touchpad_on()
-{ 
+{
    touchpad=12
    xinput set-prop $touchpad "Device Enabled" 1
 }
@@ -503,7 +503,7 @@ function touchpad_on()
 # Useful after a crash where all extensions are disabled
 # @noargs
 gnome-extensions-enable()
-{ 
+{
    localPath=~/.local/share/gnome-shell/extensions/
    for i in $localPath/*; do
       echo $(basename $i)
@@ -522,7 +522,7 @@ gnome-extensions-enable()
 # @set ZJ_SESSIONS string list of sessions
 # @set NO_SESSION int number of sessions
 function z-layout()
-{ 
+{
    set -euo pipefail
    ZJ_LAYOUT_DIR=$(zellij setup --check |
       grep "LAYOUT DIR" - |
@@ -543,7 +543,7 @@ function z-layout()
 # @set ZJ_SESSIONS string list of sessions
 # @set NO_SESSION int number of sessions
 function z-sessions()
-{ 
+{
    ZJ_SESSIONS=$(zellij list-sessions)
    NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
 
@@ -561,14 +561,14 @@ function z-sessions()
 # @description returns best match using navi
 # @arg $1 string search string
 navialias()
-{ 
+{
    navi --query ":: $1" --best-match
 }
 
 # @description returns best match using navi
 # @arg $1 string search string
 navibestmatch()
-{ 
+{
    navi --query "$1" --best-match
 }
 

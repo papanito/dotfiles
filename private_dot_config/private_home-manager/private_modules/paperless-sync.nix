@@ -33,7 +33,7 @@
             nixos@10.0.0.61:/var/lib/paperless/media/documents/archive/ \
             "${config.home.homeDirectory}/Documents/archive/"
         '';
-      in "${syncScript}";   
+      in "${syncScript}";
       # Ensure we don't leak environment vars that might break SSH
       UnsetEnvironment = [ "SSH_AUTH_SOCK" ];
     };

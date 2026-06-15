@@ -33,7 +33,7 @@ in
       Socket = {
         ListenStream = socketPath;
         # This ensures systemd passes the FD to Watchman
-        Accept = false; 
+        Accept = false;
       };
       Install = {
         WantedBy = [ "sockets.target" ];

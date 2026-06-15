@@ -10,7 +10,7 @@ function auto_venv() {
   # If already in a virtualenv, do nothing
   if [[ -n "$VIRTUAL_ENV" && "$PWD" != *"${VIRTUAL_ENV:h}"* ]]; then
     deactivate
-    return  
+    return
   fi
 
   [[ -n "$VIRTUAL_ENV" ]] && return

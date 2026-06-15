@@ -5,7 +5,7 @@ let
 in
 {
   options.gnome = {
-    enable 
+    enable
       = lib.mkEnableOption "enable gnome and install relatedd software";
   };
   config = lib.mkIf cfg.enable {
@@ -22,7 +22,7 @@ in
         name = "Adwaita";
         #package = pkgs.gnome.adwaita-icon-theme;
       };
-    
+
       theme = {
         name = "Adwaita";
         # package = pkgs.palenight-theme;
