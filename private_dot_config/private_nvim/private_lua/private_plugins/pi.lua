@@ -8,7 +8,10 @@ return {
   config = function()
     -- 1. Setup the plugin with default settings
     require("pi").setup({
-      bin = vim.fn.exepath("omp"),
+      cli = {
+        bin = "omp",
+        args = {},
+      },
     })
 
     local pi = require("pi")
@@ -64,6 +67,7 @@ return {
       group = group,
       pattern = "pi-chat-prompt",
       callback = function(event)
+        vim.opt_local.spell = false
         -- Focus navigation (Replace <S-Up>/<S-Down> with your own window shortcuts if desired)
         map(event.buf, "<S-Up>", pi.focus_chat_history)
         map(event.buf, "<S-Down>", pi.focus_chat_attachments)
