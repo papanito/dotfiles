@@ -30,6 +30,7 @@
 
     omp-nix.url = "github:cernoh/omp-flake";
     sheets.url = "github:maaslalani/sheets";
+    handy.url = "github:cjpais/Handy";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
@@ -43,6 +44,7 @@
       dms-plugin-calendar,
       pi-nix,
       omp-nix,
+      handy,
       ...
     }@inputs:
     let
@@ -88,6 +90,7 @@
             dms-plugin-calendar
             pi-nix
             omp-nix
+            handy
             ;
         };
         # Optionally, pass extra arguments to your home.nix
