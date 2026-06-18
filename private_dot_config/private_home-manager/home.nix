@@ -72,10 +72,8 @@ in
     libsecret
 
     ## AI
-    gemini-cli-bin # AI agent that brings the power of Gemini
-    qwen-code # Coding agent that lives in digital world
+    antigravity # Agentic development platform, evolving the IDE into the agent-first era
     ollama
-    opencode
 
     ## Security
     tirith # URL security analysis for shell environments
