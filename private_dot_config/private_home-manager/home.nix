@@ -63,6 +63,9 @@ in
     (pkgs.python3.withPackages my-python-packages)
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
+    nixd # Nix LSP
+    pyright # Python LSP
+    terraform-ls # Terraform LSP
     colmena
     statix
     dconf2nix
