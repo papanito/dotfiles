@@ -17,7 +17,6 @@ return {
         ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
         ["<c-space>"] = { "show", "hide" },
         ["<tab>"] = { "select_and_accept", "fallback" },
-        ["<enter>"] = { "select_and_accept" },
         preset = "none",
       },
       sources = {
