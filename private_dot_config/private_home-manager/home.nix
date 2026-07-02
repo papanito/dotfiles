@@ -98,6 +98,7 @@ in
     inputs.pi-nix.packages."x86_64-linux".default
     inputs.omp-nix.packages."x86_64-linux".default
     inputs.handy.packages."x86_64-linux".default
+    inputs.herdr.packages."x86_64-linux".default
     wtype # xdotool type for wayland
     gtk-layer-shell # Library to create panels and other desktop components for Wayland using the Layer Shell protocol
     aria2 # Lightweight, multi-protocol, multi-source, command-line download utility

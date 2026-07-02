@@ -31,6 +31,7 @@
     omp-nix.url = "github:cernoh/omp-flake";
     sheets.url = "github:maaslalani/sheets";
     handy.url = "github:cjpais/Handy";
+    herdr.url = "github:ogulcancelik/herdr";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
@@ -45,6 +46,7 @@
       pi-nix,
       omp-nix,
       handy,
+      herdr,
       ...
     }@inputs:
     let
@@ -91,6 +93,7 @@
             pi-nix
             omp-nix
             handy
+            herdr
             ;
         };
         # Optionally, pass extra arguments to your home.nix
