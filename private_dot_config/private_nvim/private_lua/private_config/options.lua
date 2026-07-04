@@ -9,3 +9,6 @@ if shell and shell:match("zsh") then
 else
   vim.opt.shell = "zsh"
 end
+
+-- Ensure filetype/highlighting persist across session restore (auto-session).
+vim.opt.sessionoptions:append("localoptions")
