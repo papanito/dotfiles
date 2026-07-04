@@ -10,8 +10,8 @@ chezmoi add ~/.config/home-manager/flake.lock
 git add private_dot_config/home-manager/flake.lock && git commit -m"home-manager: Update flake"
 popd || exit
 
-echo "🦊 Add opnesnitch rules"
-chezmoi add ~/.config/opensnitch/settings.conf
+echo "🦊 Add herdr rules"
+chezmoi add ~/.config/herdr/config.toml
 
 echo "🦊 Add lazyvim config"
 chezmou add ~/.config/nvim/lazyvim.json

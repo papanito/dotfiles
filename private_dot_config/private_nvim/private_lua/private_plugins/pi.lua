@@ -109,7 +109,7 @@ return {
     local Sessions = require("pi.sessions.manager")
 
     -- Command to list available models
-    vim.api.nvim_create_user_command('PiGetAvailableModels', function()
+    vim.api.nvim_create_user_command("PiGetAvailableModels", function()
       local session = Sessions.get()
       if not session or not session.rpc:is_running() then
         print("pi.nvim is not running. Open the chat first.")
@@ -126,7 +126,7 @@ return {
     })
 
     -- Command to set a specific model by id
-    vim.api.nvim_create_user_command('PiSetModel', function(opts)
+    vim.api.nvim_create_user_command("PiSetModel", function(opts)
       local model_name = vim.fn.trim(opts.args)
       if model_name == "" then
         print("Error: Model name is required. Usage: :PiSetModel <model_id>")
@@ -158,7 +158,7 @@ return {
     })
 
     -- Command to print current state
-    vim.api.nvim_create_user_command('PiGetState', function()
+    vim.api.nvim_create_user_command("PiGetState", function()
       local session = Sessions.get()
       if not session or not session.rpc:is_running() then
         print("pi.nvim is not running. Open the chat first.")
@@ -281,3 +281,4 @@ return {
     })
   end,
 }
+
