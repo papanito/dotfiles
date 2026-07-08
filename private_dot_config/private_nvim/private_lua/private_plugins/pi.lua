@@ -1,6 +1,5 @@
 return {
   "alex35mil/pi.nvim",
-  branch = "omp",
   -- Optional: required only for `:PiPasteImage` (clipboard image paste).
   dependencies = { "HakonHarnes/img-clip.nvim" },
   -- if you're fine with defaults:
@@ -281,4 +280,3 @@ return {
     })
   end,
 }
-
