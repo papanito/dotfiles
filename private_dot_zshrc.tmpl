@@ -208,6 +208,12 @@ zinit light-mode for \
   reegnz/jq-zsh-plugin \
   gko/ssh-connect
 
+# Disable fast-syntax-highlighting's zinit chroma: it takes ~750ms per
+# keystroke because main-chroma.ch runs complex regex/parameter expansions
+# on every character typed after `zi`. The chroma provides colored
+# highlighting for zinit subcommands but the cost makes `zi` unusable.
+(( ${+FAST_HIGHLIGHT[chroma-zinit]} )) && unset 'FAST_HIGHLIGHT[chroma-zinit]'
+
 ## helper tools
 which navi &>/dev/null && eval "$(navi widget zsh)"
 # which hcloud &>/dev/null && eval "$(hcloud completion zsh)"
@@ -276,4 +282,11 @@ fi
 
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
+
+# Register zinit completions for its aliases (zi, zpl, zplg, zini).
+# Must come AFTER all zinit snippet/plugin loads: the OMZ kubectl snippet
+# does `typeset -g -A _comps` which wipes the hash, so registering earlier
+# would be lost. Without this, typing `zi` hangs the completion system on
+# every keystroke because no completion is bound to the alias.
+(( ${+_comps} )) && _comps[zi]=_zinit && _comps[zpl]=_zinit && _comps[zplg]=_zinit && _comps[zini]=_zinit
 
