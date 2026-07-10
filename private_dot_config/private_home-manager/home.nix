@@ -132,6 +132,7 @@ in
     prettier # Code formatter
     prettier-plugin-go-template # Fixes prettier formatting for go templates
     uv # Extremely fast Python package installer and resolver, written in Rust
+    (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
 
     ### API
     bruno # Open-source IDE For exploring and testing APIs
