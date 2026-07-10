@@ -11,7 +11,7 @@ providers:
     authHeader: true
 
   llama.cpp:
-    baseUrl: "http://127.0.0.1:8080/v1"
+    baseUrl: "http://127.0.0.1:8080"
     api: "openai-responses"
     apiKey: "none"
     authHeader: false
