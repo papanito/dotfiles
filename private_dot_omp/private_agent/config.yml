@@ -7,9 +7,10 @@ setupVersion: 1
 # Startup Default
 default_model: "google/gemini-2.5-flash"
 
-# The Quadruple-Tier Failover Matrix (Gemini Flash ──► Ollama Cloud ──► OpenRouter Free ──► Local Hardware)
+# The Triple-Tier Failover Matrix (Gemini Flash ──► Ollama Cloud ──► OpenRouter Free)
 # NOTE: Gemini Pro excluded from routing — rate-limited on Google free tier. Available via manual switch only.
 # NOTE: OpenRouter paid models (gpt-5.4) excluded from routing — available via manual switch only.
+# NOTE: Local models (llama.cpp, local ollama) excluded from routing — available via manual switch only.
 fallbackModel:
   # Tier 1 Gemini Flash fails over into Tier 2 Ollama Cloud
   "google/gemini-2.5-flash": "ollama/glm-5.2"
@@ -19,15 +20,17 @@ fallbackModel:
   "ollama/kimi-k2.7-code": "openrouter/openai/gpt-oss-20b:free"
   "ollama/deepseek-v4-pro": "openrouter/openai/gpt-oss-20b:free"
   "ollama/gemini-3-flash-preview": "openrouter/openai/gpt-oss-20b:free"
+  "ollama/gpt-oss:20b": "openrouter/openai/gpt-oss-20b:free"
+  "ollama/qwen3-coder-next": "openrouter/openai/gpt-oss-20b:free"
 
-  # Tier 2.5 OpenRouter Free drops down into Tier 3 local resources
-  "openrouter/openai/gpt-oss-20b:free": "ollama/qwen3-coder:30b"
-  "openrouter/cohere/north-mini-code:free": "llama.cpp/ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M"
+  # Tier 2.5 OpenRouter Free (final fallback — no local hardware in chain)
+  "openrouter/openai/gpt-oss-20b:free": "openrouter/cohere/north-mini-code:free"
+  "openrouter/cohere/north-mini-code:free": "ollama/gpt-oss:20b"
 
-# Subagent Task Assignments (Budget-Optimized: all auto-routed models are free)
+# Subagent Task Assignments (Budget-Optimized: all auto-routed models are free cloud)
 modelRoles:
   default: "google/gemini-2.5-flash" # Interactive session — fast, capable, 1M context (Google free tier)
-  smol: "llama.cpp/ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M" # Quick mechanical subagents — local, zero-cost
+  smol: "ollama/gpt-oss:20b" # Quick mechanical subagents — free ollama-cloud, 131K ctx, reasoning
   slow: "ollama/deepseek-v4-pro" # Deep reasoning — free ollama-cloud, 524K ctx, 1M output
   vision: "ollama/gemini-3-flash-preview" # Image inputs — free ollama-cloud, 1M ctx, reasoning
   plan: "ollama/deepseek-v4-pro" # Architecture proposals — same as SLOW

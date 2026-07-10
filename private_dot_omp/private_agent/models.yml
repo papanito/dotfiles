@@ -74,6 +74,24 @@ models:
       maxTokensField: "max_tokens"
       supportsUsageInStreaming: true
 
+  - id: "ollama/gpt-oss:20b"
+    name: "Ollama Cloud GPT-OSS 20B"
+    contextWindow: 131072
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama/qwen3-coder-next"
+    name: "Ollama Cloud Qwen3 Coder Next"
+    contextWindow: 262144
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
   - id: "ollama/gemini-3-flash-preview"
     name: "Ollama Cloud Gemini 3 Flash"
     contextWindow: 1048576
