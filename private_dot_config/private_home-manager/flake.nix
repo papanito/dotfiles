@@ -84,6 +84,7 @@
           ./modules/pueue.nix
           ./modules/gnome.nix
           ./modules/ollama.nix
+          ./modules/llama-cpp.nix
         ];
         extraSpecialArgs = {
           inherit
