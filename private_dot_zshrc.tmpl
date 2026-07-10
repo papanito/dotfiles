@@ -153,6 +153,12 @@ zinit light papanito/shell-helper-library
 # Load aliases, functions, etc.
 [[ -d $DOTFILES ]] && for f ($DOTFILES/*.sh) source $f
 [[ -d $ZSH_DOTFILES ]] && for f ($ZSH_DOTFILES/*(N.)) source $f
+# Remove OMZ sudo plugin's ESC ESC binding (prepending sudo to command line)
+# The OMZ sudo plugin is auto-loaded by NixOS /etc/zshrc with plugins=(sudo).
+# We keep the Ctrl-X S binding from hikari.sh for sudo prepend instead.
+bindkey -r -M emacs '\e\e'
+bindkey -r -M vicmd '\e\e'
+bindkey -r -M viins '\e\e'
 export ZSHRC_LOCAL=$DOTFILES/zsh/zshrc.local
 # settings that vary per workstation
 [[ -f $ZSHRC_LOCAL ]] && source $ZSHRC_LOCAL
