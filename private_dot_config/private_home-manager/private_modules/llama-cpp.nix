@@ -12,16 +12,17 @@
 
     Service = {
       Type = "idle";
-      # -hf downloads from HuggingFace if not cached, then serves the model
-      # Uses LLAMA_CACHE from environment for model cache directory
-      ExecStart = "${lib.getExe' pkgs.llama-cpp "llama-server"} -hf ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M --host 127.0.0.1 --port 8080";
+      # Use -m with direct path to the cached GGUF file instead of -hf
+      # -hf re-downloads from HuggingFace on every start, wasting time and bandwidth
+      # The model was pre-downloaded via HuggingFace cache at:
+      #   ~/.cache/huggingface/hub/models--ggml-org--gemma-4-26B-A4B-it-GGUF/snapshots/.../gemma-4-26B-A4B-it-Q4_K_M.gguf
+      ExecStart = "${lib.getExe' pkgs.llama-cpp "llama-server"} -m /home/papanito/.cache/huggingface/hub/models--ggml-org--gemma-4-26B-A4B-it-GGUF/snapshots/ae4d537a6345467d1c86bb5cc0d4505ff3ebe0f3/gemma-4-26B-A4B-it-Q4_K_M.gguf --alias ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M --host 127.0.0.1 --port 8080";
       Restart = "on-failure";
       RestartSec = 5;
       # Give it time to load the model into RAM (16GB model)
       TimeoutStartSec = 120;
       # SIGINT is the graceful shutdown signal for llama-server
       KillSignal = "SIGINT";
-      Environment = [ "LLAMA_CACHE=%h/.cache/llama-cpp" ];
     };
 
     Install = {
