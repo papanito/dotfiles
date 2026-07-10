@@ -35,11 +35,10 @@ encryption = "gpg"
 
 [hooks.apply]
     [[hooks.apply.post]]
-        command = "home-manager"
+        command = "sh"
         args = [
-            "switch",
-            "--flake",
-            "{{ .chezmoi.homeDir }}/.config/home-manager"
+            "-c",
+            "unset LD_LIBRARY_PATH && exec home-manager switch --flake {{ .chezmoi.homeDir }}/.config/home-manager"
         ]
     [[hooks.apply.post]]
         command = "source"
