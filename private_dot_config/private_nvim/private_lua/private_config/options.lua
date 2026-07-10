@@ -12,3 +12,7 @@ end
 
 -- Ensure filetype/highlighting persist across session restore (auto-session).
 vim.opt.sessionoptions:append("localoptions")
+
+-- Auto-reload files changed on disk and auto-save on buffer switch
+vim.opt.autoread = true -- Already set by LazyVim, but make it explicit
+vim.opt.autowriteall = true -- Save modified buffers when switching away or exiting
