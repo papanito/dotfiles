@@ -1,0 +1,70 @@
+providers:
+  webSearch: gemini
+symbolPreset: unicode
+theme:
+  dark: titanium
+setupVersion: 1
+# Startup Default
+default_model: "google/gemini-2.5-flash"
+
+# The Triple-Tier Failover Matrix (Gemini ──► Ollama Cloud ──► Local Hardware)
+fallbackModel:
+  # Tier 1 Cloud Excursions fail over into Tier 2 Ollama Cloud
+  "google/gemini-2.5-flash": "ollama/glm-5.2"
+  "google/gemini-2.5-pro": "ollama/glm-5.2"
+
+  # Tier 2 Ollama Cloud drops down into Tier 3 local resources
+  "ollama/glm-5.2": "ollama/qwen3-coder:30b"
+  "ollama/kimi-k2.7-code": "ollama/qwen3-coder:30b"
+
+# Subagent Task Assignments
+modelRoles:
+  default: "google/gemini-2.5-flash" # Standard code development pair-programming
+  smol: "ollama/gemma-4-26b-a4b-it-gguf:q4_k_m" # Syntax check subagents run entirely local for zero-cost
+  slow: "google/gemini-2.5-pro" # Heavy contextual cross-package refactoring
+
+agent:
+  reasoning_effort: "high"
+  interactive: true # Standard permission gate before executing local commands
+  max_iterations: 12
+
+code:
+  style: "functional"
+  include_comments: true
+  framework_preferences:
+    terraform: ">= 5.0"
+    python: "3.11"
+    go: "1.22"
+    typescript: "bun" # Prefers lightweight runtimes for infrastructure scripts
+personality: pragmatic
+rules:
+  autoConnectLsp: true
+  trackModelConsumption: true
+statusLine:
+  preset: full
+  sessionAccent: true
+tui:
+  textSizing: true
+display:
+  shimmer: classic
+  smoothStreaming: true
+  showTokenUsage: true
+startup:
+  checkUpdate: false
+memory:
+  backend: local
+renderMermaid:
+  enabled: false
+github:
+  enabled: true
+hideThinkingBlock: true
+autolearn:
+  enabled: true
+task:
+  isolation:
+    mode: auto
+autoResume: true
+autocompleteMaxVisible: 10
+dev:
+  autoqa: false
+

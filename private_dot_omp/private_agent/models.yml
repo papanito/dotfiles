@@ -1,0 +1,75 @@
+providers:
+  google:
+    api: "google-generative-ai"
+    apiKey: "GEMINI_API_KEY" # Read from system environment variables
+    authHeader: false # Google Generative AI API uses ?key= query param, NOT Bearer headers
+
+  ollama:
+    baseUrl: "http://localhost:11434/v1"
+    api: "openai-completions"
+    apiKey: "ollama-local" # Port 11434 loops to both local and cloud proxies
+    authHeader: true
+
+models:
+  # =======================================================
+  # 🔥 TIER 1: GEMINI CLOUD ENGINE (Your Active Front-Line)
+  # =======================================================
+  - id: "google/gemini-2.5-flash"
+    name: "Google Gemini 2.5 Flash"
+    contextWindow: 1048576
+    compat:
+      supportsDeveloperRole: true
+      supportsToolChoice: true
+      maxTokensField: "max_output_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "google/gemini-2.5-pro"
+    name: "Google Gemini 2.5 Pro"
+    contextWindow: 2097152 # Massive 2M block for massive Go/TS system projects
+    compat:
+      supportsDeveloperRole: true
+      supportsToolChoice: true
+      maxTokensField: "max_output_tokens"
+      supportsUsageInStreaming: true
+
+  # =======================================================
+  # ☁️ TIER 2: OLLAMA CLOUD BACKUP (The Proxy Engine)
+  # =======================================================
+  - id: "ollama/glm-5.2"
+    name: "Ollama Cloud GLM-5.2"
+    contextWindow: 1000000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama/kimi-k2.7-code"
+    name: "Ollama Cloud Kimi K2.7"
+    contextWindow: 262144
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  # =======================================================
+  # 🏠 TIER 3: LOCAL HARDWARE SECURE ZONE (64GB CPU Native)
+  # =======================================================
+  - id: "ollama/qwen3-coder:30b"
+    name: "Local Qwen 3 MoE Coder"
+    contextWindow: 262144
+    compat:
+      supportsDeveloperRole: true
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama/gemma-4-26b-a4b-it-gguf:q4_k_m"
+    name: "Local Gemma 4 MoE"
+    contextWindow: 131072
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
