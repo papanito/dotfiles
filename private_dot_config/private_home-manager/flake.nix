@@ -29,13 +29,13 @@
     };
 
     omp-nix.url = "github:cernoh/omp-flake";
+    omniroute.url = "github:diegosouzapw/OmniRoute";
     sheets.url = "github:maaslalani/sheets";
     handy.url = "github:cjpais/Handy";
     herdr.url = "github:ogulcancelik/herdr";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
-
   outputs =
     {
       self,
@@ -45,6 +45,7 @@
       dms-plugin-calendar,
       pi-nix,
       omp-nix,
+      omniroute,
       handy,
       herdr,
       ...
@@ -76,7 +77,6 @@
       homeConfigurations."papanito" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         # Specify your Home Manager configuration modules here.
-        # This typically points to a home.nix file.
         modules = [
           ./home.nix
           ./modules/paperless-sync.nix
@@ -85,6 +85,7 @@
           ./modules/gnome.nix
           ./modules/ollama.nix
           ./modules/llama-cpp.nix
+          ./modules/omniroute.nix
         ];
         extraSpecialArgs = {
           inherit
@@ -93,6 +94,7 @@
             dms-plugin-calendar
             pi-nix
             omp-nix
+            omniroute
             handy
             herdr
             ;
