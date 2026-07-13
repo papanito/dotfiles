@@ -80,4 +80,4 @@ When the user requests a durable behavior change, record it here or in the relev
 
 ## Child DOX Index
 
-This project is not yet indexed. Before continuing you must scan the project, build the DOX tree and replace this message with the actual index. Go deep and scan files recursively to properly evaluate complexity and create nested DOX files where needed.
+- `private_dot_config/private_home-manager/` — Standalone Home Manager flake for user `papanito`: flake inputs, service modules (ollama, llama-cpp, watchman, pueue, omniroute, etc.), and `home.nix` package list. See its AGENTS.md for the add-a-flake-input workflow.
