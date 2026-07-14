@@ -18,20 +18,12 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    dms-plugin-calendar = {
-      url = "github:alcxyz/DankCalendar";
-      flake = false;
-    };
-
     pi-nix = {
       url = "github:lukasl-dev/pi.nix";
     };
 
     omp-nix.url = "github:cernoh/omp-flake";
-    omniroute.url = "github:diegosouzapw/OmniRoute";
     sheets.url = "github:maaslalani/sheets";
-    handy.url = "github:cjpais/Handy";
     herdr.url = "github:ogulcancelik/herdr";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
@@ -42,11 +34,8 @@
       nixpkgs,
       sops-nix,
       home-manager,
-      dms-plugin-calendar,
       pi-nix,
       omp-nix,
-      omniroute,
-      handy,
       herdr,
       ...
     }@inputs:
@@ -91,11 +80,8 @@
           inherit
             inputs
             home_attrs
-            dms-plugin-calendar
             pi-nix
             omp-nix
-            omniroute
-            handy
             herdr
             ;
         };

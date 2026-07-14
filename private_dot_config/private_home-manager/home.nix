@@ -97,7 +97,6 @@ in
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
     inputs.pi-nix.packages."x86_64-linux".default
     inputs.omp-nix.packages."x86_64-linux".default
-    inputs.handy.packages."x86_64-linux".default
     inputs.herdr.packages."x86_64-linux".default
     wtype # xdotool type for wayland
     gtk-layer-shell # Library to create panels and other desktop components for Wayland using the Layer Shell protocol
