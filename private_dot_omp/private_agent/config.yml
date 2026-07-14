@@ -5,39 +5,35 @@ theme:
   dark: titanium
 setupVersion: 1
 # Startup Default
-default_model: "google/gemini-2.5-flash"
+default_model: "omniroute/free-forever"
 
 # The Triple-Tier Failover Matrix (Gemini Flash ──► Ollama Cloud ──► OpenRouter Free)
 # NOTE: Gemini Pro excluded from routing — rate-limited on Google free tier. Available via manual switch only.
 # NOTE: OpenRouter paid models (gpt-5.4) excluded from routing — available via manual switch only.
 # NOTE: Local models (llama.cpp, local ollama) excluded from routing — available via manual switch only.
 fallbackModel:
+  # OmniRoute free-forever fails over into OmniRoute best-free
+  "omniroute/free-forever": "omniroute/auto/best-free"
+
+  # OmniRoute best-free fails over into OpenRouter Free
+  "omniroute/auto/best-free": "openrouter/openai/gpt-oss-20b:free"
+  "omniroute/auto/coding:free": "omniroute/auto/best-free"
+  "omniroute/auto/cheap": "omniroute/auto/best-free"
+
   # Tier 1 Gemini Flash fails over into Tier 2 Ollama Cloud
   "google/gemini-2.5-flash": "ollama/glm-5.2"
 
-  # Tier 2 Ollama Cloud drops down into Tier 2.5 OpenRouter Free
-  "ollama/glm-5.2": "openrouter/openai/gpt-oss-20b:free"
-  "ollama/kimi-k2.7-code": "openrouter/openai/gpt-oss-20b:free"
-  "ollama/deepseek-v4-pro": "openrouter/openai/gpt-oss-20b:free"
-  "ollama/gemini-3-flash-preview": "openrouter/openai/gpt-oss-20b:free"
-  "ollama/gpt-oss:20b": "openrouter/openai/gpt-oss-20b:free"
-  "ollama/qwen3-coder-next": "openrouter/openai/gpt-oss-20b:free"
-
-  # Tier 2.5 OpenRouter Free (final fallback — no local hardware in chain)
-  "openrouter/openai/gpt-oss-20b:free": "openrouter/cohere/north-mini-code:free"
-  "openrouter/cohere/north-mini-code:free": "ollama/gpt-oss:20b"
-
 # Subagent Task Assignments (Budget-Optimized: all auto-routed models are free cloud)
 modelRoles:
-  default: "google/gemini-2.5-flash" # Interactive session — fast, capable, 1M context (Google free tier)
-  smol: "ollama/gpt-oss:20b" # Quick mechanical subagents — free ollama-cloud, 131K ctx, reasoning
-  slow: "ollama/deepseek-v4-pro" # Deep reasoning — free ollama-cloud, 524K ctx, 1M output
-  vision: "ollama/gemini-3-flash-preview" # Image inputs — free ollama-cloud, 1M ctx, reasoning
-  plan: "ollama/deepseek-v4-pro" # Architecture proposals — same as SLOW
-  designer: "ollama/kimi-k2.7-code" # UI/UX specialist — free ollama-cloud, 262K ctx, image+reasoning
-  commit: "openrouter/openai/gpt-oss-20b:free" # Commit message generation — free OpenRouter
-  task: "google/gemini-2.5-flash" # General-purpose subagents — full capability needed
-  advisor: "ollama/deepseek-v4-pro" # Oracle/consultation — senior engineer reasoning
+  default: "omniroute/free-forever" # Interactive session — free-forever omniroute start
+  smol: "omniroute/auto/coding:free" # Quick mechanical subagents — free coding combo
+  slow: "omniroute/auto/best-free" # Deep reasoning — best free combo
+  vision: "omniroute/auto/best-free" # Image inputs — best free combo
+  plan: "omniroute/auto/best-free" # Architecture proposals — best free combo
+  designer: "omniroute/auto/best-free" # UI/UX specialist — best free combo
+  commit: "omniroute/auto/cheap" # Commit message generation — cheapest free combo
+  task: "omniroute/free-forever" # General-purpose subagents — free-forever start
+  advisor: "omniroute/auto/best-free" # Oracle/consultation — best free combo
 
 agent:
   reasoning_effort: "high"

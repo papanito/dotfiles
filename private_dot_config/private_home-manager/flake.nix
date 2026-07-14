@@ -60,11 +60,13 @@
           (final: prev: {
             # inline-snapshot has 3 flaky test failures in nixpkgs unstable
             # that block the entire home-manager build. Disable its tests.
-            python312Packages = prev.python312Packages.overrideScope (pyFinal: pyPrev: {
-              inline-snapshot = pyPrev.inline-snapshot.overridePythonAttrs (_: {
-                doCheck = false;
-              });
-            });
+            python312Packages = prev.python312Packages.overrideScope (
+              pyFinal: pyPrev: {
+                inline-snapshot = pyPrev.inline-snapshot.overridePythonAttrs (_: {
+                  doCheck = false;
+                });
+              }
+            );
           })
         ];
       };

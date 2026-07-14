@@ -1,4 +1,10 @@
 providers:
+  omniroute:
+    baseUrl: "http://localhost:20128/v1"
+    api: "openai-completions"
+    apiKey: "OMNIROUTE_API_KEY"
+    authHeader: true # OpenAI-compatible: Authorization: Bearer OMNIROUTE_API_KEY
+
   google:
     api: "google-generative-ai"
     apiKey: "GEMINI_API_KEY" # Read from system environment variables
@@ -23,6 +29,45 @@ providers:
     authHeader: true
 
 models:
+
+  # =======================================================
+  # 🧭 TIER 0: OMNIROUTE COMBOS (Unified proxy + free-forever start)
+  # =======================================================
+  - id: "omniroute/free-forever"
+    name: "OmniRoute Free Forever"
+    contextWindow: 128000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "omniroute/auto/best-free"
+    name: "OmniRoute Best Free"
+    contextWindow: 1048576
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "omniroute/auto/coding:free"
+    name: "OmniRoute Coding Free"
+    contextWindow: 1048576
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "omniroute/auto/cheap"
+    name: "OmniRoute Cheap"
+    contextWindow: 1048576
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
   # =======================================================
   # 🔥 TIER 1: GEMINI CLOUD ENGINE (Your Active Front-Line)
   # =======================================================
