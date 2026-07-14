@@ -54,9 +54,19 @@
       pkgs = import nixpkgs {
         inherit system;
         config = {
-          allowUnfree = true; # Set to true if you need unfree packages
-          # Add any other nixpkgs configuration here
+          allowUnfree = true;
         };
+        overlays = [
+          (final: prev: {
+            # inline-snapshot has 3 flaky test failures in nixpkgs unstable
+            # that block the entire home-manager build. Disable its tests.
+            python312Packages = prev.python312Packages.overrideScope (pyFinal: pyPrev: {
+              inline-snapshot = pyPrev.inline-snapshot.overridePythonAttrs (_: {
+                doCheck = false;
+              });
+            });
+          })
+        ];
       };
     in
     {
