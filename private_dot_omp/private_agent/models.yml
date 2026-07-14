@@ -3,24 +3,14 @@ providers:
     baseUrl: "http://localhost:20128/v1"
     api: "openai-completions"
     apiKey: "OMNIROUTE_API_KEY"
-    authHeader: true # OpenAI-compatible: Authorization: Bearer OMNIROUTE_API_KEY
+    authHeader: true # OpenAI-compatible API uses Bearer header
+    discovery:
+      type: "openai-models-list"
 
   google:
     api: "google-generative-ai"
     apiKey: "GEMINI_API_KEY" # Read from system environment variables
     authHeader: false # Google Generative AI API uses ?key= query param, NOT Bearer headers
-
-  ollama:
-    baseUrl: "http://localhost:11434/v1"
-    api: "openai-completions"
-    apiKey: "ollama-local" # Port 11434 loops to both local and cloud proxies
-    authHeader: true
-
-  llama.cpp:
-    baseUrl: "http://127.0.0.1:8080"
-    api: "openai-responses"
-    apiKey: "none"
-    authHeader: false
 
   openrouter:
     baseUrl: "https://openrouter.ai/api/v1"
@@ -29,7 +19,6 @@ providers:
     authHeader: true
 
 models:
-
   # =======================================================
   # 🧭 TIER 0: OMNIROUTE COMBOS (Unified proxy + free-forever start)
   # =======================================================
@@ -175,27 +164,6 @@ models:
     contextWindow: 1050000
     compat:
       supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  # =======================================================
-  # 🏠 TIER 3: LOCAL HARDWARE SECURE ZONE (64GB CPU Native)
-  # =======================================================
-  - id: "ollama/qwen3-coder:30b"
-    name: "Local Qwen 3 MoE Coder"
-    contextWindow: 262144
-    compat:
-      supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "llama.cpp/ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M"
-    name: "Local Gemma 4 MoE (llama.cpp)"
-    contextWindow: 262144
-    compat:
-      supportsDeveloperRole: false
       supportsToolChoice: true
       maxTokensField: "max_tokens"
       supportsUsageInStreaming: true

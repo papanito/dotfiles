@@ -10,7 +10,7 @@ default_model: "omniroute/free-forever"
 # The Triple-Tier Failover Matrix (Gemini Flash ──► Ollama Cloud ──► OpenRouter Free)
 # NOTE: Gemini Pro excluded from routing — rate-limited on Google free tier. Available via manual switch only.
 # NOTE: OpenRouter paid models (gpt-5.4) excluded from routing — available via manual switch only.
-# NOTE: Local models (llama.cpp, local ollama) excluded from routing — available via manual switch only.
+# NOTE: Local llama.cpp and local ollama hardware models removed; OmniRoute + cloud only.
 fallbackModel:
   # OmniRoute free-forever fails over into OmniRoute best-free
   "omniroute/free-forever": "omniroute/auto/best-free"
