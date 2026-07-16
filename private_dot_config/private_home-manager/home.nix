@@ -112,6 +112,7 @@ in
     go-task # Task runner / simpler Make alternative written in Go
     skaffold
     just # build tool
+    bun
 
     ## Development
     act # Run your GitHub Actions locally
