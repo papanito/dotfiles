@@ -142,7 +142,6 @@ in
     varia # Simple download manager based on aria2 and libadwaita
 
     ### Storage
-    cryfs # Cryptographic filesystem for the cloud
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     gocryptfs # Encrypted overlay filesystem written in Go
     cryptor # Simple gocryptfs GUI
