@@ -87,6 +87,7 @@
           ./modules/ollama.nix
           ./modules/llama-cpp.nix
           ./modules/omniroute.nix
+          ./modules/voxtype.nix
         ];
         extraSpecialArgs = {
           inherit
