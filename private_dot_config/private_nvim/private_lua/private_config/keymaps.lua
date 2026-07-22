@@ -22,8 +22,13 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { buffer = ev.buf, desc = "Find Projects" })
   end,
 })
--- Double <Esc> to exit terminal mode in ANY terminal buffer.
--- Snacks.terminal sets this only for its own `snacks_terminal` filetype;
--- plain `:terminal` buffers (filetype `terminal`) would otherwise have
--- no way to reach normal mode without `<C-\><C-n>`.
-map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- Single <Esc> to exit terminal mode in plain :terminal buffers (filetype
+-- "terminal"). Snacks.terminal has its own double-<Esc> handler for
+-- "snacks_terminal" buffers, so we only map this for non-Snacks terminals
+-- to avoid conflict.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "terminal",
+  callback = function(ev)
+    vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { buffer = ev.buf, desc = "Exit terminal mode" })
+  end,
+})

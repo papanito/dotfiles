@@ -15,8 +15,12 @@ return {
         ["<c-f>"] = { "scroll_documentation_down", "fallback" },
         ["<c-n>"] = { "select_next", "fallback_to_mappings" },
         ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
+        ["<down>"] = { "select_next", "fallback" },
+        ["<up>"] = { "select_prev", "fallback" },
         ["<c-space>"] = { "show", "hide" },
-        ["<tab>"] = { "select_and_accept", "fallback" },
+        ["<tab>"] = { "select_next", "snippet_forward", "fallback" },
+        ["<s-tab>"] = { "select_prev", "snippet_backward", "fallback" },
+        ["<cr>"] = { "accept", "fallback" },
         preset = "none",
       },
       sources = {
