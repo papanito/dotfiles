@@ -145,7 +145,6 @@ in
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
     gocryptfs # Encrypted overlay filesystem written in Go
     cryptor # Simple gocryptfs GUI
-    vaults # GTK frontend for encrypted vaults supporting gocryptfs and CryFS for encryptiongocryptfs
     steghide # Open source steganography program
     tomb # File encryption on GNU/Linux
 
