@@ -39,15 +39,6 @@ in
       enableBashIntegration = true;
       nix-direnv.enable = true;
     };
-    # oh-my-pi = {
-    #   enable = true;
-    #   agents = {
-    #     "my-agent.md".text = ''
-    #       # My Agent
-    #       This is my custom agent definition.
-    #     '';
-    #   };
-    # };
   };
 
   # Check the Home Manager manual for the recommended version for your Nixpkgs.
@@ -60,7 +51,14 @@ in
   };
 
   home.packages = with pkgs; [
+    # flakes
+    inputs.pi-nix.packages."x86_64-linux".default
+    inputs.omp-nix.packages."x86_64-linux".default
+    inputs.herdr.packages."x86_64-linux".default
+    inputs.gwl.packages."x86_64-linux".default
+
     (pkgs.python3.withPackages my-python-packages)
+
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
     nixd # Nix LSP
@@ -89,15 +87,16 @@ in
     dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
     dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
 
+    ## Google
+    gam # Command line management for Google Workspace
+    gws # One CLI for all of Google Workspace111
+
     ## misc
     lazyjournal
     pueue
     goto # easy to use terminal SSH manager with advanced features. Binaries included!
     neovim
     # obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
-    inputs.pi-nix.packages."x86_64-linux".default
-    inputs.omp-nix.packages."x86_64-linux".default
-    inputs.herdr.packages."x86_64-linux".default
     wtype # xdotool type for wayland
     gtk-layer-shell # Library to create panels and other desktop components for Wayland using the Layer Shell protocol
     aria2 # Lightweight, multi-protocol, multi-source, command-line download utility

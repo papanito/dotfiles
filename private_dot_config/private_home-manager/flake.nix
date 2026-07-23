@@ -14,17 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    pi-nix = {
-      url = "github:lukasl-dev/pi.nix";
-    };
-
+    pi-nix.url = "github:lukasl-dev/pi.nix";
     omp-nix.url = "github:cernoh/omp-flake";
     sheets.url = "github:maaslalani/sheets";
     herdr.url = "github:ogulcancelik/herdr";
+    gwl.url = "github:kbrdn1/gwm-cli";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
@@ -37,6 +31,7 @@
       pi-nix,
       omp-nix,
       herdr,
+      gwl,
       ...
     }@inputs:
     let
@@ -96,6 +91,7 @@
             pi-nix
             omp-nix
             herdr
+            gwl
             ;
         };
         # Optionally, pass extra arguments to your home.nix
