@@ -55,8 +55,12 @@ in
     inputs.pi-nix.packages."x86_64-linux".default
     inputs.omp-nix.packages."x86_64-linux".default
     inputs.herdr.packages."x86_64-linux".default
-    inputs.gwl.packages."x86_64-linux".default
+    #inputs.gwl.packages."x86_64-linux".default
     (pkgs.python3.withPackages my-python-packages)
+
+    mise # package management for go an rustup
+    pkg-config
+    openssl
 
     ## nix tools
     nix-direnv # A fast, persistent use_nix implementation for direnv
@@ -71,73 +75,72 @@ in
     ## AI
     antigravity # Agentic development platform, evolving the IDE into the agent-first era
     ollama
+    (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
 
     ## Security
-    tirith # URL security analysis for shell environments
-    trivy
     keyguard # Bitwarden alternative
-    rbw # Alternative bitwarden cli
     opensnitch-ui
     gitleaks # Scan git repos (or files) for secrets
+    rbw # Alternative bitwarden cli
     shellcheck # Shell script analysis tool
     snyk # snyk library and cli utility
+    tirith # URL security analysis for shell environments
+    trivy
 
     ## Database
     dbeaver-bin # Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more
     dbgate # Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others
 
-    ## Google
-    # gam # Command line management for Google Workspace
-    #gws # One CLI for all of Google Workspace
-
     ## misc
-    lazyjournal
     pueue
-    goto # easy to use terminal SSH manager with advanced features. Binaries included!
     neovim
-    wtype # xdotool type for wayland
-    gtk-layer-shell # Library to create panels and other desktop components for Wayland using the Layer Shell protocol
-    aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
-    jid # json editor
-    jless # json editor
     czkawka # Simple, fast and easy to use app to remove unnecessary files from your computer
 
-    ## Build tools
+    ## Build & Dev tools
+    act # Run your GitHub Actions locally
+    actionlint # Static checker for GitHub Actions workflow files
+    bump # CLI tool to draft a GitHub Release for the next semantic version
     buildah # A tool which facilitates building OCI images
     buildkit # Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
     buildkit-nix # Nix frontend for x
     buildkite-cli # A command line interface for Buildkite
-    go-task # Task runner / simpler Make alternative written in Go
-    skaffold
-    just # build tool
     bun
-
-    ## Development
-    act # Run your GitHub Actions locally
-    actionlint # Static checker for GitHub Actions workflow files
-    bump # CLI tool to draft a GitHub Release for the next semantic version
     codeberg-cli
     #cargo
-    rustc
+    go-task # Task runner / simpler Make alternative written in Go
     gh # github cli
     glab # gitlab cli
-    lazygit # Simple terminal UI for git commands
     geminicommit # CLI that generates git commit messages with Google Gemini AI
     git-interactive-rebase-tool
-    commitlint
+    jid # json editor
+    jless # json editor
+    just # build tool
+    lazygit # Simple terminal UI for git commands
     pre-commit
+    rustc
     rustup # Rust toolchain installer
+    skaffold
+    uv # Extremely fast Python package installer and resolver, written in Rust
+
+    ### Linter and Formatter
+    commitlint
     prettier # Code formatter
     prettier-plugin-go-template # Fixes prettier formatting for go templates
-    uv # Extremely fast Python package installer and resolver, written in Rust
-    (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
+    vacuum-go # World's fastest OpenAPI & Swagger linter
 
     ### API
     bruno # Open-source IDE For exploring and testing APIs
     hurl # Command line tool that performs HTTP requests defined in a simple plain text format.
     insomnia # The most intuitive cross-platform REST API Client
     posting
+
+    ### network
+    aria2 # Lightweight, multi-protocol, multi-source, command-line download utility
+    proton-vpn
     varia # Simple download manager based on aria2 and libadwaita
+
+    ### Virtualization
+    nemu # Ncurses UI for QEMU
 
     ### Storage
     goofys # A high-performance, POSIX-ish Amazon S3 file system written in Go
@@ -154,27 +157,32 @@ in
     w3m # A text-mode web browser
     vhs # Tool for generating terminal GIFs with code
     yazi # terminal file explorer
+
+    ### System tools
     erdtree # File-tree visualizer and disk usage analyzer
+    lazyjournal
 
     ## Docker and Kubernetes
     dive # Tool for exploring each layer in a docker image
     popeye # Kubernetes cluster resource sanitizer
 
-    ## Cloud
+    ### IaC
     ansible
     ansible-lint
-    azure-cli
-    python312Packages.msrest
-    google-cloud-sdk
-    hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
-    ibmcloud-cli # Command line client for IBM Cloud
-    python312Packages.hcloud # Library for the Hetzner Cloud API
     terraform
     #terragrunt # A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices
     terraform-docs # A utility to generate documentation from Terraform modules in various output formats
     tflint
     packer
     vagrant
+
+    ### Cloud
+    azure-cli
+    python312Packages.msrest
+    google-cloud-sdk
+    hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
+    ibmcloud-cli # Command line client for IBM Cloud
+    python312Packages.hcloud # Library for the Hetzner Cloud API
 
     ## fun
     genact # Nonsense activity generator
@@ -186,6 +194,7 @@ in
     vte # Provides vte.2,91.typelib
     libhandy # Provides Handy-1.typelib
     gjs # JavaScript bindings for GNOME
+    gtk-layer-shell # Library to create panels and other desktop components for Wayland using the Layer Shell protocol
     gnome-network-displays # miracast implementation for GNOME
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while.
     gnomeExtensions.gsconnect
@@ -205,26 +214,31 @@ in
     #gnomeExtensions.another-window-session-manager # Close open windows gracefully and save them as a session.
     #gnomeExtensions.sermon # SerMon: an extension for monitoring and managing systemd services, cron jobs, docker and podman containers
     #gnomeExtensions.window-state-manager # Automatically remember and restore window state and positions.
+    wtype # xdotool type for wayland
+
+    ### Comm
+    element-desktop # A feature-rich client for Matrix.org
+    irssi
+    signal-desktop
 
     ### Browser, Mail, ...
-    mutt
-    element-desktop # A feature-rich client for Matrix.org
-    signal-desktop
-    profile-sync-daemon
     deluge
-    irssi
+    mutt
+    profile-sync-daemon
     evince
-    rssguard
     vivaldi # browser
     poppler-utils # PDF
     nextcloud-client
-    proton-vpn
     speechd # Common interface to speech synthesis
     morphosis # Convert your documents
 
     ## Media
     pinta
     gimp
+
+    ## Google
+    #gam # Command line management for Google Workspace
+    gws # One CLI for all of Google Workspace
   ];
 
   # services.postgresql = {
