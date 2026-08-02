@@ -19,6 +19,7 @@
     sheets.url = "github:maaslalani/sheets";
     herdr.url = "github:ogulcancelik/herdr";
     gwl.url = "github:kbrdn1/gwm-cli";
+    iris.url = "github:versenilvis/iris/main";
     # You can add other flakes as inputs here, e.g., custom overlays or utility flakes.
     # flake-utils.url = "github:numtide/flake-utils";
   };
@@ -32,6 +33,7 @@
       omp-nix,
       herdr,
       gwl,
+      iris,
       ...
     }@inputs:
     let
@@ -83,6 +85,7 @@
           ./modules/llama-cpp.nix
           ./modules/omniroute.nix
           ./modules/voxtype.nix
+          inputs.sops-nix.homeManagerModules.sops # Added this line
         ];
         extraSpecialArgs = {
           inherit
@@ -92,6 +95,7 @@
             omp-nix
             herdr
             gwl
+            iris
             ;
         };
         # Optionally, pass extra arguments to your home.nix
