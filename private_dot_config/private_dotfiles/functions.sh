@@ -14,17 +14,6 @@ if [ -n "$ZSH_VERSION" ]; then
       local HISTSIZE=0
    }
 
-   # @description Debug p10k
-   # @noargs
-   function p10k_debug()
-   {
-      emulate -L zsh -o xtrace
-      typeset -pm 'POWERLEVEL9K_*|P9K_KUBECONTEXT_*|ZSH_VERSION'
-      uname -a
-      whence kubectl
-      ((!$ + commands[kubectl])) || kubectl config view -o=yaml
-   } &>/tmp/p10k.txt
-
    ## Reveal the command behind an alias with ZSH
    ## Surce: https://dev.to/equiman/reveal-the-command-behind-an-alias-with-zsh-4d96
    local cmd_alias=""

@@ -30,6 +30,61 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+# -------------------------------------------
+# Global tool installations (npm, go, cargo, uv)
+# -------------------------------------------
+# These run once per shell startup; guard with which to skip if already installed
+# Note: omniroute npm package is required by Home Manager omniroute.nix service
+
+{{- if .isDeveloperMachine }}
+# npm global packages
+zinit ice id-as"npm-packages" as"null" \
+    atload"
+        which codegraph &>/dev/null || npm i -g @colbymchenry/codegraph 2>/dev/null
+        which gemini &>/dev/null || npm i -g @google/gemini-cli 2>/dev/null
+        which qodercli &>/dev/null || npm i -g @qoder-ai/qodercli 2>/dev/null
+        which branchlet &>/dev/null || npm i -g branchlet 2>/dev/null
+        which codeburn &>/dev/null || npm i -g codeburn 2>/dev/null
+        which omniroute &>/dev/null || npm i -g omniroute 2>/dev/null
+        which resume &>/dev/null || npm i -g resume-cli 2>/dev/null
+        which shx &>/dev/null || npm i -g shx 2>/dev/null
+    "
+zinit load zdharma-continuum/null
+
+# go install packages
+zinit ice id-as"go-packages" as"null" \
+    atload"
+        which dskDitto &>/dev/null || go install github.com/jdefrancesco/dskDitto/cmd/dskDitto@latest 2>/dev/null
+        which gopls &>/dev/null || go install golang.org/x/tools/gopls@latest 2>/dev/null
+        which keyward &>/dev/null || go install github.com/gateway-of-last-resort/keyward/cmd/keyward@latest 2>/dev/null
+        which labcoat &>/dev/null || go install github.com/jhillyerd/labcoat@latest 2>/dev/null
+        which localcert &>/dev/null || go install github.com/lann/localcert/cmd/localcert@latest 2>/dev/null
+        which pop &>/dev/null || go install github.com/charmbracelet/pop@latest 2>/dev/null
+        which sheets &>/dev/null || go install github.com/maaslalani/sheets@latest 2>/dev/null
+        which staticcheck &>/dev/null || go install honnef.co/go/tools/cmd/staticcheck@latest 2>/dev/null
+        which whoiswatcher &>/dev/null || go install github.com/BuffaloWill/whoiswatcher/cmd/whoiswatcher@latest 2>/dev/null
+    "
+zinit load zdharma-continuum/null
+
+# cargo install packages
+zinit ice id-as"cargo-packages" as"null" \
+    atload"
+        which gitpane &>/dev/null || cargo install gitpane --locked 2>/dev/null
+        which glab-tui &>/dev/null || cargo install glab-tui-crate --locked 2>/dev/null
+        which omp-manager &>/dev/null || cargo install omp-manager --locked 2>/dev/null
+    "
+zinit load zdharma-continuum/null
+
+# uv tool packages
+zinit ice id-as"uv-packages" as"null" \
+    atload"
+        which dotbins &>/dev/null || uv tool install dotbins 2>/dev/null
+        which graphify &>/dev/null || uv tool install graphifyy 2>/dev/null
+    "
+zinit load zdharma-continuum/null
+
+{{- end }}
+
 # ZSH Settings
 autoload -Uz compinit; compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 autoload -U +X bashcompinit && bashcompinit
@@ -72,7 +127,7 @@ setopt no_complete_aliases
 setopt menu_complete            # Do Not Autoselect The First Completion Entry.
 unsetopt flow_control           # Disable Start/Stop Characters In Shell Editor.
 
-# define the completer we’ll use for our completion system
+# define the completer we'll use for our completion system
 # The order matter: the completion system will try each of these completer one after the other
 zstyle ':completion:*' completer _expand_alias _expand _complete _correct _approximate
 
@@ -82,7 +137,7 @@ zstyle ':completion:*' squeeze-slashes true
 # cd will never select the parent directory (e.g.: cd ../<TAB>):
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
-# Using a cache for the completion can speed up some commands, like apt for example. Let’s add the following in our file to enable it:
+# Using a cache for the completion can speed up some commands, like apt for example. Let's add the following in our file to enable it:
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR/.zcompcache"
 
@@ -105,7 +160,7 @@ zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-Z}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
@@ -117,7 +172,7 @@ zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*'   force-list always
 
 # See ZSHCOMPWID "completion matching control"
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' keep-prefix true
 
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
@@ -294,4 +349,3 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=true
 # would be lost. Without this, typing `zi` hangs the completion system on
 # every keystroke because no completion is bound to the alias.
 (( ${+_comps} )) && _comps[zi]=_zinit && _comps[zpl]=_zinit && _comps[zplg]=_zinit && _comps[zini]=_zinit
-
