@@ -18,9 +18,151 @@ providers:
     apiKey: "OPENROUTER_API_KEY" # Read from system environment variables
     authHeader: true
 
+  # NOTE: ollama-cloud and alibaba-token-plan are BUILT-IN providers —
+  # auth via `/login ollama-cloud` and ALIBABA_TOKEN_PLAN_API_KEY respectively.
+  # No provider block needed here; entries below only pin compat/context.
+
 models:
   # =======================================================
-  # 🧭 TIER 0: OMNIROUTE COMBOS (Unified proxy + free-forever start)
+  # ☁️ TIER 1: OLLAMA CLOUD (Primary Engine)
+  # =======================================================
+  - id: "ollama-cloud/glm-5.2"
+    name: "Ollama Cloud GLM-5.2"
+    contextWindow: 1000000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama-cloud/kimi-k2.7-code"
+    name: "Ollama Cloud Kimi K2.7"
+    contextWindow: 262144
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama-cloud/deepseek-v4-pro"
+    name: "Ollama Cloud DeepSeek V4 Pro"
+    contextWindow: 524288
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama-cloud/gpt-oss:20b"
+    name: "Ollama Cloud GPT-OSS 20B"
+    contextWindow: 131072
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama-cloud/qwen3-coder-next"
+    name: "Ollama Cloud Qwen3 Coder Next"
+    contextWindow: 262144
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "ollama-cloud/gemini-3-flash-preview"
+    name: "Ollama Cloud Gemini 3 Flash"
+    contextWindow: 1048576
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  # =======================================================
+  # 🔥 TIER 2: GEMINI CLOUD (Rate-Limited Fallback)
+  # =======================================================
+  - id: "google/gemini-2.5-flash"
+    name: "Google Gemini 2.5 Flash"
+    contextWindow: 1048576
+    compat:
+      supportsDeveloperRole: true
+      supportsToolChoice: true
+      maxTokensField: "max_output_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "google/gemini-2.5-pro"
+    name: "Google Gemini 2.5 Pro"
+    contextWindow: 2097152 # Massive 2M block for massive Go/TS system projects
+    compat:
+      supportsDeveloperRole: true
+      supportsToolChoice: true
+      maxTokensField: "max_output_tokens"
+      supportsUsageInStreaming: true
+
+  # =======================================================
+  # 🐉 TIER 3: ALIBABA TOKEN PLAN (Gemini relief)
+  # =======================================================
+  - id: "alibaba-token-plan/glm-5.2"
+    name: "Alibaba GLM-5.2"
+    contextWindow: 1000000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "alibaba-token-plan/qwen3.7-max"
+    name: "Alibaba Qwen3.7 Max"
+    contextWindow: 1000000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "alibaba-token-plan/qwen3.7-plus"
+    name: "Alibaba Qwen3.7 Plus"
+    contextWindow: 1000000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "alibaba-token-plan/deepseek-v4-pro"
+    name: "Alibaba DeepSeek V4 Pro"
+    contextWindow: 1000000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  # =======================================================
+  # 🆓 TIER 4: OPENROUTER FREE (Zero-Cost Cloud Fallback)
+  # =======================================================
+  - id: "openrouter/openai/gpt-oss-20b:free"
+    name: "GPT-OSS 20B (Free)"
+    contextWindow: 131072
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  - id: "openrouter/cohere/north-mini-code:free"
+    name: "Cohere North Mini Code (Free)"
+    contextWindow: 256000
+    compat:
+      supportsDeveloperRole: false
+      supportsToolChoice: true
+      maxTokensField: "max_tokens"
+      supportsUsageInStreaming: true
+
+  # =======================================================
+  # 🧭 TIER 5: OMNIROUTE COMBOS (Last-Resort Proxy)
   # =======================================================
   - id: "omniroute/free-forever"
     name: "OmniRoute Free Forever"
@@ -52,104 +194,6 @@ models:
   - id: "omniroute/auto/cheap"
     name: "OmniRoute Cheap"
     contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-  # =======================================================
-  # 🔥 TIER 1: GEMINI CLOUD ENGINE (Your Active Front-Line)
-  # =======================================================
-  - id: "google/gemini-2.5-flash"
-    name: "Google Gemini 2.5 Flash"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_output_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "google/gemini-2.5-pro"
-    name: "Google Gemini 2.5 Pro"
-    contextWindow: 2097152 # Massive 2M block for massive Go/TS system projects
-    compat:
-      supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_output_tokens"
-      supportsUsageInStreaming: true
-
-  # =======================================================
-  # ☁️ TIER 2: OLLAMA CLOUD BACKUP (The Proxy Engine)
-  # =======================================================
-  - id: "ollama/glm-5.2"
-    name: "Ollama Cloud GLM-5.2"
-    contextWindow: 1000000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "ollama/kimi-k2.7-code"
-    name: "Ollama Cloud Kimi K2.7"
-    contextWindow: 262144
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "ollama/deepseek-v4-pro"
-    name: "Ollama Cloud DeepSeek V4 Pro"
-    contextWindow: 524288
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "ollama/gpt-oss:20b"
-    name: "Ollama Cloud GPT-OSS 20B"
-    contextWindow: 131072
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "ollama/qwen3-coder-next"
-    name: "Ollama Cloud Qwen3 Coder Next"
-    contextWindow: 262144
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "ollama/gemini-3-flash-preview"
-    name: "Ollama Cloud Gemini 3 Flash"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  # =======================================================
-  # 🆓 TIER 2.5: OPENROUTER FREE (Zero-Cost Cloud Fallback)
-  # =======================================================
-  - id: "openrouter/openai/gpt-oss-20b:free"
-    name: "GPT-OSS 20B (Free)"
-    contextWindow: 131072
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "openrouter/cohere/north-mini-code:free"
-    name: "Cohere North Mini Code (Free)"
-    contextWindow: 256000
     compat:
       supportsDeveloperRole: false
       supportsToolChoice: true

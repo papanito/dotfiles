@@ -81,3 +81,4 @@ When the user requests a durable behavior change, record it here or in the relev
 ## Child DOX Index
 
 - `private_dot_config/private_home-manager/` — Standalone Home Manager flake for user `papanito`: flake inputs, service modules (ollama, llama-cpp, watchman, pueue, omniroute, etc.), and `home.nix` package list. See its AGENTS.md for the add-a-flake-input workflow.
+- `private_dot_omp/private_agent/` — oh-my-pi (omp) model catalog and routing/failover config (models.yml, config.yml). Chezmoi source is the source of truth; runtime copy at `~/.omp/agent/` is omp-managed. See its AGENTS.md for the routing contract and sync rules.
