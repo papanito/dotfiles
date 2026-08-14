@@ -109,6 +109,7 @@ in
     #cargo
     go-task # Task runner / simpler Make alternative written in Go
     gh # github cli
+    ghgrab # Simple, pretty terminal tool that lets you search and download files from GitHub without leaving your CLI
     glab # gitlab cli
     geminicommit # CLI that generates git commit messages with Google Gemini AI
     git-interactive-rebase-tool
