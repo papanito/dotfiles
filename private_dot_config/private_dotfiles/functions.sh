@@ -616,64 +616,6 @@ dconfrestore() {
    dconf load / < $DCONF_BACKUP
 }
 
-# @section nixos
-# @description helper functions for nixos
-
-# @description rebuild nixos with my config
-nixsync () {
-   export NIXOSWD=$HOME/Workspaces/papanito/nixos-configuration/
-   export NIXOSDIR=/etc/nixos
-   pushd $NIXOSWD
-   # 1. sync config from working dir
-   sudo rsync -rv $NIXOSWD --update --delete --exclude result $NIXOSDIR
-   popd
-}
-
-# @description rebuild nixos with my config
-nixreb () {
-   declare options;
-   HOSTNAME=""
-   UPGRADE=""
-   IMPURE=""
-   VERBOSE=""
-   REMOTE=""
-   while getopts "uvish:r:" options; do
-      case ${options} in
-         u )
-            UPGRADE="--upgrade"
-         ;;
-         i )
-            IMPURE="--impure"
-            export NIXPKGS_ALLOW_INSECURE=1
-         ;;
-         s )
-            SWITCH="switch"
-         ;;
-         v )
-            VERBOSE="--show-trace"
-         ;;
-         h )
-            HOSTNAME=$OPTARG
-         ;;
-         r )
-            REMOTE="--target-host $OPTARG"
-         ;;
-      esac
-   done
-
-   nixsync
-   # Source loale for us otherwise perl has issues
-   source ~/.env-us.locale
-   pushd $NIXOSWD
-   if [[ -f "$NIXOSDIR/flake.nix" ]]; then
-      command="sudo nixos-rebuild $SWITCH --flake '.#$HOSTNAME' $UPGRADE $REMOTE $IMPURE $VERBOSE"
-      echo $command
-      eval "$command"
-   else
-      sudo nixos-rebuild $SWITCH $UPGRADE $IMPURE $VERBOSE
-   fi
-}
-
 # @description cleanup nix stuff (see https://discourse.nixos.org/t/what-to-do-with-a-full-boot-partition/2049/3)
 nix-clean () {
   nix-env --delete-generations old
