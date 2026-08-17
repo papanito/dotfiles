@@ -1,57 +1,37 @@
 providers:
-  webSearch: gemini
+  webSearchOrder:
+    - gemini
+    - perplexity
+    - anthropic
+    - codex
+    - xai
+    - zai
+    - exa
+    - tinyfish
+    - jina
+    - kagi
+    - tavily
+    - firecrawl
+    - brave
+    - kimi
+    - parallel
+    - synthetic
+    - searxng
+    - startpage
+    - duckduckgo
+    - ecosia
+    - google
+    - mojeek
+    - public
+  autoThinkingMaxEffort: "medium" # ADDED: Caps background reasoning effort from xhigh to medium
+
 symbolPreset: unicode
 theme:
   dark: titanium
 setupVersion: 1
-# Startup Default — Ollama Cloud first, everything else is fallback
-default_model: "ollama-cloud/glm-5.2"
-
-# Failover Matrix: Ollama Cloud ──► Gemini ──► Alibaba Token Plan ──► OpenRouter Free ──► OmniRoute
-# NOTE: Gemini is rate-limited on the free tier — it's a pass-through, not a destination.
-# NOTE: Alibaba Token Plan backs Gemini — qwen3.7-plus keeps vision, qwen3.7-max keeps deep reasoning.
-# NOTE: OpenRouter paid models (gpt-5.4) excluded from routing — available via manual switch only.
-# NOTE: Local llama.cpp and local ollama hardware models removed; cloud providers only.
-fallbackModel:
-  # Tier 1 Ollama Cloud fails over into Gemini
-  "ollama-cloud/glm-5.2": "google/gemini-2.5-flash"
-  "ollama-cloud/deepseek-v4-pro": "google/gemini-2.5-flash"
-  "ollama-cloud/kimi-k2.7-code": "google/gemini-2.5-flash"
-  "ollama-cloud/qwen3-coder-next": "google/gemini-2.5-flash"
-  "ollama-cloud/gpt-oss:20b": "google/gemini-2.5-flash"
-  "ollama-cloud/gemini-3-flash-preview": "google/gemini-2.5-flash"
-
-  # Gemini (rate-limited) hands off to Alibaba Token Plan
-  "google/gemini-2.5-flash": "alibaba-token-plan/qwen3.7-plus"
-  "google/gemini-2.5-pro": "alibaba-token-plan/qwen3.7-max"
-
-  # Alibaba hands off to OpenRouter Free
-  "alibaba-token-plan/glm-5.2": "openrouter/openai/gpt-oss-20b:free"
-  "alibaba-token-plan/qwen3.7-max": "openrouter/openai/gpt-oss-20b:free"
-  "alibaba-token-plan/qwen3.7-plus": "openrouter/openai/gpt-oss-20b:free"
-  "alibaba-token-plan/deepseek-v4-pro": "openrouter/openai/gpt-oss-20b:free"
-
-  # OpenRouter Free fails over into OmniRoute last-resort
-  "openrouter/openai/gpt-oss-20b:free": "omniroute/free-forever"
-  "openrouter/cohere/north-mini-code:free": "omniroute/free-forever"
-  "omniroute/free-forever": "omniroute/auto/best-free"
-  "omniroute/auto/coding:free": "omniroute/auto/best-free"
-  "omniroute/auto/cheap": "omniroute/auto/best-free"
-
-# Subagent Task Assignments (Primary: Ollama Cloud)
-modelRoles:
-  default: "ollama-cloud/glm-5.2" # Interactive session — primary engine
-  smol: "ollama-cloud/qwen3-coder-next" # Quick mechanical subagents — fast coder
-  slow: "ollama-cloud/deepseek-v4-pro" # Deep reasoning
-  vision: "ollama-cloud/gemini-3-flash-preview" # Image inputs — multimodal
-  plan: "ollama-cloud/deepseek-v4-pro" # Architecture proposals
-  designer: "ollama-cloud/kimi-k2.7-code" # UI/UX specialist — code + image input
-  commit: "ollama-cloud/gpt-oss:20b" # Commit message generation — small and fast
-  task: "ollama-cloud/glm-5.2" # General-purpose subagents
-  advisor: "ollama-cloud/deepseek-v4-pro" # Oracle/consultation
 
 agent:
-  reasoning_effort: "high"
+  reasoning_effort: "auto"
   interactive: true # Standard permission gate before executing local commands
   max_iterations: 12
 
@@ -64,6 +44,8 @@ code:
     go: "1.22"
     typescript: "bun" # Prefers lightweight runtimes for infrastructure scripts
 personality: pragmatic
+textVerbosity: low # ADDED: Forces short, concise model output to save generation tokens
+
 rules:
   autoConnectLsp: true
   trackModelConsumption: true
@@ -84,14 +66,45 @@ renderMermaid:
   enabled: false
 github:
   enabled: true
+images:
+  describeForTextModels: false # ADDED: Stops background image-to-text token processing
+
 hideThinkingBlock: true
 autolearn:
   enabled: true
 task:
   isolation:
     mode: auto
+  eager: preferred
+  maxEffort: "medium" # ADDED: Prevents subagent tasks from generating huge thinking traces
+
 autoResume: true
 autocompleteMaxVisible: 10
 dev:
   autoqa: false
+defaultThinkingLevel: low # OPTIMIZED: Changed from 'auto' to 'low' to cap routine thinking tokens
+proseOnlyThinking: true
+omitThinking: true
+checkpoint:
+  enabled: true
 
+compaction:
+  strategy: snapcompact
+  handoffSaveToDisk: true
+  keepRecentTokens: 8000 # ADDED: Reduces active uncompressed context window from 20000 to 8000
+  supersedeReads: true # ADDED: Drops outdated file read buffers when re-read
+  dropUseless: true # ADDED: Purges uninformative tool execution turns from context
+
+snapcompact:
+  toolResults: true # ADDED: Enables compression for tool execution logs
+  systemPrompt: "agents-md" # ADDED: Trims static system prompt overhead
+
+files:
+  read:
+    defaultLimit: 150 # ADDED: Halves default file read limit (from 300) to shrink payloads
+
+tools:
+  artifactTailLines: 150 # ADDED: Restricts command stdout/stderr capture size in context
+
+grep:
+  contextAfter: 1 # ADDED: Cuts search result context lines to shrink grep payloads

@@ -73,7 +73,7 @@ in
     libsecret
 
     ## AI
-    antigravity # Agentic development platform, evolving the IDE into the agent-first era
+    antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
     ollama
     (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
 
@@ -111,7 +111,6 @@ in
     gh # github cli
     ghgrab # Simple, pretty terminal tool that lets you search and download files from GitHub without leaving your CLI
     glab # gitlab cli
-    geminicommit # CLI that generates git commit messages with Google Gemini AI
     git-interactive-rebase-tool
     jid # json editor
     jless # json editor

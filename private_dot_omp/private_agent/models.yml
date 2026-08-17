@@ -1,213 +1,213 @@
+# =======================================================
+# 🌐 PROVIDERS & CUSTOM MODELS
+# =======================================================
 providers:
   omniroute:
     baseUrl: "http://localhost:20128/v1"
     api: "openai-completions"
     apiKey: "OMNIROUTE_API_KEY"
-    authHeader: true # OpenAI-compatible API uses Bearer header
+    authHeader: true
     discovery:
       type: "openai-models-list"
+    models:
+      - id: "omniroute/free-forever"
+        name: "OmniRoute Free Forever"
+        contextWindow: 128000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  google:
-    api: "google-generative-ai"
-    apiKey: "GEMINI_API_KEY" # Read from system environment variables
-    authHeader: false # Google Generative AI API uses ?key= query param, NOT Bearer headers
+      - id: "omniroute/auto/best-free"
+        name: "OmniRoute Best Free"
+        contextWindow: 1048576
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
+
+      - id: "omniroute/auto/coding:free"
+        name: "OmniRoute Coding Free"
+        contextWindow: 1048576
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
+
+      - id: "omniroute/auto/cheap"
+        name: "OmniRoute Cheap"
+        contextWindow: 1048576
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
   openrouter:
     baseUrl: "https://openrouter.ai/api/v1"
     api: "openai-completions"
-    apiKey: "OPENROUTER_API_KEY" # Read from system environment variables
+    apiKey: "OPENROUTER_API_KEY"
     authHeader: true
+    models:
+      - id: "openrouter/openai/gpt-oss-20b:free"
+        name: "GPT-OSS 20B (Free)"
+        contextWindow: 131072
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  # NOTE: ollama-cloud and alibaba-token-plan are BUILT-IN providers —
-  # auth via `/login ollama-cloud` and ALIBABA_TOKEN_PLAN_API_KEY respectively.
-  # No provider block needed here; entries below only pin compat/context.
+      - id: "openrouter/cohere/north-mini-code:free"
+        name: "Cohere North Mini Code (Free)"
+        contextWindow: 256000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-models:
-  # =======================================================
-  # ☁️ TIER 1: OLLAMA CLOUD (Primary Engine)
-  # =======================================================
-  - id: "ollama-cloud/glm-5.2"
-    name: "Ollama Cloud GLM-5.2"
-    contextWindow: 1000000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "openrouter/openai/gpt-5.4"
+        name: "GPT-5.4 (Designer)"
+        contextWindow: 1050000
+        compat:
+          supportsDeveloperRole: true
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "ollama-cloud/kimi-k2.7-code"
-    name: "Ollama Cloud Kimi K2.7"
-    contextWindow: 262144
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+  ollama-cloud:
+    models:
+      - id: "ollama-cloud/glm-5.2"
+        name: "Ollama Cloud GLM-5.2"
+        contextWindow: 1000000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "ollama-cloud/deepseek-v4-pro"
-    name: "Ollama Cloud DeepSeek V4 Pro"
-    contextWindow: 524288
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "ollama-cloud/kimi-k2.7-code"
+        name: "Ollama Cloud Kimi K2.7"
+        contextWindow: 262144
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "ollama-cloud/gpt-oss:20b"
-    name: "Ollama Cloud GPT-OSS 20B"
-    contextWindow: 131072
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "ollama-cloud/deepseek-v4-pro"
+        name: "Ollama Cloud DeepSeek V4 Pro"
+        contextWindow: 524288
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "ollama-cloud/qwen3-coder-next"
-    name: "Ollama Cloud Qwen3 Coder Next"
-    contextWindow: 262144
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "ollama-cloud/gpt-oss:20b"
+        name: "Ollama Cloud GPT-OSS 20B"
+        contextWindow: 131072
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "ollama-cloud/gemini-3-flash-preview"
-    name: "Ollama Cloud Gemini 3 Flash"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "ollama-cloud/qwen3-coder-next"
+        name: "Ollama Cloud Qwen3 Coder Next"
+        contextWindow: 262144
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  # =======================================================
-  # 🔥 TIER 2: GEMINI CLOUD (Rate-Limited Fallback)
-  # =======================================================
-  - id: "google/gemini-2.5-flash"
-    name: "Google Gemini 2.5 Flash"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_output_tokens"
-      supportsUsageInStreaming: true
+      - id: "ollama-cloud/gemini-3-flash-preview"
+        name: "Ollama Cloud Gemini 3 Flash"
+        contextWindow: 1048576
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "google/gemini-2.5-pro"
-    name: "Google Gemini 2.5 Pro"
-    contextWindow: 2097152 # Massive 2M block for massive Go/TS system projects
-    compat:
-      supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_output_tokens"
-      supportsUsageInStreaming: true
+  alibaba-token-plan:
+    models:
+      - id: "alibaba-token-plan/glm-5.2"
+        name: "Alibaba GLM-5.2"
+        contextWindow: 1000000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  # =======================================================
-  # 🐉 TIER 3: ALIBABA TOKEN PLAN (Gemini relief)
-  # =======================================================
-  - id: "alibaba-token-plan/glm-5.2"
-    name: "Alibaba GLM-5.2"
-    contextWindow: 1000000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "alibaba-token-plan/qwen3.7-max"
+        name: "Alibaba Qwen3.7 Max"
+        contextWindow: 1000000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "alibaba-token-plan/qwen3.7-max"
-    name: "Alibaba Qwen3.7 Max"
-    contextWindow: 1000000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "alibaba-token-plan/qwen3.7-plus"
+        name: "Alibaba Qwen3.7 Plus"
+        contextWindow: 1000000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "alibaba-token-plan/qwen3.7-plus"
-    name: "Alibaba Qwen3.7 Plus"
-    contextWindow: 1000000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+      - id: "alibaba-token-plan/deepseek-v4-pro"
+        name: "Alibaba DeepSeek V4 Pro"
+        contextWindow: 1000000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
 
-  - id: "alibaba-token-plan/deepseek-v4-pro"
-    name: "Alibaba DeepSeek V4 Pro"
-    contextWindow: 1000000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+# =======================================================
+# ⚙️ MODEL ROUTING & SUBAGENT ROLES
+# =======================================================
+default_model: "ollama-cloud/deepseek-v4-flash"
 
-  # =======================================================
-  # 🆓 TIER 4: OPENROUTER FREE (Zero-Cost Cloud Fallback)
-  # =======================================================
-  - id: "openrouter/openai/gpt-oss-20b:free"
-    name: "GPT-OSS 20B (Free)"
-    contextWindow: 131072
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+fallbackModel:
+  "ollama-cloud/glm-5.2": "google-antigravity/gemini-2.5-flash"
+  "ollama-cloud/deepseek-v4-flash": "google-antigravity/gemini-2.5-flash"
+  "ollama-cloud/deepseek-v4-pro": "google-antigravity/gemini-2.5-flash"
+  "ollama-cloud/kimi-k2.7-code": "google-antigravity/gemini-2.5-flash"
+  "ollama-cloud/qwen3-coder-next": "google-antigravity/gemini-2.5-flash"
+  "ollama-cloud/gpt-oss:20b": "google-antigravity/gemini-2.5-flash"
+  "ollama-cloud/gemini-3-flash-preview": "google-antigravity/gemini-2.5-flash"
 
-  - id: "openrouter/cohere/north-mini-code:free"
-    name: "Cohere North Mini Code (Free)"
-    contextWindow: 256000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+  "google-antigravity/gemini-2.5-flash": "alibaba-token-plan/qwen3.7-plus"
+  "google-antigravity/gemini-2.5-pro": "alibaba-token-plan/qwen3.7-max"
 
-  # =======================================================
-  # 🧭 TIER 5: OMNIROUTE COMBOS (Last-Resort Proxy)
-  # =======================================================
-  - id: "omniroute/free-forever"
-    name: "OmniRoute Free Forever"
-    contextWindow: 128000
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+  "alibaba-token-plan/glm-5.2": "openrouter/openai/gpt-oss-20b:free"
+  "alibaba-token-plan/qwen3.7-max": "openrouter/openai/gpt-oss-20b:free"
+  "alibaba-token-plan/qwen3.7-plus": "openrouter/openai/gpt-oss-20b:free"
+  "alibaba-token-plan/deepseek-v4-pro": "openrouter/openai/gpt-oss-20b:free"
 
-  - id: "omniroute/auto/best-free"
-    name: "OmniRoute Best Free"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+  "openrouter/openai/gpt-oss-20b:free": "omniroute/free-forever"
+  "openrouter/cohere/north-mini-code:free": "omniroute/free-forever"
+  "omniroute/free-forever": "omniroute/auto/best-free"
+  "omniroute/auto/coding:free": "omniroute/auto/best-free"
+  "omniroute/auto/cheap": "omniroute/auto/best-free"
 
-  - id: "omniroute/auto/coding:free"
-    name: "OmniRoute Coding Free"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  - id: "omniroute/auto/cheap"
-    name: "OmniRoute Cheap"
-    contextWindow: 1048576
-    compat:
-      supportsDeveloperRole: false
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
-
-  # =======================================================
-  # 🎨 SPECIALIST: OPENROUTER PAID (Heavy Designer Model)
-  # =======================================================
-  - id: "openrouter/openai/gpt-5.4"
-    name: "GPT-5.4 (Designer)"
-    contextWindow: 1050000
-    compat:
-      supportsDeveloperRole: true
-      supportsToolChoice: true
-      maxTokensField: "max_tokens"
-      supportsUsageInStreaming: true
+modelRoles:
+  default: "ollama-cloud/deepseek-v4-flash"
+  smol: "ollama-cloud/deepseek-v4-flash"
+  slow: "ollama-cloud/deepseek-v4-pro"
+  vision: "ollama-cloud/gemini-3-flash-preview"
+  plan: "ollama-cloud/deepseek-v4-pro"
+  designer: "ollama-cloud/kimi-k2.7-code"
+  commit: "ollama-cloud/gpt-oss:20b"
+  task: "ollama-cloud/qwen3-coder-next"
+  advisor: "ollama-cloud/deepseek-v4-pro"
