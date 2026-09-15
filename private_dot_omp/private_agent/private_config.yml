@@ -23,7 +23,7 @@ providers:
     - google
     - mojeek
     - public
-  autoThinkingMaxEffort: medium
+  autoThinkingMaxEffort: low
 symbolPreset: unicode
 theme:
   dark: titanium
@@ -88,12 +88,12 @@ compaction:
   supersedeReads: true
   dropUseless: true
   methodOrder:
-    - snapcompact
     - remote
+    - handoff
     - soft
   idleEnabled: true
-  idleThresholdTokens: 20000
-  idleTimeoutSeconds: 60
+  idleThresholdTokens: 50000
+  idleTimeoutSeconds: 100
 snapcompact:
   toolResults: true
   systemPrompt: agents-md
