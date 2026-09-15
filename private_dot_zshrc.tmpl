@@ -42,10 +42,10 @@ zinit ice id-as"npm-packages" as"null" \
     atload"
         which codegraph &>/dev/null || npm i -g @colbymchenry/codegraph 2>/dev/null
         which qodercli &>/dev/null || npm i -g @qoder-ai/qodercli 2>/dev/null
-        which branchlet &>/dev/null || npm i -g branchlet 2>/dev/null
         which codeburn &>/dev/null || npm i -g codeburn 2>/dev/null
         which omniroute &>/dev/null || npm i -g omniroute 2>/dev/null
         which resume &>/dev/null || npm i -g resume-cli 2>/dev/null
+        which bwt &>/dev/null || npm i -g better-worktree 2>/dev/null
         which shx &>/dev/null || npm i -g shx 2>/dev/null
     "
 zinit load zdharma-continuum/null
