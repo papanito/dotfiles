@@ -75,11 +75,13 @@ in
     ## AI
     antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
     ollama
+    qwen-code
     (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
 
     ## Security
-    keyguard # Bitwarden alternative
+    #keyguard # Bitwarden alternative
     opensnitch-ui
+    betterleaks
     gitleaks # Scan git repos (or files) for secrets
     rbw # Alternative bitwarden cli
     shellcheck # Shell script analysis tool
@@ -116,6 +118,7 @@ in
     jless # json editor
     just # build tool
     lazygit # Simple terminal UI for git commands
+    lazyworktree
     pre-commit
     rustc
     rustup # Rust toolchain installer
