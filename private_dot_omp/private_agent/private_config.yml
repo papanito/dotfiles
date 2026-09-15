@@ -1,0 +1,126 @@
+providers:
+  webSearchOrder:
+    - gemini
+    - perplexity
+    - anthropic
+    - codex
+    - xai
+    - zai
+    - exa
+    - tinyfish
+    - jina
+    - kagi
+    - tavily
+    - firecrawl
+    - brave
+    - kimi
+    - parallel
+    - synthetic
+    - searxng
+    - startpage
+    - duckduckgo
+    - ecosia
+    - google
+    - mojeek
+    - public
+  autoThinkingMaxEffort: medium
+symbolPreset: unicode
+theme:
+  dark: titanium
+setupVersion: 2
+agent:
+  reasoning_effort: auto
+  interactive: true
+  max_iterations: 12
+code:
+  style: functional
+  include_comments: true
+  framework_preferences:
+    terraform: ">= 5.0"
+    python: "3.11"
+    go: "1.22"
+    typescript: bun
+personality: pragmatic
+textVerbosity: low
+rules:
+  autoConnectLsp: true
+  trackModelConsumption: true
+statusLine:
+  preset: full
+  sessionAccent: true
+tui:
+  textSizing: true
+display:
+  shimmer: classic
+  smoothStreaming: true
+  showTokenUsage: true
+startup:
+  checkUpdate: false
+memory:
+  backend: local
+renderMermaid:
+  enabled: false
+github:
+  enabled: false
+images:
+  describeForTextModels: false
+hideThinkingBlock: true
+autolearn:
+  enabled: true
+task:
+  isolation:
+    mode: auto
+  eager: conservative
+  maxEffort: low
+  maxConcurrency: 1
+autoResume: true
+autocompleteMaxVisible: 10
+dev:
+  autoqa: false
+defaultThinkingLevel: low
+proseOnlyThinking: true
+omitThinking: true
+checkpoint:
+  enabled: true
+compaction:
+  handoffSaveToDisk: true
+  keepRecentTokens: 2000
+  supersedeReads: true
+  dropUseless: true
+  methodOrder:
+    - snapcompact
+    - remote
+    - soft
+  idleEnabled: true
+  idleThresholdTokens: 20000
+  idleTimeoutSeconds: 60
+snapcompact:
+  toolResults: true
+  systemPrompt: agents-md
+files:
+  read:
+    defaultLimit: 20
+tools:
+  artifactTailLines: 20
+  outputMaxColumns: 128
+  artifactTailBytes: 1
+  artifactSpillThreshold: 10
+  xdevDocs: catalog
+  xdev: true
+grep:
+  contextAfter: 1
+modelRoles:
+  default: google-antigravity/gemini-3.5-flash-lite
+retry:
+  maxDelayMs: 0
+browser:
+  enabled: false
+  screenshotDir: ~/Downloads/Secreenshots
+  headless: false
+  cmux: false
+web_search:
+  enabled: false
+fetch:
+  enabled: false
+includeModelInPrompt: false
+
