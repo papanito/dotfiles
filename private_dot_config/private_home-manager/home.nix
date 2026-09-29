@@ -17,6 +17,7 @@ let
       pillow # The friendly PIL fork (Python Imaging Library)
       jupyter # A high-level dynamically-typed programming language
       notebook # Web-based notebook environment for interactive computing
+      google-cloud-run
     ];
   my-nodes-packages =
     ns: with ns; [
@@ -76,6 +77,7 @@ in
     antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
     ollama
     qwen-code
+    llmfit
     (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
 
     ## Security
@@ -183,6 +185,7 @@ in
     azure-cli
     python312Packages.msrest
     google-cloud-sdk
+    google-compute-engine # Google Compute Engine tools and services
     hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
     ibmcloud-cli # Command line client for IBM Cloud
     python312Packages.hcloud # Library for the Hetzner Cloud API
