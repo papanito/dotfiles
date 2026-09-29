@@ -23,6 +23,19 @@ let
     ns: with ns; [
       prettier-plugin-toml
     ];
+  cloud-run-proxy = pkgs.buildGoModule rec {
+    pname = "cloud-run-proxy";
+    version = "0.4.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "GoogleCloudPlatform";
+      repo = "cloud-run-proxy";
+      rev = "v${version}";
+      hash = "sha256-6JpRl1+eZ413lpXooByM5VeDOBlKbp14uhOY7AROcmo=";
+    };
+
+    vendorHash = "sha256-Oqm/b/bWXrk/iw+veyomneTkl6BdJFAipdeO4q0myK4=";
+  };
 in
 {
   home = {
@@ -185,6 +198,7 @@ in
     azure-cli
     python312Packages.msrest
     google-cloud-sdk
+    cloud-run-proxy
     google-compute-engine # Google Compute Engine tools and services
     hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
     ibmcloud-cli # Command line client for IBM Cloud

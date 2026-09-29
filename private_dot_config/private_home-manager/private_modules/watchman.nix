@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  #socketPath = "${config.home.homeDirectory}/.cache/watchman-socket";
-  socketDir = "/run/user/${toString config.home.uid}/watchman";
-  #socketPath = "${socketDir}/sock";
   socketPath = "${config.home.homeDirectory}/.cache/watchman-socket";
 in
 {
@@ -19,12 +16,7 @@ in
     };
   };
 
-  # Ensure the directory exists before the socket starts
-  systemd.user.tmpfiles.rules = [
-    "d ${socketDir} 0700 papanito users - -"
-  ];
-
-  # 1. The Socket Unit
+  # The Socket Unit
   systemd.user = {
     sockets.watchman = {
       Unit = {
