@@ -43,7 +43,7 @@ return {
     require("pi").setup({
       cli = {
         bin = "omp",
-        args = { "--mode=rpc-ui" },
+        args = { "" },
       },
       rpc = {
         map_command = map_omp_command,

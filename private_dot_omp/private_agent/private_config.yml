@@ -66,7 +66,7 @@ images:
   describeForTextModels: false
 hideThinkingBlock: true
 autolearn:
-  enabled: true
+  enabled: false
 task:
   isolation:
     mode: auto
@@ -84,7 +84,7 @@ checkpoint:
   enabled: true
 compaction:
   handoffSaveToDisk: true
-  keepRecentTokens: 2000
+  keepRecentTokens: 20000
   supersedeReads: true
   dropUseless: true
   methodOrder:
@@ -102,6 +102,7 @@ files:
     defaultLimit: 20
 tools:
   artifactTailLines: 20
+  discoveryMode: all
   outputMaxColumns: 128
   artifactTailBytes: 1
   artifactSpillThreshold: 10
@@ -123,4 +124,3 @@ web_search:
 fetch:
   enabled: false
 includeModelInPrompt: false
-
