@@ -2,6 +2,54 @@
 # 🌐 PROVIDERS & CUSTOM MODELS
 # =======================================================
 providers:
+  cloudflare-workers-ai:
+    baseUrl: "[https://api.cloudflare.com/client/v4/accounts/\(](https://api.cloudflare.com/client/v4/accounts/\)){CLOUDFLARE_ACCOUNT_ID}/ai/v1"
+    api: "openai-completions"
+    apiKey: "CLOUDFLARE_API_TOKEN"
+    authHeader: true
+    models:
+      - id: "@cf/meta/llama-3.2-3b-instruct"
+        name: "Cloudflare Llama 3.2 3B (Free)"
+        contextWindow: 131072
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
+
+      - id: "@cf/meta/llama-3.1-8b-instruct"
+        name: "Cloudflare Llama 3.1 8B (Free)"
+        contextWindow: 131072
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
+
+  mistral-ai:
+    baseUrl: "[https://api.mistral.ai/v1](https://api.mistral.ai/v1)"
+    api: "openai-completions"
+    apiKey: "MISTRAL_API_KEY"
+    authHeader: true
+    models:
+      - id: "codestral-latest"
+        name: "Mistral Codestral"
+        contextWindow: 256000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
+
+      - id: "mistral-small-latest"
+        name: "Mistral Small (Free Tier)"
+        contextWindow: 128000
+        compat:
+          supportsDeveloperRole: false
+          supportsToolChoice: true
+          maxTokensField: "max_tokens"
+          supportsUsageInStreaming: true
+
   omniroute:
     baseUrl: "http://localhost:20128/v1"
     api: "openai-completions"
@@ -28,26 +76,8 @@ providers:
           maxTokensField: "max_tokens"
           supportsUsageInStreaming: true
 
-      - id: "omniroute/auto/coding:free"
-        name: "OmniRoute Coding Free"
-        contextWindow: 1048576
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "omniroute/auto/cheap"
-        name: "OmniRoute Cheap"
-        contextWindow: 1048576
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
   openrouter:
-    baseUrl: "https://openrouter.ai/api/v1"
+    baseUrl: "[https://openrouter.ai/api/v1](https://openrouter.ai/api/v1)"
     api: "openai-completions"
     apiKey: "OPENROUTER_API_KEY"
     authHeader: true
@@ -61,28 +91,10 @@ providers:
           maxTokensField: "max_tokens"
           supportsUsageInStreaming: true
 
-      - id: "openrouter/cohere/north-mini-code:free"
-        name: "Cohere North Mini Code (Free)"
-        contextWindow: 256000
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "openrouter/openai/gpt-5.4"
-        name: "GPT-5.4 (Designer)"
-        contextWindow: 1050000
-        compat:
-          supportsDeveloperRole: true
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
   ollama-cloud:
     models:
-      - id: "ollama-cloud/glm-5.2"
-        name: "Ollama Cloud GLM-5.2"
+      - id: "ollama-cloud/deepseek-v4.1-flash"
+        name: "Ollama Cloud DeepSeek V4.1 Flash"
         contextWindow: 1000000
         compat:
           supportsDeveloperRole: false
@@ -90,9 +102,9 @@ providers:
           maxTokensField: "max_tokens"
           supportsUsageInStreaming: true
 
-      - id: "ollama-cloud/kimi-k2.7-code"
-        name: "Ollama Cloud Kimi K2.7"
-        contextWindow: 262144
+      - id: "ollama-cloud/glm-5.2"
+        name: "Ollama Cloud GLM-5.2"
+        contextWindow: 1000000
         compat:
           supportsDeveloperRole: false
           supportsToolChoice: true
@@ -108,106 +120,31 @@ providers:
           maxTokensField: "max_tokens"
           supportsUsageInStreaming: true
 
-      - id: "ollama-cloud/gpt-oss:20b"
-        name: "Ollama Cloud GPT-OSS 20B"
-        contextWindow: 131072
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "ollama-cloud/qwen3-coder-next"
-        name: "Ollama Cloud Qwen3 Coder Next"
-        contextWindow: 262144
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "ollama-cloud/gemini-3-flash-preview"
-        name: "Ollama Cloud Gemini 3 Flash"
-        contextWindow: 1048576
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-  alibaba-token-plan:
-    models:
-      - id: "alibaba-token-plan/glm-5.2"
-        name: "Alibaba GLM-5.2"
-        contextWindow: 1000000
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "alibaba-token-plan/qwen3.7-max"
-        name: "Alibaba Qwen3.7 Max"
-        contextWindow: 1000000
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "alibaba-token-plan/qwen3.7-plus"
-        name: "Alibaba Qwen3.7 Plus"
-        contextWindow: 1000000
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
-      - id: "alibaba-token-plan/deepseek-v4-pro"
-        name: "Alibaba DeepSeek V4 Pro"
-        contextWindow: 1000000
-        compat:
-          supportsDeveloperRole: false
-          supportsToolChoice: true
-          maxTokensField: "max_tokens"
-          supportsUsageInStreaming: true
-
 # =======================================================
 # ⚙️ MODEL ROUTING & SUBAGENT ROLES
 # =======================================================
-default_model: "ollama-cloud/deepseek-v4-flash"
+default_model: "ollama-cloud/deepseek-v4.1-flash"
 
 fallbackModel:
+  "ollama-cloud/deepseek-v4.1-flash": "google-antigravity/gemini-2.5-flash"
   "ollama-cloud/glm-5.2": "google-antigravity/gemini-2.5-flash"
-  "ollama-cloud/deepseek-v4-flash": "google-antigravity/gemini-2.5-flash"
   "ollama-cloud/deepseek-v4-pro": "google-antigravity/gemini-2.5-flash"
-  "ollama-cloud/kimi-k2.7-code": "google-antigravity/gemini-2.5-flash"
-  "ollama-cloud/qwen3-coder-next": "google-antigravity/gemini-2.5-flash"
-  "ollama-cloud/gpt-oss:20b": "google-antigravity/gemini-2.5-flash"
-  "ollama-cloud/gemini-3-flash-preview": "google-antigravity/gemini-2.5-flash"
 
-  "google-antigravity/gemini-2.5-flash": "alibaba-token-plan/qwen3.7-plus"
-  "google-antigravity/gemini-2.5-pro": "alibaba-token-plan/qwen3.7-max"
+  "google-antigravity/gemini-2.5-flash": "mistral-ai/codestral-latest"
+  "google-antigravity/gemini-2.5-pro": "mistral-ai/codestral-latest"
 
-  "alibaba-token-plan/glm-5.2": "openrouter/openai/gpt-oss-20b:free"
-  "alibaba-token-plan/qwen3.7-max": "openrouter/openai/gpt-oss-20b:free"
-  "alibaba-token-plan/qwen3.7-plus": "openrouter/openai/gpt-oss-20b:free"
-  "alibaba-token-plan/deepseek-v4-pro": "openrouter/openai/gpt-oss-20b:free"
-
-  "openrouter/openai/gpt-oss-20b:free": "omniroute/free-forever"
-  "openrouter/cohere/north-mini-code:free": "omniroute/free-forever"
+  "mistral-ai/codestral-latest": "openrouter/openai/gpt-oss-20b:free"
+  "openrouter/openai/gpt-oss-20b:free": "cloudflare-workers-ai/@cf/meta/llama-3.1-8b-instruct"
+  "cloudflare-workers-ai/@cf/meta/llama-3.1-8b-instruct": "omniroute/free-forever"
   "omniroute/free-forever": "omniroute/auto/best-free"
-  "omniroute/auto/coding:free": "omniroute/auto/best-free"
-  "omniroute/auto/cheap": "omniroute/auto/best-free"
 
 modelRoles:
-  default: "ollama-cloud/deepseek-v4-flash"
-  smol: "ollama-cloud/deepseek-v4-flash"
+  default: "ollama-cloud/deepseek-v4.1-flash"
+  smol: "cloudflare-workers-ai/@cf/meta/llama-3.2-3b-instruct"
   slow: "ollama-cloud/deepseek-v4-pro"
   vision: "ollama-cloud/gemini-3-flash-preview"
   plan: "ollama-cloud/deepseek-v4-pro"
   designer: "ollama-cloud/kimi-k2.7-code"
-  commit: "ollama-cloud/gpt-oss:20b"
-  task: "ollama-cloud/qwen3-coder-next"
+  commit: "cloudflare-workers-ai/@cf/meta/llama-3.2-3b-instruct"
+  task: "mistral-ai/codestral-latest"
   advisor: "ollama-cloud/deepseek-v4-pro"
