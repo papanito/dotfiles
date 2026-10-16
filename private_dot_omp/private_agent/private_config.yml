@@ -111,7 +111,7 @@ tools:
 grep:
   contextAfter: 1
 modelRoles:
-  default: google-antigravity/gemini-3.5-flash-lite
+  default: ollama-cloud/deepseek-v4.1-flash
 retry:
   maxDelayMs: 0
 browser:

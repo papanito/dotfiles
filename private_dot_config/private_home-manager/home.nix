@@ -162,6 +162,7 @@ in
     w3m # A text-mode web browser
     vhs # Tool for generating terminal GIFs with code
     yazi # terminal file explorer
+    tuios # terminal multiplexer
 
     ### System tools
     erdtree # File-tree visualizer and disk usage analyzer
@@ -183,12 +184,14 @@ in
 
     ### Cloud
     azure-cli
-    python312Packages.msrest
     google-cloud-sdk
     google-compute-engine # Google Compute Engine tools and services
     hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
     ibmcloud-cli # Command line client for IBM Cloud
     python312Packages.hcloud # Library for the Hetzner Cloud API
+    wrangler # Command-line interface for all things Cloudflare Workers
+    cloudflare-cli # CLI for interacting with Cloudflare
+    cloudflare-utils # Helpful Cloudflare utility program
 
     ## fun
     genact # Nonsense activity generator
@@ -241,6 +244,8 @@ in
     ## Media
     pinta
     gimp
+    zint-qt # barcode creatoe
+    glabels-qt
 
     ## Google
     #gam # Command line management for Google Workspace
