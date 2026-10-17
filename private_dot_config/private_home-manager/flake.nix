@@ -82,6 +82,7 @@
           ./modules/pueue.nix
           ./modules/gnome.nix
           ./modules/ollama.nix
+          ./modules/tuios.nix
           ./modules/llama-cpp.nix
           ./modules/omniroute.nix
           ./modules/voxtype.nix
