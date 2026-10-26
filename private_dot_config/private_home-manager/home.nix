@@ -17,7 +17,6 @@ let
       pillow # The friendly PIL fork (Python Imaging Library)
       jupyter # A high-level dynamically-typed programming language
       notebook # Web-based notebook environment for interactive computing
-      google-cloud-run
     ];
   my-nodes-packages =
     ns: with ns; [
@@ -25,6 +24,10 @@ let
     ];
 in
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
   home = {
     username = "papanito";
     homeDirectory = "/home/papanito";
