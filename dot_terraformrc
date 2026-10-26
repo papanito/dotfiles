@@ -1,0 +1,31 @@
+# Terraform CLI configuration.
+#
+# WHY THE PLUGIN CACHE EXISTS.
+#
+# A `terraform init` that has to install providers fetches each provider's
+# checksum manifest before it installs anything. For providers signed by
+# HashiCorp that manifest is served from releases.hashicorp.com; for every
+# PARTNER / community provider (aiven, cloudflare, cyrilgdn/postgresql,
+# y0n0zawa/resend, ...) it is served from github.com, which answers with a
+# redirect to release-assets.githubusercontent.com.
+#
+# That redirect target is the fragile link. This host resolves it through
+# dnscrypt-proxy, and when the answer comes back blocked or empty the error is
+# not a DNS message — it is
+#
+#   dial tcp 0.0.0.0:443: connect: connection refused
+#
+# because the resolver handed back 0.0.0.0 and the client dialled it. Note what
+# does NOT fail: hashicorp/google and hashicorp/random, which never touch
+# GitHub. The four that fail are exactly the four self-signed ones.
+#
+# A warm plugin cache removes the class of failure instead of retrying through
+# it. With the cache populated AND a .terraform.lock.hcl present, `terraform
+# init` in a fresh directory issues ZERO requests to release-assets (measured
+# from TF_LOG=TRACE: 8 without the cache, 0 with it). The lock file is required
+# for that: cache + lock = 0 fetches, cache alone = 12, because the lock is what
+# lets Terraform verify a cached provider without asking the origin.
+#
+# Kept here rather than per-project so one cache serves every configuration on
+# the machine, including the two under eventgenie/infra/terraform.
+plugin_cache_dir = "~/.terraform.d/plugin-cache"
