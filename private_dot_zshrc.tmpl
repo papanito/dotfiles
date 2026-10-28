@@ -70,7 +70,6 @@ zinit ice id-as"cargo-packages" as"null" \
     atload"
         which gitpane &>/dev/null || cargo install gitpane --locked 2>/dev/null
         which glab-tui &>/dev/null || cargo install glab-tui-crate --locked 2>/dev/null
-        which omp-manager &>/dev/null || cargo install omp-manager --locked 2>/dev/null
     "
 zinit load zdharma-continuum/null
 
@@ -242,7 +241,6 @@ zinit snippet OMZ::plugins/git-extras
 export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 zinit load zplugin/zsh-exa
 eval "$(tirith init --shell zsh)"
-eval "$(omp completions zsh)"
 {{- end }}
 
 # install zoxide

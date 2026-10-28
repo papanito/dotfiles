@@ -15,7 +15,6 @@
     };
 
     pi-nix.url = "github:lukasl-dev/pi.nix";
-    omp-nix.url = "github:cernoh/omp-flake";
     sheets.url = "github:maaslalani/sheets";
     herdr.url = "github:ogulcancelik/herdr";
     gwl.url = "github:kbrdn1/gwm-cli";
@@ -30,7 +29,6 @@
       sops-nix,
       home-manager,
       pi-nix,
-      omp-nix,
       herdr,
       gwl,
       iris,
@@ -85,6 +83,7 @@
           ./modules/tuios.nix
           ./modules/llama-cpp.nix
           ./modules/omniroute.nix
+          ./modules/opencode.nix
           ./modules/voxtype.nix
           inputs.sops-nix.homeManagerModules.sops # Added this line
         ];
@@ -93,7 +92,6 @@
             inputs
             home_attrs
             pi-nix
-            omp-nix
             herdr
             gwl
             iris

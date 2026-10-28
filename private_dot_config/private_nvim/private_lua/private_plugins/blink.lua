@@ -25,10 +25,6 @@ return {
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
-        per_filetype = { ["pi-chat-prompt"] = { "pi" } },
-        providers = {
-          pi = { module = "pi.completion.blink", name = "Pi", score_offset = 100 },
-        },
       },
     })
   end,
