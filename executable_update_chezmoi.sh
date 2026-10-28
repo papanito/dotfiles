@@ -16,6 +16,9 @@ chezmoi add ~/.config/herdr/config.toml
 echo "🦊 Add lazyvim config"
 chezmou add ~/.config/nvim/lazyvim.json
 
+echo "🦊 Add omp config"
+chezmou add ~/.omp/agent/config.yml
+
 echo "👁️‍🗨️ Register all watchmen config files"
 for file in ~/.config/watchman/*.json; do
   echo "Registering $file..."

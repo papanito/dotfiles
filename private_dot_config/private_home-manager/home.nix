@@ -57,6 +57,7 @@ in
   home.packages = with pkgs; [
     # flakes
     inputs.pi-nix.packages."x86_64-linux".default
+    inputs.omp-nix.packages."x86_64-linux".default
     inputs.herdr.packages."x86_64-linux".default
     #inputs.gwl.packages."x86_64-linux".default
     (pkgs.python3.withPackages my-python-packages)
