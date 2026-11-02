@@ -113,7 +113,7 @@ in
     buildkit-nix # Nix frontend for x
     buildkite-cli # A command line interface for Buildkite
     bun
-    codeberg-cli
+    forgejo-cli
     #cargo
     go-task # Task runner / simpler Make alternative written in Go
     gh # github cli
