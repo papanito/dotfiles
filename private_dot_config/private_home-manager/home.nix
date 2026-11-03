@@ -26,6 +26,12 @@ in
 {
   nixpkgs.config = {
     allowUnfree = true;
+    # libguestfs (pulled in by vagrant) is marked broken in current nixpkgs
+    # unstable; allow evaluation until it is fixed upstream.
+    problems.handlers = {
+      libguestfs.broken = "warn";
+      fabric.broken = "warn";
+    };
   };
 
   home = {
@@ -83,6 +89,7 @@ in
     qwen-code
     llmfit
     (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
+    rtk # CLI proxy that reduces LLM token consumption by 60-90% on common dev commands
 
     ## Security
     #keyguard # Bitwarden alternative
@@ -187,7 +194,8 @@ in
     vagrant
 
     ### Cloud
-    azure-cli
+    # azure-cli removed 2026-11-03: unbuildable since nixpkgs upgraded invoke to
+    # 3.x while its dep fabric still requires invoke <3.0. Re-enable once fixed upstream.
     google-cloud-sdk
     google-compute-engine # Google Compute Engine tools and services
     hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
@@ -212,8 +220,8 @@ in
     gnomeExtensions.keep-awake # Keep your computer awake! Prevents that your computer activates sceensaver, turns off screen(s) or goes to hibernate when not actively used for a while.
     gnomeExtensions.gsconnect
     gnomeExtensions.top-bar-organizer
-    gnomeExtensions.topiconsfix # Shows legacy tray icons on top – the fixed version of https://extensions.gnome.org/extension/495/topicons/
-    gnomeExtensions.campeek
+    gnomeExtensions.tray-icons-reloaded # Maintained successor of topiconsfix/topicons-plus, which were removed from nixpkgs GNOME extension set
+    #gnomeExtensions.campeek # Removed from nixpkgs extension set: upstream only supports GNOME 48, nixpkgs ships GNOME 49/50/51 (was CamPeek@gamalsherif1.github.io)
     gnomeExtensions.tophat
     gnomeExtensions.paperwm
     gnomeExtensions.ddterm

@@ -52,6 +52,11 @@
         inherit system;
         config = {
           allowUnfree = true;
+          # libguestfs (virt-manager dependency) is marked broken in current
+          # nixpkgs unstable; permit evaluation until it is fixed upstream.
+          problems.handlers = {
+            libguestfs.broken = "warn";
+          };
         };
         overlays = [
           (final: prev: {
