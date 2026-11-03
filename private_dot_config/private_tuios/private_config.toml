@@ -36,10 +36,10 @@
 # ============================================================================
 
 [appearance]
-border_style = 'rounded'
+border_style = "glyphs"
 hide_window_buttons = true
 scrollback_lines = 10000
-dockbar_position = 'bottom'
+dockbar_position = "top"
 preferred_shell = ''
 whichkey_position = ''
 window_title_position = ''
@@ -51,6 +51,8 @@ theme = ''
 focus_follows_mouse = true
 motion = "full"
 tiling_scheme = "smart_split"
+right_click_opens_menu = true
+dock_pill_caps = false
 
 [keybindings]
 leader_key = 'ctrl+b'
@@ -256,3 +258,21 @@ window_size = "smallest"
 
 [paste_buffers]
 max_kb = 16385
+
+[startup]
+layout = "bsp"
+
+[agents]
+enabled = true
+
+[panes]
+navigator_layout = "cards"
+
+[screenshot]
+padding = 42
+
+[appearance.sidebar]
+enabled = false
+
+[keybindings.global]
+command_palette = ["ctrl+p", "ctrl+space"]
