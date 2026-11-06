@@ -348,3 +348,7 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=true
 # would be lost. Without this, typing `zi` hangs the completion system on
 # every keystroke because no completion is bound to the alias.
 (( ${+_comps} )) && _comps[zi]=_zinit && _comps[zpl]=_zinit && _comps[zplg]=_zinit && _comps[zini]=_zinit
+# Same wipe removed the compinit binding for opencode itself: nixpkgs opencode
+# ships `_opencode` in its zsh site-functions (on fpath), so only the binding
+# needs restoring, no completion script has to be sourced.
+which opencode &>/dev/null && _comps[opencode]=_opencode
