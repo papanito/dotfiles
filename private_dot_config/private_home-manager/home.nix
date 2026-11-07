@@ -144,7 +144,7 @@ in
     ## AI
     # AI coding agents from llm-agents.nix (auto-updated daily) via the
     # llm-agents.overlays.shared-nixpkgs overlay in flake.nix
-    llm-agents.opencode # OpenCode AI coding agent (CLI + headless server, see opencode-server service)
+    llm-agents.opencode2 # OpenCode 2 CLI (v2 line; the binary installs as `opencode2`, see opencode-server service)
     llm-agents.qwen-code # Command-line AI workflow tool for Qwen3-Coder models
     llm-agents.antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
     llm-agents.rtk # CLI proxy that reduces LLM token consumption by 60-90% on common dev commands
