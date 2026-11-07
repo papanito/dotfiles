@@ -8,6 +8,65 @@
   ...
 }:
 let
+  # Official prebuilt Linux release instead of nixpkgs' lagging source build
+  # (nixpkgs was at 2.3.4 while upstream is 3.7.0; a nixpkgs-style bump would
+  # require regenerating the Gradle deps.json via mitm proxy — use the
+  # official binary until nixpkgs catches up).
+  keyguard-latest = pkgs.stdenv.mkDerivation rec {
+    pname = "keyguard";
+    version = "3.7.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/AChep/keyguard-app/releases/download/r20261103/Keyguard-${version}-linux-x86_64.tar.gz";
+      sha256 = "sha256-zzH3cbFnr9yzz+vd63QIsIqjpD/+kI8v7epcN69m/t0=";
+    };
+    nativeBuildInputs = [
+      pkgs.autoPatchelfHook
+      pkgs.copyDesktopItems
+    ];
+    buildInputs = [
+      pkgs.fontconfig
+      pkgs.libxinerama
+      pkgs.libxrandr
+      # X11 libs required by the bundled JDK runtime (libawt_xawt.so requests
+      # libXtst.so.6 directly, which is not propagated by the other inputs)
+      pkgs.libXtst
+      pkgs.libXi
+      pkgs.libXrender
+      pkgs.file
+      pkgs.gtk3
+      pkgs.glib
+      pkgs.cups
+      pkgs.lcms2
+      pkgs.alsa-lib
+      pkgs.libglvnd
+    ];
+    sourceRoot = "Keyguard";
+    desktopItems = [
+      (pkgs.makeDesktopItem {
+        name = "keyguard";
+        exec = "Keyguard";
+        icon = "keyguard";
+        desktopName = "Keyguard";
+      })
+    ];
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out
+      cp --recursive . $out
+      install -D --mode=0644 lib/Keyguard.png $out/share/icons/hicolor/512x512/apps/keyguard.png
+
+      runHook postInstall
+    '';
+    meta = {
+      description = "Alternative client for the Bitwarden platform, created to provide the best user experience possible";
+      homepage = "https://github.com/AChep/keyguard-app";
+      mainProgram = "Keyguard";
+      # Official release runs under a proprietary license
+      license = lib.licenses.unfree;
+      platforms = lib.platforms.linux;
+    };
+  };
   my-python-packages =
     ps: with ps; [
       pandas
@@ -83,16 +142,18 @@ in
     libsecret
 
     ## AI
-    opencode # OpenCode AI coding agent (CLI + headless server, see opencode-server service)
-    antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
+    # AI coding agents from llm-agents.nix (auto-updated daily) via the
+    # llm-agents.overlays.shared-nixpkgs overlay in flake.nix
+    llm-agents.opencode # OpenCode AI coding agent (CLI + headless server, see opencode-server service)
+    llm-agents.qwen-code # Command-line AI workflow tool for Qwen3-Coder models
+    llm-agents.antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
+    llm-agents.rtk # CLI proxy that reduces LLM token consumption by 60-90% on common dev commands
     ollama
-    qwen-code
     llmfit
     (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
-    rtk # CLI proxy that reduces LLM token consumption by 60-90% on common dev commands
 
     ## Security
-    #keyguard # Bitwarden alternative
+    keyguard-latest # Bitwarden alternative — official prebuilt 3.7.0 (nixpkgs keyguard lags behind, see let-block)
     opensnitch-ui
     betterleaks
     gitleaks # Scan git repos (or files) for secrets

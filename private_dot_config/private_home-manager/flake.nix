@@ -14,6 +14,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix packages for AI coding agents / agent tooling, auto-updated daily.
+    # Follows our nixpkgs — per upstream docs this requires nixpkgs to track a
+    # reasonably current unstable (ours does).
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     pi-nix.url = "github:lukasl-dev/pi.nix";
     omp-nix.url = "github:cernoh/omp-flake";
     sheets.url = "github:maaslalani/sheets";
@@ -29,6 +37,7 @@
       nixpkgs,
       sops-nix,
       home-manager,
+      llm-agents,
       pi-nix,
       omp-nix,
       herdr,
@@ -59,6 +68,7 @@
           };
         };
         overlays = [
+          llm-agents.overlays.shared-nixpkgs
           (final: prev: {
             # inline-snapshot has 3 flaky test failures in nixpkgs unstable
             # that block the entire home-manager build. Disable its tests.

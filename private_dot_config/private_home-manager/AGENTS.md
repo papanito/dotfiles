@@ -20,6 +20,8 @@ Standalone Home Manager configuration for user `papanito`, managed as a Nix flak
 ## Work Guidance
 
 - Adding a flake input = 3 edits: `inputs`, `outputs` destructure, `extraSpecialArgs` (if the module needs it)
+- `llm-agents` input (github:numtide/llm-agents.nix) provides AI agent tooling; wire via its `overlays.shared-nixpkgs` overlay in flake.nix so packages live at `pkgs.llm-agents.<name>` and inherit our nixpkgs config. AI entries in home.nix (opencode, qwen-code, antigravity-cli, rtk, since 2026-11-07) come from there and are auto-updated by upstream daily — run `nix flake lock --update-input llm-agents` to pick up bumps. Upstream requires the nixpkgs it follows to be a reasonably current unstable.
+- `keyguard` is NOT the nixpkgs package: `keyguard-latest` in home.nix installs the official prebuilt Linux release (nixpkgs lags upstream; a source bump would need regenerating Gradle deps.json). Bumping it = update `version`, `tag` in the release URL, and `sha256` (`nix hash file --sri`) together.
 - New modules: create `private_modules/<name>.nix`, add to `modules` list
 - The `private_` prefix on directories is mandatory for chezmoi
 - `nixpkgs.config` set in `flake.nix` is IGNORED by home-manager's internal nixpkgs re-import; put nixpkgs config (allowUnfree, problems.handlers…) in `home.nix` as the `nixpkgs.config` module option where it actually applies

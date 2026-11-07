@@ -8,7 +8,7 @@
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.opencode}/bin/opencode serve --hostname 127.0.0.1 --port 4096";
+      ExecStart = "${pkgs.llm-agents.opencode}/bin/opencode serve --hostname 127.0.0.1 --port 4096";
       Restart = "on-failure";
       RestartSec = 5;
       TimeoutStartSec = 30;
