@@ -133,6 +133,7 @@ in
     lazygit # Simple terminal UI for git commands
     lazyworktree
     pre-commit
+    worktrunk
     rustc
     rustup # Rust toolchain installer
     skaffold

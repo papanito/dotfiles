@@ -313,3 +313,8 @@ terraform.rc
 # End of https://www.toptal.com/developers/gitignore/api/ansible,terraform,lua,linux,python,go,java
 
 core.*
+
+## WOrktree directories are ignored
+wt/
+worktree/
+papanito/

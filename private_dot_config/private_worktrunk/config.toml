@@ -1,0 +1,7 @@
+[worktree]
+# Automatically prefix feature branches created via wt with 'papanito/'
+branch_prefix = "papanito/"
+
+# Route worktree directories into the globally-ignored local 'wt/' directory
+# Strips the 'papanito/' prefix from the directory name for cleaner paths
+path_template = "wt/{{ branch | remove_prefix: 'papanito/' }}"
