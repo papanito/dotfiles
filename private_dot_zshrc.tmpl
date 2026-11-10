@@ -239,8 +239,10 @@ zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 zinit snippet OMZ::plugins/git
 zinit snippet OMZ::plugins/git-extras
 # use exa instead ls
-export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 zinit load zplugin/zsh-exa
+# Override the plugin defaults after it loads: a bare --color-scale swallows
+# the first positional argument (e.g. `ls cmd`).
+export exa_params=('--git' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale=all')
 eval "$(tirith init --shell zsh)"
 eval "$(omp completions zsh)"
 {{- end }}
