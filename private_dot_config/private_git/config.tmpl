@@ -131,8 +131,6 @@
     user = {{ .githubuser | quote }}
 {{- if eq .chezmoi.hostname "clawfinger" }}
 {{- end }}
-[credential]
-    helper = libsecret
 [ghq]
     vcs = git
     root = ~/Workspaces
