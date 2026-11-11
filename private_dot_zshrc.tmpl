@@ -88,6 +88,11 @@ zinit load zdharma-continuum/null
 autoload -Uz compinit; compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 autoload -U +X bashcompinit && bashcompinit
 
+# acman completions, generated from the installed binary.
+if (( $+commands[acman] )); then
+  source <(acman completion zsh)
+fi
+
 autoload -U colors && colors    # Load Colors.
 unsetopt case_glob              # Use Case-Insensitve Globbing.
 setopt globdots                 # Glob Dotfiles As Well.
