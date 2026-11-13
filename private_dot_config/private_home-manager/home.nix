@@ -148,6 +148,7 @@ in
     llm-agents.qwen-code # Command-line AI workflow tool for Qwen3-Coder models
     llm-agents.antigravity-cli # Agentic development platform, evolving the IDE into the agent-first era
     llm-agents.rtk # CLI proxy that reduces LLM token consumption by 60-90% on common dev commands
+    llm-agents.orca # Orca ADE (orca.dev) — desktop app `orca-ide` + `orca` CLI for parallel coding agents
     ollama
     llmfit
     (lib.lowPrio llama-cpp) # C/C++ inference engine for LLaMA and other LLMs (CPU-only). lowPrio: handy also ships libggml-base.so.0
