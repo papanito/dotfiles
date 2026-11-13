@@ -96,6 +96,7 @@
           ./modules/watchman.nix
           ./modules/pueue.nix
           ./modules/gnome.nix
+          ./modules/llm-agents.nix
           ./modules/ollama.nix
           ./modules/tuios.nix
           ./modules/llama-cpp.nix
