@@ -1,0 +1,259 @@
+#!/usr/bin/env python3
+"""Export/import the portable Orca ADE app settings kept in chezmoi.
+
+Orca has no settings file: the Settings pane is persisted as the ``settings``
+document inside ``~/.config/orca/profiles/<profile>/profile-state.db`` (SQLite).
+This helper bridges that store to the chezmoi-managed snapshot
+``~/.config/orca/settings.portable.json``.
+
+* ``export`` reads the live profile and writes the snapshot (agent- and
+  machine-specific keys are removed).
+* ``import`` merges the snapshot into a live profile. Orca must be stopped; the
+  database family is backed up before anything is written.
+
+The snapshot is the full effective settings (not a minimal diff), minus
+``claude``/``codex`` keys, migration bookkeeping, and machine-local values.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import shutil
+import sqlite3
+import sys
+import time
+from pathlib import Path
+
+ORCA_HOME = Path(os.environ.get("ORCA_CONFIG_HOME", Path.home() / ".config" / "orca"))
+PROFILES_DIR = ORCA_HOME / "profiles"
+SNAPSHOT = ORCA_HOME / "settings.portable.json"
+BACKUP_DIR = ORCA_HOME / "chezmoi-backups"
+SETTINGS_DOMAIN = "settings"
+
+# Keys that describe this machine, its secrets, or one-off state.
+DROP_TOP_LEVEL = {
+    "telemetry",  # install id / cohort
+    "workspaceDir",
+    "workspaceDirHistory",
+    "machineName",
+    "devPluginPaths",
+    "opencodeSessionCookie",  # credential
+    "opencodeWorkspaceId",
+    "androidSdkPath",
+    "localWindowsRuntimeDefault",
+    "localAccountWslDistro",
+    "activeRuntimeEnvironmentId",
+    "githubProjects",
+    "defaultRepoSelection",
+    "defaultLinearTeamSelection",
+    "httpProxyUrl",
+    "httpProxyBypassRules",
+}
+
+# Agent-specific settings and migration/default bookkeeping are not portable
+# configuration: they are per-host state or versioned one-shot flags.
+DROP_KEY_PATTERN = re.compile(r"claude|codex", re.IGNORECASE)
+DROP_BOOKKEEPING_PATTERN = re.compile(
+    r"(migrated|defaulted|migrationapplied|keybindingseed)", re.IGNORECASE
+)
+AGENT_VALUE_PATTERN = re.compile(r"claude(-code)?|codex(-cli)?", re.IGNORECASE)
+
+
+def active_profile() -> str:
+    index = ORCA_HOME / "orca-profile-index.json"
+    try:
+        data = json.loads(index.read_text(encoding="utf-8"))
+        profile = data.get("activeProfileId")
+        if isinstance(profile, str) and profile:
+            return profile
+    except (OSError, json.JSONDecodeError):
+        pass
+    profiles = sorted(p.name for p in PROFILES_DIR.iterdir() if p.is_dir()) if PROFILES_DIR.is_dir() else []
+    return profiles[0] if profiles else "local-default"
+
+
+def db_path(profile: str) -> Path:
+    return PROFILES_DIR / profile / "profile-state.db"
+
+
+def snapshot_path(args: argparse.Namespace) -> Path:
+    return Path(args.snapshot).expanduser() if args.snapshot else SNAPSHOT
+
+
+def filter_settings(value, path: str = ""):
+    """Return a portable copy of :paramref:`value` (an Orca settings object)."""
+
+    if isinstance(value, dict):
+        result = {}
+        for key, item in value.items():
+            if not path and key in DROP_TOP_LEVEL:
+                continue
+            if DROP_KEY_PATTERN.search(key) or DROP_BOOKKEEPING_PATTERN.search(key):
+                continue
+            result[key] = filter_settings(item, f"{path}{key}.")
+        return result
+    if isinstance(value, list):
+        return [
+            item
+            for item in value
+            if not (isinstance(item, str) and AGENT_VALUE_PATTERN.fullmatch(item))
+        ]
+    return value
+
+
+def read_settings(path: Path) -> tuple[str, dict]:
+    if not path.is_file():
+        raise SystemExit(f"Orca profile database not found: {path}\nStart Orca once on this host first.")
+    connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    try:
+        row = connection.execute(
+            "SELECT payload FROM profile_state_documents WHERE domain = ?", (SETTINGS_DOMAIN,)
+        ).fetchone()
+    finally:
+        connection.close()
+    if row is None:
+        raise SystemExit(f"No '{SETTINGS_DOMAIN}' document in {path}")
+    payload = row[0]
+    return payload, json.loads(payload)
+
+
+def running_orca_processes() -> list[str]:
+    found = []
+    for entry in Path("/proc").iterdir():
+        if not entry.name.isdigit():
+            continue
+        try:
+            cmdline = (entry / "cmdline").read_bytes().replace(b"\0", b" ").decode(errors="replace")
+        except OSError:
+            continue
+        if re.search(r"(orca-ide|/Orca/|(^|\s)orcad(\s|$))", cmdline):
+            found.append(f"{entry.name}: {cmdline.strip()[:120]}")
+    return found
+
+
+def backup_database(path: Path) -> Path:
+    destination = BACKUP_DIR / time.strftime("%Y%m%d-%H%M%S")
+    destination.mkdir(parents=True, exist_ok=True)
+    for suffix in ("", "-wal", "-shm"):
+        source = path.with_name(path.name + suffix)
+        if source.exists():
+            shutil.copy2(source, destination / source.name)
+    return destination
+
+
+def command_export(args: argparse.Namespace) -> int:
+    profile = args.profile or active_profile()
+    path = db_path(profile)
+    _, settings = read_settings(path)
+    portable = filter_settings(settings)
+    rendered = json.dumps(portable, indent=2, sort_keys=True) + "\n"
+    if args.stdout:
+        sys.stdout.write(rendered)
+        return 0
+    target = snapshot_path(args)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(rendered, encoding="utf-8")
+    print(f"wrote {len(portable)} keys from profile '{profile}' to {target}")
+    print(f"next: chezmoi add {target}")
+    return 0
+
+
+def command_import(args: argparse.Namespace) -> int:
+    profile = args.profile or active_profile()
+    path = db_path(profile)
+    target = snapshot_path(args)
+    if not target.is_file():
+        raise SystemExit(f"Snapshot not found: {target}")
+    snapshot = filter_settings(json.loads(target.read_text(encoding="utf-8")))
+    _, current = read_settings(path)
+
+    merged = dict(current)
+    merged.update(snapshot)
+    if merged == current:
+        print("settings already match the snapshot; nothing to do")
+        return 0
+
+    payload = json.dumps(merged, separators=(",", ":"), ensure_ascii=False)
+
+    changed = sorted(key for key in snapshot if current.get(key) != snapshot[key])
+    added = sorted(key for key in snapshot if key not in current)
+    print(f"profile:  {profile}")
+    print(f"database: {path}")
+    print(f"snapshot: {target}")
+    if added:
+        print(f"new keys: {', '.join(added)}")
+    if changed:
+        print(f"changed:  {', '.join(changed)}")
+    if args.dry_run:
+        print("dry run: no changes written")
+        return 0
+
+    running = running_orca_processes()
+    if running:
+        print("Orca is running; stop it before importing:", file=sys.stderr)
+        for process in running:
+            print(f"  {process}", file=sys.stderr)
+        return 1
+
+    destination = backup_database(path)
+    print(f"backup:   {destination}")
+
+    connection = sqlite3.connect(path, timeout=10)
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        revision = connection.execute(
+            "SELECT MAX(revision) FROM profile_state_documents"
+        ).fetchone()[0] or 0
+        new_revision = revision + 1
+        connection.execute(
+            "UPDATE profile_state_documents"
+            " SET payload = ?, revision = ?, updated_at = ?, content_hash = ?"
+            " WHERE domain = ?",
+            (
+                payload,
+                new_revision,
+                int(time.time() * 1000),
+                hashlib.sha256(payload.encode()).hexdigest(),
+                SETTINGS_DOMAIN,
+            ),
+        )
+        connection.execute("UPDATE profile_state_meta SET value = ? WHERE key = 'revision'", (str(new_revision),))
+        connection.commit()
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+    _, verify = read_settings(path)
+    if verify.get("theme") != merged.get("theme"):
+        raise SystemExit("verification failed: settings did not round-trip")
+    print(f"imported {len(snapshot)} keys (profile revision {new_revision})")
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Export/import portable Orca app settings.")
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--profile", help="Orca profile id (default: active profile)")
+    common.add_argument("--snapshot", help="snapshot path (default: ~/.config/orca/settings.portable.json)")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    export = subparsers.add_parser("export", parents=[common], help="write the snapshot from the live profile")
+    export.add_argument("--stdout", action="store_true", help="print instead of writing the snapshot")
+    export.set_defaults(func=command_export)
+
+    importer = subparsers.add_parser("import", parents=[common], help="merge the snapshot into the live profile")
+    importer.add_argument("--dry-run", action="store_true", help="show what would change")
+    importer.set_defaults(func=command_import)
+
+    args = parser.parse_args()
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
