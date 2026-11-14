@@ -2,21 +2,32 @@
   description = "My Home Manager configuration";
 
   inputs = {
-    # Nixpkgs provides the packages and modules for your system.
-    # You can pin to a specific release (e.g., "nixos-24.05") or unstable.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Nixpkgs is pinned to the exact rev the system flake (/etc/nixos) locks
+    # (nixos-26.05, 26.05.20261105.c56a87d).
+    #
+    # This is not cosmetic: the GNOME session exports GI_TYPELIB_PATH pointing
+    # at the system's glib typelibs, so a home-manager `gjs` built from a
+    # different nixpkgs loads a foreign libgio and aborts on `import Gio`
+    # (duplicate GOutputStream/GPollableOutputStream GTypes, "gtype !=
+    # G_TYPE_INVALID"). Same rev => same store path => no mismatch.
+    # Bump this rev together with the nixpkgs input in /etc/nixos/flake.lock.
+    nixpkgs.url = "github:NixOS/nixpkgs/c56a87d8e41ce69bd2af57eb35dcc117a9dfca33";
     sops-nix.url = "github:Mic92/sops-nix";
 
-    # Home Manager itself
+    # Home Manager itself. Pinned to the same release branch as the system
+    # flake's home-manager input (/etc/nixos/flake.nix); master expects an
+    # unstable nixpkgs, which we no longer track here.
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       # Ensure Home Manager uses the same Nixpkgs as your flake for consistency.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix packages for AI coding agents / agent tooling, auto-updated daily.
-    # Follows our nixpkgs — per upstream docs this requires nixpkgs to track a
-    # reasonably current unstable (ours does).
+    # Follows our (now 26.05-pinned) nixpkgs. Upstream documents a "reasonably
+    # current unstable" as the tested base — if an llm-agents build breaks,
+    # give this input its own nixpkgs instead of unpinning the global one
+    # (that would reintroduce the gjs/GI_TYPELIB_PATH closure mismatch).
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
