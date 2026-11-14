@@ -258,7 +258,11 @@ in
     hcloud # A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers1
     ibmcloud-cli # Command line client for IBM Cloud
     python312Packages.hcloud # Library for the Hetzner Cloud API
-    wrangler # Command-line interface for all things Cloudflare Workers
+    (lib.lowPrio wrangler) # Command-line interface for all things Cloudflare Workers.
+    # lowPrio, not plain wrangler: 26.05's wrangler and pi-coding-agent both
+    # vendor lib/node_modules/@types/node/index.d.ts, which buildEnv treats as a
+    # hard collision. Priorities make the shell's copy win; the .d.ts files are
+    # compile-time only, so dropping wrangler's copy changes nothing at runtime.
     cloudflare-cli # CLI for interacting with Cloudflare
     cloudflare-utils # Helpful Cloudflare utility program
 

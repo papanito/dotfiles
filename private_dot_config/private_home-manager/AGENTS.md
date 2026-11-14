@@ -27,6 +27,7 @@ Standalone Home Manager configuration for user `papanito`, managed as a Nix flak
 - The `private_` prefix on directories is mandatory for chezmoi
 - `nixpkgs.config` set in `flake.nix` is IGNORED by home-manager's internal nixpkgs re-import; put nixpkgs config (allowUnfree, problems.handlers…) in `home.nix` as the `nixpkgs.config` module option where it actually applies
 - `problems.handlers.<pkg>.broken = "warn"` only permits EVALUATION of broken deps; it cannot un-break a genuinely failing build (e.g. azure-cli/fabric vs invoke ≥3, removed 2026-11-03 until upstream fixes)
+- `buildEnv` collisions in `home.packages` ("two given paths contain a conflicting subpath") are resolved with `lib.lowPrio` on the losing package — the builder honours `meta.priority` and needs no rebuild (`pkgs.lowPrio` was removed in 26.05). Current case: 26.05's `wrangler` and `pi-coding-agent` both vendor `lib/node_modules/@types/node/index.d.ts`
 - GNOME extension attrs come from the nixpkgs scrape of extensions.gnome.org filtered by the packaged shell versions (49/50/51): extensions lacking current shell support (e.g. `topiconsfix`, `campeek`) drop out of the set and break the build — replace with maintained successors (`tray-icons-reloaded`) or comment out with a dated note
 - Usecase-driven debug: `nix eval --impure --expr 'builtins.getFlake "/home/papanito/.config/home-manager" …'` to probe attrs before editing
 
