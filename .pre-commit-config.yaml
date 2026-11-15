@@ -1,6 +1,6 @@
 repos:
   - repo: https://gitlab.com/papanito/git-hooks.git
-    rev: v2.0.0
+    rev: v2.2.3
     hooks:
       - id: get_shared_config
       - id: commitlint
