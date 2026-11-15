@@ -125,7 +125,9 @@ path+=("$HOME/.emacs.d/bin")
 path+=("$HOME/.krew/bin")
 path+=("$HOME/.local/share/cargo/bin")
 path+=("$NPMPATH")
-export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+# SSH agent: Keyguard's built-in agent (its `ssh_agent` setting); Bitwarden
+# desktop no longer autostarts and no longer owns the session's agent socket
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$UID}/keyguard-ssh-agent.sock"
 {{- end }}
 
 export FZF_BASE=/run/current-system/sw/bin/fzf

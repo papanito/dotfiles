@@ -346,7 +346,7 @@ if [[ -o interactive ]]; then
     fi
 fi
 
-export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$UID}/keyguard-ssh-agent.sock"
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 # Register zinit completions for its aliases (zi, zpl, zplg, zini).
