@@ -299,9 +299,7 @@ in
     #gnomeExtensions.campeek # Removed from nixpkgs extension set: upstream only supports GNOME 48, nixpkgs ships GNOME 49/50/51 (was CamPeek@gamalsherif1.github.io)
     gnomeExtensions.tophat
     gnomeExtensions.paperwm
-    gnomeExtensions.ddterm
     gnomeExtensions.status-area-horizontal-spacing # Reduce the horizontal spacing between icons in the top-right status area
-    gnomeExtensions.burn-my-windows
     gnomeExtensions.veil
     gnomeExtensions.just-perfection # Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
     gnomeExtensions.ip-finder # Displays useful information about your public IP Address and VPN status.
