@@ -97,7 +97,7 @@
               "arn:aws:eks:eu-west-1:1234567890:cluster/posh": "posh"
             }
           },
-          "template": " \ufd31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
+          "template": " \uf10fe {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b2",
           "background": "#b432ff",
