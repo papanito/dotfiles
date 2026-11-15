@@ -121,7 +121,7 @@
           "options": {
             "cache_duration": "none"
           },
-          "template": " \ue7b2 {{.Project}} :: {{.Account}} ",
+          "template": "{{ if and .Project (or (env \"CLOUDSDK_CORE_PROJECT\") (env \"GOOGLE_CLOUD_PROJECT\") (glob \"*.tf\") (glob \"*.tfvars\") (glob \".terraform\") (glob \".gcloudignore\") (glob \"cloudbuild.yaml\") (glob \"app.yaml\")) }} \ue7b2 {{.Project}} :: {{.Account}} {{ end }}",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b2",
           "background": "#47888d",
