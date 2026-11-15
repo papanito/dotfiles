@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Bitwarden
+Comment=Autostart disabled via chezmoi - Bitwarden desktop owns no session service and must not start at login (Keyguard provides the SSH agent)
+Exec=bitwarden
+StartupNotify=false
+Terminal=false
+Hidden=true
+X-GNOME-Autostart-enabled=false

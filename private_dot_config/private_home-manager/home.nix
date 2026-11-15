@@ -8,6 +8,13 @@
   ...
 }:
 let
+  # Keyguard's built-in SSH agent (its `ssh_agent` setting) listens on
+  # $XDG_RUNTIME_DIR/keyguard-ssh-agent.sock while the app runs. environment.d
+  # does no variable expansion, so the runtime path is spelled out (uid 1000 on
+  # this host; `home.uid` evaluates to null here). Bitwarden desktop used to
+  # inject its own path at runtime via `systemctl --user set-environment`.
+  sshAgentSocket = "/run/user/1000/keyguard-ssh-agent.sock";
+
   # Official prebuilt Linux release instead of nixpkgs' lagging source build
   # (nixpkgs was at 2.3.4 while upstream is 3.7.0; a nixpkgs-style bump would
   # require regenerating the Gradle deps.json via mitm proxy — use the
@@ -96,7 +103,14 @@ in
   home = {
     username = "papanito";
     homeDirectory = "/home/papanito";
+
+    # TTY/login shells (rendered into ~/.profile).
+    sessionVariables.SSH_AUTH_SOCK = sshAgentSocket;
   };
+
+  # Graphical logins do not read ~/.profile: the GNOME/systemd user session takes
+  # its environment from environment.d, which this option generates.
+  systemd.user.sessionVariables.SSH_AUTH_SOCK = sshAgentSocket;
 
   programs = {
     # Let Home Manager install and manage itself.
