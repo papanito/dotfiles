@@ -1,8 +1,38 @@
 {
   "agentCmdOverrides": {},
-  "agentDefaultArgs": {},
-  "agentDefaultEnv": {},
-  "agentDefaultSurface": "terminal",
+  "agentDefaultArgs": {
+    "aider": "",
+    "amp": "",
+    "ante": "",
+    "antigravity": "",
+    "autohand": "",
+    "cline": "",
+    "codebuddy": "",
+    "command-code": "",
+    "continue": "",
+    "copilot": "",
+    "crush": "",
+    "cursor": "",
+    "devin": "",
+    "droid": "",
+    "gemini": "",
+    "grok": "",
+    "hermes": "",
+    "kimi": "",
+    "kiro": "",
+    "mistral-vibe": "",
+    "muse": "",
+    "qoder": "",
+    "qoder-cn": "",
+    "qwen-code": "",
+    "rovo": "",
+    "trae": "",
+    "zcode": ""
+  },
+  "agentDefaultEnv": {
+    "goose": {}
+  },
+  "agentDefaultSurface": "chat",
   "agentHibernationIdleMs": 1800000,
   "agentLaunchChoices": {},
   "agentPermissionDefault": "full-access",
@@ -10,6 +40,10 @@
   "agentSkillSharingEnabled": false,
   "agentStatusHooksEnabled": true,
   "agentWorkspaceTrustEnabled": true,
+  "aiVaultSearch": {
+    "enabled": true,
+    "historyDays": null
+  },
   "alwaysForceDeletePreservedBranches": false,
   "alwaysForceDeleteWorktrees": false,
   "appFontFamily": "Geist",
@@ -44,7 +78,19 @@
   "diffShowWhitespace": false,
   "diffWordWrap": false,
   "disabledPlugins": [],
-  "disabledTuiAgents": [],
+  "disabledTuiAgents": [
+    "opencode",
+    "claude-agent-teams",
+    "openclaude",
+    "grok",
+    "muse",
+    "qoder-cn",
+    "zcode",
+    "ante",
+    "mimo-code",
+    "trae",
+    "prime-agent"
+  ],
   "editorAutoSave": false,
   "editorAutoSaveDelayMs": 1000,
   "editorFontFamily": "",
@@ -103,7 +149,12 @@
   "nativeChatQueueFollowUps": true,
   "nativeChatResumeWorkOnRestart": true,
   "nativeChatScrollToLatestOnSend": true,
-  "nativeChatSessionOptions": {},
+  "nativeChatSessionOptions": {
+    "pi": {
+      "model": "nvidia/deepseek-ai/deepseek-v4.1-flash",
+      "valuesByModel": {}
+    }
+  },
   "nativeChatShellEnvironmentVariables": [],
   "nativeChatTurnDiffSummary": true,
   "nestWorkspaces": true,
@@ -123,9 +174,9 @@
   },
   "openInApplications": [
     {
-      "command": "code",
-      "id": "vscode",
-      "label": "VS Code"
+      "command": "kgx -- nvim",
+      "id": "43e68322-4510-4b3d-aeb9-d42b315b490a",
+      "label": "nvim"
     }
   ],
   "openLinksInApp": false,
@@ -137,7 +188,10 @@
   "pluginAppThemeDark": null,
   "pluginAppThemeLight": null,
   "pluginConsents": {
+    "satangbudsai.git-control": "sha256-9l7OEBcLCEz/QlqhLX0pFs5d6fN6jtbKRewT3LYd1QU=",
+    "stablyai.orca-excalidraw": "sha256-K3hjJtN9kEaFQb5mA44Ws57Ykx4O0+KzMprbsiQwOFw=",
     "stablyai.orca-github-vscode-theme": "sha256-T1PNoYwrqgwDVLtfmj7L5e0Sq02OEbqHPC8RFhICuUU=",
+    "stablyai.orca-nix": "sha256-T1PNoYwrqgwDVLtfmj7L5e0Sq02OEbqHPC8RFhICuUU=",
     "stablyai.orca-vscode-default-themes": "sha256-T1PNoYwrqgwDVLtfmj7L5e0Sq02OEbqHPC8RFhICuUU="
   },
   "pluginIconTheme": null,
@@ -204,6 +258,7 @@
       "pullRequest": ""
     },
     "launchActionDefaults": {},
+    "modelOverridesByOperation": {},
     "prCreationDefaults": {
       "draft": false,
       "generateDetailsOnOpen": false,
@@ -217,7 +272,7 @@
   "sourceControlCompareAgainstUpstream": false,
   "sourceControlGroupOrder": "changes-first",
   "sourceControlViewMode": "list",
-  "tabAutoGenerateTitle": false,
+  "tabAutoGenerateTitle": true,
   "terminalActivePaneOpacity": 1,
   "terminalAllowOsc52Clipboard": true,
   "terminalClipboardOnSelect": false,
@@ -272,14 +327,12 @@
   "uiLanguage": "system",
   "visibleTaskProviders": [
     "github",
-    "gitlab",
-    "linear",
-    "jira"
+    "gitlab"
   ],
   "voice": {
     "dictationLanguage": "auto",
     "dictationMode": "toggle",
-    "enabled": false,
+    "enabled": true,
     "microphoneDeviceId": null,
     "microphoneDeviceLabel": null,
     "modelsDir": "",
