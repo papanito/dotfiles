@@ -25,7 +25,7 @@ Portable snapshot of Orca ADE (`orca-ide`) app settings, so the configuration ma
 - Orca rewrites its database continuously while running, so export may pick up fresh state; import must always run with Orca closed.
 - New host: install Orca, launch it once so the profile database exists, quit it, then run `~/.config/orca/orca-settings import`.
 - `--profile <id>` selects a non-active profile; `--snapshot <path>` targets another snapshot (used for testing).
-- `openInApplications` only fills each workspace's **Open in** menu; there is no "default editor" setting, and the fallback for actions that name no app is the hard-coded `BUILT_IN_EDITOR_COMMANDS.vscode` = `code`. Orca spawns these commands detached with `stdio: 'ignore'` (no PTY), so a TUI editor needs a terminal wrapper — `kgx -- nvim` is the working form here (GNOME Console is the only emulator installed), while bare `nvim` exits immediately.
+- `openInApplications` only fills each workspace's **Open in** menu; there is no "default editor" setting, and the fallback for actions that name no app is the hard-coded `BUILT_IN_EDITOR_COMMANDS.vscode` = `code`. Orca spawns these commands detached with `stdio: 'ignore'` (no PTY), so a TUI editor needs a terminal wrapper — the working form here is `kgx -- /home/papanito/.nix-profile/bin/nvim` (GNOME Console is the only emulator installed). Use an absolute binary path: the spawn env is sanitized, so `~/.nix-profile/bin` is not on `PATH`, and bare `nvim` both misses and dies without a TTY.
 
 ## Verification
 

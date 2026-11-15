@@ -174,7 +174,7 @@
   },
   "openInApplications": [
     {
-      "command": "kgx -- nvim",
+      "command": "kgx -- /home/papanito/.nix-profile/bin/nvim",
       "id": "43e68322-4510-4b3d-aeb9-d42b315b490a",
       "label": "nvim"
     }
