@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Orca
+Comment=Agentic development environment (orca-ide)
+Exec=/home/papanito/.nix-profile/bin/orca-ide
+TryExec=/home/papanito/.nix-profile/bin/orca-ide
+Icon=orca-ide
+Terminal=false
+StartupNotify=true
+X-GNOME-Autostart-enabled=true
+Hidden=false

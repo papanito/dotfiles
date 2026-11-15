@@ -9,6 +9,7 @@ Portable snapshot of Orca ADE (`orca-ide`) app settings, so the configuration ma
 - `settings.portable.json` in this directory — chezmoi source of truth for the portable settings.
 - `~/.config/orca/profiles/<profile>/profile-state.db` — live state owned by Orca. Settings are the `settings` document in `profile_state_documents`; there is no settings file.
 - `~/.config/orca/orca-settings` — export/import helper; source is `private_orca/executable_orca-settings`.
+- `~/.config/autostart/orca.desktop` — login autostart, chezmoi-owned (`private_dot_config/autostart/orca.desktop`); it execs `~/.nix-profile/bin/orca-ide` because the profile path survives version bumps, unlike the `/nix/store` target and the `~/.local/bin/orca-ide` symlink Orca recreates.
 
 ## Local Contracts
 

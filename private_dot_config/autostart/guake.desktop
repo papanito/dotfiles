@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Guake Terminal
+Comment=Drop-down terminal on F12
+Exec=guake
+TryExec=guake
+Icon=guake
+Terminal=false
+StartupNotify=true
+X-GNOME-Autostart-enabled=true
+Hidden=false
