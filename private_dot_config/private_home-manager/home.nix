@@ -285,6 +285,7 @@ in
     nms # A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers
 
     ## GNOME Stuff
+    guake # Drop-down terminal on F12 (replaces the removed ddterm extension; dconf lives in private_modules/gnome.nix)
     flameshot
     wike # Wikipedia Reader for the GNOME Desktop
     vte # Provides vte.2,91.typelib
