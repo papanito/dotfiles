@@ -90,21 +90,6 @@ bws_env -p personal RESTIC_PASSWORD
 bws_env -p private B2_ACCOUNT_KEY B2_ACCOUNT_ID
 ```
 
-## ☁️ Cloud & Networking
-
-What lives outside the LAN is declarative too: hosts join the tailnet by themselves, the homelab is published without opening inbound ports, and provider-side state (zones, DNS) is managed as code instead of dashboard clicks.
-
-|What|How|
-|----|-----------|
-|[Tailscale][tailscale]|Every host joins the tailnet as a client node (`useRoutingFeatures = "client"`), with one reusable auth key delivered from sops — no host becomes a subnet router. [config][tailscale-nix]|
-|[Cloudflare Tunnel][cf-tunnel]|`cloudflared` exposes homelab services without inbound ports; origin certs live in `~/.cloudflared`, the host setup in [cloudflare.nix][cf-nix], and WARP is available for device-level access.|
-|[Cloudflare Workers][cf-workers]|Edge functions and static assets deployed with [wrangler] — `wrangler.jsonc` + `wrangler.production.jsonc` per project (e.g. eventcompass).|
-|[Backblaze B2][b2] + [restic]|`services.restic.backups.b2` pushes encrypted, deduplicated snapshots to `b2:<bucket>/<host>` daily; repo password and B2 keys come from sops, and a Google Chat notifier reports success and failure. [config][restic-nix]|
-|[GitLab][gitlab]|Primary CI/CD and secrets backend: the flake-update + [Colmena][colmena] deployment pipeline runs on a project-scoped shell runner, and deploy secrets are protected CI/CD variables (`CI_PUSH_TOKEN`, `NIXOS_SSH_KEY_FILE`). [pipeline][gl-ci]|
-|[Terraform][terraform]|Manages the provider side as code — Cloudflare account and zone IDs in `variables.tfvars` — so zones and DNS are reviewed, not clicked. [config][tf-nix]|
-
-The infrastructure itself lives in the [nixos-configuration][nixos-configuration] repo; the local tooling (`cloudflared`, `wrangler`, `cloudflare-cli`, `cloudflare-utils`, `terraform`, `restic`, `autorestic`) comes from [home.nix].
-
 ## ❄️NixOS Home Manager
 
 Where I have [Nix] installed, I manage some desktop settings with [home-manager]:
@@ -147,19 +132,5 @@ I manage background processes via **systemd user services**, which run in the us
 [nixos-configuration]: https://gitlab.com/papanito/nixos-configuration
 [paperless-server-config]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/hosts/lenovo/paperless-ngx.nix
 [paperless-ngx]: https://github.com/paperless-ngx/paperless-ngx
-[tailscale]: https://tailscale.com/
-[tailscale-nix]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/common/tailscale.nix
-[cf-tunnel]: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/
-[cf-nix]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/hosts/clawfinger/networking/cloudflare.nix
-[cf-workers]: https://www.cloudflare.com/products/workers/
-[wrangler]: https://developers.cloudflare.com/workers/wrangler/
-[b2]: https://www.backblaze.com/cloud-storage
-[restic]: https://restic.net/
-[restic-nix]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/profiles/servers/restic.nix
-[gitlab]: https://gitlab.com/
-[colmena]: https://github.com/nix-community/colmena
-[gl-ci]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/.gitlab-ci.yml
-[terraform]: https://developer.hashicorp.com/terraform
-[tf-nix]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/hosts/terraform/terraform/variables.tfvars
 [zsh]: https://www.zsh.org/
 [pueue]: https://github.com/Nukesor/pueue
