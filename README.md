@@ -8,7 +8,7 @@ This setup assumes you have [chezmoi](https://www.chezmoi.io/install/) installed
 
 Optionally should also install [home-manager].
 
-> [!REMARK]
+> [!important] Remark
 >
 > Instead of using [home-manager] to manage all my dotfiles, I use [chezmoi] as my primary tool.
 > I use **home-manager** to declaratively manage user-specific packages and environment logic.
