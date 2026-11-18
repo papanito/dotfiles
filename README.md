@@ -78,7 +78,7 @@ Here are some tools worth mentioning - check [home.nix] for more tools
 
 ### 📂 Direnv & Environment Management
 
-I use direnv to load environment variables using [bitwarden] or [bws]. [this file](./private_dot_config/direnv/lib/executable_bw_to_env.sh) contains 2 Functions
+I use direnv to load environment variables using [bitwarden] or [bws]. [this file](./private_dot_config/private_direnv/private_lib/executable_bw_to_env.sh) contains 2 Functions
 
 * `bw_env` - use [bitwarden] which will require to login/unlock the vault
 * `bws_env` - use [bws] which only contains the environment variables and not all personal passwords (hence my preferred solution)
@@ -94,16 +94,17 @@ bws_env -p private B2_ACCOUNT_KEY B2_ACCOUNT_ID
 
 Where I have [Nix] installed, I manage some desktop settings with [home-manager]:
 
-* [View NixOS Configs](./private_dot_config/home-manager/§)
-* [View home.nix](./private_dot_config/home-manager/home.nix)
+* [View the home-manager flake](./private_dot_config/private_home-manager/)
+* [View home.nix](./private_dot_config/private_home-manager/home.nix)
+* [View the NixOS system configuration][nixos-configuration] (hosts, profiles, server services such as [paperless-ngx][paperless-server-config])
 
 ### ⚙️Systemd User Services
 
 I manage background processes via **systemd user services**, which run in the user context (`systemctl --user`). This allows for automated management of daemons without requiring root privileges.
 
-* **[paperless-sync](./private_dot_config/home-manager/modules/paperless-sync.nix)**: Regurarily pulls documents from [paperless-server][paperless-nxg]
-* **[watchman](./private_dot_config/home-manager/modules/watchman.nix)**: Starts [watchman] socket
-* **[pueue](./private_dot_config/home-manager/modules/pueue.nix.nix)**: Starts [pueue] daemon
+* **[paperless-sync](./private_dot_config/private_home-manager/private_modules/paperless-sync.nix)**: Regularly pulls documents from [paperless-ngx][paperless-ngx]; the server itself is defined in [nixos-configuration][paperless-server-config] (`hosts/lenovo/paperless-ngx.nix`)
+* **[watchman](./private_dot_config/private_home-manager/private_modules/watchman.nix)**: Starts [watchman] socket
+* **[pueue](./private_dot_config/private_home-manager/private_modules/pueue.nix)**: Starts [pueue] daemon
 
 [zellij]: https://zellij.dev/
 [tuios]: https://github.com/Gaurav-Gosain/tuios
@@ -126,7 +127,10 @@ I manage background processes via **systemd user services**, which run in the us
 [ripgrep]: https://github.com/BurntSushi/ripgrep
 [eza]: https://eza.rocks/
 [bat]: https://github.com/sharkdp/bat
-[home.nix]: ./private-dot_config/home-manager/home.nix
-[Aliases & Functions]: ./private_dot_config/dotfiles/
+[home.nix]: ./private_dot_config/private_home-manager/home.nix
+[Aliases & Functions]: ./private_dot_config/private_dotfiles/
+[nixos-configuration]: https://gitlab.com/papanito/nixos-configuration
+[paperless-server-config]: https://gitlab.com/papanito/nixos-configuration/-/blob/main/hosts/lenovo/paperless-ngx.nix
+[paperless-ngx]: https://github.com/paperless-ngx/paperless-ngx
 [zsh]: https://www.zsh.org/
 [pueue]: https://github.com/Nukesor/pueue
