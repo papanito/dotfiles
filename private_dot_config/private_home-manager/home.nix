@@ -29,6 +29,12 @@ let
     nativeBuildInputs = [
       pkgs.autoPatchelfHook
       pkgs.copyDesktopItems
+      # Keyguard dlopens a theme lib it extracts to ~/.cache/nucleus at
+      # runtime; autoPatchelf cannot see that file, so the libdbus-1.so.3
+      # dependency must reach it via the launcher's LD_LIBRARY_PATH (wrapProgram
+      # below). Without it the app crashes seconds after start ("UnsatisfiedLinkError
+      # ... libdbus-1.so.3"), which also kills the SSH agent it hosts.
+      pkgs.makeWrapper
     ];
     buildInputs = [
       pkgs.fontconfig
@@ -62,6 +68,11 @@ let
       mkdir -p $out
       cp --recursive . $out
       install -D --mode=0644 lib/Keyguard.png $out/share/icons/hicolor/512x512/apps/keyguard.png
+
+      # Inject libdbus for the runtime-dlopened nucleus theme lib (see
+      # nativeBuildInputs note). The launcher passes its env to the JVM.
+      wrapProgram $out/bin/Keyguard \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ pkgs.dbus.lib ]}
 
       runHook postInstall
     '';
