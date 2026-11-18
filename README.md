@@ -50,6 +50,15 @@ My environment uses the following basic tools:
   * **[Aliases & Functions]** to work faster on the shell
 * **Editor:** [Neovim] configured with the **[LazyVim]** distro for a modular, high-performance IDE experience.
 * **Workspace:** **[Zellij][zellij]** — A modern terminal workspace and multiplexer with built-in layouts.
+* **Workspace (TUI OS):** **[Tuios][tuios]** — A terminal-based window manager; a background daemon keeps its sessions alive across detaches.
+
+### 🤖 AI Tooling
+
+|Tool|Description|
+|----|-----------|
+|[OpenCode][opencode]|Terminal AI coding agent (OpenCode 2 CLI) with pluggable model providers and MCP servers.|
+|[Orca][orca]|Orca ADE — desktop app (`orca-ide`) plus an `orca` CLI for running coding agents in parallel worktrees.|
+|[acman][acman]|Git-backed agent configuration manager: one catalog repo, content picked by tag or profile and symlinked into each agent's config directory.|
 
 ### 🔧 Core Tools & CLI Utilities
 
@@ -97,6 +106,10 @@ I manage background processes via **systemd user services**, which run in the us
 * **[pueue](./private_dot_config/home-manager/modules/pueue.nix.nix)**: Starts [pueue] daemon
 
 [zellij]: https://zellij.dev/
+[tuios]: https://github.com/Gaurav-Gosain/tuios
+[opencode]: https://opencode.ai/
+[orca]: https://orca.dev/
+[acman]: https://gitlab.com/wyssmann/acman
 [LazyVim]: https://www.lazyvim.org/
 [Neovim]: https://neovim.io/
 [home-manager]: https://nix-community.github.io/home-manager/
