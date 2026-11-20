@@ -19,6 +19,7 @@ Standalone Home Manager configuration for user `papanito`, managed as a Nix flak
 - Each service is a self-contained module in `private_modules/` (chezmoi `private_` prefix)
 - Modules are added to the `modules` list in `flake.nix` `homeConfigurations."papanito"`
 - Systemd user services follow the pattern in `llama-cpp.nix` / `watchman.nix` (Unit/Service/Install)
+- Watchman tuning does NOT live in `watchman.nix`: watchman reads its global config from `/etc/watchman.json` (owned by `profiles/pc` in nixos-configuration) and per-root rules from `<root>/.watchmanconfig`. The old `~/.watchman.json` was never read; do not reintroduce it, and never add `~/.watchmanconfig` (it makes `$HOME` a `watch-project` root)
 
 ## Work Guidance
 

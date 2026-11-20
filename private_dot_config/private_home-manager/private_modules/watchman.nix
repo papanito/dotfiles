@@ -6,11 +6,10 @@ in
 {
   home = {
     packages = [ pkgs.watchman ];
-    file.".watchman.json".text = builtins.toJSON {
-      # Increase the limits for large Nix projects/node_modules
-      "max_count_entries" = 200000;
-      "fscache_size" = 200000;
-    };
+    # Tuning lives in the system-wide /etc/watchman.json (profiles/pc in
+    # nixos-configuration). Do not add ~/.watchman.json here: watchman only
+    # reads $WATCHMAN_CONFIG_FILE or /etc/watchman.json plus <root>/.watchmanconfig,
+    # and a ~/.watchmanconfig would turn $HOME into a watch-project root.
     sessionVariables = {
       WATCHMAN_SOCK = socketPath;
     };
