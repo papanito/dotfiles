@@ -45,6 +45,14 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 - Work Guidance reflects current standards; leave it empty when there are none.
 - Verification must be an existing check; leave it empty until one exists.
 
+## Permissions
+
+- Managed targets are user-only: files `0600`, directories `0700`. Never world-readable, world-writable, or world-executable.
+- Group access only where a shared consumer requires it; nothing in this repo currently does.
+- Declare modes per entry: `private_` for files and directories, `private_executable_` for executables. Attributes do not cascade — every file inside a private directory needs its own `private_`.
+- Plain entries follow the run-time umask; never rely on umask, an apply with `022` restores `0644`/`0755`.
+- `.chezmoiexternal.toml` keys take no attributes. Keep external parents `0700`; external content is user-only only if it is chmodded after apply.
+
 ## Style
 
 - Docs and comments stay terse: state the rule, not the reason.
