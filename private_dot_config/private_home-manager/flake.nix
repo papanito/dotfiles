@@ -114,6 +114,7 @@
           ./modules/llama-cpp.nix
           ./modules/omniroute.nix
           ./modules/opencode.nix
+          ./modules/nix-gc.nix
           ./modules/voxtype.nix
           inputs.sops-nix.homeManagerModules.sops # Added this line
         ];
