@@ -3,7 +3,7 @@
 # =======================================================
 providers:
   cloudflare-workers-ai:
-    baseUrl: "[https://api.cloudflare.com/client/v4/accounts/\(](https://api.cloudflare.com/client/v4/accounts/\)){CLOUDFLARE_ACCOUNT_ID}/ai/v1"
+    baseUrl: "https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}/ai/v1"
     api: "openai-completions"
     apiKey: "CLOUDFLARE_API_TOKEN"
     authHeader: true

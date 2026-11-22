@@ -51,7 +51,7 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 - Group access only where a shared consumer requires it; nothing in this repo currently does.
 - Declare modes per entry: `private_` for files and directories, `private_executable_` for executables. Attributes do not cascade — every file inside a private directory needs its own `private_`.
 - Plain entries follow the run-time umask; never rely on umask, an apply with `022` restores `0644`/`0755`.
-- `.chezmoiexternal.toml` keys take no attributes. Keep external parents `0700`; external content is user-only only if it is chmodded after apply.
+- `.chezmoiexternal.toml` keys take no attributes. Their roots and the parent dirs chezmoi creates for them stay at umask modes; leave those modes alone, an apply resets the tracked parents.
 
 ## Style
 

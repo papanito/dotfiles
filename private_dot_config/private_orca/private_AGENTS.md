@@ -8,8 +8,8 @@ Portable snapshot of Orca ADE (`orca-ide`) app settings, so the Settings pane co
 
 - `settings.portable.json` — chezmoi source of truth for the portable settings.
 - `~/.config/orca/profiles/<profile>/profile-state.db` — live state, owned by Orca. Settings are the `settings` document in `profile_state_documents`; there is no settings file.
-- `~/.config/orca/orca-settings` — export/import helper; source is `private_orca/executable_orca-settings`.
-- `~/.config/autostart/orca.desktop` — login autostart, chezmoi-owned (`private_dot_config/autostart/orca.desktop`). It execs `~/.nix-profile/bin/orca-ide`.
+- `~/.config/orca/orca-settings` — export/import helper; source is `private_executable_orca-settings` in this directory.
+- `~/.config/autostart/orca.desktop` — login autostart, chezmoi-owned (`private_dot_config/private_autostart/private_orca.desktop`). It execs `~/.nix-profile/bin/orca-ide`.
 
 ## Local Contracts
 
@@ -36,7 +36,7 @@ Portable snapshot of Orca ADE (`orca-ide`) app settings, so the Settings pane co
 
 ## Verification
 
-- `python3 -c 'compile(open("private_dot_config/private_orca/executable_orca-settings").read(), "orca-settings", "exec")'`
+- `python3 -c 'compile(open("private_dot_config/private_orca/private_executable_orca-settings").read(), "orca-settings", "exec")'`
 - `python3 -c 'import json; json.load(open("private_dot_config/private_orca/settings.portable.json"))'`
 - `~/.config/orca/orca-settings import --dry-run` on a configured host prints `settings already match the snapshot; nothing to do`.
 - `opencode2 models | grep -c '^cloudflare-ai-gateway/'` prints `0` while that provider is disabled.

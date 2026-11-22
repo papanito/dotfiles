@@ -26,7 +26,7 @@ The runtime target also holds unmanaged leftovers (`pkgs/gemini-cli.nix`, `modul
 
 ## Verification
 
-- `LD_LIBRARY_PATH= nix-instantiate --parse private_dot_config/private_home-manager/private_pkgs/<file>.nix`
+- `LD_LIBRARY_PATH= nix-instantiate --parse private_dot_config/private_home-manager/private_pkgs/private_<file>.nix`
 - `home-manager switch --flake .#papanito`
 
 ## Child DOX Index

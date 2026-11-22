@@ -14,8 +14,8 @@ Standalone Home Manager configuration for user `papanito`, managed as a Nix flak
 
 - Flake inputs are declared in `flake.nix`, destructured in `outputs`, and passed to modules via `extraSpecialArgs`.
 - `nixpkgs` is pinned to the exact rev in `/etc/nixos/flake.lock` (nixos-26.05 `c56a87d`); `home-manager` tracks `release-26.05`. Bump both here and in `/etc/nixos` together; never unpin the global nixpkgs for a single input.
-- SSH agent is Keyguard's built-in agent, socket `$XDG_RUNTIME_DIR/keyguard-ssh-agent.sock`, exported as `SSH_AUTH_SOCK` through `systemd.user.sessionVariables`. The path is literal. Bitwarden desktop stays out of the session: chezmoi stub `private_dot_config/autostart/bitwarden.desktop` (`Hidden=true`), in-app login and SSH-agent toggles off, and the shell startup files export the same socket.
-- User-facing desktop apps (guake, flameshot, keyguard, GNOME extensions) are installed in `home.packages`, not in the host's `hosts/<host>/packages.nix`. guake spans `home.nix`, `private_modules/gnome.nix`, and `private_dot_config/autostart/guake.desktop`.
+- SSH agent is Keyguard's built-in agent, socket `$XDG_RUNTIME_DIR/keyguard-ssh-agent.sock`, exported as `SSH_AUTH_SOCK` through `systemd.user.sessionVariables`. The path is literal. Bitwarden desktop stays out of the session: chezmoi stub `~/.config/autostart/bitwarden.desktop` (`Hidden=true`), in-app login and SSH-agent toggles off, and the shell startup files export the same socket.
+- User-facing desktop apps (guake, flameshot, keyguard, GNOME extensions) are installed in `home.packages`, not in the host's `hosts/<host>/packages.nix`. guake spans `home.nix`, `modules/gnome.nix`, and `~/.config/autostart/guake.desktop`.
 - Each service is a self-contained module in `private_modules/` (chezmoi `private_` prefix), added to the `modules` list in `flake.nix` `homeConfigurations."papanito"`.
 - Systemd user services follow the pattern in `llama-cpp.nix` / `watchman.nix` (Unit/Service/Install).
 - Watchman tuning lives in `/etc/watchman.json` (nixos-configuration `profiles/pc`) and per-root `.watchmanconfig`. Do not add `~/.watchman.json` or `~/.watchmanconfig`.
