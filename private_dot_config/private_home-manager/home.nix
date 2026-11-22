@@ -15,76 +15,13 @@ let
   # inject its own path at runtime via `systemctl --user set-environment`.
   sshAgentSocket = "/run/user/1000/keyguard-ssh-agent.sock";
 
-  # Official prebuilt Linux release instead of nixpkgs' lagging source build
-  # (nixpkgs was at 2.3.4 while upstream is 3.7.0; a nixpkgs-style bump would
-  # require regenerating the Gradle deps.json via mitm proxy — use the
-  # official binary until nixpkgs catches up).
-  keyguard-latest = pkgs.stdenv.mkDerivation rec {
-    pname = "keyguard";
-    version = "3.7.0";
-    src = pkgs.fetchurl {
-      url = "https://github.com/AChep/keyguard-app/releases/download/r20261103/Keyguard-${version}-linux-x86_64.tar.gz";
-      sha256 = "sha256-zzH3cbFnr9yzz+vd63QIsIqjpD/+kI8v7epcN69m/t0=";
-    };
-    nativeBuildInputs = [
-      pkgs.autoPatchelfHook
-      pkgs.copyDesktopItems
-      # Keyguard dlopens a theme lib it extracts to ~/.cache/nucleus at
-      # runtime; autoPatchelf cannot see that file, so the libdbus-1.so.3
-      # dependency must reach it via the launcher's LD_LIBRARY_PATH (wrapProgram
-      # below). Without it the app crashes seconds after start ("UnsatisfiedLinkError
-      # ... libdbus-1.so.3"), which also kills the SSH agent it hosts.
-      pkgs.makeWrapper
-    ];
-    buildInputs = [
-      pkgs.fontconfig
-      pkgs.libxinerama
-      pkgs.libxrandr
-      # X11 libs required by the bundled JDK runtime (libawt_xawt.so requests
-      # libXtst.so.6 directly, which is not propagated by the other inputs)
-      pkgs.libXtst
-      pkgs.libXi
-      pkgs.libXrender
-      pkgs.file
-      pkgs.gtk3
-      pkgs.glib
-      pkgs.cups
-      pkgs.lcms2
-      pkgs.alsa-lib
-      pkgs.libglvnd
-    ];
-    sourceRoot = "Keyguard";
-    desktopItems = [
-      (pkgs.makeDesktopItem {
-        name = "keyguard";
-        exec = "Keyguard";
-        icon = "keyguard";
-        desktopName = "Keyguard";
-      })
-    ];
-    installPhase = ''
-      runHook preInstall
+  # Vendored packages (upstream has no Nix packaging) live in ./pkgs/<name>.nix,
+  # one `{ pkgs, lib }: <package>` function per file — see pkgs/AGENTS.md for
+  # the contracts and bump recipes.
+  keyguard-latest = import ./pkgs/keyguard.nix { inherit pkgs lib; };
 
-      mkdir -p $out
-      cp --recursive . $out
-      install -D --mode=0644 lib/Keyguard.png $out/share/icons/hicolor/512x512/apps/keyguard.png
+  rwx = import ./pkgs/rwx.nix { inherit pkgs lib; };
 
-      # Inject libdbus for the runtime-dlopened nucleus theme lib (see
-      # nativeBuildInputs note). The launcher passes its env to the JVM.
-      wrapProgram $out/bin/Keyguard \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ pkgs.dbus.lib ]}
-
-      runHook postInstall
-    '';
-    meta = {
-      description = "Alternative client for the Bitwarden platform, created to provide the best user experience possible";
-      homepage = "https://github.com/AChep/keyguard-app";
-      mainProgram = "Keyguard";
-      # Official release runs under a proprietary license
-      license = lib.licenses.unfree;
-      platforms = lib.platforms.linux;
-    };
-  };
   my-python-packages =
     ps: with ps; [
       pandas
@@ -213,6 +150,7 @@ in
     just # build tool
     lazygit # Simple terminal UI for git commands
     lazyworktree
+    rwx # TUI permissions/ownership manager — vendored build, see let block
     pre-commit
     worktrunk
     rustc
