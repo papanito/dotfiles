@@ -78,6 +78,8 @@ Default section order:
 
 When the user requests a durable behavior change, record it here or in the relevant child AGENTS.md
 
+- `nix develop` shall open zsh, not bash: a `nix()` wrapper in `private_dot_zshrc.tmpl` appends `-c zsh` to bare `nix develop` calls. nix ignores `$SHELL` and hardcodes `bashInteractive` (verified in 2.18.2 and 2.34.9 `src/nix/develop.cc`); explicit `-c`/`--command` calls pass through untouched.
+
 ## Child DOX Index
 
 - `private_dot_config/private_home-manager/` — Standalone Home Manager flake for user `papanito`: flake inputs, service modules (ollama, llama-cpp, watchman, pueue, omniroute, etc.), and `home.nix` package list. See its AGENTS.md for the add-a-flake-input workflow and its `private_pkgs/` AGENTS.md for vendored packages.

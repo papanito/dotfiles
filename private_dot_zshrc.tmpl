@@ -308,6 +308,23 @@ bindkey "^Y" znt-kill-widget
 zinit ice lucid wait'0'
 zinit light nix-community/nix-zsh-completions
 
+# -------------------------------------------
+# nix develop opens zsh instead of bash
+# -------------------------------------------
+# nix hardcodes bashInteractive for `nix develop` and ignores $SHELL (verified
+# in src/nix/develop.cc for both 2.18.2 and 2.34.9), so wrap the subcommand
+# with `-c zsh`. Explicit `-c`/`--command` calls (scripts, CI) pass through.
+nix() {
+  if [[ "$1" == "develop" ]]; then
+    local -a rest=( "${@:2}" )
+    if (( ! rest[(I)-c] )) && (( ! rest[(I)--command] )); then
+      command nix develop "${rest[@]}" -c zsh
+      return
+    fi
+  fi
+  command nix "$@"
+}
+
 {{- if eq .osid "linux-nixos" }}
 export NIX_HM_SESSION_VARS="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 [[ -f "$NIX_HM_SESSION_VARS" ]] && source "$NIX_HM_SESSION_VARS"
