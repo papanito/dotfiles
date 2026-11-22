@@ -629,6 +629,28 @@ nix-clean () {
   nix-collect-garbage -d
 }
 
+nix-clean2() {
+  echo "### Cleanup System ###"
+  run0 bash -c '
+    ids=$(nix-env -p /nix/var/nix/profiles/system --list-generations 2>/dev/null \
+          | grep -E "^[[:space:]]*[0-9]+" | awk "{print \$1}")
+    echo "system generations before: $(echo $ids | wc -w) (current: $(readlink /nix/var/nix/profiles/system | grep -oE "[0-9]+"))"
+    old=$(echo "$ids" | tr " " "\n" | head -n -4 | tr "\n" " ")
+    if [ -n "$old" ]; then
+      echo "deleting: $old"
+      nix-env -p /nix/var/nix/profiles/system --delete-generations $old
+    fi
+    nix-collect-garbage | tail -1
+    echo "before-size/after-size of store freed: see GC total above"
+    '
+  echo "### Cleamup Home Manager ###"
+  nix-env -p ~/.local/state/nix/profiles/profile --delete-generations \
+  $(nix-env -p ~/.local/state/nix/profiles/profile --list-generations \
+    | grep -E '^[[:space:]]*[0-9]+' | awk '{print $1}' | head -n -4)
+  nix-collect-garbage
+
+}
+
 # @description To keep your environment secure but convenient, we’ll use a temporary session cache
 bw_auth() {
   local SESSION_FILE="/dev/shm/bw_session_$USER"
