@@ -15,7 +15,8 @@
           "foreground": "#000000",
           "background": "#d3d7cf",
           "type": "os",
-          "style": "accordion"
+          "style": "accordion",
+          "min_width": 80
         },
         {
           "options": {
@@ -103,7 +104,8 @@
           "background": "#b432ff",
           "type": "kubectl",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -194,7 +196,8 @@
           "background_templates": [
             "{{ if gt .Code 0 }}#cc2222{{ end }}"
           ],
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
