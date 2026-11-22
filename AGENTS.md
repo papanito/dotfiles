@@ -80,6 +80,7 @@ When the user requests a durable behavior change, record it here or in the relev
 
 ## Child DOX Index
 
-- `private_dot_config/private_home-manager/` — Standalone Home Manager flake for user `papanito`: flake inputs, service modules (ollama, llama-cpp, watchman, pueue, omniroute, etc.), and `home.nix` package list. See its AGENTS.md for the add-a-flake-input workflow.
+- `private_dot_config/private_home-manager/` — Standalone Home Manager flake for user `papanito`: flake inputs, service modules (ollama, llama-cpp, watchman, pueue, omniroute, etc.), and `home.nix` package list. See its AGENTS.md for the add-a-flake-input workflow and its `private_pkgs/` AGENTS.md for vendored packages.
 - `private_dot_omp/private_agent/` — oh-my-pi (omp) model catalog and routing/failover config (models.yml, config.yml). Chezmoi source is the source of truth; runtime copy at `~/.omp/agent/` is omp-managed. See its AGENTS.md for the routing contract and sync rules.
 - `private_dot_config/private_orca/` — portable Orca ADE app-settings snapshot and the `orca-settings` export/import contract for Orca's SQLite profile store. See its AGENTS.md.
+- `private_dot_config/private_opencode/` — OpenCode v2 user config: `cli.json` (keybinds/theme) and `opencode.json` (provider registry, default model, `disabled_providers` that also filter Orca's model picker). See its AGENTS.md.
