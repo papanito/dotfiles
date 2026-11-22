@@ -34,12 +34,6 @@
     exact = true
     stripComponents = 2
     refreshPeriod = "168h"
-[".config/opensnitch/rules"]
-    type = "git-repo"
-     url = "git@gitlab.com:papanito/opensnitch-fw-rules.git"
-    exact = true
-    stripComponents = 2
-    refreshPeriod = "168h"
 ## Tools
 # [".emacs.d"]
 #     type = "git-repo"
