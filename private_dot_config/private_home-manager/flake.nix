@@ -107,6 +107,7 @@
           ./modules/watchman.nix
           ./modules/pueue.nix
           ./modules/gnome.nix
+          ./modules/hue.nix
           ./modules/llm-agents.nix
           ./modules/ollama.nix
           ./modules/tuios.nix
