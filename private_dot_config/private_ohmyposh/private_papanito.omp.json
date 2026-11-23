@@ -77,7 +77,8 @@
           "background_templates": [
             "{{ if eq .Type \"unknown\" }}#4A90E2{{ end }}"
           ],
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -89,7 +90,8 @@
           "background": "#ebcc34",
           "type": "terraform",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -117,7 +119,8 @@
           "background": "#ffeb3b",
           "type": "project",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -129,7 +132,8 @@
           "background": "#47888d",
           "type": "gcp",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -142,7 +146,8 @@
           "background": "#00acd7",
           "type": "go",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -156,7 +161,8 @@
           "background": "#FFDE57",
           "type": "python",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -168,7 +174,8 @@
           "background": "#ffff66",
           "type": "root",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -180,7 +187,8 @@
           "background": "#c4a000",
           "type": "executiontime",
           "style": "powerline",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         },
         {
           "options": {
@@ -208,7 +216,8 @@
           "background": "#d3d7cf",
           "type": "time",
           "style": "diamond",
-          "invert_powerline": true
+          "invert_powerline": true,
+          "min_width": 80
         }
       ]
     }

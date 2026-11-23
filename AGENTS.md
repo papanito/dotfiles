@@ -76,6 +76,7 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 
 ## User Preferences
 
+- Prompt: on terminals below 80 columns show only path + git (no right block); `papanito.omp.json` is the active oh-my-posh theme and each right-side segment carries `min_width: 80`.
 - `nix develop` opens zsh, not bash: a `nix()` wrapper in `private_dot_zshrc.tmpl` appends `-c zsh` to bare `nix develop` calls; explicit `-c`/`--command` calls pass through.
 - `~/.config/opencode/AGENTS.md` is acman-managed (the `agents-md` catalog rule appends the CodeGraph block), not chezmoi. Never add it to chezmoi source.
 - Agent skills are always acman-managed, never chezmoi: no `skills/` trees (OpenCode, Claude Code, Antigravity, …) or their `agents/`/`commands/` siblings in chezmoi source.
