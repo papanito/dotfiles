@@ -1,50 +1,48 @@
 { config, pkgs, ... }:
 
 let
-  socketPath = "${config.home.homeDirectory}/.cache/watchman-socket";
+  home = config.home.homeDirectory;
+  watchman = "${pkgs.watchman}/bin/watchman";
+  registerTriggers = pkgs.writeShellScript "watchman-register-triggers" ''
+    for _ in {1..50}; do
+      ${watchman} --no-spawn watch ${home}/Downloads &&
+        ${watchman} --no-spawn watch ${home}/Videos/Movies &&
+        ${watchman} --no-spawn watch ${home}/.config/nvim && break
+      sleep 0.2
+    done
+    for file in ${home}/.config/watchman/*.json; do
+      ${watchman} --no-spawn -j <"$file" >/dev/null || echo "trigger failed: $file" >&2
+    done
+  '';
+  reapStrayDaemon = pkgs.writeShellScript "watchman-reap-stray-daemon" ''
+    pidfile="${home}/.local/state/watchman/papanito-state/pid"
+    [ -r "$pidfile" ] || exit 0
+    pid=$(cat "$pidfile" 2>/dev/null || true)
+    [ -n "$pid" ] || exit 0
+    case "$pid" in *[!0-9]*) exit 0 ;; esac
+    [ -d "/proc/$pid" ] || exit 0
+    grep -q 'watchman.service' "/proc/$pid/cgroup" 2>/dev/null && exit 0
+    kill "$pid" 2>/dev/null || true
+    for _ in {1..25}; do kill -0 "$pid" 2>/dev/null || exit 0; sleep 0.2; done
+    kill -9 "$pid" 2>/dev/null || true
+  '';
 in
 {
-  home = {
-    packages = [ pkgs.watchman ];
-    # Tuning lives in the system-wide /etc/watchman.json (profiles/pc in
-    # nixos-configuration). Do not add ~/.watchman.json here: watchman only
-    # reads $WATCHMAN_CONFIG_FILE or /etc/watchman.json plus <root>/.watchmanconfig,
-    # and a ~/.watchmanconfig would turn $HOME into a watch-project root.
-    sessionVariables = {
-      WATCHMAN_SOCK = socketPath;
-    };
-  };
+  home.packages = [ pkgs.watchman ];
 
-  # The Socket Unit
-  systemd.user = {
-    sockets.watchman = {
-      Unit = {
-        Description = "Watchman socket for socket activation";
-      };
-      Socket = {
-        ListenStream = socketPath;
-        # This ensures systemd passes the FD to Watchman
-        Accept = false;
-      };
-      Install = {
-        WantedBy = [ "sockets.target" ];
-      };
+  systemd.user.services.watchman = {
+    Unit = {
+      Description = "Watchman file watching service";
+      After = [ "network.target" ];
+      StartLimitIntervalSec = 0;
     };
-    # The Service Unit
-    services.watchman = {
-      Unit = {
-        Description = "Watchman file watching service (Socket Activated)";
-        Requires = [ "watchman.socket" ];
-        After = [ "network.target" ];
-      };
-      Service = {
-        # Use the flag from your commit link
-        ExecStart = "${pkgs.watchman}/bin/watchman --foreground --inetd";
-        StandardInput = "socket";
-        StandardOutput = "journal";
-        Restart = "on-failure";
-      };
+    Service = {
+      ExecStartPre = "${reapStrayDaemon}";
+      ExecStart = "${watchman} --foreground";
+      ExecStartPost = "${registerTriggers}";
+      Restart = "on-failure";
+      RestartSec = 1;
     };
+    Install.WantedBy = [ "default.target" ];
   };
 }
-

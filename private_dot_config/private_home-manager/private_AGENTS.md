@@ -18,7 +18,7 @@ Standalone Home Manager configuration for user `papanito`, managed as a Nix flak
 - User-facing desktop apps (guake, flameshot, keyguard, GNOME extensions) are installed in `home.packages`, not in the host's `hosts/<host>/packages.nix`. guake spans `home.nix`, `modules/gnome.nix`, and `~/.config/autostart/guake.desktop`.
 - Each service is a self-contained module in `private_modules/` (chezmoi `private_` prefix), added to the `modules` list in `flake.nix` `homeConfigurations."papanito"`.
 - Systemd user services follow the pattern in `llama-cpp.nix` / `watchman.nix` (Unit/Service/Install).
-- Watchman tuning lives in `/etc/watchman.json` (nixos-configuration `profiles/pc`) and per-root `.watchmanconfig`. Do not add `~/.watchman.json` or `~/.watchmanconfig`.
+- Watchman tuning lives in `/etc/watchman.json` (nixos-configuration `profiles/pc`) and per-root `.watchmanconfig`. Do not add `~/.watchman.json` or `~/.watchmanconfig`. `watchman.service` runs `watchman --foreground` under systemd (no socket activation, no `WATCHMAN_SOCK`); its `ExecStartPost` watches `~/Downloads` and `~/Videos/Movies` and registers every `~/.config/watchman/*.json` trigger.
 
 ## Work Guidance
 

@@ -7,17 +7,17 @@
       "anyof",
       [
         "match",
-        "*.mkv",
+        "**/*.mkv",
         "wholename"
       ],
       [
         "match",
-        "*.mp4",
+        "**/*.mp4",
         "wholename"
       ],
       [
         "match",
-        "*.srt",
+        "**/*.srt",
         "wholename"
       ]
     ],

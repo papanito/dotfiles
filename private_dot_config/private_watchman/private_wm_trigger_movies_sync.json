@@ -1,0 +1,36 @@
+[
+  "trigger",
+  "/home/papanito/Videos/Movies",
+  {
+    "name": "movies-sync",
+    "expression": [
+      "anyof",
+      [
+        "match",
+        "**/*.avi",
+        "wholename"
+      ],
+      [
+        "match",
+        "**/*.mp4",
+        "wholename"
+      ],
+      [
+        "match",
+        "**/*.srt",
+        "wholename"
+      ],
+      [
+        "match",
+        "**/*.mkv",
+        "wholename"
+      ]
+    ],
+    "command": [
+      "sh",
+      "-c",
+      "rsync ~/Videos/Movies/ nixos@10.0.0.10:/media/media/ -rv --update --ignore-existing -e 'ssh -i /home/papanito/.ssh/id_paperless_sync -o Batchmode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10'"
+    ],
+    "append_files": false
+  }
+]
