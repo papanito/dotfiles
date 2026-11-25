@@ -77,6 +77,7 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 ## User Preferences
 
 - Media sync: the `sync-videos` alias and the watchman trigger `movies-sync` rsync `~/Videos/Movies/` (Movies and the organized `~/Videos/Movies/Series`) to `nixos@10.0.0.10:/media/media/`.
+- Never run rsync with `--delete` against the NAS: the server holds media not present locally. Server-side cleanup is a targeted `rm` of named files only.
 - Prompt: on terminals below 80 columns show only path + git (no right block); `papanito.omp.json` is the active oh-my-posh theme and each right-side segment carries `min_width: 80`.
 - `nix develop` opens zsh, not bash: a `nix()` wrapper in `private_dot_zshrc.tmpl` appends `-c zsh` to bare `nix develop` calls; explicit `-c`/`--command` calls pass through.
 - `~/.config/opencode/AGENTS.md` is acman-managed (the `agents-md` catalog rule appends the CodeGraph block), not chezmoi. Never add it to chezmoi source.
