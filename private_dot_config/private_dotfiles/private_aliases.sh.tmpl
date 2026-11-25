@@ -236,6 +236,10 @@ alias pca="pre-commit autoupdate"
 # @description alias related to rclone
 alias rc_mount="sudo rclone mount b2:papanito-media /mnt/im/im --vfs-cache-mode full --vfs-cache-max-age 24h --dir-perms 0777  --file-perms 0666 --uid 1000  --gid 1000 --umask 000 --allow-other --no-modtime --no-checksum --vfs-write-back 5s --config /home/papanito/.config/rclone/rclone.conf --daemon"
 
+# @section media sync
+# @description sync ~/Videos/Movies (Movies and the organized Series/) to the homelab NAS
+alias sync-videos="rsync -rv --update --ignore-existing ~/Videos/Movies/ nixos@10.0.0.10:/media/media/ -e 'ssh -i ~/.ssh/id_paperless_sync -o Batchmode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10'"
+
 # @section  misc
 # @description aliases that are not fitting into any category
 alias weather="curl wttr.in"
